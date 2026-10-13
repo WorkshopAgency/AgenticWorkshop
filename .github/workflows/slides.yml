@@ -93,6 +93,9 @@ jobs:
 
   deploy:
     needs: build
+    # Other branches build the decks (a check that they render) but do not
+    # publish: the github-pages environment only accepts deployments from main.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
