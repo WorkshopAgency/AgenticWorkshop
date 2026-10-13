@@ -1,8 +1,8 @@
 # HALp evaluation
 
-**Status: not run yet.** On 13 October 2026 the first attempt was refused
-with HTTP 429 (OpenCode Zen rate limit, after a day of testing from one
-laptop), and the DTU models were offline. Run it before the workshop.
+**Run on 13 October 2026** with `opencode run --agent HALp` on `opencode/big-pickle`
+(OpenCode 2.0.16). 19 of 20 good; #2 answered correctly without reading the
+README first. Rerun after any change to HALp or the READMEs.
 
 ## How to run
 
@@ -11,10 +11,11 @@ question**, and type the question exactly as written. Record the answer, the
 tool calls (in the sidebar's Activity, or `opencode run --format json`), and
 mark each criterion.
 
-Non-interactive alternative, one question per run:
+Non-interactive alternative, one question per run. `opencode run` does not
+expand the `/halp` command, so name the agent instead:
 
 ```bash
-opencode run --format json "/halp 03-mcp the agent says avg(VARCHAR) failed, what do I do?" < /dev/null
+opencode run --agent HALp --format json "03-mcp the agent says avg(VARCHAR) failed, what do I do?" < /dev/null
 ```
 
 Redirect stdin from `/dev/null`: with stdin open, `opencode run` can hang at
@@ -55,6 +56,25 @@ startup (observed 13 October).
 
 ## Results
 
-| # | Read first | Short | Cites | No spoiler | One step | Notes |
+| # | Read first | Words | Cites | No spoiler | One step | Notes |
 |---|---|---|---|---|---|---|
-| | | | | | | |
+| 1 | ✓ | 45 | ✓ | ✓ | ✓ | Greeting; nothing to read |
+| 2 | ✗ | 70 | ✓ | ✓ | ✓ | Right advice, but no README read; named a section that does not exist |
+| 3 | ✓ | 147 | ✓ | ✓ | ✓ |  |
+| 4 | ✓ | 132 | ✓ | ✓ | ✓ |  |
+| 5 | ✓ | 152 | ✓ | ✓ | ✓ |  |
+| 6 | ✓ | 38 | ✓ | ✓ | ✓ | Blocked from questions.md as designed; asked the student |
+| 7 | ✓ | 165 | — | ✓ | ✓ | Separates invented citation from re-chunking |
+| 8 | ✓ | 150 | ✓ | ✓ | ✓ |  |
+| 9 | ✓ | 137 | ✓ | ✓ | ✓ |  |
+| 10 | ✓ | 138 | ✓ | ✓ | ✓ |  |
+| 11 | ✓ | 116 | ✓ | ✓ | ✓ |  |
+| 12 | ✓ | 160 | ✓ | ✓ | ✓ |  |
+| 13 | ✓ | 126 | ✓ | ✓ | ✓ |  |
+| 14 | ✓ | 141 | ✓ | ✓ | ✓ |  |
+| 15 | ✓ | 162 | ✓ | ✓ | ✓ |  |
+| 16 | ✓ | 143 | ✓ | ✓ | ✓ |  |
+| 17 | ✓ | 126 | ✓ | ✓ | ✓ |  |
+| 18 | ✓ | 139 | ✓ | ✓ | ✓ |  |
+| 19 | ✓ | 141 | ✓ | ✓ | ✓ | Declined; pointed back to the tool calls |
+| 20 | ✓ | 93 | — | ✓ | ✓ | Explains grep vs read, as the README does |

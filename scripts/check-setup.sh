@@ -7,7 +7,7 @@
 # Modules: 00-rag 01-skills 02-agents 03-mcp 04-decide 05-safety
 # Works on macOS, Linux and Windows WSL2. Only reads; changes nothing.
 
-PIN="2.0.16"   # OpenCode version the material was rehearsed on
+MIN="2.0.16"   # oldest OpenCode the workshop plugin supports
 DTU="https://teaching.healthtech.dtu.dk/workshop"
 ZEN="https://opencode.ai/zen/v1"
 
@@ -32,8 +32,12 @@ shared() {
 
   if have opencode; then
     v=$(opencode --version 2>/dev/null | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
-    if [ "$v" = "$PIN" ]; then ok "OpenCode $v"
-    else warn "OpenCode $v (the workshop was tested on $PIN)" "opencode upgrade $PIN"; fi
+    latest=$(curl -s --max-time 10 https://registry.npmjs.org/@opencode%2fcli/latest \
+             | python3 -c 'import sys,json; print(json.load(sys.stdin)["version"])' 2>/dev/null)
+    older() { [ "$1" != "$2" ] && [ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -1)" = "$1" ]; }
+    if older "$v" "$MIN"; then bad "OpenCode $v is too old" "opencode upgrade"
+    elif [ -n "$latest" ] && older "$v" "$latest"; then warn "OpenCode $v; $latest is out" "opencode upgrade"
+    else ok "OpenCode $v"; fi
   else bad "OpenCode is not installed" "see the README, Install section"; fi
 
   if have python3 && python3 -c 'import sys; sys.exit(sys.version_info < (3, 10))'; then

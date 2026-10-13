@@ -13,34 +13,30 @@ Your outputs go under `outputs/02-agents/`.
 
 # Exercise 2a — From a basic agent to a good agent
 
-Use **`opencode/big-pickle`** for both agents (select it yourself before each
-run; it is what this exercise was rehearsed on). Your outputs go to
-`outputs/02-agents/`.
-
-Two agents, same request, same model, same permissions, same 20-step limit:
+Use **`opencode/big-pickle`** for both agents and select it yourself before
+each run. Two agents, the same request, the same model, the same permissions
+and the same 20-step limit:
 
 | Agent | Instructions |
 |---|---|
-| [bad-agent](../../.opencode/agents/bad-agent.md) | Three vague sentences: "create an interactive viewer… make it look good". It is not told to make mistakes. |
-| [good-agent](../../.opencode/agents/good-agent.md) | A short recipe: fixed, pinned library and data URL; a verified API list; "page that loads first", then a feature checklist; a tool budget; tell the user what to click to verify. |
+| [bad-agent](../../.opencode/agents/bad-agent.md) | Three vague sentences: "create an interactive viewer… make it look good". It is not told to make mistakes |
+| [good-agent](../../.opencode/agents/good-agent.md) | A short recipe: a fixed library and data source, the exact functions to use, a page that loads first and then a checklist of features, and what to tell you to click |
 
 ## 1. Run both (about 6 min)
 
-Start a fresh chat, select `bad-agent` (Tab in the terminal, the agent
-selector in Desktop) and your model, and send:
+Start a new chat, select `bad-agent` (Tab in the terminal, the agent selector
+in Desktop) and send:
 
 > Create an interactive browser visualization of PDB 4HHB that I can use to
 > explain the structure to another researcher. Save everything under
-> outputs/02-agents/bad-agent. I have a browser and OpenCode; do not require additional
-> software installation. Briefly explain how to open and use the result.
+> outputs/02-agents/bad-agent. I have a browser and OpenCode; do not require
+> additional software installation. Briefly explain how to open and use the
+> result.
 
-Then start another fresh chat, select `good-agent`, and send the same request
-with `outputs/02-agents/good-agent`. Watch what each agent asks permission for, and
-count the approvals.
-
-In rehearsal (big-pickle, 13 Oct), good-agent finished in about 1 min after
-2–5 tool calls. Bad-agent took 1–7 min and usually stopped at "Maximum steps
-reached". Don't raise the limit: the unfinished state is part of the result.
+Then start another new chat, select `good-agent`, and send the same request
+with `outputs/02-agents/good-agent`. Count the approvals each one asks for.
+If the bad agent stops at "Maximum steps reached", leave it: the unfinished
+page is part of the result.
 
 ## 2. Score both (1 min)
 
@@ -48,39 +44,33 @@ reached". Don't raise the limit: the unfinished state is part of the result.
     python3 exercises/02-agents/check_viewer.py outputs/02-agents/good-agent --browser
 
 Without Chrome, leave out `--browser`. The score out of 7 only searches the
-code for evidence (pinned library, chain IDs, HEM, error message, reset and
-chain toggles, provenance). An agent can read the checker and write to it: in
-rehearsal, a page that scored 7/7 crashed on a library method that does not
-exist. `--browser` checks that something was actually drawn and saves a
-screenshot next to the page.
+code for evidence: a pinned library, chain IDs, HEM, an error message, reset
+and chain toggles, provenance. An agent can read the checker and write code
+that satisfies it, so a page can score 7/7 and still not draw anything.
+`--browser` checks that something was actually drawn and saves a screenshot.
 
 ## 3. Click through it (3 min)
 
-Open each `index.html` in your browser (double-click it) and check:
+Open each `index.html` in your browser and check:
 
-1. **It loads**: the 4HHB tetramer appears. It is not a blank canvas or a
-   spinner.
+1. **It loads**: the 4HHB tetramer appears, not a blank canvas or a spinner.
 2. **Toggles work, including the heme**: hide chain A. Its heme (HEM A142)
-   and its label must disappear too, not only the protein.
+   and its label must disappear too.
 3. **Labels are right**: 4HHB has chains A and C (α) and B and D (β), with
-   hemes at A142, B148, C142 and D148. Is anything mislabelled?
-4. **Load another ID**: load `1CRN`. Everything must be replaced: 1 chain, no
-   heme, and no "haemoglobin" or "4HHB" text left. Then try `ZZZZ`: you
-   should see an error, not silence.
+   hemes at A142, B148, C142 and D148.
+4. **Load another ID**: load `1CRN`. Everything must be replaced: one chain,
+   no heme, no "4HHB" left on the page. Then try `ZZZZ`: you should see an
+   error, not silence.
 
-If a page has no control for a check, that counts as a fail.
+A page with no control for a check fails that check.
 
-## What to take away
-
-- In rehearsal, the vague agent rebuilt the same bugs we saw in September:
-  methods that don't exist, a hidden chain whose heme stays visible, and old
-  metadata after loading a new structure. It often produced a nicer-looking
-  page than the good agent.
-- The good agent is good because its instructions name the library, the data
-  source, the exact API calls and what "done" means. Its name has nothing to
-  do with it. Remove one of those lines and see what breaks.
-- Judge the files and the behaviour, not the agent's summary. One run is an
-  anecdote: compare with your neighbours.
+**What to notice:** the good agent is good because its instructions name the
+library, the data source, the functions and what "done" means, not because
+of its name. Remove one of those lines and see what breaks. The vague agent
+often makes the nicer-looking page, with methods that do not exist, a heme
+that stays when its chain is hidden, or old text after loading a new
+structure. Judge the files and the behaviour, not the agent's summary, and
+compare with your neighbours: one run is an anecdote.
 
 # Exercise 2b — From a good agent to your agent
 
@@ -277,113 +267,68 @@ opened", "controls checked", and "scientific content verified" distinct.
 
 # Exercise 2c — A team of specialists
 
-One agent can do a task. A coordinated team splits a larger question into
-bounded jobs with explicit handoffs. This is our introduction to the **agent
-swarm idea**: a coordinator and specialist subagents, not agents magically
-sharing memory or doing everything in parallel.
+One agent can do a task. A team splits a larger question into bounded jobs
+with explicit hand-offs: a coordinator and specialist subagents, not agents
+magically sharing memory or doing everything at once.
 
-## First: the genome-size demonstration
-
-The five agents are already in [`.opencode/agents/`](../../.opencode/agents/),
-the folder OpenCode reads. Their common goal is:
+The five agents are already in [`.opencode/agents/`](../../.opencode/agents/).
+They have one task:
 
 > How do genome size and gene density differ across organism groups, and how
 > does restricting the analysis to complete assemblies change the conclusions?
 
-| Agent file | Job | Model |
+| Agent | Job | Model |
 |---|---|---|
-| [genome-coordinator.md](../../.opencode/agents/genome-coordinator.md) | Delegate the work and assemble the report | `opencode/big-pickle` |
-| [genome-auditor.md](../../.opencode/agents/genome-auditor.md) | Check data, units and missing values | `opencode/step-5-preview-free` |
-| [genome-analyst.md](../../.opencode/agents/genome-analyst.md) | Write and run the analysis | `opencode/mimo-v2.6-flash-free` |
-| [genome-visualizer.md](../../.opencode/agents/genome-visualizer.md) | Create browser-readable plots | `opencode/space-bunny-free` |
-| [genome-reviewer.md](../../.opencode/agents/genome-reviewer.md) | Independently check results and plots | `opencode/longcat-2.5-preview-free` |
+| [genome-coordinator](../../.opencode/agents/genome-coordinator.md) | Delegates the work and writes the report | `opencode/big-pickle` |
+| [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks the data, units and missing values | `opencode/step-5-preview-free` |
+| [genome-analyst](../../.opencode/agents/genome-analyst.md) | Writes and runs the analysis | `opencode/mimo-v2.6-flash-free` |
+| [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Makes the plots | `opencode/space-bunny-free` |
+| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Checks the results and plots independently | `opencode/longcat-2.5-preview-free` |
 
-These were chosen by measurement on 13 October 2026: each free model ran three
-known-answer tasks on this dataset three times
-([admin/model-bakeoff.md](../../admin/model-bakeoff.md)). The reviewer uses a
-different model from the analyst, so it is not checking its own work.
+The reviewer runs on a different model from the analyst, so it is not
+checking its own work. All five are free external models: prompts, data and
+results leave DTU, and Big Pickle and MiMo may use them to improve their
+models. That is why the task uses public NCBI data.
 
-**Your data and these models.** According to OpenCode's model page, data sent
-to **Big Pickle** and **MiMo** during their free period "may be used to improve
-the model"; the providers of Step, Space Bunny and LongCat follow a
-zero-retention policy. That is why this exercise uses public NCBI data only.
+## Run it
 
-All five roles use external free models from OpenCode, so this example does
-not require the DTU servers. Prompts, data and specialist results go to
-third-party providers. **Use only the supplied public data**; read the
-free-model warning in the [main README](../../README.md).
-
-Inspect outputs and ask for corrections when needed. Record the models and
-any interventions in your write-up; a successful response alone does not
-establish that an analysis is correct.
-
-First check that all five models are still offered (the local `opencode
-models` list can include models that have gone):
+Check that the five models are still offered:
 
 ```bash
 scripts/check-setup.sh --module 02-agents
 ```
 
-Then start `opencode` in the workshop root, start a new chat, and press
-**Tab** until the agent shown is `genome-coordinator`. Check the model shows
-**Big Pickle** (`/models` if not). Paste:
+Start `opencode` in the workshop folder, start a new chat, press **Tab** until
+the agent is `genome-coordinator`, check the model is **Big Pickle**
+(`/models` if not), and send:
 
 > Run the genome-size team task with all four specialist subagents. Save the
 > actual outputs in a new folder under outputs/genome-team/. Report failed or
 > untested steps.
 
-The full interface shows the sidebar, which is where you watch the team.
-(`opencode mini --agent genome-coordinator --model opencode/big-pickle --prompt "…"`
-also starts the run, in the minimal interface.) Approve edits and commands
-yourself; do not use `--auto`. You start **one coordinator**, which delegates to the
-other four agents. They work toward one goal in dependency order:
-audit → analysis → visualization → review → final report. They do not need
-five terminals or simultaneous execution. If progress pauses, check the
-specialist's child session for an approval request. On 13 October 2026
-(OpenCode 2.0.16) `opencode run --auto` again approved only the coordinator:
-the auditor waited 12 minutes on its first shell command with no error. The
-specialists may write inside `outputs/genome-team/` without asking; every
-shell command still needs your approval.
+You start one coordinator; it delegates to the other four in order: audit →
+analysis → plots → review → report. The specialists may write inside
+`outputs/genome-team/` without asking, but every shell command needs your
+approval. Do not use `--auto`: it approves the coordinator only, and the
+specialists then wait for an approval nobody sees.
 
-**Desktop:** open the workshop as a project, select `genome-coordinator` in
-the agent selector, explicitly choose **Big Pickle**, and paste the same
-quoted prompt into a new chat. Selecting a primary agent does not necessarily
-replace a chat's already selected model.
+**Watch it in the sidebar.** Its **Agents** section lists every specialist as
+it starts, with its status (● running, ◆ needs approval, ✓ done, ✗ failed),
+model, time and the tool it is using. A ◆ means that specialist is waiting
+for *you*; the prompt also appears in the coordinator's view. Click a row to
+open that specialist's conversation.
 
-Python 3.10+ and access to all five models are required. Leave MCP off; no
-extra Python packages are required.
+## What to inspect
 
-Free offers change without notice. If one of the five has gone, set that
-agent's `model:` to another model you can reach and say in your write-up which
-one you used. The coordinator is the one agent whose absence stops the whole
-run.
-If the agent is missing, check that you opened the folder containing
-`.opencode/agents/` and reopen OpenCode. Do not silently switch models.
+When it finishes, open `report.md`, `plots.html`, `review.md` and
+`agent-run.md` in the new folder. Did each specialist run on its model? Can
+the reviewer reproduce the numbers without trusting the analyst's summary?
+Does the report admit what failed, or fill the gap with a guess? Find one
+claim in `report.md` that `review.md` did not check.
 
-**Watch it in the sidebar.** The workshop loads Sidebar Plus automatically.
-Its **Agents** section lists every specialist as it starts: a status (● running,
-◆ needs approval, ✓ done, ✗ failed), its model, elapsed time and the tool it
-is using right now. A ◆ means that specialist is waiting for *you*: answer
-the prompt, which also appears in the coordinator's view. Click a row to open
-that specialist's own conversation. `/sidebar` → **Agents** restores the
-default layout if you changed it.
-
-When the run finishes, inspect `report.md`, `plots.html`, `review.md` and
-`agent-run.md` inside the new output folder. These must be the team's actual
-outputs, including failures and corrections—not supplied example answers.
-
-## What to inspect at the end
-
-Did each specialist actually run on the intended model? Were the hand-offs
-clear? Can the reviewer reproduce the result without trusting the analyst's
-summary? Does the coordinator expose a failed task instead of filling the gap
-with a guess? Inspect the artifacts, try a missing input or denied action, and
-repeat a run. Record any manual fixes beside that run. More agents and larger
-contexts are not guarantees of better answers.
+If one of the models has gone, set that agent's `model:` to another free
+model and note it. More agents are not a guarantee of a better answer.
 
 ---
-
-To build a swarm of your own on penguins, proteins or your own data, see
-[the full-day 2c](../../_sectionday/exercises/02-agents/README.md#then-choose-your-teams-target).
 
 Previous: [Exercise 1 — Skills](../01-skills/README.md) · Next: [Exercise 3 — MCP](../03-mcp/README.md).

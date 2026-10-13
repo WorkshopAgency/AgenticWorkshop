@@ -268,8 +268,8 @@ def main():
     score = sum(1 for _, passed, _ in results if passed)
     print(f"\nScore: {score}/7 (static)")
     print("Static checks only find evidence in the code. They cannot tell whether the\n"
-          "structure really loads or the buttons work (in rehearsal, a page that scored\n"
-          "7/7 crashed on a nonexistent library method). Open the page and click through it.")
+          "structure really loads or the buttons work: a page can score 7/7 and still\n"
+          "crash. Open the page and click through it.")
 
     if args.browser:
         chrome = find_chrome(args.chrome)

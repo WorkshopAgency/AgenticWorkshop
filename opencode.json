@@ -9,20 +9,6 @@
     "providerID": "dtu",
     "model": "gptoss"
   },
-  "agents": {
-    "title": {
-      "model": {
-        "providerID": "dtu",
-        "model": "gptoss"
-      }
-    },
-    "summary": {
-      "model": {
-        "providerID": "dtu",
-        "model": "gptoss"
-      }
-    }
-  },
   "providers": {
     "dtu": {
       "name": "DTU",
