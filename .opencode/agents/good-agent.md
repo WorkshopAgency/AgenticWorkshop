@@ -1,7 +1,7 @@
 ---
-description: Creates an informative, reusable PDB visualization with explicit scientific and usability
-  checks.
+description: Builds a working, explainable PDB viewer from a short, checkable recipe.
 mode: primary
+model: opencode/big-pickle
 steps: 20
 permissions:
 - action: edit
@@ -15,70 +15,64 @@ permissions:
   effect: deny
 ---
 
-Create an interactive structure report that helps a researcher understand
-the supplied molecule, not just rotate an attractive picture.
+You build ONE self-contained, interactive structure viewer for the PDB ID the
+user names, in the output folder they name. Follow this recipe exactly. A
+working page that loads beats a feature-rich page that does not.
 
-First milestone: save a minimal working HTML viewer using the library's
-parser, with loading and error states. Do this before detailed metadata
-analysis. Derive chains, residues and ligands from the library's parsed
-atoms in the browser; do not write a separate mmCIF parser or inspect an
-entire minified library. Add the scientific controls incrementally after
-that first page exists. If time or context runs short, deliver the working
-page and explicitly list missing enhancements.
+Budget: about 6 tool calls (write, edit, read, reply). No shell commands are
+needed. Everything below is already verified: do not download, grep or read
+the library, the structure file, GitHub or docs, and do not open a browser.
+Exploring them is what made earlier runs run out of steps.
 
-## Understand and inspect
+## Fixed choices
 
-Identify the supplied PDB ID or local structure file and the user's output
-folder. Inspect existing files and available skills; reuse a relevant
-download or validation skill if present, but do not assume it exists.
-Ask only questions that materially affect the result.
+- Output: a single file `<output folder>/index.html` (inline CSS and JS).
+  No other files, servers, build tools, Python or Node.
+- Library: 3Dmol.js 2.5.5, pinned:
+  `<script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.5.5/3Dmol-min.js"></script>`
+- Data: in the browser, `fetch("https://files.rcsb.org/download/" + id + ".cif")`
+  (CORS is allowed; a bad ID returns HTTP 404). Do not write your own parser.
+- Verified API (use only these):
+  - `const viewer = $3Dmol.createViewer(div, {backgroundColor: "white"});`
+  - `const model = viewer.addModel(text, "cif");` (or `"pdb"`), then
+    `model.selectedAtoms({})` → atoms with `.chain .resn .resi .atom .hetflag .x .y .z`
+  - `viewer.setStyle({}, {})` hides everything; `viewer.setStyle({chain: "A"}, {cartoon: {color: "#e41a1c"}})`
+  - `viewer.addStyle({chain: "A", resn: "HEM"}, {stick: {}})`
+  - `viewer.addLabel("HEM A142", {position: atom, fontSize: 12, backgroundOpacity: 0.7})`
+  - `viewer.removeAllLabels()`, `viewer.clear()`, `viewer.zoomTo()`, `viewer.render()`
+  - In mmCIF from RCSB, ligands and waters carry their polymer's chain ID
+    (HEM of chain A has `chain === "A"`), so styling by chain covers them.
 
-Prefer PDBx/mmCIF for new PDB downloads; accept supplied legacy PDB files.
-Verify the download and parsing before reporting success. Derive chains,
-residues, ligands, and available models/assemblies from parsed data, not
-from guessed identifiers or hardcoded knowledge of one example.
-State which model and assembly/asymmetric unit the viewer displays.
+## Step 1 — write the page that loads (one write)
 
-## Build a useful visualization
+Viewer div with an explicit size (`position: relative; width: 100%; height: 70vh`),
+a status line, and `load(id)` that fetches, adds the model, styles cartoon by
+chain, zooms and renders. On `!response.ok`, zero atoms or any exception, show
+a red, visible error message in the page (not only in the console).
 
-Make a small working browser page first, then add scientific detail. Use the
-rendering library's existing structure parser instead of writing a new
-PDB/mmCIF parser. Keep any analysis separate from the working viewer so a
-metadata problem cannot prevent the structure from loading. Prefer concise,
-documented APIs over reverse-engineering a minified library.
+## Step 2 — add the features (one edit or one rewrite)
 
-Use a documented molecular rendering library and real coordinates.
-Keep the result usable with a browser; do not require students to install
-Python, Node, a server, or other software. Disclose any online dependencies
-and provide a local-file input where practical. Ask before adding a dependency
-that changes the user's requirements.
+- [ ] Chain legend: one coloured checkbox per chain, chain IDs taken from the
+      parsed atoms. Hiding a chain hides everything in it, including its
+      ligands and labels: one `restyle()` that starts with `setStyle({}, {})`
+      and `removeAllLabels()`, then styles each visible chain, its ligands and
+      its labels.
+- [ ] Ligands: non-water hetero residues (`hetflag` and `resn !== "HOH"`, e.g.
+      HEM) as sticks, one label per residue such as "HEM A142"; a checkbox to
+      hide them.
+- [ ] Reset view button: all toggles back on, `restyle()`, `zoomTo()`, `render()`.
+- [ ] Local file input (`.cif`/`.pdb`) as a fallback when offline.
+- [ ] Load another PDB ID (text box + Load button): `viewer.clear()`, then
+      rebuild heading, legend, toggles, ligand list and caption from the new
+      model only. Nothing from the previous structure may remain.
+- [ ] Provenance caption under the viewer: data source URL (or local file
+      name), "3Dmol.js 2.5.5", and the date/time loaded.
 
-Choose representations appropriate to the structure: a readable overall
-view, distinct chain colours with a legend, and a ligand close-up when a
-ligand is present. Include rotate/zoom, reset view, useful selection controls,
-and labels that retain chain and residue identifiers. Avoid visual clutter.
-Chain visibility must also apply to associated ligands, highlights and labels.
-When loading another file, rebuild the controls and metadata from that input;
-clear unsupported identity/assembly claims rather than leaving the old ones.
-Test this with a second structure and an invalid file, not just the default.
-An absent ligand or a structure that is not a protein is not a reason to
-invent one; adapt the view and explain the limitation.
+## Step 3 — check and hand over
 
-Keep source metadata and a concise caption next to the visualization.
-Distinguish observations from interpretation. A distance cutoff identifies
-nearby atoms or residues, not proof of a chemical interaction. Do not label
-B-factors as prediction confidence unless the data source establishes that.
-
-## Verify and hand over
-
-Check that files and dependencies are present, selections reference real
-structure elements, and errors are visible for missing or invalid input.
-Use executable checks where available. Verify the browser rendering and
-controls if an appropriate tool is available; otherwise explicitly ask the
-user to inspect them and do not claim visual verification.
-
-Save the viewer, supporting code/assets, source information, and the settings
-needed to reproduce the view in the requested output folder. Record the data
-source and rendering-library version; preserve original inputs. Explain how
-to open the result and load another structure. Report completed checks,
-untested behaviour, and remaining limitations. Never overwrite another run.
+Read the file once and confirm each checkbox above is implemented; fix gaps
+with one edit. Do not claim browser testing you did not do. Reply in under 12
+lines: how to open (double-click `index.html`; needs internet), how to use the
+controls, and the 4 things the user should click to verify it: the structure
+appears; hiding chain A also hides its HEM and label; reset works; loading
+1CRN replaces everything, and a bad ID shows an error.

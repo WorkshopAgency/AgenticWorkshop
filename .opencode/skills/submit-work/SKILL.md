@@ -6,7 +6,7 @@ description: Share a skill, agent or MCP configuration to the workshop repositor
 # Submit work to the workshop repository
 
 Publish the user's own skill, agent or MCP configuration into
-`exercises/04-share/submissions/<name>/` in the workshop repository, as a
+`_sectionday/exercises/04-share/submissions/<name>/` in the workshop repository, as a
 pull request from their fork.
 
 Publishing is public and hard to take back. A deleted commit stays in the
@@ -17,7 +17,7 @@ fork's history and in anyone's clone. Check before pushing, not after.
 Identify the files the user actually wants to share, and where they are. A
 skill is a folder with `SKILL.md`; an agent is one Markdown file; an MCP
 contribution is the server block from `opencode.json` plus notes. Copy them
-into `exercises/04-share/submissions/<name>/` — do not move them, so the
+into `_sectionday/exercises/04-share/submissions/<name>/` — do not move them, so the
 user's working setup keeps running.
 
 Choose `<name>` with the user. Use their name or GitHub handle, lowercase
@@ -38,7 +38,7 @@ Run these and report the results before committing anything:
    `eggs` disappears without any error. Verify every intended file:
 
    ```bash
-   git check-ignore -v exercises/04-share/submissions/<name>/*
+   git check-ignore -v _sectionday/exercises/04-share/submissions/<name>/*
    ```
 
    No output means nothing is ignored. Any output names a file that will not
@@ -82,7 +82,7 @@ folder. Keep all content edits limited to that folder. Run the checks above,
 then, with approval:
 
 ```bash
-git add exercises/04-share/submissions/<name>/
+git add _sectionday/exercises/04-share/submissions/<name>/
 git diff --cached
 git commit -m "Add <name> submission: <what it is>"
 git push -u origin submit-<name>
@@ -101,7 +101,7 @@ pull request instead. Verify the working directory and remote after cloning:
 gh repo fork <workshop-repo> --clone --remote      # once
 cd AgenticWorkshop                              # enter the new clone
 git checkout -b submit-<name>
-git add exercises/04-share/submissions/<name>
+git add _sectionday/exercises/04-share/submissions/<name>
 git commit -m "Add <name> submission: <what it is>"
 git push -u origin submit-<name>
 gh pr create --title "..." --body "..."

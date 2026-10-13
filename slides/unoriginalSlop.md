@@ -204,7 +204,7 @@ Make your work usable by someone outside your team.
 
 **Tip:** Remove private data and credentials. Test the shared copy, not only your original.
 
-`exercises/04-share/README.md`
+`_sectionday/exercises/04-share/README.md`
 
 ---
 
@@ -218,7 +218,7 @@ Explore how extensions and independent checks change an agent's workflow.
 
 **Tip:** A plausible explanation is a starting point. Reproduce the bug.
 
-`exercises/05-bonus/README.md`
+`_sectionday/exercises/05-bonus/README.md`
 
 ---
 

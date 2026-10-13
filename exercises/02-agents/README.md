@@ -1,73 +1,106 @@
+# Exercise 2 — Agents
+
+| | |
+|---|---|
+| **Time** | 45 min: 2a (10) · 2b (12) · 2c (23) |
+| **Model** | 2a: `opencode/big-pickle`, selected by you for both agents. 2b: your choice. 2c: the coordinator on Big Pickle; each specialist's own model is set in its file |
+| **Needs** | `scripts/check-setup.sh` passed. Nothing from other modules: 2b supplies its own skill |
+| **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
+| **Done when** | 2a: `check_viewer.py` scored both viewers. 2b: your agent ran on one normal and one invalid input. 2c: you found one claim in `report.md` that `review.md` did not verify, or confirmed there is none |
+| **If stuck** | `/halp 02-agents <what you tried>` |
+
+Your outputs go under `outputs/02-agents/`.
+
 # Exercise 2a — From a basic agent to a good agent
 
-An agent can complete a task without completing it particularly well.
-These initial examples compare a vague instruction with an explicit,
-verifiable workflow. PDB visualization is the first case, not the scope
-of every exercise in this repository.
+Use **`opencode/big-pickle`** for both agents (select it yourself before each
+run; it is what this exercise was rehearsed on). Your outputs go to
+`outputs/02-agents/`.
 
-## The two agents
+Two agents, same request, same model, same permissions, same 20-step limit:
 
-| Agent | What changes |
+| Agent | Instructions |
 |---|---|
-| [bad-agent](../../.opencode/agents/bad-agent.md) | A plausible but underspecified request to build a viewer. It is not instructed to make mistakes. |
-| [good-agent](../../.opencode/agents/good-agent.md) | Inspects the input, chooses useful views, reuses available skills, records provenance, and checks the result. |
+| [bad-agent](../../.opencode/agents/bad-agent.md) | Three vague sentences: "create an interactive viewer… make it look good". It is not told to make mistakes. |
+| [good-agent](../../.opencode/agents/good-agent.md) | A short recipe: fixed, pinned library and data URL; a verified API list; "page that loads first", then a feature checklist; a tool budget; tell the user what to click to verify. |
 
-Both are primary agents with the same permissions and 20-step limit. Neither
-hardcodes a model or temperature. They are first-iteration teaching examples,
-not a tested guarantee of better results or the completed reference visualizer.
+## 1. Run both (about 6 min)
 
-In the 23 September rehearsal, both needed more than their first turn: the
-basic viewer used nonexistent rendering-library methods, while the explicit
-agent spent its initial budget on parsing and had not produced a viewer.
-Better instructions are a hypothesis to test, not a result to assume. Check
-the deliverable before adding features or increasing the step budget.
-
-A later Big Pickle comparison produced actual viewers. The detailed version
-needed follow-ups to finish and to fix chain visibility and stale metadata
-when loading another structure. Those cases are now explicit in its
-instructions. The lesson is to test and improve the agent, not to trust the
-word “good” in its filename.
-
-## Try the same request
-
-Open the repository in OpenCode and start a fresh chat. In the terminal,
-use Tab to select `bad-agent`; in Desktop, use the agent selector. Reopen
-OpenCode if the newly added agents do not appear.
-
-Use this request:
+Start a fresh chat, select `bad-agent` (Tab in the terminal, the agent
+selector in Desktop) and your model, and send:
 
 > Create an interactive browser visualization of PDB 4HHB that I can use to
 > explain the structure to another researcher. Save everything under
-> outputs/bad-agent. I have a browser and OpenCode; do not require additional
+> outputs/02-agents/bad-agent. I have a browser and OpenCode; do not require additional
 > software installation. Briefly explain how to open and use the result.
 
-Start another fresh chat, select `good-agent`, and repeat the same request,
-changing only the output folder to `outputs/good-agent`.
+Then start another fresh chat, select `good-agent`, and send the same request
+with `outputs/02-agents/good-agent`. Watch what each agent asks permission for, and
+count the approvals.
 
-Keep the model, input, available skills/tools, and approval decisions the same.
-Do not give the second agent the first agent's output. For a stricter comparison,
-use separate extracted copies of the repository so neither can inspect the
-other's files. The good example is included here for inspection; it is not hidden
-from students or their agents.
+In rehearsal (big-pickle, 13 Oct), good-agent finished in about 1 min after
+2–5 tool calls. Bad-agent took 1–7 min and usually stopped at "Maximum steps
+reached". Don't raise the limit: the unfinished state is part of the result.
 
-## Inspect, improve, and reuse
+## 2. Score both (1 min)
 
-- Does the structure actually load, and do the controls work?
-- Are chains, selected residues, and any ligands identified correctly?
-- Is the view useful for explaining the structure, with readable labels?
-- Are its scientific claims supported, and are limitations visible?
-- Can someone reproduce the view and load a different structure?
-- What manual corrections and extra prompts were necessary?
+    python3 exercises/02-agents/check_viewer.py outputs/02-agents/bad-agent --browser
+    python3 exercises/02-agents/check_viewer.py outputs/02-agents/good-agent --browser
 
-Edit or create an agent of your own and repeat the comparison on another
-structure. Judge the generated files and behaviour, not the agent's claim
-that it succeeded. One run does not establish a fixed performance difference.
+Without Chrome, leave out `--browser`. The score out of 7 only searches the
+code for evidence (pinned library, chain IDs, HEM, error message, reset and
+chain toggles, provenance). An agent can read the checker and write to it: in
+rehearsal, a page that scored 7/7 crashed on a library method that does not
+exist. `--browser` checks that something was actually drawn and saves a
+screenshot next to the page.
+
+## 3. Click through it (3 min)
+
+Open each `index.html` in your browser (double-click it) and check:
+
+1. **It loads**: the 4HHB tetramer appears. It is not a blank canvas or a
+   spinner.
+2. **Toggles work, including the heme**: hide chain A. Its heme (HEM A142)
+   and its label must disappear too, not only the protein.
+3. **Labels are right**: 4HHB has chains A and C (α) and B and D (β), with
+   hemes at A142, B148, C142 and D148. Is anything mislabelled?
+4. **Load another ID**: load `1CRN`. Everything must be replaced: 1 chain, no
+   heme, and no "haemoglobin" or "4HHB" text left. Then try `ZZZZ`: you
+   should see an error, not silence.
+
+If a page has no control for a check, that counts as a fail.
+
+## What to take away
+
+- In rehearsal, the vague agent rebuilt the same bugs we saw in September:
+  methods that don't exist, a hidden chain whose heme stays visible, and old
+  metadata after loading a new structure. It often produced a nicer-looking
+  page than the good agent.
+- The good agent is good because its instructions name the library, the data
+  source, the exact API calls and what "done" means. Its name has nothing to
+  do with it. Remove one of those lines and see what breaks.
+- Judge the files and the behaviour, not the agent's summary. One run is an
+  anecdote: compare with your neighbours.
 
 # Exercise 2b — From a good agent to your agent
 
-Create your own agent rather than changing the supplied examples. It can
-visualize a structure, review an analysis, check a dataset, or perform another
-task you can evaluate. Give it a specific job and a definition of success.
+Create your own agent rather than changing the supplied examples. Give it a
+specific job and a definition of success. The suggested job: an agent that
+**checks a dataset before anyone analyses it**, using a profiling skill.
+
+This exercise supplies that skill, so you do not need Exercise 1. Install it
+from the workshop root (if you built your own `csv-profile` in 1f, keep yours
+and skip this):
+
+```bash
+cp -r exercises/02-agents/starter/csv-profile .opencode/skills/
+```
+
+Type `/skills` in OpenCode to confirm it is listed (run `opencode reload` if
+not). Then build an agent that uses it on
+`exercises/03-mcp/data/byo/uniprot_human_proteins.csv.gz`, and test it on a
+file that does not exist. Other jobs are fine too: reviewing an analysis or
+visualizing a structure, as long as you can check the result.
 
 ## Create the agent
 
@@ -260,36 +293,57 @@ the folder OpenCode reads. Their common goal is:
 | Agent file | Job | Model |
 |---|---|---|
 | [genome-coordinator.md](../../.opencode/agents/genome-coordinator.md) | Delegate the work and assemble the report | `opencode/big-pickle` |
-| [genome-auditor.md](../../.opencode/agents/genome-auditor.md) | Check data, units and missing values | `opencode/mimo-v2.6-flash-free` |
-| [genome-analyst.md](../../.opencode/agents/genome-analyst.md) | Write and run the analysis | `opencode/ling-3.0-flash-fin-free` |
-| [genome-visualizer.md](../../.opencode/agents/genome-visualizer.md) | Create browser-readable plots | `opencode/muse-spark-1.3-contributor-free` |
-| [genome-reviewer.md](../../.opencode/agents/genome-reviewer.md) | Independently check results and plots | `opencode/nemotron-3.5-lightning-free` |
+| [genome-auditor.md](../../.opencode/agents/genome-auditor.md) | Check data, units and missing values | `opencode/step-5-preview-free` |
+| [genome-analyst.md](../../.opencode/agents/genome-analyst.md) | Write and run the analysis | `opencode/mimo-v2.6-flash-free` |
+| [genome-visualizer.md](../../.opencode/agents/genome-visualizer.md) | Create browser-readable plots | `opencode/space-bunny-free` |
+| [genome-reviewer.md](../../.opencode/agents/genome-reviewer.md) | Independently check results and plots | `opencode/longcat-2.5-preview-free` |
+
+These were chosen by measurement on 13 October 2026: each free model ran three
+known-answer tasks on this dataset three times
+([admin/model-bakeoff.md](../../admin/model-bakeoff.md)). The reviewer uses a
+different model from the analyst, so it is not checking its own work.
+
+**Your data and these models.** According to OpenCode's model page, data sent
+to **Big Pickle** and **MiMo** during their free period "may be used to improve
+the model"; the providers of Step, Space Bunny and LongCat follow a
+zero-retention policy. That is why this exercise uses public NCBI data only.
 
 All five roles use external free models from OpenCode, so this example does
 not require the DTU servers. Prompts, data and specialist results go to
-third-party providers. **Use only the supplied public data**, especially
-with the Muse contributor model; read the free-model warning in the
-[main README](../../README.md).
+third-party providers. **Use only the supplied public data**; read the
+free-model warning in the [main README](../../README.md).
 
 Inspect outputs and ask for corrections when needed. Record the models and
 any interventions in your write-up; a successful response alone does not
 establish that an analysis is correct.
 
-From a terminal **inside the downloaded workshop root** (beside
-`opencode.json`), run:
+First check that all five models are still offered (the local `opencode
+models` list can include models that have gone):
 
 ```bash
-opencode mini --agent genome-coordinator --model opencode/big-pickle --prompt "Run the genome-size team task with all four specialist subagents. Save the actual outputs in a new folder under outputs/genome-team/. Report failed or untested steps."
+scripts/check-setup.sh --module 02-agents
 ```
 
-This opens the interactive terminal so you can approve edits and commands.
-Do not add `--auto`. You start **one coordinator**, which delegates to the
+Then start `opencode` in the workshop root, start a new chat, and press
+**Tab** until the agent shown is `genome-coordinator`. Check the model shows
+**Big Pickle** (`/models` if not). Paste:
+
+> Run the genome-size team task with all four specialist subagents. Save the
+> actual outputs in a new folder under outputs/genome-team/. Report failed or
+> untested steps.
+
+The full interface shows the sidebar, which is where you watch the team.
+(`opencode mini --agent genome-coordinator --model opencode/big-pickle --prompt "…"`
+also starts the run, in the minimal interface.) Approve edits and commands
+yourself; do not use `--auto`. You start **one coordinator**, which delegates to the
 other four agents. They work toward one goal in dependency order:
 audit → analysis → visualization → review → final report. They do not need
 five terminals or simultaneous execution. If progress pauses, check the
-specialist's child session for an approval request. In our 2.0.14 rehearsal,
-`opencode run --auto` approved the parent but did not remove child approvals;
-it is not a substitute for the interactive workflow.
+specialist's child session for an approval request. On 13 October 2026
+(OpenCode 2.0.16) `opencode run --auto` again approved only the coordinator:
+the auditor waited 12 minutes on its first shell command with no error. The
+specialists may write inside `outputs/genome-team/` without asking; every
+shell command still needs your approval.
 
 **Desktop:** open the workshop as a project, select `genome-coordinator` in
 the agent selector, explicitly choose **Big Pickle**, and paste the same
@@ -297,8 +351,7 @@ quoted prompt into a new chat. Selecting a primary agent does not necessarily
 replace a chat's already selected model.
 
 Python 3.10+ and access to all five models are required. Leave MCP off; no
-extra Python packages are required. Check the five are listed by
-`opencode models` before you start.
+extra Python packages are required.
 
 Free offers change without notice. If one of the five has gone, set that
 agent's `model:` to another model you can reach and say in your write-up which
@@ -307,142 +360,17 @@ run.
 If the agent is missing, check that you opened the folder containing
 `.opencode/agents/` and reopen OpenCode. Do not silently switch models.
 
+**Watch it in the sidebar.** The workshop loads Sidebar Plus automatically.
+Its **Agents** section lists every specialist as it starts: a status (● running,
+◆ needs approval, ✓ done, ✗ failed), its model, elapsed time and the tool it
+is using right now. A ◆ means that specialist is waiting for *you*: answer
+the prompt, which also appears in the coordinator's view. Click a row to open
+that specialist's own conversation. `/sidebar` → **Agents** restores the
+default layout if you changed it.
+
 When the run finishes, inspect `report.md`, `plots.html`, `review.md` and
 `agent-run.md` inside the new output folder. These must be the team's actual
 outputs, including failures and corrections—not supplied example answers.
-
-## Then: choose your team's target
-
-Do not simply repeat the genome demonstration. Choose one of these, or your
-own question with a dataset you are allowed to use:
-
-| Target | A concrete starting question |
-|---|---|
-| [Penguins](../03-mcp/data/byo/PROVENANCE.md#penguinscsv) | Why do pooled and within-species bill-measurement correlations disagree? Show the missing-data handling, correlations, plot and interpretation. |
-| [Human proteins](../03-mcp/data/byo/PROVENANCE.md#uniprot_human_proteinscsvgz) | How does the number of human proteins change with the evidence criterion? Show counts, exclusions, a plot and a defensible conclusion. |
-| Your own dataset | Define one answerable question, the input, an observable result and a check that could prove the answer wrong. Use public or synthetic data with external models. |
-
-Create **four or more specialists plus a coordinator**. You can adapt the
-reference definitions or write your own. Assign every role to a different model:
-a local model, a free model from OpenCode, or a personally connected provider. Check
-access and any cost before choosing; different display names for the same
-provider/model are not different models.
-
-Agree each specialist's input, narrow responsibility, output and success check.
-An auditor, analyst, visualizer and independent reviewer are a starting point,
-not compulsory names. An extra specialist needs a separate job—for example,
-sensitivity analysis—not just another copy of the analyst.
-
-Copy the five example Markdown files into your team's working folder and
-rename them with your team prefix. Edit each agent's `model:` field,
-description, task instructions, permissions and expected outputs. Change the
-coordinator's question, dataset path and helper names, and each specialist's
-methods to suit penguins, proteins or your own target. The agents write their
-own analysis tools during the run; there is no pre-computed pipeline to call.
-Keep original data intact.
-
-Test specialists individually with `@team-01-auditor` (substitute your team's
-number and actual name). Give them explicit input/output paths. Only then run
-the coordinator. Use `mode: subagent` and a deny-all `subagent` rule for specialists; use
-`mode: primary` for the coordinator with an explicit list of allowed helpers:
-
-```yaml
-permissions:
-  - { action: subagent, resource: '*', effect: deny }
-  - { action: subagent, resource: team-01-auditor, effect: allow }
-  - { action: subagent, resource: team-01-analyst, effect: allow }
-  - { action: subagent, resource: team-01-visualizer, effect: allow }
-  - { action: subagent, resource: team-01-reviewer, effect: allow }
-```
-
-This block only illustrates delegation; preserve the rest of your permission
-settings. Change **every helper name** when copying it to another team.
-Do not assume renaming a file updates its coordinator's instructions or rules.
-Give each worker separate output files. Review permission requests and keep
-publishing separate from the analytical run.
-
-## Team folders and hand-off
-
-Your team has two folders, using `team-01` through `team-10`:
-
-```text
-exercises/02-agents/team-01/                 Working definitions and team goal
-exercises/04-share/submissions/team-01/      Reviewed copies to share
-```
-
-Use filenames such as `team-01-coordinator.md` and `team-01-auditor.md` to
-avoid collisions with the demonstration and other teams. Keep the working
-folder as the source; the sharing folder is a reviewed snapshot. Do not put
-data, credentials, caches or generated results in either folder.
-
-1. Choose a human team coordinator to maintain a **team fork** and agreed
-   branch. Members contribute only their team's working files, through PRs
-   from their forks or branches where they have access. No workshop main-branch
-   write access is assumed or granted.
-2. Agree a branch/commit to use. The coordinator downloads that exact revision
-   from the team fork. Unmerged work is not in the workshop main ZIP; use the
-   contributor's branch/commit link if it has not been merged.
-3. Read the downloaded definitions and required scripts/skills. Copy the
-   agreed agent Markdown files into the project-root `.opencode/agents/`.
-   Copy complete supporting skill folders into `.opencode/skills/` and keep
-   referenced project files at the paths the instructions expect. Review any
-   existing installed file before replacing it.
-4. Confirm the model IDs are available to the coordinator, reopen OpenCode,
-   and inspect `opencode debug agents`. Select the team coordinator agent and
-   run in a fresh output folder. Team members' provider credentials are not
-   included in the download; use your own connections.
-5. Copy reviewed definitions into your team's sharing folder. Follow the
-   existing Exercise 4 procedure with `team-01` (or your team number) as the
-   submission name. The existing submit-agent only publishes under submissions;
-   it is not the tool for collaborating on the working folder in step 1.
-
-OpenCode **does not auto-load** the agents from either team folder. Folder
-names do not provide access control. Work only on your team's files and
-check what is included in every PR.
-
-A downloaded ZIP has **no Git history** and cannot simply `git push`. Clone
-your fork for Git collaboration, or use GitHub's file upload/PR interface.
-The final coordinator can still download a ZIP to run the team locally.
-Keep generated runs under `outputs/`, which is ignored by this repository.
-
-### Contribute with ordinary Git
-
-Fork the repository using GitHub's **Fork** button. Replace `YOUR-USER` below
-with the owner of your fork, and replace `team-01` with your team number:
-
-```bash
-git clone https://github.com/YOUR-USER/AgenticWorkshop.git
-cd AgenticWorkshop
-git switch -c team-01-agents
-```
-
-Put your working files into `exercises/02-agents/team-01/`, then:
-
-```bash
-git add exercises/02-agents/team-01/
-git diff --cached
-git commit -m "Add Team 1 agents"
-git push -u origin team-01-agents
-```
-
-In GitHub, open a pull request **to the agreed team fork and branch**. Review
-and merge the agreed files there. Do not assume you can push to the workshop
-repository. GitHub CLI (`gh`) is optional, not required. The submission agent
-remains limited to Exercise 4 submissions; use ordinary Git for this working folder.
-
-### Run your own team
-
-The human coordinator downloads the agreed revision and copies the reviewed
-agent files into `.opencode/agents/` as described above. From that project root:
-
-```bash
-opencode mini --agent team-01-coordinator --model opencode/big-pickle --prompt "Run our agreed team task with your specialist subagents. Save this run in a new outputs/team-01/ folder. Report results, corrections and anything untested."
-```
-
-Use your actual coordinator filename without `.md` and its chosen model ID.
-In Desktop, select that coordinator **and model**, then paste the prompt.
-Only the coordinator needs all the provider
-connections for the assembled team; credentials are never shared in the files.
 
 ## What to inspect at the end
 
@@ -455,4 +383,7 @@ contexts are not guarantees of better answers.
 
 ---
 
-Previous: [Exercise 1 — Skills](../01-skills/README.md) · Next: [Exercise 3 — MCP and data analysis](../03-mcp/README.md).
+To build a swarm of your own on penguins, proteins or your own data, see
+[the full-day 2c](../../_sectionday/exercises/02-agents/README.md#then-choose-your-teams-target).
+
+Previous: [Exercise 1 — Skills](../01-skills/README.md) · Next: [Exercise 3 — MCP](../03-mcp/README.md).

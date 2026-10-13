@@ -84,7 +84,7 @@
           "uvx",
           "mcp-server-motherduck@1.0.8",
           "--db-path",
-          "exercises/03-mcp/data/pdb.duckdb",
+          "exercises/03-mcp/data/workshop.duckdb",
           "--max-rows",
           "100",
           "--max-chars",
@@ -141,6 +141,16 @@
     },
     {
       "action": "shell",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "websearch",
       "resource": "*",
       "effect": "ask"
     }

@@ -1,12 +1,15 @@
 ---
 description: Independently recomputes genome statistics and checks limitations of the interpretation.
 mode: subagent
-model: opencode/nemotron-3.5-lightning-free
+model: opencode/longcat-2.5-preview-free
 steps: 12
 permissions:
 - action: edit
   resource: '*'
   effect: ask
+- action: edit
+  resource: outputs/genome-team/**
+  effect: allow
 - action: shell
   resource: '*'
   effect: ask

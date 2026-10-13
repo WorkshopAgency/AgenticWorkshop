@@ -1,0 +1,63 @@
+{
+  "questions": [
+    {
+      "id": "mislead",
+      "type": "yesno",
+      "text": "Could this plot mislead a reader about the within-species relationship?"
+    },
+    {
+      "id": "best_fix",
+      "type": "choice",
+      "text": "Best single fix",
+      "options": [
+        {
+          "label": "colour_fit_species",
+          "description": "Colour the points by species and fit a separate line per species"
+        },
+        {
+          "label": "log_axes",
+          "description": "Put both axes on a log scale"
+        },
+        {
+          "label": "more_data",
+          "description": "Collect more data"
+        },
+        {
+          "label": "remove_outliers",
+          "description": "Remove outliers"
+        },
+        {
+          "label": "no_fix_needed",
+          "description": "No fix needed: the plot already supports its message"
+        }
+      ]
+    },
+    {
+      "id": "severity",
+      "type": "score",
+      "text": "Severity of the problem with this plot, from 1 to 5",
+      "levels": [
+        {
+          "value": 1,
+          "description": "No problem: the plot supports its message"
+        },
+        {
+          "value": 2,
+          "description": "Minor: a small clarity issue"
+        },
+        {
+          "value": 3,
+          "description": "Moderate: could confuse some readers"
+        },
+        {
+          "value": 4,
+          "description": "Serious: likely to mislead most readers"
+        },
+        {
+          "value": 5,
+          "description": "Severe: leads readers to the opposite conclusion"
+        }
+      ]
+    }
+  ]
+}

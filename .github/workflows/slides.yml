@@ -8,7 +8,7 @@ name: Build and publish slides
 
 on:
   push:
-    branches: [main]
+    branches: [main, dkb-2026]
     paths:
       - 'slides/**'
       - '.github/workflows/slides.yml'
@@ -93,6 +93,9 @@ jobs:
 
   deploy:
     needs: build
+    # Other branches build the decks (a check that they render) but do not
+    # publish: the github-pages environment only accepts deployments from main.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

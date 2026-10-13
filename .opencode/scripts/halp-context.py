@@ -16,7 +16,7 @@ CHECKPOINT_CONTEXT = {'gptoss': 131072, 'mistral': 131072, 'qwen36': 262144, 'qw
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--model', choices=['gptoss', 'mistral', 'qwen36', 'qwen38'])
+    parser.add_argument('--model', help='a DTU model id from opencode.json, such as qwen36')
     parser.add_argument('--context', type=int, choices=[4096, 8192, 16384, 32768, 65536, 131072, 262144])
     parser.add_argument('--output', type=int)
     parser.add_argument('--server-max', type=int, help='Organiser-confirmed running server limit, not checkpoint capacity')
@@ -29,8 +29,9 @@ def main():
     try:
         config = json.loads(original)
         models = config['providers']['dtu']['models']
-        safe = {name: {k: models[name]['limit'][k] for k in ('context', 'output')}
-                for name in ('gptoss', 'mistral', 'qwen36', 'qwen38')}
+        # Every DTU model in the project configuration that declares limits.
+        safe = {name: {k: model['limit'][k] for k in ('context', 'output')}
+                for name, model in models.items() if 'limit' in model}
         if any(type(v) is not int or v <= 0 for limits in safe.values() for v in limits.values()):
             raise ValueError('Invalid limits')
     except (ValueError, KeyError, TypeError):
@@ -39,17 +40,23 @@ def main():
         print(json.dumps({'kind': 'project_client_budgets',
                           'server_capacity': 'NOT CHECKED: these are not live server limits',
                           'models': safe,
-                          'verified_2026_09_25': {name: {'context': SERVER_CONTEXT[name], 'output': SERVER_OUTPUT[name]} for name in safe}}, indent=2))
+                          'verified_2026_09_25': {name: {'context': SERVER_CONTEXT[name], 'output': SERVER_OUTPUT[name]}
+                                                  for name in safe if name in SERVER_CONTEXT},
+                          'no_verified_limit': sorted(name for name in safe if name not in SERVER_CONTEXT)}, indent=2))
         return
     if not args.model:
         parser.error('--model is required for a change')
+    if args.model not in safe:
+        parser.error(f"Unknown model {args.model!r}; choose one of: {', '.join(sorted(safe))}")
+    if args.model not in SERVER_CONTEXT and args.server_max is None:
+        parser.error(f'No verified server limit for {args.model}; an organiser must confirm one (--server-max)')
     old = safe[args.model].copy()
     context = args.context if args.context is not None else old['context']
     output = args.output if args.output is not None else old['output']
     ceiling = args.server_max if args.server_max is not None else SERVER_CONTEXT[args.model]
-    if ceiling <= 0 or ceiling > CHECKPOINT_CONTEXT[args.model] or context > ceiling:
+    if ceiling <= 0 or ceiling > CHECKPOINT_CONTEXT.get(args.model, ceiling) or context > ceiling:
         parser.error('Context exceeds the verified server limit; changing client JSON cannot enlarge the server')
-    if output < 1 or output > SERVER_OUTPUT[args.model]:
+    if output < 1 or output > SERVER_OUTPUT.get(args.model, old['output']):
         parser.error('Output exceeds this model gateway cap or is not positive')
     if context <= output:
         parser.error('Context must leave room for input as well as the output allowance')
