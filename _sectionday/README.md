@@ -34,6 +34,8 @@ The text is as it was, except:
   no longer exists. The agents in [`agents/`](agents/) show the original
   models; the current ones are in `.opencode/agents/` and
   [admin/model-bakeoff.md](../admin/model-bakeoff.md).
+- **Team 5's shared skill** ([pdb-viewer-builder](exercises/04-share/submissions/team-05/pdb-viewer-builder/SKILL.md)),
+  submitted on the day through Exercise 4 (pull request #25), lives here with the rest of Exercise 4.
 - Paths in commands that pointed at `exercises/04-share` and
   `exercises/05-bonus` now point here.
 

@@ -8,7 +8,7 @@ drift apart.
 
 | File | Deck | Published |
 |---|---|---|
-| [`dkb2026.md`](dkb2026.md) | **Conference edition (dkb-2026 branch).** 14 slides: agenda, concepts, where data goes, one slide per module, agent suitability, limitations | Yes |
+| [`dkb2026.md`](dkb2026.md) | **Conference edition.** 14 slides: agenda, concepts, where data goes, one slide per module, agent suitability, limitations | Yes |
 | [`unoriginalSlop.md`](unoriginalSlop.md) | Harnesses, skills, agents, MCP, plugins, model choices, the three README lessons and HALp, followed by exercise instructions and tips | Yes |
 | [`semioriginalSlop.md`](semioriginalSlop.md) | Building and employing agents for data analysis. An earlier deck, kept for reference | No |
 | [`originalSlop.md`](originalSlop.md) | Skills, agents and MCP. An earlier draft, kept for reference | No |

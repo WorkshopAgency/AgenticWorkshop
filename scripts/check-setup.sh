@@ -83,7 +83,7 @@ module() {
       ;;
     05-safety)
       if [ -f .opencode/agents/safe-analyst.md ]; then ok "safe-analyst agent present"
-      else bad "safe-analyst agent missing" "are you on the dkb-2026 branch?"; fi
+      else bad "safe-analyst agent missing" "update your copy: git pull, or download the ZIP again"; fi
       ;;
     *) bad "unknown module '$1'" "choose one of: 00-rag 01-skills 02-agents 03-mcp 04-decide 05-safety" ;;
   esac
