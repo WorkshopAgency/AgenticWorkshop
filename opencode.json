@@ -7,7 +7,7 @@
   },
   "model": {
     "providerID": "dtu",
-    "model": "gptoss"
+    "model": "qwen36"
   },
   "providers": {
     "dtu": {
