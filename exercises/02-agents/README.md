@@ -2,11 +2,11 @@
 
 | | |
 |---|---|
-| **Time** | 45 min: 2a (10) · 2b (12) · 2c (23) |
+| **Time** | 45 min: 2a (10) · 2b (12) · 2c (10, plus discussion) |
 | **Model** | 2a: `opencode/big-pickle`, selected by you for both agents. 2b: your choice. 2c: the coordinator on Big Pickle; each specialist's own model is set in its file |
 | **Needs** | `scripts/check-setup.sh` passed. Nothing from other modules: 2b supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
-| **Done when** | 2a: `check_viewer.py` scored both viewers. 2b: your agent ran on one normal and one invalid input. 2c: you found one claim in `report.md` that `review.md` did not verify, or confirmed there is none |
+| **Done when** | 2a: `check_viewer.py` scored both viewers. 2b: your agent ran on one normal and one invalid input. 2c: you checked `report.md` against `review.md` and looked at the chart yourself |
 | **If stuck** | `/halp 02-agents <what you tried>` |
 
 Your outputs go under `outputs/02-agents/`.
@@ -24,7 +24,7 @@ and the same 20-step limit:
 
 ## 1. Run both (about 6 min)
 
-Start a new chat, select `bad-agent` (Tab in the terminal, the agent selector
+Start a new chat, select `bad-agent` (shift+tab in the terminal, the agent selector
 in Desktop) and send:
 
 > Create an interactive browser visualization of PDB 4HHB that I can use to
@@ -267,65 +267,63 @@ opened", "controls checked", and "scientific content verified" distinct.
 
 # Exercise 2c — A team of specialists
 
-One agent can do a task. A team splits a larger question into bounded jobs
-with explicit hand-offs: a coordinator and specialist subagents, not agents
-magically sharing memory or doing everything at once.
+One agent can do a task. A team splits it into bounded jobs with explicit
+hand-offs: a coordinator and specialist subagents, each with its own model,
+instructions and permissions. The five agents are already in
+[`.opencode/agents/`](../../.opencode/agents/). They have one small task:
 
-The five agents are already in [`.opencode/agents/`](../../.opencode/agents/).
-They have one task:
+> Which organism group has the largest median genome size, and does the
+> answer change if you keep only complete assemblies?
 
-> How do genome size and gene density differ across organism groups, and how
-> does restricting the analysis to complete assemblies change the conclusions?
+| Agent | Job | Writes | Model |
+|---|---|---|---|
+| [genome-coordinator](../../.opencode/agents/genome-coordinator.md) | Delegates, then writes the report | `report.md` | `opencode/big-pickle` |
+| [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks rows, groups, missing values and units | `audit.md` | `opencode/cat-jam-free` |
+| [genome-analyst](../../.opencode/agents/genome-analyst.md) | Computes the medians | `medians.csv` | `opencode/mimo-v2.6-flash-free` |
+| [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Draws one chart | `medians.svg` | `opencode/space-bunny-free` |
+| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/big-pickle` |
 
-| Agent | Job | Model |
-|---|---|---|
-| [genome-coordinator](../../.opencode/agents/genome-coordinator.md) | Delegates the work and writes the report | `opencode/big-pickle` |
-| [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks the data, units and missing values | `opencode/step-5-preview-free` |
-| [genome-analyst](../../.opencode/agents/genome-analyst.md) | Writes and runs the analysis | `opencode/mimo-v2.6-flash-free` |
-| [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Makes the plots | `opencode/space-bunny-free` |
-| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Checks the results and plots independently | `opencode/longcat-2.5-preview-free` |
+The coordinator starts the auditor and the analyst at the same time, then the
+visualizer and the reviewer. The reviewer runs on a different model from the
+analyst and does not trust its summary. All five are free external models:
+prompts, data and results leave DTU, and Big Pickle and MiMo may use them to
+improve their models. That is why the task uses public NCBI data.
 
-The reviewer runs on a different model from the analyst, so it is not
-checking its own work. All five are free external models: prompts, data and
-results leave DTU, and Big Pickle and MiMo may use them to improve their
-models. That is why the task uses public NCBI data.
+## Run it (about 4 min)
 
-## Run it
-
-Check that the five models are still offered:
+Check that the models are still offered:
 
 ```bash
 scripts/check-setup.sh --module 02-agents
 ```
 
-Start `opencode` in the workshop folder, start a new chat, press **Tab** until
-the agent is `genome-coordinator`, check the model is **Big Pickle**
-(`/models` if not), and send:
+Start `opencode` in the workshop folder, start a new chat, press
+**shift+tab** until the agent is `genome-coordinator`, check the model is
+**Big Pickle** (`/models` if not), and send:
 
-> Run the genome-size team task with all four specialist subagents. Save the
-> actual outputs in a new folder under outputs/genome-team/. Report failed or
-> untested steps.
+> Run the genome team task.
 
-You start one coordinator; it delegates to the other four in order: audit →
-analysis → plots → review → report. The specialists may write inside
-`outputs/genome-team/` without asking, but every shell command needs your
-approval. Do not use `--auto`: it approves the coordinator only, and the
-specialists then wait for an approval nobody sees.
+Each specialist writes one Python script in its run folder and runs it. The
+agents' permissions let them run exactly those scripts without asking; any
+other command still asks you. Do not use `--auto`.
 
-**Watch it in the sidebar.** Its **Agents** section lists every specialist as
+**Watch it in the sidebar.** Its **Agents** section lists each specialist as
 it starts, with its status (● running, ◆ needs approval, ✓ done, ✗ failed),
 model, time and the tool it is using. A ◆ means that specialist is waiting
 for *you*: a banner at the top of the section says so, and the prompt appears
 under the coordinator's conversation. Click a row to open that specialist's
 conversation.
 
-## What to inspect
+## What to inspect (about 5 min)
 
-When it finishes, open `report.md`, `plots.html`, `review.md` and
-`agent-run.md` in the new folder. Did each specialist run on its model? Can
-the reviewer reproduce the numbers without trusting the analyst's summary?
-Does the report admit what failed, or fill the gap with a guess? Find one
-claim in `report.md` that `review.md` did not check.
+Open the run folder under `outputs/genome-team/`. Read `report.md`, then
+check it against the specialists' own files rather than the summary:
+
+- Does `review.md` say PASS, and did the reviewer recompute every group?
+- Which conclusion rests on very few complete assemblies? Is that in the
+  report?
+- Open `medians.svg` in your browser. Nobody reviewed it but you: is the axis
+  logarithmic and labelled, is `n` shown, could someone misread it?
 
 If one of the models has gone, set that agent's `model:` to another free
 model and note it. More agents are not a guarantee of a better answer.
