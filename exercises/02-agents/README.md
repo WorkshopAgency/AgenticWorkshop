@@ -315,8 +315,9 @@ specialists then wait for an approval nobody sees.
 **Watch it in the sidebar.** Its **Agents** section lists every specialist as
 it starts, with its status (● running, ◆ needs approval, ✓ done, ✗ failed),
 model, time and the tool it is using. A ◆ means that specialist is waiting
-for *you*; the prompt also appears in the coordinator's view. Click a row to
-open that specialist's conversation.
+for *you*: a banner at the top of the section says so, and the prompt appears
+under the coordinator's conversation. Click a row to open that specialist's
+conversation.
 
 ## What to inspect
 
