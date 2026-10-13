@@ -1,31 +1,20 @@
-# Answer key (TEMPLATE)
+# Questions and answers
 
-Fill this in once the real corpus is chosen (see `CORPUS.md`). Chunk ids
-assume the default `chunk` settings (`--size 800 --overlap 150`). If you
-re-chunk with other settings, the ids change.
+The documents in `corpus/` are the nf-core/rnaseq 3.27.0 usage and output
+guides and the 2025–2026 changelog. Release 3.27.0 came out on 23 September
+2026.
 
-Types:
-- **answerable**: the answer is stated in one place.
-- **conflict**: two passages disagree, so a good answer names both and cites both.
-- **unanswerable**: the answer is not in the corpus; the correct reply is "not in the documents".
+Try the questions first; read the answers afterwards. The last column is a
+phrase you can `grep` for in `corpus/`.
 
-## Real corpus
+| # | Question | Answer | Where |
+|---|---|---|---|
+| 1 | When strandedness is set to `auto`, how does nf-core/rnaseq decide, and with which default thresholds? | It sub-samples each sample to 1 million reads, infers strandedness with Salmon, and uses `--stranded_threshold` 0.8 and `--unstranded_threshold` 0.1 | `usage.md`, `sub-sample the input FastQ files` |
+| 2 | Which tools does `--use_rustqc` replace, and which option can it not be combined with? | dupRadar, featureCounts biotype QC, RSeQC, Preseq, Qualimap and SAMtools stats/flagstat/idxstats. It cannot be combined with `--skip_markduplicates` | `usage.md`, `RustQC replaces`; `changelog-2025-2026.md`, `PR #1869` |
+| 3 | What is the default SortMeRNA database? | `smr_v4.3_fast_db`, a SILVA 138 and Rfam build of about 17 MB | `usage.md`, `smr_v4.3_fast_db` |
+| 4 | Which Salmon version does release 3.27.0 use, and what changed in quantification? | 2.7.0; it was 1.10.3 before. The changelog warns that the new version shifts gene-level quantification ("double-digit-percent TPM/FPKM swings") | `changelog-2025-2026.md`, `double-digit-percent` |
+| 5 | What is the minimum sequencing depth per sample that nf-core/rnaseq recommends? | Not in the documents | — |
 
-| # | Question | Expected answer | Source chunk(s) | Type |
-|---|---|---|---|---|
-| 1 | | | | answerable |
-| 2 | | | | answerable |
-| 3 | | | | conflict |
-| 4 | | | | unanswerable |
-
-## PLACEHOLDER corpus (for testing `rag.py` only)
-
-These rows match the invented Glimmerfen files in `corpus/`. Chunk ids were
-read from `chunks.jsonl` after running `chunk` with the default settings.
-
-| # | Question | Expected answer | Source chunk(s) | Type |
-|---|---|---|---|---|
-| P1 | How deep is each moss core? | 14 centimetres | c2 (2019), c4 (2024) | answerable |
-| P2 | How long are moss cores dried before weighing? | 48 hours since the 2024 edition; the 2019 edition said 36 hours | c2 (2019: 36 h), c4 (2024: 48 h) | conflict |
-| P3 | What is the minimum group size on the bog? | 3 people since 2024; 2 people in 2019 | c3 (2019), c5 (2024) | conflict |
-| P4 | Who funds the Glimmerfen Moss Station? | not in the documents | none | unanswerable |
+For question 4 the old and the new version sit side by side in one table
+row, so read carefully which is which. Question 5 has no answer in the
+documents.

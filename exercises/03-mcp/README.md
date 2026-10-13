@@ -55,9 +55,9 @@ it tell you how many rows it left out?
 > outputs/03-mcp/bill.svg. Write the SVG directly; do not install or import
 > any plotting package.
 
-Open the SVG in your browser. (Asking for SVG keeps this independent of what
-is installed on your laptop: in our test, an open-ended "make a plot" request
-spent minutes looking for matplotlib, DuckDB for Python and R.)
+Open the SVG in your browser. Asking for SVG keeps the plot independent of
+what is installed on your laptop; an open-ended "make a plot" can spend
+minutes looking for plotting libraries.
 
 Then ask:
 
@@ -80,9 +80,6 @@ Exercise 4 supplies its own examples.
   Adelie **+0.391**, Chinstrap **+0.654**, Gentoo **+0.643**. The sign flips:
   Simpson's paradox. One regression line across all penguins is a misleading
   plot even though every number in it is correct.
-
-These were recomputed from `exercises/03-mcp/data/byo/penguins.csv` on
-13 October 2026, both in plain Python and in DuckDB.
 </details>
 
 ## After the workshop

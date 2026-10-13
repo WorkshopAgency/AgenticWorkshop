@@ -37,9 +37,9 @@ Use **OpenCode on your laptop** to work on the exercises. The DTU models run
 on our server cluster; you do not need a cluster account, SSH, model downloads or
 server-start commands.
 
-Install from your terminal, **version 2.0.16**, the version this material was tested on:
-`npm install -g @opencode/cli@2.0.16`
-(or `opencode upgrade 2.0.16` if you already have v2).
+Install from your terminal: `npm install -g @opencode/cli`
+or for CLI: `curl -fsSL https://opencode.ai/v2/install | bash`.
+Use the latest version; if you already have v2, run `opencode upgrade`.
 > **This workshop has moved to OpenCode v2.** v2 ships as a different package,
 > `@opencode/cli`, so the old `curl -fsSL https://opencode.ai/install | bash`
 > installs v1 and will not match these materials. Install with
@@ -144,7 +144,7 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
    The terminal version (CLI) is preferred; OpenCode Desktop is also supported, however the CLI can function as
    a desktop version in a browser at no extra cost.
 2. For Linux and WSL2 Ubuntu, the command to install the OpenCode CLI (terminal) is<br>
-   `npm install -g @opencode/cli@2.0.16`
+   `npm install -g @opencode/cli`
 3. Get the conference version of the workshop, either with Git:
    `git clone https://github.com/peterwadsackett/AgenticWorkshop.git`
    or by [downloading the ZIP](https://github.com/peterwadsackett/AgenticWorkshop/archive/refs/heads/main.zip).
@@ -206,36 +206,32 @@ See [OpenCode project configuration](https://opencode.ai/v2/docs/config/#per-pro
 <details>
 <summary>Model list</summary>
 
-**Checked 13 October 2026, on OpenCode v2.0.16**, against the live list at
-`https://opencode.ai/zen/v1/models`. Free offers change without notice: since
-22 September, Ling 3.0, Nemotron 3 Ultra and DeepSeek V4 Flash have gone and
-several new models appeared. Your local `opencode models` list can still show
-models that are gone; `scripts/check-setup.sh --module 02-agents` checks the
-live list.
+The free models OpenCode offers at the time of writing. Free offers change
+without notice, and your local `opencode models` list can still show models
+that are gone; `scripts/check-setup.sh --module 02-agents` checks the live
+list.
 
 | Model ID | Notes |
 |---|---|
-| `opencode/big-pickle` | Exercise 2c coordinator; most reliable in our tests. Free-period data may be used to improve the model |
+| `opencode/big-pickle` | Exercise 2c coordinator. Free-period data may be used to improve the model |
 | `opencode/step-5-preview-free` | 2c auditor. Zero-retention provider. Preview: may disappear |
 | `opencode/mimo-v2.6-flash-free` | 2c analyst. Free-period data may be used to improve the model |
 | `opencode/space-bunny-free` | 2c visualizer. Zero-retention provider |
 | `opencode/longcat-2.5-preview-free` | 2c reviewer. Zero-retention provider. Preview: may disappear |
-| `opencode/cat-jam-free` | Fast; once called a tool that does not exist |
-| `opencode/ling-3.1-flash-free` | Slowest in our tests |
-| `opencode/nemotron-3.5-lightning-free` | Twice wrote a file outside the project in our tests |
+| `opencode/cat-jam-free` | |
+| `opencode/ling-3.1-flash-free` | |
+| `opencode/nemotron-3.5-lightning-free` | |
 | `opencode/muse-spark-1.2-contributor-free` ⚠️ | Contributor model, see below |
 | `opencode/muse-spark-1.3-contributor-free` ⚠️ | Contributor model, see below |
-
-The notes come from 72 test runs on 13 October
-([admin/model-bakeoff.md](admin/model-bakeoff.md)); they describe what we saw,
-not guarantees.
 
 **The two Muse Spark entries are contributor models.** A contributor model can
 train on what you submit to it. The word `contributor` is in the model ID but
 **not** in the name the selector shows you, which reads only "Muse Spark 1.2
 Free". If you want to avoid them, check the ID rather than the name.
 
-None of the agents in exercise 2c uses a contributor model, but two of them (Big Pickle and MiMo) may also use free-period data to improve the model, per [OpenCode's model page](https://opencode.ai/docs/zen/).
+None of the agents in exercise 2c uses a contributor model. Big Pickle and
+MiMo may still use free-period data to improve the model, according to
+[OpenCode's model page](https://opencode.ai/docs/zen/).
 
 Free does not mean private, and terms differ between offers. Use public
 exercise data with external models, and
@@ -289,12 +285,9 @@ Not every chat subscription includes third-party or API access; separate
 API usage may be billed. Keep personal keys out of this repository.
 See [supported providers and sign-in methods](https://opencode.ai/v2/docs/providers/).
 
-Changing the selected model changes the chat model. The supplied v2 settings
-`agents.title.model` and `agents.summary.model` still use DTU GPT-OSS for
-background tasks. For an entirely external setup, change both entries in
-your own copy to an available model, for example
-`"model": "opencode/big-pickle"`. The old v1 `small_model` setting is not used.
-This can send conversation content to that external provider too.
+Changing the selected model changes the chat model. Background tasks, such
+as naming the chat, use a small model from the same provider as your chat, so
+they do not send your conversation anywhere else.
 </details>
 
 ## Exercises overview

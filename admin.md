@@ -6,29 +6,25 @@ Operating notes for Peter and Dimitrios. For participant setup see the
 All paths below are `/home/local/workshop` on the compute nodes, not the
 repository on a laptop.
 
-## Conference edition (dkb-2026): what must be true before the day
+## Before the conference
 
-30 participants working individually, no break. Everything below is
-**not yet verified**. Tick it off with the date and who checked it.
+The conference session is 2.5 hours, 30 participants working alone, no break.
 
-| # | Requirement | Why | Check |
-|---|---|---|---|
-| 1 | `qwen36`, `qwen38`, `mistral`, `gptoss` answer (on 13 Oct all four returned 503, later no connection) | Every module | `scripts/check-setup.sh` from a laptop outside DTU |
-| 2 | A new **`embed`** route serving an embedding model (e.g. Qwen3-Embedding-0.6B) at `…/workshop/embed/embeddings` | Exercise 0 (RAG). Without it `rag.py` falls back to word matching | `scripts/check-setup.sh --module 00-rag` |
-| 3 | The gateway forwards **`logprobs` and `top_logprobs`** for `qwen36` and returns them (check `app/request_compat.py` does not strip them) | Exercise 4 has no fallback without it | `scripts/check-setup.sh --module 04-decide` |
-| 4 | The gateway forwards **`/embeddings`**, not only `/chat/completions` | Requirement 2 | as 2 |
-| 5 | Load test: 30 simultaneous sessions per block profile (qwen36 for skills and MCP; mistral and embed for RAG; 30 swarms mostly on free models; qwen36 one-token requests for Exercise 4), recording p50/p95 latency and 429/5xx | On 25 Sep the room broke the gateway in 15 minutes | `admin/loadtest.sh` (to be written), results in this file |
-| 6a | Decide the `agents.title` / `agents.summary` model in `opencode.json` (currently `dtu/gptoss`). On 13 Oct an offline DTU model produced **no error for 455 s**, it just hung, and one session title arrived ~5 min late. If DTU is down, compaction (the summary agent) may hang too (not tested) | Background tasks should not depend on one endpoint | Rehearsal with DTU deliberately unreachable |
-| 6b | **Free-model rate limit (high risk).** OpenCode publishes no limits. User reports: one counter shared by *all* free models, about 200 requests per long rolling window, a ~15–20 requests/minute burst cap, and lockouts of 8–27 h; keyed on IP plus device or account (an `ipRateLimiter` exists in their server code). 30 laptops behind one NAT may share one budget, and a swarm uses many requests. Paid balance reportedly does *not* lift it (open issue [#33318](https://github.com/anomalyco/opencode/issues/33318)). This laptop was locked out on 13 Oct | 2c and every free-model fallback | Email help@anoma.ly about a 30-seat event on one network; or fund a Console workspace with members and cheap paid models; test 2–3 laptops on the venue network |
-| 6 | Limits changed only from measured load, and **no gateway restart during the session** | A restart on 25 Sep left the room with no DTU models for 1–2 min | Runbook below |
-
-**Day-of runbook.** One organiser watches the gateway log and `/health` during
-the session; the other teaches. If DTU models fail, announce the free-model
-fallback (`/models` → a free OpenCode model) rather than restarting. An
-unreachable DTU model **hangs without an error**, so tell the room: no output
-for a minute means switch model. Exercise 0
-continues with `rag.py --lexical`; Exercise 4 has no fallback and moves to
-discussion.
+- **DTU models.** `qwen36`, `qwen38`, `mistral` and `gptoss` up, plus a new
+  `embed` route serving an embedding model at `…/workshop/embed/embeddings`
+  for Exercise 0. Without it `rag.py` falls back to word matching.
+- **Token probabilities.** The gateway must pass `logprobs` and
+  `top_logprobs` through for `qwen36` (check `app/request_compat.py`).
+  Exercise 4 does not work without them.
+  `scripts/check-setup.sh --module 04-decide` tests it.
+- **Load test** with 30 simultaneous sessions before the day. Raise limits
+  only from what it shows, and do not restart the gateway during the session.
+- **Free models.** OpenCode's free tier has unpublished rate limits that may
+  be shared by everyone on one network. The plan is an OpenRouter key per
+  participant, capped at $0.30, for the swarm in 2c; test it first.
+- **On the day**, one of us watches the gateway while the other teaches. If
+  DTU stops answering, tell the room to switch to a free model with `/models`;
+  a DTU model that cannot be reached hangs without an error message.
 
 ## Connect
 
