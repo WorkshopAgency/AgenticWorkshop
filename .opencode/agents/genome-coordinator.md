@@ -7,6 +7,9 @@ permissions:
 - action: edit
   resource: '*'
   effect: ask
+- action: edit
+  resource: outputs/genome-team/**
+  effect: allow
 - action: shell
   resource: '*'
   effect: ask

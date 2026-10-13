@@ -80,6 +80,19 @@ class ContextHelperTests(unittest.TestCase):
             self.assertNotEqual(self.run_helper(*args).returncode, 0)
             self.assertEqual(self.path.read_bytes(), before)
 
+    def test_models_come_from_the_configuration(self):
+        models = self.config['providers']['dtu']['models']
+        models['newmodel'] = {'limit': {'context': 16384, 'output': 4096}}
+        del models['gptoss']
+        self.path.write_text(json.dumps(self.config))
+        before = self.path.read_bytes()
+        shown = json.loads(self.run_helper().stdout)
+        self.assertEqual(set(shown['models']), {'mistral', 'qwen36', 'qwen38', 'newmodel'})
+        self.assertEqual(shown['no_verified_limit'], ['newmodel'])
+        for args in [('--model', 'newmodel', '--context', '8192'), ('--model', 'gptoss', '--context', '8192')]:
+            self.assertNotEqual(self.run_helper(*args).returncode, 0)
+            self.assertEqual(self.path.read_bytes(), before)
+
 
 if __name__ == '__main__':
     unittest.main()

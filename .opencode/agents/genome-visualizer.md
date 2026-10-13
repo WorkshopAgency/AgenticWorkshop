@@ -1,12 +1,15 @@
 ---
 description: Creates readable genome-size and gene-density plots from the analyst's summary.
 mode: subagent
-model: opencode/muse-spark-1.3-contributor-free
+model: opencode/space-bunny-free
 steps: 12
 permissions:
 - action: edit
   resource: '*'
   effect: ask
+- action: edit
+  resource: outputs/genome-team/**
+  effect: allow
 - action: shell
   resource: '*'
   effect: ask

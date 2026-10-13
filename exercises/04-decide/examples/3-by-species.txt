@@ -1,0 +1,8 @@
+A scatter plot from the Palmer penguins dataset. The x-axis is bill length
+(mm) and the y-axis is bill depth (mm). It shows the 342 penguins that have
+both measurements. Points are coloured by species, with a legend giving the
+number of penguins per species: Adelie (n = 151), Chinstrap (n = 68) and
+Gentoo (n = 123). A separate straight regression line is fitted for each
+species; all three slope upwards, with r = +0.39 (Adelie), +0.65 (Chinstrap)
+and +0.64 (Gentoo). The caption reads: "Within each species, penguins with
+longer bills have deeper bills. The species differ in average bill shape."

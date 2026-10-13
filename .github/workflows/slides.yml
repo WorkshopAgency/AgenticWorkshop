@@ -8,7 +8,7 @@ name: Build and publish slides
 
 on:
   push:
-    branches: [main]
+    branches: [main, dkb-2026]
     paths:
       - 'slides/**'
       - '.github/workflows/slides.yml'

@@ -1,12 +1,15 @@
 ---
 description: Audits the genome demonstration input, units, missingness and assembly categories.
 mode: subagent
-model: opencode/mimo-v2.6-flash-free
+model: opencode/step-5-preview-free
 steps: 12
 permissions:
 - action: edit
   resource: '*'
   effect: ask
+- action: edit
+  resource: outputs/genome-team/**
+  effect: allow
 - action: shell
   resource: '*'
   effect: ask

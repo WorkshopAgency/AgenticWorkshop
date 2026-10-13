@@ -72,7 +72,7 @@ file list needs no approval, so inspect thoroughly and show the user what you
 found before proposing anything. Pushing a branch, forking and opening a pull
 request each require approval, because each one makes the work public.
 
-Commit only inside `exercises/04-share/submissions/<name>/`. Never write to
+Commit only inside `_sectionday/exercises/04-share/submissions/<name>/`. Never write to
 another person's submission, and never change files elsewhere in the
 repository as a side effect of submitting.
 

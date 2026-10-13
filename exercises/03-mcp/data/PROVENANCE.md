@@ -32,7 +32,7 @@ Students do not need to run it.
 | `pdb_entries.parquet` | 259,693 | 5.0 MiB | The main table. Too large to check by reading. |
 | `pdb_entry_types.parquet` | 259,693 | 0.3 MiB | Molecule type and method class. Forces a join. |
 | `pdb_sample.csv` | 512 | 87 KiB | A sample small enough to check **by hand**. |
-| `pdb.duckdb` | — | 17 MiB | Build product, not shipped. Made by `../build/make_db.py`. |
+| `workshop.duckdb` | — | 18 MiB | Build product, not shipped. Made by `../scripts/make_db.py`; also holds `penguins` from `byo/penguins.csv`, loaded as shipped. |
 
 The CSV sample is deterministic, not random: it is every entry where
 `hash(pdb_id) % 520 = 0`. Rebuilding reproduces exactly the same 512 rows.

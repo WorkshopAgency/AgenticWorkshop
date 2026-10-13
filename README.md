@@ -1,22 +1,45 @@
 # Agentic Workshop
 
-Building and employing agents for data analysis and visualization.
+**Building and employing agents for data analysis and visualization**
+Danish bioinformatics conference, 2026 · 2 h 30 min, hands-on, individual work.
+Dimitrios S. Kanakoglou (dimkan@dtu.dk) · Peter Wad Sackett (pwsa@dtu.dk)
 
 OpenCode offers a changing selection of AI Large Language Models free of charge. We have also
-prepared **four locally hosted DTU LLM models** for this workshop. You can use
+prepared **four DTU-hosted LLM models** for this workshop. You can use
 either option, or connect your own supported subscriptions or API accounts.
 A paid subscription is not required to participate.
 
-[Download the workshop ZIP](https://github.com/peterwadsackett/AgenticWorkshop/archive/refs/heads/main.zip) ·
+[Download the workshop ZIP](https://github.com/peterwadsackett/AgenticWorkshop/archive/refs/heads/dkb-2026.zip) ·
 [Quick start](#quick-start--download-extract-and-open) ·
 [Exercises](#exercises)
+
+## Agenda
+
+Every module stands alone: you can start any of them from a fresh chat, skip
+one, or come back to it later. Each module's README starts with its time,
+model, needs, and a *Done when* check.
+
+| Time | Module | You'll learn |
+|---|---|---|
+| 0:00 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
+| 0:10 | Concepts (slides) | Model, harness, tool, skill, agent, MCP |
+| 0:20 | [Exercise 0 — RAG](exercises/00-rag/README.md) | Why retrieval stops a weak model inventing answers |
+| 0:35 | [Exercise 1 — Skills](exercises/01-skills/README.md) | Turn a repeated task into a tested skill |
+| 1:05 | [Exercise 2 — Agents](exercises/02-agents/README.md) | Instructions, permissions, and a team of agents |
+| 1:50 | [Exercise 3 — MCP](exercises/03-mcp/README.md) | Connect a database, then check its answers |
+| 2:00 | [Exercise 4 — Decision model](exercises/04-decide/README.md) | Typed decisions with probabilities instead of prose |
+| 2:10 | [Exercise 5 — Safety](exercises/05-safety/README.md) | Prompt injection, and what permissions do and don't stop |
+| 2:20 | Wrap-up | When to use an agent, and how to check one |
+
+The full-day versions of the exercises are kept in [_sectionday](_sectionday/README.md).
 
 Use **OpenCode on your laptop** to work on the exercises. The DTU models run
 on our server cluster; you do not need a cluster account, SSH, model downloads or
 server-start commands.
 
-Install from your terminal: `npm install -g @opencode/cli`
-or for CLI: `curl -fsSL https://opencode.ai/v2/install | bash`
+Install from your terminal, **version 2.0.16**, the version this material was tested on:
+`npm install -g @opencode/cli@2.0.16`
+(or `opencode upgrade 2.0.16` if you already have v2).
 > **This workshop has moved to OpenCode v2.** v2 ships as a different package,
 > `@opencode/cli`, so the old `curl -fsSL https://opencode.ai/install | bash`
 > installs v1 and will not match these materials. Install with
@@ -120,33 +143,29 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
    For this workshop, Windows users should install and run it inside WSL2.
    The terminal version (CLI) is preferred; OpenCode Desktop is also supported, however the CLI can function as
    a desktop version in a browser at no extra cost.
-2. For Linux and WSL2 Ubunbu (Linux) it is this command for install OpenCode CLI (terminal)<br>
-   `npm install -g @opencode/cli` 
-3. Open [the workshop repository](https://github.com/peterwadsackett/AgenticWorkshop)
-   and choose **Code → Download ZIP**.
-4. Extract the ZIP and move the extracted folder wherever you want to work.
-   Its default name is `AgenticWorkshop-main`. You can rename it if you prefer;
-   nothing here depends on the name. The text calls it the workshop root, and
-   every path you will type is relative to it.
+2. For Linux and WSL2 Ubuntu, the command to install the OpenCode CLI (terminal) is<br>
+   `npm install -g @opencode/cli@2.0.16`
+3. Get the conference version of the workshop, either with Git:
+   `git clone -b dkb-2026 https://github.com/peterwadsackett/AgenticWorkshop.git`
+   or by [downloading the ZIP](https://github.com/peterwadsackett/AgenticWorkshop/archive/refs/heads/dkb-2026.zip).
+4. Put the folder wherever you want to work. Its name does not matter;
+   the text calls it the workshop root, and every path you will type is
+   relative to it.
 5. In **OpenCode Desktop**, open that extracted folder as your project—the
    folder containing both `README.md` and `opencode.json`, not its parent.
    For the terminal version, run `opencode` from inside that folder, or
    `opencode serve` for the browser version.
-6. Start a new chat. Open the model selector and choose a model under **DTU**.
+6. In a terminal inside that folder, run `scripts/check-setup.sh`. Fix any ❌.
+7. Start a new chat. Open the model selector and choose a model under **DTU**.
    In the terminal version, type `/models`.
 
 **For the supplied DTU models, no JSON editing, manual merging, API key or
 Custom provider setup is needed.**
 
-Exercise 3 additionally needs [`uv`](https://docs.astral.sh/uv/) installed
+All modules need Python **3.10 or later** (`python3 --version`), with no
+additional Python packages. Exercise 3 also needs [`uv`](https://docs.astral.sh/uv/)
 (`curl -LsSf https://astral.sh/uv/install.sh | sh`, inside WSL2 on Windows).
-Sharing in Exercises 2c and 4 needs a GitHub account and Git, or GitHub's
-browser upload interface. [`gh`](https://cli.github.com/) is optional.
-Ask an organiser if you prefer to hand over your files without an account.
-
-Exercise **2c** also needs Python **3.10 or later** (`python3 --version`),
-with no additional Python packages. Team sharing needs GitHub access; a
-coordinator can download the reviewed files as a ZIP to run them locally.
+No GitHub account is needed during the workshop.
 
 Leave your existing global `opencode.jsonc`, `package.json` and
 `node_modules` alone. OpenCode combines the project configuration with your
@@ -187,29 +206,36 @@ See [OpenCode project configuration](https://opencode.ai/v2/docs/config/#per-pro
 <details>
 <summary>Model list</summary>
 
-**Checked 22 September 2026, on OpenCode v2.** Every zero-priced model
-OpenCode offers, as `opencode models` lists them. Free offers change without
-notice: in one week DeepSeek V4 Flash Free dropped off the live list and MiMo
-went from v2.5 to v2.6. Run `opencode models` if a name here does not match.
+**Checked 13 October 2026, on OpenCode v2.0.16**, against the live list at
+`https://opencode.ai/zen/v1/models`. Free offers change without notice: since
+22 September, Ling 3.0, Nemotron 3 Ultra and DeepSeek V4 Flash have gone and
+several new models appeared. Your local `opencode models` list can still show
+models that are gone; `scripts/check-setup.sh --module 02-agents` checks the
+live list.
 
-| Model, as the selector shows it | Model ID | Context |
-|---|---|---:|
-| Big Pickle | `opencode/big-pickle` | 200,000 |
-| Ling 3.0 Flash Fin Free | `opencode/ling-3.0-flash-fin-free` | 262,144 |
-| MiMo-V2.6-Flash Free | `opencode/mimo-v2.6-flash-free` | 200,000 |
-| Nemotron 3 Ultra Free — returned 404 in the 23 September retry; choose another model if unavailable | `opencode/nemotron-3-ultra-free` | 1,000,000 |
-| Nemotron 3.5 Lightning Free | `opencode/nemotron-3.5-lightning-free` | 262,144 |
-| Muse Spark 1.2 Free ⚠️ | `opencode/muse-spark-1.2-contributor-free` | 1,048,576 |
-| Muse Spark 1.3 Free ⚠️ | `opencode/muse-spark-1.3-contributor-free` | 1,048,576 |
+| Model ID | Notes |
+|---|---|
+| `opencode/big-pickle` | Exercise 2c coordinator; most reliable in our tests. Free-period data may be used to improve the model |
+| `opencode/step-5-preview-free` | 2c auditor. Zero-retention provider. Preview: may disappear |
+| `opencode/mimo-v2.6-flash-free` | 2c analyst. Free-period data may be used to improve the model |
+| `opencode/space-bunny-free` | 2c visualizer. Zero-retention provider |
+| `opencode/longcat-2.5-preview-free` | 2c reviewer. Zero-retention provider. Preview: may disappear |
+| `opencode/cat-jam-free` | Fast; once called a tool that does not exist |
+| `opencode/ling-3.1-flash-free` | Slowest in our tests |
+| `opencode/nemotron-3.5-lightning-free` | Twice wrote a file outside the project in our tests |
+| `opencode/muse-spark-1.2-contributor-free` ⚠️ | Contributor model, see below |
+| `opencode/muse-spark-1.3-contributor-free` ⚠️ | Contributor model, see below |
 
-All seven are priced at zero for input and output in the model catalogue.
+The notes come from 72 test runs on 13 October
+([admin/model-bakeoff.md](admin/model-bakeoff.md)); they describe what we saw,
+not guarantees.
 
 **The two Muse Spark entries are contributor models.** A contributor model can
 train on what you submit to it. The word `contributor` is in the model ID but
 **not** in the name the selector shows you, which reads only "Muse Spark 1.2
 Free". If you want to avoid them, check the ID rather than the name.
 
-The five agents in exercise 2c run on the other five models for that reason.
+None of the agents in exercise 2c uses a contributor model, but two of them (Big Pickle and MiMo) may also use free-period data to improve the model, per [OpenCode's model page](https://opencode.ai/docs/zen/).
 
 Free does not mean private, and terms differ between offers. Use public
 exercise data with external models, and
@@ -219,39 +245,6 @@ send nothing confidential or personal. See
 Sources: [live model list](https://opencode.ai/zen/v1/models),
 [model catalogue](https://models.dev/api.json),
 [Zen pricing](https://opencode.ai/docs/zen/#pricing).
-</details>
-
-### Jev, and why it is not in that table
-<details>
-<summary>A free model you will not find in the model selector</summary>
-
-`jev-1.13-free` appears in OpenCode's live model list, so it is reasonable to
-go looking for it. It will not be in your model selector, and `opencode models`
-does not list it. That is not a bug.
-
-**Jev is not a language model.** It is what TypeSafe AI call a *System One*
-model, released 15 September 2026. It does not generate text. You give it a
-state and a set of typed questions, and it returns values with probabilities:
-yes/no, multiple choice, or a rubric score. The output is meant to be consumed
-by your code as data, not read as prose.
-
-It also uses a different endpoint, `https://opencode.ai/zen/v1/systemone`,
-rather than the chat completions endpoint every model in the table above uses.
-That is why OpenCode cannot offer it as a chat model, and why none of the
-workshop exercises can run on it.
-
-`jev-1.13` is priced at $0.042 per million input tokens with free output;
-`jev-1.13-free` is free during a limited-time beta. TypeSafe AI claim up to
-200x faster inference and 400x lower cost than comparable LLMs on
-classification tasks. That is a vendor claim and we have not tested it.
-
-Worth knowing about, because the shape of it is the interesting part: a
-classifier with a typed interface is often the right tool for a decision you
-are currently asking a chat model to make in prose and then parsing back out.
-Not something you can select for these exercises.
-
-Sources: [OpenCode Zen](https://opencode.ai/docs/zen/),
-[live model list](https://opencode.ai/zen/v1/models).
 </details>
 
 ### Show free models if they are hidden
@@ -325,9 +318,10 @@ This is the structure of the extracted folder. Everything you will be asked to
 run or open is a path relative to this root, so the folder's own name does not
 matter.
 ```text
-AgenticWorkshop-main/
+AgenticWorkshop/
    opencode.json                Model connections, limits, permissions, MCP servers
    admin.md                     Server notes for the organisers
+   scripts/check-setup.sh       Is this laptop ready? (--module <name> for one module)
    .opencode/                   What OpenCode loads: agents and skills
       agents/
          HALp.md                Hidden hint helper, invoked with /halp
@@ -338,7 +332,10 @@ AgenticWorkshop-main/
          genome-analyst.md      Writes and runs the analysis
          genome-visualizer.md   Makes the plots
          genome-reviewer.md     Independently rechecks the results
-         submit-agent.md        Git-scoped agent, Exercise 4
+         safe-analyst.md        Locked-down data agent, Exercise 5
+         submit-agent.md        Git-scoped agent, _sectionday exercise 4
+      plugins/
+         sidebar-plus/          Live sidebar: running agents, approvals, context. /sidebar to change
       commands/
          halp.md                The /halp command
       scripts/
@@ -346,18 +343,20 @@ AgenticWorkshop-main/
       skills/
          skill-builder/         A subfolder INSIDE skills
             SKILL.md            The skill-builder instructions
-         submit-work/           A second skill, Exercise 4
+         submit-work/           A second skill, _sectionday exercise 4
             SKILL.md            The submit-work instructions
    exercises/
+      00-rag/                   Retrieval-augmented generation, every stage visible
       01-skills/
       02-agents/
-         team-01/ ... team-10/  Your team's working folder for Exercise 2c
+         starter/csv-profile/   A ready-made skill for Exercise 2b
       03-mcp/
          data/                  The PDB snapshot, and byo/ for three other datasets
-         scripts/               Rebuild the datasets and the DuckDB databases
-      04-share/
-         submissions/
-            team-01/ ... team-10/   Where a team publishes its reviewed agents
+         scripts/               Build the DuckDB database
+      04-decide/                A typed decision model built on token probabilities
+      05-safety/                A data file with a planted instruction
+   _sectionday/                 The full-day exercises (25 Sep), kept for after the workshop
+   outputs/                     Where your results go, one folder per module (not in Git)
    mcp/                         Notes on the four MCP servers this project configures
    slides/                      The concepts deck, published from Markdown
 ```
@@ -374,10 +373,9 @@ Each additional skill gets its own subfolder and `SKILL.md`. Agent definitions
 are Markdown files directly inside `.opencode/agents/`. A `.gitkeep` file in
 an otherwise empty folder is only a Git/ZIP placeholder, not an agent or skill.
 
-The `team-NN/` folders under `exercises/02-agents/` are working areas, not
-loaded by OpenCode. Agents only take effect once you copy them into
-`.opencode/agents/`. The matching folders under `exercises/04-share/submissions/`
-are for publishing a reviewed copy, which is a separate step.
+Files inside `exercises/` are not loaded by OpenCode. An agent or skill only
+takes effect once it is in `.opencode/agents/` or `.opencode/skills/`, which
+is why Exercise 2b asks you to copy its starter skill there.
 
 The leading dot may hide `.opencode` in your file browser, but OpenCode can
 still read it. Do not rename it, move it out of the project, or put
@@ -396,11 +394,15 @@ and [skills](https://opencode.ai/v2/docs/skills/).
 </details>
 
 ### Exercises
+- **Exercise 0** — [RAG](exercises/00-rag/README.md).
 - **Exercise 1** — [Skills](exercises/01-skills/README.md).
 - **Exercise 2** — [Agents](exercises/02-agents/README.md).
-- **Exercise 3** — [MCP and data analysis](exercises/03-mcp/README.md).
-- **Exercise 4** — [Share what you built](exercises/04-share/README.md).
-- **Bonus** — [Plugins, and finding bugs](exercises/05-bonus/README.md). Optional, any time.
+- **Exercise 3** — [MCP](exercises/03-mcp/README.md).
+- **Exercise 4** — [Decision model](exercises/04-decide/README.md).
+- **Exercise 5** — [Safety](exercises/05-safety/README.md).
+- **After the workshop** — [_sectionday](_sectionday/README.md): the full-day
+  versions, with more skills, your own swarm, the full MCP set, sharing via
+  GitHub, plugins and a bug hunt.
 
 ## Manual connection reference — optional
 

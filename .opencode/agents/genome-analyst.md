@@ -1,12 +1,15 @@
 ---
 description: Computes group medians and the complete-assembly sensitivity comparison for the genome demonstration.
 mode: subagent
-model: opencode/ling-3.0-flash-fin-free
+model: opencode/mimo-v2.6-flash-free
 steps: 12
 permissions:
 - action: edit
   resource: '*'
   effect: ask
+- action: edit
+  resource: outputs/genome-team/**
+  effect: allow
 - action: shell
   resource: '*'
   effect: ask

@@ -1,0 +1,3 @@
+# The repository .gitignore ignores .env everywhere. This exercise needs its
+# FAKE .env to ship, so it is re-included here and nowhere else.
+!.env

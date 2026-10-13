@@ -1,4 +1,15 @@
-# Preface to Skills Exercises
+# Exercise 1 — Skills
+
+| | |
+|---|---|
+| **Time** | 30 min: 1a (12) · 1e (3) · 1f (15) |
+| **Model** | `dtu/qwen36` (default). Any chat model works |
+| **Needs** | `scripts/check-setup.sh` passed. Nothing from other modules |
+| **You'll learn** | Turn a repeated task into a skill: describe → discuss → build → test → improve |
+| **Done when** | `/skills` lists your two skills, and each has passed one normal, one invalid and one different input that *you* checked |
+| **If stuck** | `/halp 01-skills <what you tried>` |
+
+## Before you start
 Create a skill through conversation, improve it after testing, and reuse it
 on another input. The examples below use protein structures, but the same
 process applies to other data-analysis tasks.
@@ -43,7 +54,9 @@ You can write "Build it", "Proceed", "Implement" or any words to that effect - o
 > .opencode/skills/pdb-download/SKILL.md. Keep supporting files in that
 > skill's folder and ask before overwriting existing work.
 
-The standard action after skill creation is to exit and reopen OpenCode, which makes it discover the new skill. Try it:
+OpenCode discovers skills when it loads the project. Type `/skills` in the
+chat. If the new skill is missing, run `opencode reload` in a terminal from
+the workshop folder, or exit and reopen OpenCode. Then try it:
 
 The simple
 
@@ -51,7 +64,7 @@ The simple
 
 will successfully download the entry in the main workshop folder. If dissatisfied with that, be precise
 
-> Use the pdb-download skill to download 4HHB into outputs/skills/pdb.
+> Use the pdb-download skill to download 4HHB into outputs/01-skills/pdb.
 
 Inspect the saved file. A successful HTTP request alone does not tell you
 whether the response is the expected structure file rather than an error page.
@@ -67,94 +80,16 @@ Return to **Plan** and improve the skill:
 
 Approve the changes in **Build**, then test again. Try a different valid ID
 and an invalid input.<br>
-You can also create a text file containing several IDs
-and ask the skill to download those entries.
+A list of several IDs is supplied in
+[`pdb_to_download.txt`](pdb_to_download.txt). One of them is deliberately invalid:
 
-> Download the pdb entries mentioned in the file pdb_to_download.txt
+> Use the pdb-download skill to download the entries listed in
+> exercises/01-skills/pdb_to_download.txt into outputs/01-skills/pdb.
 
 **What to notice:** Useful checks emerge from discussing and testing the task.
 A locally computed hash is a file fingerprint, not proof that it matches the
 source. Keep unrelated tasks in separate skills rather than growing one skill
 to cover everything.
-
-# Exercise 1b — Download an existing structure image
-
-Start another conversation in **Plan**:
-
-> Create a project skill that downloads an existing rendered image of a
-> PDB entry from its repository. This should retrieve an image, not render
-> new atomic coordinates. Discuss the source, output format, and how to
-> handle a missing image before building it.
-
-Once you agree on the behavior, switch to **Build** and implement it. Try
-4HHB, open the downloaded image, and check that it shows the requested entry.
-Ask the skill to record the source URL and explain what view it retrieved.
-Test how it handles an entry with no available image instead of silently
-substituting another image.
-
-**What to notice:** Downloading someone else's rendering and generating a
-new rendering are different tasks. The skill description should make that clear.
-
-# Exercise 1c — Locate and copy a skill
-
-Open the skill files you created. Project and global locations are:
-
-```text
-<project>/.opencode/skills/<skill-name>/SKILL.md
-~/.config/opencode/skills/<skill-name>/SKILL.md
-```
-
-Each skill has its own subfolder. The `SKILL.md` starts with a YAML header
-containing `name` and `description`, followed by Markdown instructions.
-The name should match its folder. Supporting scripts or references travel
-with the folder; copying only `SKILL.md` can leave a skill incomplete.
-
-Project skills belong to that project. Global skills are available across
-your projects. Start locally for these exercises, and promote a skill to
-the global location only when you want that wider availability.
-
-In **Plan**, ask:
-
-> Design a skill that copies an existing skill from this project into
-> another project, or into my global skills folder when I explicitly ask.
-> Copy the whole skill folder, preserve the original, and ask before
-> overwriting a destination. Show me the source and destination first.
-
-Review the proposal, build it, and test a copy in a second project. Check
-that the original remains intact and that OpenCode discovers the copied skill.
-Access outside the current project may require approval. Do not share embedded
-credentials or private example data with a copied skill.
-
-To request a skill unambiguously, say **"Use the pdb-download skill to…"**.
-For a loading check, type `/skills` in the chat. It lists discovered skills,
-but does not prove they work.
-
-# Exercise 1d — Render a structure from coordinates
-
-This time, create an image rather than downloading an existing one. In **Plan**:
-
-> Create a project skill to render a protein backbone from the atomic
-> coordinates in a PDB file. Discuss the rendering approach and dependencies
-> with me before implementing it.
-
-Discuss whether the output should be a static PNG or an interactive HTML
-viewer. What would a molecular viewer provide? Would Python and Matplotlib
-be sufficient? For a browser-based result, can it work with the software
-already on your laptop? Do not approve an installation without understanding
-why it is needed.
-
-Build the agreed version and try it on the downloaded structure. Compare
-with the repository image, accounting for different orientations, selected
-chains, or assemblies. Check chain breaks, colors, labels, and whether the
-backbone comes from the actual coordinates. For an interactive result, open
-it and test the controls.
-
-**What to notice:** producing an image is not the same as producing a useful
-or scientifically faithful image. Improve the skill based on the problems
-you can observe, then try another structure.
-
-OpenCode reference: [skill locations and file format](https://opencode.ai/v2/docs/skills/),
-and [Plan and Build agents](https://opencode.ai/v2/docs/agents/).
 
 # Exercise 1e — A skill that helps make skills
 
@@ -165,29 +100,55 @@ a separate agent or a newly trained model.
 
 Example request in OpenCode **Plan** mode:
 
-> Use skill-builder to review the skill I just created. Explain which
+> Use skill-builder to review the pdb-download skill. Explain which
 > instructions are useful, what is missing, and how we could test it.
 > Propose changes before implementing them.
 
 Finalize the improved skill in the usual way, if there is anything to improve.
 
-# Exercise 1f — Make and test your own skill
+# Exercise 1f — Make and test your own data-analysis skill
 
-Choose a small task you want to repeat. Use skill-builder to define its
-inputs, outputs, and checks. Review the proposal before switching to Build
-mode and authorizing implementation.
+Build a skill for a task every analysis starts with: **profiling a table
+before trusting it**. The suggested skill is `csv-profile`. It reports row and
+column counts, column types, missing values per column (including text
+markers such as `NA`), units where the provenance states them, and counts
+per group for a named column. You may choose another small task you repeat
+in your own work instead.
+
+Start in **Plan** mode:
+
+> Use skill-builder to design a project skill called csv-profile that
+> profiles a CSV or CSV.GZ file before analysis: rows, columns, types,
+> missing values (including text markers such as NA), and counts per
+> group for a column I name. It must use only what is on my laptop and
+> write its report to outputs/01-skills/. Ask me about choices first.
+
+Review the proposal before switching to Build mode and authorizing
+implementation. Then test it on three inputs:
+
+| Test | Input | What a correct skill does |
+|---|---|---|
+| Normal | `exercises/03-mcp/data/byo/uniprot_human_proteins.csv.gz`, grouped by `protein_existence` | Reports counts you can confirm yourself |
+| Invalid | a file name that does not exist | Says so; invents no profile |
+| Different | `exercises/03-mcp/data/byo/penguins.csv`, grouped by `species` | Finds the `NA` markers: 2 rows with no measurements; 11 rows without `sex` (those 2 plus 9 measured ones) |
+
+The data provenance is in
+[`PROVENANCE.md`](../03-mcp/data/byo/PROVENANCE.md).
 
 The skill belongs in `.opencode/skills/<skill-name>/SKILL.md`. Give each skill
 its own subfolder. Add scripts, references, or assets only when they help.
 
-Test one successful request, one invalid or incomplete input, and a different
-valid input. Inspect the outputs yourself. Record what passed and what you
-have not tested, then revise the skill in response to actual failures.
+Inspect the outputs yourself. Record what passed and what you have not
+tested, then revise the skill in response to actual failures. Exercise 2b
+uses a profiling skill; it supplies its own copy, so you do not need to
+finish this one first.
 
 # Epilogue
 Read the `SKILL.md` file with a text editor to see what the skill contains.
 You can add/modify instructions directly yourself if you prefer to do it without the AI.
 This can be done both at very simple and very complex levels.<br>
 Source: [https://www.skillsdirectory.com/docs/skill-md-format](https://www.skillsdirectory.com/docs/skill-md-format)
+
+More skills exercises (1b–1d) are in the [full-day version](../../_sectionday/exercises/01-skills/README.md#exercise-1b--download-an-existing-structure-image).
 
 Next: [Exercise 2 — Agents](../02-agents/README.md).
