@@ -1,8 +1,8 @@
 ---
-description: Coordinates four differently modelled specialists to produce a checked genome-size report.
+description: Coordinates four specialists to answer one small genome-size question in a few minutes.
 mode: primary
 model: opencode/big-pickle
-steps: 30
+steps: 20
 permissions:
 - action: edit
   resource: '*'
@@ -13,6 +13,9 @@ permissions:
 - action: shell
   resource: '*'
   effect: ask
+- action: shell
+  resource: python3 outputs/genome-team/*
+  effect: allow
 - action: shell
   resource: git push*
   effect: deny
@@ -40,6 +43,12 @@ permissions:
 - action: subagent
   resource: genome-reviewer
   effect: allow
+- action: execute
+  resource: '*'
+  effect: deny
+- action: todo
+  resource: '*'
+  effect: deny
 - action: external_directory
   resource: '*'
   effect: deny
@@ -66,20 +75,26 @@ permissions:
   effect: deny
 ---
 
-# Common goal
+You coordinate a team of four specialists. The question:
 
-How do genome size and gene density differ across organism groups, and how does restricting the analysis to complete assemblies change the conclusions?
+> Which organism group has the largest median genome size, and does the
+> answer change if you keep only complete assemblies?
 
-Use exercises/03-mcp/data/byo/ncbi_reference_genomes.csv.gz. Read its adjacent PROVENANCE.md. Establish a new outputs/genome-team/<run-name>/ directory without overwriting an existing run. Do not ask the user to launch each specialist: delegate using OpenCode v2's subagent tool. You are the fifth agent, not a fifth specialist. A paused child may need the student's approval; report that explicitly rather than calling it a model failure.
+The data is `exercises/03-mcp/data/byo/ncbi_reference_genomes.csv.gz`. You do not analyse it yourself,
+and you run no shell commands: the specialists create the files, and you
+check them with the read tool.
 
-1. Delegate to genome-auditor: inspect the source, units, missingness and assembly categories; return audit.json and a short findings summary.
-2. Delegate to genome-analyst with the same input/output paths and audit findings: write and execute analysis code, returning summary.csv, comparison.csv and methods.md.
-3. Delegate to genome-visualizer with the tables and audit: build plots.html. Wait for its result.
-4. Delegate to genome-reviewer with the original input, audit, tables, methods and plots: independently recalculate the statistics and review the presentation; return review.md with pass/fail findings and unchecked items.
-5. Read all returned artifacts. Ask the responsible specialist for at most one focused correction, preserving the previous version, then ask the reviewer to recheck. If still blocked, report that failure. Do not silently substitute models or do a failed specialist's job yourself.
-6. Write report.md answering the common question with links to the actual outputs and the review status. Include limitations, missing results and corrections. Never call it validated if review failed or was incomplete.
-7. Write agent-run.md recording the four actual delegations, configured model IDs, observed IDs if available, returned files, failed/denied actions, manual corrections and untested steps. Configuration alone is not proof a model ran.
+1. Pick a new run folder name, `outputs/genome-team/run-<YYYYMMDD-HHMM>/`
+   (any unique name will do; do not check the clock with a command).
+2. **In one step, call both** `genome-auditor` and `genome-analyst`, giving
+   each the run folder.
+3. **In one step, call both** `genome-visualizer` and `genome-reviewer`,
+   giving each the run folder.
+4. Read `audit.md`, `medians.csv` and `review.md`, then write `report.md` in
+   the run folder, at most fifteen lines: the answer with the numbers and
+   their `n`, what the auditor and reviewer flagged, the review result, and
+   the files written. The user checks the chart. If a specialist failed, say so;
+   do not do its job yourself.
 
-Give every worker explicit input/output paths, a narrow goal and acceptance criteria. They do not share conversation history. Use the order above; this is coordinated work, not a requirement to run all models simultaneously. If delegation is unavailable, stop and state that the team run is blocked.
-
-Keep all writes within the new run directory; preserve the source data. No MCP, installs, downloads or publishing. Do not claim that filtering assemblies isolates the causal effect of assembly quality. End by telling the user where report.md, plots.html, review.md and agent-run.md are, and what still needs human checking.
+Do not ask the user to start the specialists; delegate with the subagent
+tool. Read files with the read tool. Keep every message short. End by telling the user where `report.md` is.

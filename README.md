@@ -213,12 +213,12 @@ list.
 
 | Model ID | Notes |
 |---|---|
-| `opencode/big-pickle` | Exercise 2c coordinator. Free-period data may be used to improve the model |
-| `opencode/step-5-preview-free` | 2c auditor. Zero-retention provider. Preview: may disappear |
+| `opencode/big-pickle` | 2c coordinator and reviewer. Free-period data may be used to improve the model |
+| `opencode/step-5-preview-free` | Zero-retention provider. Preview: may disappear |
 | `opencode/mimo-v2.6-flash-free` | 2c analyst. Free-period data may be used to improve the model |
 | `opencode/space-bunny-free` | 2c visualizer. Zero-retention provider |
-| `opencode/longcat-2.5-preview-free` | 2c reviewer. Zero-retention provider. Preview: may disappear |
-| `opencode/cat-jam-free` | |
+| `opencode/longcat-2.5-preview-free` | Zero-retention provider. Preview: may disappear |
+| `opencode/cat-jam-free` | 2c auditor |
 | `opencode/ling-3.1-flash-free` | |
 | `opencode/nemotron-3.5-lightning-free` | |
 | `opencode/muse-spark-1.2-contributor-free` ⚠️ | Contributor model, see below |

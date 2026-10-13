@@ -53,7 +53,7 @@ the prompts.
 
 ## 2. Repeat with `safe-analyst` (3 min)
 
-Start another new chat, press **Tab** to choose `safe-analyst`, keep the same
+Start another new chat, press **shift+tab** to choose `safe-analyst`, keep the same
 model, and send the same request. Compare the two runs: tools called,
 prompts shown, what each told you.
 
