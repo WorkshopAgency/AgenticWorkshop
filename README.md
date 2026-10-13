@@ -329,7 +329,7 @@ AgenticWorkshop/
          safe-analyst.md        Locked-down data agent, Exercise 5
          submit-agent.md        Git-scoped agent, _sectionday exercise 4
       plugins/
-         sidebar-plus/          Live sidebar: running agents, approvals, context. /sidebar to change
+         sidebar-plus/          Live sidebar: running agents, approvals, context. ⚙ Options or /sidebar to change
       commands/
          halp.md                The /halp command
       scripts/

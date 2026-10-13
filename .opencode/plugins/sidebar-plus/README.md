@@ -5,7 +5,9 @@ every sub-agent your agent has delegated to and which of them is waiting for
 you, how full the context window is, the agent's to-do list, and what it is doing
 right now, without scrolling the transcript.
 
-Use `/sidebar` to choose what appears and `/details` to inspect a run.
+Three buttons sit at the foot of the sidebar: **▶ Run** runs a command, **≡ Details**
+opens a timeline and per-agent totals for the run, and **⚙ Options** (also
+`/sidebar`) chooses what appears.
 
 <img src="docs/sidebar-example.png" width="364" alt="Sidebar Plus during a five-agent run: two sub-agents wait for the user, one is done, one failed">
 
@@ -13,7 +15,7 @@ Use `/sidebar` to choose what appears and `/details` to inspect a run.
 default theme). Two specialists wait for the user: one for a shell approval,
 one for an answer to a question.*
 
-[Install](#install) · [Agents](#agents) · [Other sections](#other-sections) · [Alerts](#alerts) · [Turning things on and off](#turning-things-on-and-off) · [Options](#options)
+[Install](#install) · [Agents](#agents) · [Other sections](#other-sections) · [Buttons](#buttons) · [Alerts](#alerts) · [Turning things on and off](#turning-things-on-and-off) · [Options](#options)
 
 ## Compatibility
 
@@ -76,7 +78,10 @@ the folder in `cli.json` instead:
 
 **Narrow terminals.** OpenCode shows the sidebar on its own from 121 columns. On
 a narrower terminal press `ctrl+x b` (or "Show sidebar" in the command palette)
-to bring it up; it keeps its fixed 42-column width.
+to bring it up; it keeps its fixed 42-column width. While the sidebar is hidden,
+the prompt footer says `sidebar hidden · ctrl+x b` (click it to bring the sidebar
+back), and a sub-agent waiting for you is named just above the prompt. OpenCode's
+start screen has no sidebar; a line there says it appears after the first message.
 
 ## Agents
 
@@ -136,22 +141,57 @@ The plugin observes delegation; it does not create or coordinate agents.
 | **Agent activity** | Running or ready and for how long; the last few tool calls with a live timer on the current one; tool count and failures; retries; the last error; and a **loop warning** when the model keeps calling the same tool on the same target. |
 | **Terminal commands** | Commands the agent ran and background shells, with live timers, exit codes and durations. |
 | **Files** | Files written, edited or patched in this session, and the git branch. |
-| **Details panel** | `/details` (or the `› Run details` line) opens a full-width panel with context growth, a per-turn table and the last 40 tool calls. |
+| **Details panel** | **≡ Details** opens a full-width panel: a timeline with one lane per agent on a shared time axis, a per-agent table (model, state, time, tokens, cost, tools, failures, commands, with totals), context growth, a per-turn table and the last 40 tool calls. `esc` closes it. |
 
-Sections with nothing to show are hidden. Click a heading (`▼` / `▶`) to
+Sections with nothing to show are hidden. Terminal commands, off in the Minimal
+and Agents presets, also shows once you start a background command with **▶ Run**. Click a heading (`▼` / `▶`) to
 collapse or expand it; this is remembered. Colours come from your theme.
 
 Task lists are what the agent reports, not proof of completion. Loop and
 truncation warnings are heuristics. Files lists recorded tool operations, not
 every file a shell command touched.
 
+## Buttons
+
+The foot of the sidebar holds three buttons, in every preset:
+
+- **▶ Run** asks for a command, then where to run it. **In chat** works like `!`
+  in the prompt: the output goes into the conversation, so the agent can read it.
+  **In background** runs it on its own; it shows under Terminal commands with a
+  live timer and its exit code. The last choice is remembered.
+- Clicking a finished command under Terminal commands offers **Run again** (in
+  chat or in background) or **Edit, then run…**. Nothing runs on the click itself.
+- **≡ Details** opens the details panel.
+- **⚙ Options** opens the same menu as `/sidebar`: Run a command, Session details
+  and Save run report first, so everything stays reachable while the sidebar is
+  hidden; then the presets, every switch, sidebar sound, run reports, and reset.
+
+Section headings, agent rows, the waiting banner, delegations under Agent activity
+and finished commands are clickable too. In terminals that support pointer shapes
+(OSC 22: iTerm2 3.5+, kitty, Ghostty, foot, xterm) the pointer is an arrow over
+OpenCode and a hand over anything clickable in the sidebar; the terminal's own
+pointer comes back when OpenCode exits.
+
+**Run reports** (off by default; turn on under ⚙ Options, or `"report": true`).
+**↓ Save report** in the details panel, or "Save run report" in the menu, writes a
+Markdown summary of the run (timeline, per-agent table, every command with the
+agent that ran it, files changed) to `reports/<title>-<date>-<time>.md` in the
+session folder, or a path you type.
+
 ## Alerts
 
 OpenCode already notifies when a session finishes or fails, plays its own
-sounds for sub-agents, and toasts a failed sub-agent. The plugin adds toasts for
-what is not covered:
+sounds for sub-agents, and toasts a failed sub-agent. The plugin adds alerts for
+what is not covered. They appear in a strip at the top of the sidebar, newest
+first, at most three, one line each, instead of pop-ups over it: a click opens
+the session an alert is about, `×` dismisses it, and lines fade after a minute
+(warnings and errors after two). Repeats merge into one line, so five sub-agents
+finishing read `✓ 5 agents finished`. While the sidebar is hidden, or with
+"Alerts in sidebar" switched off under ⚙ Options, they pop up instead, one at a
+time and merged the same way. OpenCode's own pop-ups are outside the plugin's
+reach.
 
-- a sub-agent **needs approval** or **has a question** (at most one toast per
+- a sub-agent **needs approval** or **has a question** (at most one alert per
   agent per 30 seconds; the banner stays up for as long as anything waits),
 - a sub-agent finished or was interrupted,
 - a command ran longer than `shellNotifyAfter` seconds and finished (also a
@@ -159,14 +199,12 @@ what is not covered:
 - context crossed `warnAt` or `dangerAt`,
 - the agent looks stuck in a loop, or input looks truncated.
 
-Sub-agent toasts make no sound of their own, so nothing pings twice. The context,
+Sub-agent alerts make no sound of their own, so nothing pings twice. The context,
 loop and truncation alerts fire once per session, while it runs.
 
-`/sidebar-sound` (or the `● Sidebar sound on` line in the Full preset) mutes the
-plugin's own command-alert sound; it does not change OpenCode's sounds.
-`/sidebar-notify-test` requests a test sound and notification without calling a
-model and reports what OpenCode did with it. If it reports
-`attention_disabled`, enable attention in `~/.config/opencode/cli.json`:
+"Sidebar sound" under ⚙ Options mutes the plugin's own command-alert sound; it
+does not change OpenCode's sounds. Notifications need attention enabled in
+`~/.config/opencode/cli.json`:
 
 ```json
 "attention": { "notifications": true, "sound": true, "volume": 0.4 }
@@ -174,21 +212,24 @@ model and reports what OpenCode did with it. If it reports
 
 ## Turning things on and off
 
-Run **`/sidebar`** (or "Sidebar features" in the command palette) and pick a
-preset. The change applies at once and is remembered.
+Click **⚙ Options** (or run `/sidebar`, or "Sidebar options" in the command
+palette) and pick a preset. The change applies at once and is remembered.
 
 | Preset | Shows |
 |---|---|
 | **Minimal** | Context bar and task list |
 | **Agents** (default) | Context bar, task list, Agents with the waiting banner, and Agent activity |
-| **Full** | Everything, including token numbers, sparkline, terminal commands, files, the sound switch and the `› Run details` link |
+| **Full** | Everything, including token numbers, sparkline, terminal commands and files |
 
-Alerts stay on in every preset. **Custom…** lists every switch; Enter flips one
-(● on, ○ off). "Reset to config defaults" forgets what was picked in `/sidebar`.
+Alerts and hints stay on in every preset, and the buttons are always there. Below
+the presets the menu lists every switch with its state (`on`/`off`), grouped as in
+the table below; Enter flips one and the menu stays open on it. Type to filter.
+"Reset to config defaults" forgets what was picked in the menu.
 
 | Group | Switches |
 |---|---|
-| Sections | `context`, `todo`, `activity`, `shells`, `files`, `subagents` (Agents), `details` (the `› Run details` line), `sound` (the sound line) |
+| Sections | `context`, `todo`, `activity`, `shells`, `files`, `subagents` (Agents) |
+| Hints | `hints` (the `ctrl+x b` hint while the sidebar is hidden, and the start-screen line) |
 | Context | `context.bar`, `context.numbers`, `context.breakdown`, `context.sparkline`, `context.compaction`, `context.truncation`, `context.cost` |
 | To-do | `todo.done` (keep finished items visible) |
 | Activity | `activity.tools`, `activity.loop`, `activity.errors` |
@@ -226,6 +267,7 @@ Sidebar options go on an object entry in `cli.json` (this works alongside an
 | `loopThreshold` | `3` | Same-tool, same-target calls in a row before the loop warning (minimum 2) |
 | `shellNotifyAfter` | `20` | Seconds a command must run before its completion is announced |
 | `toasts` | `true` | `false` turns off the context, loop and truncation toasts |
+| `report` | `false` | `true` allows saving run reports until switched under ⚙ Options |
 
 Server option, on the `opencode.json` entry: `{ "todo": false }` leaves out the
 `todo` tool.
@@ -238,9 +280,11 @@ Server option, on the `opencode.json` entry: `{ "todo": false }` leaves out the
   one from the session history, so nothing extra is stored.
 - Context numbers use the built-in widget's formula: all token counts of the last
   assistant step against the model's `limit.context`.
-- The plugin reads data the TUI already has, sends nothing over the network and
-  runs no programs. It writes only its UI state (collapsed sections, preset,
-  switches, sound) to `~/.local/state/opencode/latest/tui/plugin.sidebar-plus.*.json`.
+- The plugin reads data the TUI already has and sends nothing over the network.
+  It runs only the commands you start with **▶ Run** or **Run again**, and writes
+  a file only when you save a run report. Its UI state (collapsed sections,
+  preset, switches, sound, reports, where Run last ran) goes to
+  `~/.local/state/opencode/latest/tui/plugin.sidebar-plus.*.json`.
   Switches saved by v0.1 keep applying, on top of the Full layout they were made
   against.
 - OpenCode does not show the sidebar while you look at a sub-agent's
@@ -260,7 +304,9 @@ npm test      # node --test on the pure logic in src/derive.ts
   section, `tui.tsx` the wiring and toasts, `server.ts` the `todo` tool.
 - `scripts/tuirun.py` drives the real TUI in a pseudo-terminal and prints the
   rendered screen as text (needs `pip install pyte`). Setting
-  `OPENCODE_CLI_CONFIG_CONTENT` tests a config without touching your `cli.json`.
+  `OPENCODE_CLI_CONFIG_CONTENT` tests a config without touching your `cli.json`;
+  setting `XDG_STATE_HOME` to a scratch folder keeps test prompts out of your
+  prompt history and test clicks out of your sidebar settings.
 
 ## Acknowledgements
 
@@ -274,6 +320,7 @@ This plugin was built on, or learned from, the following projects. None of their
   - the `todo` tool's arguments follow v1's `todowrite`.
 - **[OpenTUI](https://github.com/anomalyco/opentui)** (MIT): the terminal UI renderer and its SolidJS bindings (`@opentui/core`, `@opentui/solid`).
 - **[SolidJS](https://github.com/solidjs/solid)** (MIT): the reactivity the sidebar is built on.
+- Pointer shapes follow [kitty's OSC 22 description](https://sw.kovidgoyal.net/kitty/pointer-shapes/) and [Ghostty's compatibility notes](https://ghostty.org/docs/vt/osc/22); the X11 names iTerm2 accepts come from [its source](https://github.com/gnachman/iTerm2/blob/v3.6.6/sources/PTYSession.m).
 
 **Inspiration and prior art**
 
