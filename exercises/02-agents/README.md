@@ -137,7 +137,7 @@ so there is no universal list that every model accepts.
 
 | Setting | What it changes | Example or caution |
 |---|---|---|
-| `model` | Pins the agent to a provider/model | `dtu/gptoss`; leave unset to use the selected/default model or the calling agent's model |
+| `model` | Pins the agent to a provider/model | `dtu/qwen36`; leave unset to use the selected/default model or the calling agent's model |
 | Model variant | Selects a configured variant | Use `provider/model#variant`; the variant must exist |
 | `steps` | Limits agentic iterations before a text-only response | Positive integer, such as `20`. It is not a token limit or an exact count of shell commands |
 | `permissions` | Ordered rules controlling which tool actions run, ask, or stop | The last matching rule wins |

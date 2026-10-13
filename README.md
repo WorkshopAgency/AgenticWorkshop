@@ -185,9 +185,9 @@ The workshop project shows one **DTU** group containing:
 
 | Model | Context | Maximum output | Description |
 |---|---:|---:|---:|
-| GPT-OSS 20B | 16384 | 4096 | Default DTU selection |
+| GPT-OSS 20B | 16384 | 4096 | Alternative general model |
 | Mistral Nemo 12B | 16384 | 4096 | Smaller checkpoint; check tool behaviour on your task |
-| Qwen 3.6 35B-A3B | 16384 | 4096 | Alternative for analysis and tool use |
+| Qwen 3.6 35B-A3B | 16384 | 4096 | Default selection; analysis and tool use |
 | Qwen 3.8 27B FP8 | 32768 | 4096 | Larger starting context; availability depends on compute05 |
 
 The DTU group is added alongside OpenCode's available free models
