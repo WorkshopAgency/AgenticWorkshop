@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Time** | 30 min: 1a (12) · 1e (3) · 1f (15) |
-| **Model** | `dtu/qwen36` (default). Any chat model works |
+| **Model** | `opencode/big-pickle` (default). Any chat model works |
 | **Needs** | `scripts/check-setup.sh` passed. Nothing from other modules |
 | **You'll learn** | Turn a repeated task into a skill: describe → discuss → build → test → improve |
 | **Done when** | `/skills` lists your two skills, and each has passed one normal, one invalid and one different input that *you* checked |

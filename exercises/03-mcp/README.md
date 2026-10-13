@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Time** | 10 min |
-| **Model** | `dtu/qwen36` (default). Any chat model works |
+| **Model** | `opencode/big-pickle` (default). Any chat model works |
 | **Needs** | `scripts/check-setup.sh` passed, and `uv` (`uv --version`). Nothing from other modules |
 | **You'll learn** | What MCP adds, how to connect a server, and why "connected" and "the query ran" are not "the answer is right" |
 | **Done when** | `opencode mcp list` shows `duckdb` connected, and your agent's numbers match the checkpoints at the bottom |
