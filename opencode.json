@@ -6,8 +6,8 @@
     "keep": { "tokens": 4096 }
   },
   "model": {
-    "providerID": "dtu",
-    "model": "qwen36"
+    "providerID": "opencode",
+    "model": "big-pickle"
   },
   "providers": {
     "dtu": {

@@ -156,8 +156,9 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
    For the terminal version, run `opencode` from inside that folder, or
    `opencode serve` for the browser version.
 6. In a terminal inside that folder, run `scripts/check-setup.sh`. Fix any ❌.
-7. Start a new chat. Open the model selector and choose a model under **DTU**.
-   In the terminal version, type `/models`.
+7. Start a new chat. The default model is **Big Pickle**, a free OpenCode model.
+   To use one of the DTU models instead, open the model selector (`/models` in
+   the terminal version) and choose a model under **DTU**.
 
 **For the supplied DTU models, no JSON editing, manual merging, API key or
 Custom provider setup is needed.**
@@ -187,7 +188,7 @@ The workshop project shows one **DTU** group containing:
 |---|---:|---:|---:|
 | GPT-OSS 20B | 16384 | 4096 | Alternative general model |
 | Mistral Nemo 12B | 16384 | 4096 | Smaller checkpoint; check tool behaviour on your task |
-| Qwen 3.6 35B-A3B | 16384 | 4096 | Default selection; analysis and tool use |
+| Qwen 3.6 35B-A3B | 16384 | 4096 | Analysis and tool use |
 | Qwen 3.8 27B FP8 | 32768 | 4096 | Larger starting context; availability depends on compute05 |
 
 The DTU group is added alongside OpenCode's available free models
@@ -213,12 +214,12 @@ list.
 
 | Model ID | Notes |
 |---|---|
-| `opencode/big-pickle` | 2c coordinator and reviewer. Free-period data may be used to improve the model |
+| `opencode/big-pickle` | **Workshop default**, and the 2c coordinator. Free-period data may be used to improve the model |
 | `opencode/step-5-preview-free` | Zero-retention provider. Preview: may disappear |
 | `opencode/mimo-v2.6-flash-free` | 2c analyst. Free-period data may be used to improve the model |
 | `opencode/space-bunny-free` | 2c visualizer. Zero-retention provider |
 | `opencode/longcat-2.5-preview-free` | Zero-retention provider. Preview: may disappear |
-| `opencode/cat-jam-free` | 2c auditor |
+| `opencode/cat-jam-free` | 2c auditor and reviewer |
 | `opencode/ling-3.1-flash-free` | |
 | `opencode/nemotron-3.5-lightning-free` | |
 | `opencode/muse-spark-1.2-contributor-free` ⚠️ | Contributor model, see below |
