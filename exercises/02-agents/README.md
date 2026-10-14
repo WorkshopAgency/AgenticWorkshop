@@ -312,7 +312,8 @@ it starts, with its status (● running, ◆ needs approval, ✓ done, ✗ faile
 model, time and the tool it is using. A ◆ means that specialist is waiting
 for *you*: a banner at the top of the section says so, and the prompt appears
 under the coordinator's conversation. Click a row to open that specialist's
-conversation.
+conversation. Afterwards, **≡ Details** at the foot of the sidebar shows a
+timeline of when each specialist worked, and its tokens and tool calls.
 
 ## What to inspect (about 5 min)
 
