@@ -313,7 +313,7 @@ run or open is a path relative to this root, so the folder's own name does not
 matter.
 ```text
 AgenticWorkshop/
-   opencode.json                Model connections, limits, permissions, MCP servers
+   opencode.json                Model connections, limits, permissions, MCP servers, the sidebar plugin
    admin.md                     Server notes for the organisers
    scripts/check-setup.sh       Is this laptop ready? (--module <name> for one module)
    .opencode/                   What OpenCode loads: agents and skills
@@ -328,8 +328,6 @@ AgenticWorkshop/
          genome-reviewer.md     Independently rechecks the results
          safe-analyst.md        Locked-down data agent, Exercise 5
          submit-agent.md        Git-scoped agent, _sectionday exercise 4
-      plugins/
-         sidebar-plus/          Live sidebar: running agents, approvals, context. ⚙ Options or /sidebar to change
       commands/
          halp.md                The /halp command
       scripts/
