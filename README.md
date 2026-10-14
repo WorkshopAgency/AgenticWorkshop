@@ -25,7 +25,7 @@ model, needs, and a *Done when* check.
 | 0:10 | Concepts (slides) | Model, harness, tool, skill, agent, MCP |
 | 0:20 | [Exercise 0 — RAG](exercises/00-rag/README.md) | Why retrieval stops a weak model inventing answers |
 | 0:35 | [Exercise 1 — Skills](exercises/01-skills/README.md) | Turn a repeated task into a tested skill |
-| 1:05 | [Exercise 2 — Agents](exercises/02-agents/README.md) | Instructions, permissions, and a team of agents |
+| 1:05 | [Exercise 2 — Agents](exercises/02-agents/README.md) | A plugin, instructions and permissions, and a team of agents |
 | 1:50 | [Exercise 3 — MCP](exercises/03-mcp/README.md) | Connect a database, then check its answers |
 | 2:00 | [Exercise 4 — Decision model](exercises/04-decide/README.md) | Typed decisions with probabilities instead of prose |
 | 2:10 | [Exercise 5 — Safety](exercises/05-safety/README.md) | Prompt injection, and what permissions do and don't stop |
@@ -313,7 +313,7 @@ run or open is a path relative to this root, so the folder's own name does not
 matter.
 ```text
 AgenticWorkshop/
-   opencode.json                Model connections, limits, permissions, MCP servers, the sidebar plugin
+   opencode.json                Model connections, limits, permissions, MCP servers
    admin.md                     Server notes for the organisers
    scripts/check-setup.sh       Is this laptop ready? (--module <name> for one module)
    .opencode/                   What OpenCode loads: agents and skills

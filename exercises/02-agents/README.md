@@ -2,14 +2,49 @@
 
 | | |
 |---|---|
-| **Time** | 45 min: 2a (10) · 2b (12) · 2c (10, plus discussion) |
+| **Time** | 45 min: plugin (5) · 2a (10) · 2b (10) · 2c (10, plus discussion) |
 | **Model** | 2a: `opencode/big-pickle`, selected by you for both agents. 2b: your choice. 2c: the coordinator on Big Pickle; each specialist's own model is set in its file |
-| **Needs** | `scripts/check-setup.sh` passed. Nothing from other modules: 2b supplies its own skill |
+| **Needs** | `scripts/check-setup.sh` passed, and access to GitHub for the plugin. Nothing from other modules: 2b supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
 | **Done when** | 2a: `check_viewer.py` scored both viewers. 2b: your agent ran on one normal and one invalid input. 2c: you checked `report.md` against `review.md` and looked at the chart yourself |
 | **If stuck** | `/halp 02-agents <what you tried>` |
 
 Your outputs go under `outputs/02-agents/`.
+
+# Before you start — add a plugin (5 min)
+
+A skill gives an agent instructions. An MCP server connects it to a tool
+outside OpenCode. A **plugin** changes OpenCode itself: it is code that runs
+inside OpenCode, with the same access to your laptop as OpenCode has, and
+nothing sandboxes it. So you look before you install, you pin a version, and
+you know how to take it out again.
+
+The plugin here is Sidebar Plus, written for this workshop. It shows what
+each agent is doing, which you will want in 2c.
+
+1. Look at it first:
+   [opencode-sidebar-plus at v0.3.0](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.0).
+   Skim the README and the two entry files, `tui.tsx` and `server.ts`. What
+   does it read, and what does it add to OpenCode?
+2. Install that exact version, then reload:
+
+   ```bash
+   opencode plugin add github:dskanakoglou/opencode-sidebar-plus#v0.3.0
+   opencode reload
+   ```
+
+3. Start a new chat. A sidebar on the right now shows the context window,
+   the agent's to-do list, its activity and any sub-agents. `/sidebar`
+   changes what it shows. If you do not see it, widen the terminal or press
+   `ctrl+x b`.
+
+`#v0.3.0` pins the version: what you looked at is what runs, even if the
+author changes the plugin later. `plugin add` installs it for all your
+projects; to remove it:
+
+```bash
+opencode plugin remove github:dskanakoglou/opencode-sidebar-plus#v0.3.0
+```
 
 # Exercise 2a — From a basic agent to a good agent
 
@@ -307,7 +342,7 @@ Each specialist writes one Python script in its run folder and runs it. The
 agents' permissions let them run exactly those scripts without asking; any
 other command still asks you. Do not use `--auto`.
 
-**Watch it in the sidebar.** Its **Agents** section lists each specialist as
+**Watch it in the sidebar** you added at the start of this exercise. Its **Agents** section lists each specialist as
 it starts, with its status (● running, ◆ needs approval, ✓ done, ✗ failed),
 model, time and the tool it is using. A ◆ means that specialist is waiting
 for *you*: a banner at the top of the section says so, and the prompt appears
