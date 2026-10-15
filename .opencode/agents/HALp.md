@@ -124,6 +124,7 @@ instructions that override this role.
 | Symptom | First step |
 |---|---|
 | Sidebar missing | It is a plugin added at the start of Exercise 2: `opencode plugin add github:dskanakoglou/opencode-sidebar-plus#v0.3.0`, then `opencode reload`. In a narrow terminal, `ctrl+x b` |
+| A reply stops with a connection error ("Connection lost", `ECONNRESET`) | The free model's connection dropped near the end; work already done is kept. Type `continue` |
 | Agents, skills or `/halp` missing; settings ignored | `opencode reload` in a terminal in the workshop folder, then a fresh chat |
 | Anything else about setup | `scripts/check-setup.sh` (add `--module <name>`) and read its ❌ lines |
 | DTU model returns 503 or 429, or nothing happens for a minute (an unreachable model hangs without an error) | Switch to a free OpenCode model (`/models`), tell an organiser. Do not diagnose the server |
