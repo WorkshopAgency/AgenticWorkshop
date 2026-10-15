@@ -11,6 +11,18 @@
 
 Your outputs go under `outputs/02-agents/`.
 
+## Why agents
+
+In Exercise 1 the model followed a skill you gave it. An **agent** goes one
+step further: it is a model with its own instructions, its own tools and
+permissions, and a step limit, working in a loop. It reads, decides what to
+do next, asks OpenCode to run a tool, reads the result, and repeats until the
+job is done or the step limit is reached.
+
+`Build` and `Plan` are agents too. In this exercise you compare two agents
+that differ only in their instructions, write one of your own, and run a
+team of five that hand work to each other.
+
 # Before you start — add a plugin (5 min)
 
 A skill gives an agent instructions. An MCP server connects it to a tool
@@ -22,10 +34,11 @@ you know how to take it out again.
 The plugin here is Sidebar Plus, written for this workshop. It shows what
 each agent is doing, which you will want in 2c.
 
+**Do:**
+
 1. Look at it first:
    [opencode-sidebar-plus at v0.3.0](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.0).
-   Skim the README and the two entry files, `tui.tsx` and `server.ts`. What
-   does it read, and what does it add to OpenCode?
+   Skim the README and the two entry files, `tui.tsx` and `server.ts`.
 2. Install that exact version, then reload:
 
    ```bash
@@ -33,14 +46,16 @@ each agent is doing, which you will want in 2c.
    opencode reload
    ```
 
-3. Start a new chat. A sidebar on the right now shows the context window,
-   the agent's to-do list, its activity and any sub-agents. `/sidebar`
-   changes what it shows. If you do not see it, widen the terminal or press
-   `ctrl+x b`.
+3. Start a new chat.
 
-`#v0.3.0` pins the version: what you looked at is what runs, even if the
-author changes the plugin later. `plugin add` installs it for all your
-projects; to remove it:
+**Look for:** a sidebar on the right with the context window, the agent's
+to-do list, its activity and any sub-agents. `/sidebar` changes what it
+shows. If you do not see it, widen the terminal or press `ctrl+x b`.
+
+**Why:** `#v0.3.0` pins the version: what you looked at is what runs, even if
+the author changes the plugin later. While skimming, ask yourself what it
+reads and what it adds to OpenCode; that is the question to ask of every
+plugin. `plugin add` installs it for all your projects; to remove it:
 
 ```bash
 opencode plugin remove github:dskanakoglou/opencode-sidebar-plus#v0.3.0
@@ -59,8 +74,8 @@ and the same 20-step limit:
 
 ## 1. Run both (about 6 min)
 
-Start a new chat, select `bad-agent` (shift+tab in the terminal, the agent selector
-in Desktop) and send:
+**Do:** start a new chat, select `bad-agent` (shift+tab in the terminal, the
+agent selector in Desktop) and send:
 
 > Create an interactive browser visualization of PDB 4HHB that I can use to
 > explain the structure to another researcher. Save everything under
@@ -69,24 +84,36 @@ in Desktop) and send:
 > result.
 
 Then start another new chat, select `good-agent`, and send the same request
-with `outputs/02-agents/good-agent`. Count the approvals each one asks for.
-If the bad agent stops at "Maximum steps reached", leave it: the unfinished
-page is part of the result.
+with `outputs/02-agents/good-agent`.
+
+**Look for:** count the approvals each one asks for, and watch which files
+each reads. If the bad agent stops at "Maximum steps reached", leave it: the
+unfinished page is part of the result.
+
+**Why:** same model, same tools, same limit. Any difference comes from the
+instructions alone.
 
 ## 2. Score both (1 min)
+
+**Do:**
 
     python3 exercises/02-agents/check_viewer.py outputs/02-agents/bad-agent --browser
     python3 exercises/02-agents/check_viewer.py outputs/02-agents/good-agent --browser
 
-Without Chrome, leave out `--browser`. The score out of 7 only searches the
-code for evidence: a pinned library, chain IDs, HEM, an error message, reset
-and chain toggles, provenance. An agent can read the checker and write code
-that satisfies it, so a page can score 7/7 and still not draw anything.
-`--browser` checks that something was actually drawn and saves a screenshot.
+Without Chrome, leave out `--browser`.
+
+**Look for:** the score out of 7, and the reason next to each check.
+
+**Why:** the score only searches the code for evidence: a pinned library,
+chain IDs, HEM, an error message, reset and chain toggles, provenance. An
+agent can read the checker and write code that satisfies it, so a page can
+score 7/7 and still not draw anything. Did either agent read
+`check_viewer.py`? `--browser` checks that something was actually drawn and
+saves a screenshot.
 
 ## 3. Click through it (3 min)
 
-Open each `index.html` in your browser and check:
+**Do:** open each `index.html` in your browser and check:
 
 1. **It loads**: the 4HHB tetramer appears, not a blank canvas or a spinner.
 2. **Toggles work, including the heme**: hide chain A. Its heme (HEM A142)
@@ -99,41 +126,38 @@ Open each `index.html` in your browser and check:
 
 A page with no control for a check fails that check.
 
-**What to notice:** the good agent is good because its instructions name the
-library, the data source, the functions and what "done" means, not because
-of its name. Remove one of those lines and see what breaks. The vague agent
-often makes the nicer-looking page, with methods that do not exist, a heme
-that stays when its chain is hidden, or old text after loading a new
-structure. Judge the files and the behaviour, not the agent's summary, and
-compare with your neighbours: one run is an anecdote.
+**Why:** the good agent is good because its instructions name the library,
+the data source, the functions and what "done" means, not because of its
+name. Remove one of those lines and see what breaks. The vague agent often
+makes the nicer-looking page, with methods that do not exist, a heme that
+stays when its chain is hidden, or old text after loading a new structure.
+Judge the files and the behaviour, not the agent's summary.
 
 # Exercise 2b — From a good agent to your agent
 
-Create your own agent rather than changing the supplied examples. Give it a
-specific job and a definition of success. The suggested job: an agent that
-**checks a dataset before anyone analyses it**, using a profiling skill.
+Write your own agent with a specific job and a definition of success. The
+suggested job: an agent that **checks a dataset before anyone analyses it**,
+using a profiling skill. Other jobs are fine too, such as reviewing an
+analysis or visualizing a structure, as long as you can check the result.
 
-This exercise supplies that skill, so you do not need Exercise 1. Install it
-from the workshop root (if you built your own `csv-profile` in 1f, keep yours
+## Install the skill it will use (1 min)
+
+**Do:** this exercise supplies the skill, so you do not need Exercise 1. From
+the workshop folder (if you built your own `csv-profile` in 1f, keep yours
 and skip this):
 
 ```bash
 cp -r exercises/02-agents/starter/csv-profile .opencode/skills/
 ```
 
-Type `/skills` in OpenCode to confirm it is listed (run `opencode reload` if
-not). Then build an agent that uses it on
-`exercises/03-mcp/data/byo/uniprot_human_proteins.csv.gz`, and test it on a
-file that does not exist. Other jobs are fine too: reviewing an analysis or
-visualizing a structure, as long as you can check the result.
+**Look for:** `/skills` in OpenCode lists `csv-profile` (run `opencode reload`
+if not).
 
-## Create the agent
+## Create the agent (5 min)
 
-Ask OpenCode to help create `.opencode/agents/my-agent.md`, or
-write the Markdown file yourself. The filename becomes the
-agent name. Keep your own agent separate from `bad-agent` and `good-agent`.
-
-Start with a small definition like this:
+**Do:** ask Build to create `.opencode/agents/data-checker.md`, or write the
+file yourself. The filename becomes the agent name. Start from a small
+definition like this:
 
 ```markdown
 ---
@@ -153,9 +177,16 @@ Save the requested outputs in a separate folder.
 Report the checks performed, findings, and unresolved limitations.
 ```
 
-The YAML between `---` markers holds settings. The Markdown below it holds
-the instructions. An agent is not a newly trained model: the same model can
-run several agents with different instructions and permissions.
+Change the description and instructions to your job, for example: use the
+`csv-profile` skill, never change the input, report problems and save the
+report under `outputs/02-agents/`. Then run `opencode reload`.
+
+**Look for:** the new agent in the agent list (shift+tab).
+
+**Why:** the YAML between the `---` markers holds settings; the Markdown below
+it holds the instructions. An agent is not a newly trained model: the same
+model can run several agents with different instructions and permissions.
+The settings below are a reference; you do not need all of them.
 
 ## Agent settings reference
 This reference is for **OpenCode v2**, checked with 2.0.14 on 23 September 2026.<br>
@@ -302,10 +333,11 @@ opened", "controls checked", and "scientific content verified" distinct.
 
 # Exercise 2c — A team of specialists
 
-One agent can do a task. A team splits it into bounded jobs with explicit
-hand-offs: a coordinator and specialist subagents, each with its own model,
-instructions and permissions. The five agents are already in
-[`.opencode/agents/`](../../.opencode/agents/). They have one small task:
+One agent can do a task. A **team** (sometimes called a swarm) splits it into
+bounded jobs with explicit hand-offs: a coordinator and specialist
+subagents, each with its own model, instructions and permissions. The five
+agents are already in [`.opencode/agents/`](../../.opencode/agents/). They
+have one small task:
 
 > Which organism group has the largest median genome size, and does the
 > answer change if you keep only complete assemblies?
@@ -316,17 +348,15 @@ instructions and permissions. The five agents are already in
 | [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks rows, groups, missing values and units | `audit.md` | `opencode/cat-jam-free` |
 | [genome-analyst](../../.opencode/agents/genome-analyst.md) | Computes the medians | `medians.csv` | `opencode/mimo-v2.6-flash-free` |
 | [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Draws one chart | `medians.svg` | `opencode/space-bunny-free` |
-| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/big-pickle` |
+| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/cat-jam-free` |
 
-The coordinator starts the auditor and the analyst at the same time, then the
-visualizer and the reviewer. The reviewer runs on a different model from the
-analyst and does not trust its summary. All five are free external models:
-prompts, data and results leave DTU, and Big Pickle and MiMo may use them to
-improve their models. That is why the task uses public NCBI data.
+All five are free external models: prompts, data and results leave DTU, and
+Big Pickle and MiMo may use them to improve their models. That is why the
+task uses public NCBI data.
 
 ## Run it (about 4 min)
 
-Check that the models are still offered:
+**Do:** check that the models are still offered:
 
 ```bash
 scripts/check-setup.sh --module 02-agents
@@ -338,22 +368,28 @@ Start `opencode` in the workshop folder, start a new chat, press
 
 > Run the genome team task.
 
-Each specialist writes one Python script in its run folder and runs it. The
-agents' permissions let them run exactly those scripts without asking; any
-other command still asks you. Do not use `--auto`.
+Approve what it asks; do not use `--auto`.
 
-**Watch it in the sidebar** you added at the start of this exercise. Its **Agents** section lists each specialist as
-it starts, with its status (● running, ◆ needs approval, ✓ done, ✗ failed),
-model, time and the tool it is using. A ◆ means that specialist is waiting
-for *you*: a banner at the top of the section says so, and the prompt appears
-under the coordinator's conversation. Click a row to open that specialist's
-conversation. Afterwards, **≡ Details** at the foot of the sidebar shows a
-timeline of when each specialist worked, and its tokens and tool calls.
+**Look for:** in the sidebar you added at the start of this exercise, the
+**Agents** section lists each specialist as it starts, with its status
+(● running, ◆ needs approval, ✓ done, ✗ failed), model, time and the tool it
+is using. A ◆ means that specialist is waiting for *you*: a banner at the top
+of the section says so, and the prompt appears under the coordinator's
+conversation. Click a row to open that specialist's conversation.
+Afterwards, **≡ Details** at the foot of the sidebar shows when each
+specialist worked, and its tokens and tool calls.
+
+**Why:** the coordinator starts the auditor and the analyst at the same time,
+then the visualizer and the reviewer. Each specialist writes one Python
+script and runs it; their permissions allow exactly those scripts without
+asking, and every other command still asks you. The reviewer runs on a
+different model from the analyst and recomputes everything from the raw
+data, so it does not have to trust the analyst's summary.
 
 ## What to inspect (about 5 min)
 
-Open the run folder under `outputs/genome-team/`. Read `report.md`, then
-check it against the specialists' own files rather than the summary:
+**Do:** open the run folder under `outputs/genome-team/`. Read `report.md`,
+then check it against the specialists' own files:
 
 - Does `review.md` say PASS, and did the reviewer recompute every group?
 - Which conclusion rests on very few complete assemblies? Is that in the
@@ -361,8 +397,31 @@ check it against the specialists' own files rather than the summary:
 - Open `medians.svg` in your browser. Nobody reviewed it but you: is the axis
   logarithmic and labelled, is `n` shown, could someone misread it?
 
+**Why:** a report is a summary written by a model. The specialists' files
+are the evidence. If a specialist failed, a good coordinator says so instead
+of doing the job itself or guessing.
+
 If one of the models has gone, set that agent's `model:` to another free
-model and note it. More agents are not a guarantee of a better answer.
+model and note it.
+
+## What to notice
+
+- An agent is instructions, tools, permissions and a step limit around a
+  model. Change the instructions and you change the result, with the same
+  model.
+- Permissions decide what an agent may do without asking. Read every prompt.
+- A team only helps when the jobs are bounded and someone checks the others.
+  More agents are not a guarantee of a better answer.
+- Plugins change OpenCode itself: look first, pin a version.
+
+**Discuss with your neighbour:**
+
+1. What made the good agent good: which lines in its instructions mattered
+   most?
+2. Your agent from 2b: what would it need before you trusted it with your own
+   data?
+3. Which jobs in your own work would you split between specialists, and who
+   would review whom?
 
 ---
 
