@@ -31,8 +31,6 @@ model, needs, and a *Done when* check.
 | 2:10 | [Exercise 5 — Safety](exercises/05-safety/README.md) | Prompt injection, and what permissions do and don't stop |
 | 2:20 | Wrap-up | When to use an agent, and how to check one |
 
-The full-day versions of the exercises are kept in [_sectionday](_sectionday/README.md).
-
 Use **OpenCode on your laptop** to work on the exercises. The DTU models run
 on our server cluster; you do not need a cluster account, SSH, model downloads or
 server-start commands.
@@ -327,7 +325,6 @@ AgenticWorkshop/
          genome-visualizer.md   Makes the plots
          genome-reviewer.md     Independently rechecks the results
          safe-analyst.md        Locked-down data agent, Exercise 5
-         submit-agent.md        Git-scoped agent, _sectionday exercise 4
       commands/
          halp.md                The /halp command
       scripts/
@@ -335,8 +332,6 @@ AgenticWorkshop/
       skills/
          skill-builder/         A subfolder INSIDE skills
             SKILL.md            The skill-builder instructions
-         submit-work/           A second skill, _sectionday exercise 4
-            SKILL.md            The submit-work instructions
    exercises/
       00-rag/                   Retrieval-augmented generation, every stage visible
       01-skills/
@@ -347,7 +342,6 @@ AgenticWorkshop/
          scripts/               Build the DuckDB database
       04-decide/                A typed decision model built on token probabilities
       05-safety/                A data file with a planted instruction
-   _sectionday/                 The full-day exercises (25 Sep), kept for after the workshop
    outputs/                     Where your results go, one folder per module (not in Git)
    mcp/                         Notes on the four MCP servers this project configures
    slides/                      The concepts deck, published from Markdown
@@ -359,7 +353,7 @@ contains the model connections, limits and permissions.
 inside it. The complete path is `.opencode/skills/skill-builder/SKILL.md`.
 GitHub collapses a chain of folders with a single child into one line, such
 as `skills/skill-builder`; that is a compact display, not a single folder
-name. With two skills present it no longer collapses `skills` itself.
+name.
 
 Each additional skill gets its own subfolder and `SKILL.md`. Agent definitions
 are Markdown files directly inside `.opencode/agents/`. A `.gitkeep` file in
@@ -392,9 +386,6 @@ and [skills](https://opencode.ai/v2/docs/skills/).
 - **Exercise 3** — [MCP](exercises/03-mcp/README.md).
 - **Exercise 4** — [Decision model](exercises/04-decide/README.md).
 - **Exercise 5** — [Safety](exercises/05-safety/README.md).
-- **After the workshop** — [_sectionday](_sectionday/README.md): the full-day
-  versions, with more skills, your own swarm, the full MCP set, sharing via
-  GitHub, plugins and a bug hunt.
 
 ## Manual connection reference — optional
 

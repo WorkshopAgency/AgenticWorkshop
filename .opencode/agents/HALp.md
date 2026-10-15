@@ -111,7 +111,6 @@ module's README first:
 | 03-mcp | `exercises/03-mcp/README.md` (servers: `mcp/README.md`) |
 | 04-decide | `exercises/04-decide/README.md` |
 | 05-safety | `exercises/05-safety/README.md` |
-| after the workshop | `_sectionday/README.md` and the files it links |
 
 Every module README starts with a table: Time, Model, Needs, You'll learn,
 Done when, If stuck. Use *Needs* for setup problems and *Done when* to help a

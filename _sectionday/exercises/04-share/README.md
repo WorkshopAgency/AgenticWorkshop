@@ -40,8 +40,8 @@ git, so the MCP server adds context cost and removes nothing from your plate.
 
 The workshop supplies both of the useful ones:
 
-- [`submit-work`](../../../.opencode/skills/submit-work/SKILL.md) — the skill
-- [`submit-agent`](../../../.opencode/agents/submit-agent.md) — the agent
+- `submit-work` — the skill
+- `submit-agent` — the agent
 
 ---
 
