@@ -206,9 +206,7 @@ failed.
 3. When would you rather write a plain script than a skill?
 
 Exercise 2b uses a profiling skill too; it supplies its own copy, so you do
-not need to finish 1f first. More skills exercises (1b–1d) are in the
-[full-day version](../../_sectionday/exercises/01-skills/README.md#exercise-1b--download-an-existing-structure-image).
-The skill file format is described at
+not need to finish 1f first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
 Next: [Exercise 2 — Agents](../02-agents/README.md).
