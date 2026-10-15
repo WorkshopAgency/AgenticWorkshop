@@ -84,9 +84,6 @@ Exercise 4 supplies its own examples.
 
 ## After the workshop
 
-- The full exercise set (3a–3i), including breaking the connection on purpose,
-  permissions for a read-only server, MCP vs plain shell, and the genome and
-  protein datasets: [the full-day version](../../_sectionday/exercises/03-mcp/README.md).
 - The other three configured servers (`rcsb`, `biomcp`, `opentargets`):
   [mcp/README.md](../../mcp/README.md).
 
