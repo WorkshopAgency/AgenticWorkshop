@@ -9,68 +9,108 @@
 | **Done when** | `/skills` lists your two skills, and each has passed one normal, one invalid and one different input that *you* checked |
 | **If stuck** | `/halp 01-skills <what you tried>` |
 
+## Why skills
+
+Every time you start a new chat, the model starts from nothing. If you
+download a structure, profile a table or run a QC check the same way every
+week, you would explain it again every week, and get a slightly different
+result each time.
+
+A **skill** writes the procedure down once: a short instruction file,
+`SKILL.md`, plus any scripts it needs, in a folder OpenCode knows. The agent
+loads it when a task matches its description. A skill is not a new model and
+not a program on its own; it is instructions the model reads when it needs
+them.
+
+The pattern for this exercise is **describe → discuss → build → test →
+improve**. The model is your assistant: the clearer you explain the task, the
+better the skill.
+
 ## Before you start
-Create a skill through conversation, improve it after testing, and reuse it
-on another input. The examples below use protein structures, but the same
-process applies to other data-analysis tasks.
 
-Open the extracted workshop folder in OpenCode. In the terminal, start
-`opencode` from that folder. Keep your exercise files inside the project.
+Open the workshop folder in OpenCode: in a terminal, `cd` into it and type
+`opencode`. Keep your exercise files inside the project.
 
-Select **Plan** mode to discuss the task
-before implementation. Select **Build** mode when you are ready to create/manipulate files.
-In Desktop, use the agent selector. Review requested file changes and shell
-commands in either mode; planning is not a substitute for checking permissions.
-Type `/` in the terminal interface to see the available commands.
+OpenCode has two main agents, and you switch between them with
+**shift+tab** (in Desktop, with the agent selector):
 
-The basic pattern is: **describe → discuss → build → test → improve**.
-Ask for an explanation whenever a proposed step is unclear.
-The exercise set is about creating and improving skills.
+- **Plan** reads and discusses. It cannot create or change files.
+- **Build** does the work: it writes files and runs commands, and asks you
+  first.
+
+When Build wants to write a file or run a command, OpenCode shows a prompt
+with three choices. **Allow once** is the safe default. **Always allow**
+stops it asking again for that kind of action. **Reject** refuses,
+and the agent has to find another way. Read what it wants to do before you
+choose; planning first is not a substitute for checking the prompts.
+
+Type `/` in the chat to see all commands.
 
 # Exercise 1a — Download a PDB file
 
-Start in **Plan** mode with a simple request:
+## Ask for a skill, and let it ask you back (4 min)
+
+**Do:** in **Plan**, start simply:
 
 > Create a skill that downloads a pdb file
 
-The more precise and detailed you frame your request, the better. While a conversation will likely
-reveal ambiguities and lack of detail, then having a good starting point is valuable.
-Think of the AI as a real assistant you need to explain a task to.
+Then compare with a more precise request:
 
 > Create a project skill called pdb-download that downloads a PDB file
 > given its entry ID. Ask me about any choices we need to make before
 > implementing it.
 
-Discuss the download source, file format, destination, and what should happen
-when an ID is invalid or a file already exists. The skill should work both
-when you request it directly and when an agent needs it during another task.
-You will see a lot of AI feedback and you can not simply ignore it, so read it carefully.
+**Look for:** questions about the download source, the file format (legacy
+PDB or mmCIF), where to save it, and what to do with an invalid ID or a file
+that already exists. Answer them, or ask for its recommendation. Read the
+proposal carefully; you will be asked to approve what it builds.
 
-When the proposal is clear, switch to **Build** mode:
+**Why:** the more precise your request, the better the start; the
+conversation finds the gaps neither of you thought about. Think of the AI as
+a real assistant you need to explain a task to. The skill should work both
+when you ask for it directly and when an agent needs it in another task.
 
-You can write "Build it", "Proceed", "Implement" or any words to that effect - or be more precise
+## Build it (3 min)
+
+**Do:** switch to **Build** and ask it to implement what you agreed:
 
 > Implement the agreed pdb-download skill in
 > .opencode/skills/pdb-download/SKILL.md. Keep supporting files in that
 > skill's folder and ask before overwriting existing work.
 
-OpenCode discovers skills when it loads the project. Type `/skills` in the
-chat. If the new skill is missing, run `opencode reload` in a terminal from
-the workshop folder, or exit and reopen OpenCode. Then try it:
+Approve the file it wants to write. Then type `/skills` in the chat. If
+`pdb-download` is missing, run `opencode reload` in a terminal in the
+workshop folder, then start a new chat.
 
-The simple
+**Look for:** a folder `.opencode/skills/pdb-download/` with `SKILL.md` and
+perhaps a script. Open `SKILL.md`: a short header with `name` and
+`description`, then the instructions.
 
->Download pdb 4HHB
+**Why:** the `description` is what the agent reads to decide *whether* to use
+the skill, so it matters more than it looks.
 
-will successfully download the entry in the main workshop folder. If dissatisfied with that, be precise
+## Use it, and check what you got (3 min)
+
+**Do:**
 
 > Use the pdb-download skill to download 4HHB into outputs/01-skills/pdb.
 
-Inspect the saved file. A successful HTTP request alone does not tell you
-whether the response is the expected structure file rather than an error page.
-It is important to note that only **Build** allows for pdb downloading, as that is file manipulation.
+Then the list of IDs supplied in [`pdb_to_download.txt`](pdb_to_download.txt),
+where one is deliberately invalid:
 
-Return to **Plan** and improve the skill:
+> Use the pdb-download skill to download the entries listed in
+> exercises/01-skills/pdb_to_download.txt into outputs/01-skills/pdb.
+
+**Look for:** open the saved files. Is each one really a structure, with
+atom records, or could it be an error page saved under a structure-file name? Did it
+report the invalid ID, or quietly skip it?
+
+**Why:** a successful download is not the same as the right file. "The
+request worked" and "I have a structure" are two different claims.
+
+## Improve it (2 min)
+
+**Do:** back in **Plan**:
 
 > Review pdb-download. Propose checks that the downloaded file can be
 > parsed, contains atomic coordinates, and corresponds to the requested
@@ -78,44 +118,39 @@ Return to **Plan** and improve the skill:
 > against it. Otherwise say that source-checksum verification is unavailable;
 > do not invent a checksum. Explain the changes before implementing them.
 
-Approve the changes in **Build**, then test again. Try a different valid ID
-and an invalid input.<br>
-A list of several IDs is supplied in
-[`pdb_to_download.txt`](pdb_to_download.txt). One of them is deliberately invalid:
+Approve the changes in **Build**, then test again with a different valid ID
+and an invalid one.
 
-> Use the pdb-download skill to download the entries listed in
-> exercises/01-skills/pdb_to_download.txt into outputs/01-skills/pdb.
+**Why:** useful checks come from discussing and testing the task, not from
+the first draft. A checksum you computed yourself is a fingerprint of your
+file, not proof that it matches the source.
 
-**What to notice:** Useful checks emerge from discussing and testing the task.
-A locally computed hash is a file fingerprint, not proof that it matches the
-source. Keep unrelated tasks in separate skills rather than growing one skill
-to cover everything.
+# Exercise 1e — A skill that helps make skills (3 min)
 
-# Exercise 1e — A skill that helps make skills
-
-Inspect [skill-builder](../../.opencode/skills/skill-builder/SKILL.md).
-It helps an agent clarify a skill's purpose, write useful instructions,
-choose supporting files, and check the result. It is itself a skill, not
-a separate agent or a newly trained model.
-
-Example request in OpenCode **Plan** mode:
+**Do:** open [skill-builder](../../.opencode/skills/skill-builder/SKILL.md)
+and skim it. Then, in **Plan**:
 
 > Use skill-builder to review the pdb-download skill. Explain which
 > instructions are useful, what is missing, and how we could test it.
 > Propose changes before implementing them.
 
-Finalize the improved skill in the usual way, if there is anything to improve.
+**Look for:** the tool calls should show the agent loading `skill-builder`
+before answering. If it suggests improvements you agree with, apply them in
+Build.
 
-# Exercise 1f — Make and test your own data-analysis skill
+**Why:** skill-builder is itself just a skill: instructions for writing good
+instructions. Skills can build on each other.
 
-Build a skill for a task every analysis starts with: **profiling a table
-before trusting it**. The suggested skill is `csv-profile`. It reports row and
-column counts, column types, missing values per column (including text
-markers such as `NA`), units where the provenance states them, and counts
-per group for a named column. You may choose another small task you repeat
-in your own work instead.
+# Exercise 1f — Make and test your own data-analysis skill (15 min)
 
-Start in **Plan** mode:
+Every analysis should start with the same question: **can I trust this
+table?** Build a skill that profiles a table before anyone computes anything
+from it. The suggested skill is `csv-profile`; you may choose another small
+task you repeat in your own work instead.
+
+## Design and build it (7 min)
+
+**Do:** in **Plan**:
 
 > Use skill-builder to design a project skill called csv-profile that
 > profiles a CSV or CSV.GZ file before analysis: rows, columns, types,
@@ -123,32 +158,57 @@ Start in **Plan** mode:
 > group for a column I name. It must use only what is on my laptop and
 > write its report to outputs/01-skills/. Ask me about choices first.
 
-Review the proposal before switching to Build mode and authorizing
-implementation. Then test it on three inputs:
+Answer its questions, then switch to **Build** and ask it to implement the
+design.
 
-| Test | Input | What a correct skill does |
+**Look for:** a folder `.opencode/skills/csv-profile/` with `SKILL.md` and
+probably a Python script. The agent may run a first test on its own; read
+what it tested.
+
+## Test it on three inputs (6 min)
+
+**Do:** start a new chat in **Build** and ask for each of these:
+
+| Test | Ask it to profile | What a correct skill does |
 |---|---|---|
 | Normal | `exercises/03-mcp/data/byo/uniprot_human_proteins.csv.gz`, grouped by `protein_existence` | Reports counts you can confirm yourself |
 | Invalid | a file name that does not exist | Says so; invents no profile |
 | Different | `exercises/03-mcp/data/byo/penguins.csv`, grouped by `species` | Finds the `NA` markers: 2 rows with no measurements; 11 rows without `sex` (those 2 plus 9 measured ones) |
 
-The data provenance is in
+If it says a report already exists, decide whether to overwrite it: a skill
+that asks before replacing your results is doing its job.
+
+**Look for:** check at least one number yourself, for example the penguin
+`NA` counts. The data provenance is in
 [`PROVENANCE.md`](../03-mcp/data/byo/PROVENANCE.md).
 
-The skill belongs in `.opencode/skills/<skill-name>/SKILL.md`. Give each skill
-its own subfolder. Add scripts, references, or assets only when they help.
+**Why:** three inputs test three different things: that it works, that it
+fails honestly, and that it was not written for one file only. Record what
+passed and what you have not tested, then fix the skill where it actually
+failed.
 
-Inspect the outputs yourself. Record what passed and what you have not
-tested, then revise the skill in response to actual failures. Exercise 2b
-uses a profiling skill; it supplies its own copy, so you do not need to
-finish this one first.
+## What to notice
 
-# Epilogue
-Read the `SKILL.md` file with a text editor to see what the skill contains.
-You can add/modify instructions directly yourself if you prefer to do it without the AI.
-This can be done both at very simple and very complex levels.<br>
-Source: [https://www.skillsdirectory.com/docs/skill-md-format](https://www.skillsdirectory.com/docs/skill-md-format)
+- A skill is a folder: `SKILL.md` plus whatever scripts it needs. Read it; you
+  can edit it by hand as well as through the agent.
+- The `description` decides when the skill is used; the instructions decide
+  how.
+- Plan discusses, Build acts, and every action is a prompt you can read.
+- "It ran" is not "it is right". Your checks, not the agent's summary, are the
+  evidence.
 
-More skills exercises (1b–1d) are in the [full-day version](../../_sectionday/exercises/01-skills/README.md#exercise-1b--download-an-existing-structure-image).
+**Discuss with your neighbour:**
+
+1. What would you have missed if you had accepted the first version of
+   `pdb-download`?
+2. Which task from your own work would make a good skill, and what three
+   inputs would you test it on?
+3. When would you rather write a plain script than a skill?
+
+Exercise 2b uses a profiling skill too; it supplies its own copy, so you do
+not need to finish 1f first. More skills exercises (1b–1d) are in the
+[full-day version](../../_sectionday/exercises/01-skills/README.md#exercise-1b--download-an-existing-structure-image).
+The skill file format is described at
+[skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
 Next: [Exercise 2 — Agents](../02-agents/README.md).
