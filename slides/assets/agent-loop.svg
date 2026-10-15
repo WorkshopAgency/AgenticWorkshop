@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="1100" height="520" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5d5a55"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="520" fill="#ffffff"/>
+
+  <!-- you -->
+  <rect x="30" y="200" width="190" height="110" rx="14" fill="#f4f1ea" stroke="#8a8580" stroke-width="2"/>
+  <text x="125" y="248" font-size="28" font-weight="700" text-anchor="middle" fill="#1b1b1b">You</text>
+  <text x="125" y="282" font-size="20" text-anchor="middle" fill="#5d5a55">a task</text>
+
+  <!-- model -->
+  <rect x="330" y="60" width="300" height="130" rx="14" fill="#ffffff" stroke="#990000" stroke-width="3"/>
+  <text x="480" y="112" font-size="30" font-weight="700" text-anchor="middle" fill="#990000">Model</text>
+  <text x="480" y="148" font-size="20" text-anchor="middle" fill="#5d5a55">reads everything in its context,</text>
+  <text x="480" y="174" font-size="20" text-anchor="middle" fill="#5d5a55">proposes the next step</text>
+
+  <!-- harness -->
+  <rect x="330" y="320" width="300" height="140" rx="14" fill="#ffffff" stroke="#246b60" stroke-width="3"/>
+  <text x="480" y="370" font-size="30" font-weight="700" text-anchor="middle" fill="#246b60">Harness (OpenCode)</text>
+  <text x="480" y="406" font-size="20" text-anchor="middle" fill="#5d5a55">checks permissions, asks you,</text>
+  <text x="480" y="432" font-size="20" text-anchor="middle" fill="#5d5a55">runs the tool on your laptop</text>
+
+  <!-- tools -->
+  <rect x="760" y="320" width="300" height="140" rx="14" fill="#f4f1ea" stroke="#8a8580" stroke-width="2"/>
+  <text x="910" y="370" font-size="28" font-weight="700" text-anchor="middle" fill="#1b1b1b">Tools</text>
+  <text x="910" y="406" font-size="20" text-anchor="middle" fill="#5d5a55">read · edit · shell · search</text>
+  <text x="910" y="432" font-size="20" text-anchor="middle" fill="#5d5a55">skills · MCP servers</text>
+
+  <!-- answer -->
+  <rect x="760" y="60" width="300" height="130" rx="14" fill="#f4f1ea" stroke="#8a8580" stroke-width="2"/>
+  <text x="910" y="115" font-size="28" font-weight="700" text-anchor="middle" fill="#1b1b1b">Answer</text>
+  <text x="910" y="150" font-size="20" text-anchor="middle" fill="#5d5a55">when no tool call is left</text>
+
+  <!-- arrows -->
+  <path d="M220,235 C280,200 290,150 328,135" fill="none" stroke="#5d5a55" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M440,190 L440,318" fill="none" stroke="#5d5a55" stroke-width="3" marker-end="url(#a)"/>
+  <text x="300" y="262" font-size="20" fill="#990000">tool call</text>
+  <path d="M630,390 L758,390" fill="none" stroke="#5d5a55" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M760,430 C700,500 560,500 530,462" fill="none" stroke="#5d5a55" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M520,318 L520,192" fill="none" stroke="#5d5a55" stroke-width="3" marker-end="url(#a)"/>
+  <text x="532" y="262" font-size="20" fill="#246b60">result</text>
+  <path d="M630,125 L758,125" fill="none" stroke="#5d5a55" stroke-width="3" marker-end="url(#a)"/>
+  <text x="640" y="500" font-size="18" fill="#8a8580">repeat until the task is done or the step limit is reached</text>
+</svg>
