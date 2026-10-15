@@ -155,9 +155,10 @@ if not).
 
 ## Create the agent (5 min)
 
-**Do:** ask Build to create `.opencode/agents/data-checker.md`, or write the
-file yourself. The filename becomes the agent name. Start from a small
-definition like this:
+**Do:** ask Build to create `.opencode/agents/data-checker.md` (or
+`my-agent.md`, any name), or write the file yourself. The filename becomes
+the agent name. Keep your own agent separate from `bad-agent` and
+`good-agent`. Start from a small definition like this:
 
 ```markdown
 ---
@@ -181,7 +182,10 @@ Change the description and instructions to your job, for example: use the
 `csv-profile` skill, never change the input, report problems and save the
 report under `outputs/02-agents/`. Then run `opencode reload`.
 
-**Look for:** the new agent in the agent list (shift+tab).
+**Look for:** the new agent in the agent list (shift+tab). Then select it
+and use it on `exercises/03-mcp/data/byo/uniprot_human_proteins.csv.gz`, and
+test it on a file that does not exist: does it explain the problem, or
+invent a profile?
 
 **Why:** the YAML between the `---` markers holds settings; the Markdown below
 it holds the instructions. An agent is not a newly trained model: the same
