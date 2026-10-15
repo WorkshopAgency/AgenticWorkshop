@@ -170,6 +170,51 @@ Leave your existing global `opencode.jsonc`, `package.json` and
 `node_modules` alone. OpenCode combines the project configuration with your
 global settings automatically.
 
+## How OpenCode works in this workshop
+
+OpenCode is the **harness**: the program around the model. You type in a
+chat; the model proposes what to do; OpenCode runs the tools on your laptop,
+after asking you, and sends the results back to the model. Everything you do
+today happens in that loop.
+
+**Agents.** OpenCode always runs one agent in the chat. Switch with
+**shift+tab** (in Desktop, with the agent selector); the current one is shown
+under the input box.
+
+| Agent | Use it to |
+|---|---|
+| **Plan** | Discuss and design. It reads, but cannot create or change files |
+| **Build** | Do the work: write files and run commands, asking you first |
+| Workshop agents | `bad-agent`, `good-agent`, `genome-coordinator`, `safe-analyst`, … are used in Exercises 2 and 5 |
+
+**Approvals.** When an agent wants to edit a file or run a command, OpenCode
+shows a prompt. Read what it wants to do, then choose:
+
+- **Allow once**: the safe default. It will ask again next time.
+- **Always allow**: stops it asking again for that kind of action. Use it only
+  for actions you understand.
+- **Reject**: refuses. The agent has to find another way, or tell you it
+  cannot.
+
+Every action the agent takes is listed in the chat as a tool call. The tool
+calls, not the agent's summary, are the record of what happened.
+
+**Commands you will use:**
+
+| Command | What it does |
+|---|---|
+| `/models` | Choose the model. The default is Big Pickle, a free model; the DTU models are under **DTU** |
+| `/skills` | List the skills OpenCode has found |
+| `/mcps` | Switch MCP servers on and off (Exercise 3) |
+| `/compact` | Summarise a long chat to free up the context window |
+| `/halp <exercise> <question>` | Ask HALp, the workshop helper, for a hint |
+| `/sidebar` | Change what the sidebar shows, once you add it in Exercise 2. `ctrl+x b` shows or hides it |
+| `opencode reload` | In a terminal: make OpenCode pick up new skills, agents or settings |
+
+Start a **new chat** for each exercise, so the model does not carry the last
+one's context into the next. Your results go under `outputs/<exercise>/`,
+which Git ignores.
+
 ## LLM Models you can use
 First be aware of the pricing - it can be creative.
 * Free models - check the provider's retention and training terms; no price does not mean private
