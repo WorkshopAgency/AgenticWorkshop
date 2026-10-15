@@ -19,12 +19,28 @@ The conference session is 2.5 hours, 30 participants working alone, no break.
   `scripts/check-setup.sh --module 04-decide` tests it.
 - **Load test** with 30 simultaneous sessions before the day. Raise limits
   only from what it shows, and do not restart the gateway during the session.
-- **Free models.** OpenCode's free tier has unpublished rate limits that may
-  be shared by everyone on one network. The plan is an OpenRouter key per
-  participant, capped at $0.30, for the swarm in 2c; test it first.
+- **Free models.** The default chat model and the 2c team run on OpenCode's
+  free models. Their rate limits are not published and may be shared by
+  everyone on one network; if the room gets HTTP 429, switch people to a DTU
+  model with `/models`.
 - **On the day**, one of us watches the gateway while the other teaches. If
   DTU stops answering, tell the room to switch to a free model with `/models`;
   a DTU model that cannot be reached hangs without an error message.
+
+### Still to check
+
+1. **Exercises 0 and 4 against the DTU models.** Exercise 0: Mistral's answers
+   with and without the documents, the embedding search, and building the
+   shipped index (`rag.py embed`, then commit `exercises/00-rag/index.json`).
+   Exercise 4: `decide.py` on `qwen36`, which needs the token probabilities
+   through the gateway. About 15 minutes once the models are up.
+2. **One run-through in the real interface.** The exercises were run with
+   `opencode run`, which approves automatically. Still to see by hand:
+   switching between Plan and Build, clicking through approvals one by one,
+   and switching on `duckdb` with `/mcps` in Exercise 3.
+3. **Windows (WSL2) and Linux.** Everything so far ran on a Mac: the install,
+   `scripts/check-setup.sh`, the plugin install and the exercises.
+
 
 ## Connect
 
