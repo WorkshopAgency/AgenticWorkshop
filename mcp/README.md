@@ -203,7 +203,7 @@ the same way: read the query before approving it, and ask what it returned
 rather than trusting the summary.
 
 Nothing to install. Add the URL, toggle it on, use it — which makes it the
-obvious fallback for anyone whose `uv` install fails on the day.
+obvious fallback for anyone whose `uv` install fails during the session.
 
 ---
 
@@ -233,30 +233,16 @@ above 32768. Inputs, results and answers need space too. Keep unnecessary
 servers off even when they fit: context capacity and reliable tool selection
 are different concerns.
 
-## Rechecked — 23 September 2026
+## Behaviour worth knowing
 
-With OpenCode 2.0.14, DuckDB was connected in a disposable workshop project
-and used by an agent for the PDB queries. Independent calculations confirmed
-the counts and method/year summaries. A separate MCP client also verified
-that a missing database can pass the handshake but fail a query, `DELETE`
-is refused, and `COPY ... TO` can still create a file outside the database.
-
-Direct MCP checks found 38 RCSB tools, 83 BioMCP tools and 5 Open Targets
-tools. RCSB returned 4HHB metadata, BioMCP answered `tool_inventory`, and
-Open Targets returned BRCA1 search results. These are connection and sample
-call tests, not validation of every tool or of their OpenCode UI integration.
-
-## Earlier verification — 18 September 2026, v1
-
-macOS 26.6, OpenCode 1.18.30. The measurements below belong to that run;
-they are not a claim that v2 has identical state or permission behaviour.
-
-- All four connect: `opencode mcp list` reports `duckdb`, `rcsb`, `biomcp`
-  and `opentargets` as connected when enabled, including the remote one.
-- Tool counts and names were read from each server's `tools/list`.
-- Download sizes were measured by downloading the wheels: 30 MB, 8.5 MB,
-  8.7 MB separately; 31 MB and 76 wheels for all three together.
-- `/mcps` toggling a disabled server left `opencode.json` byte-for-byte
-  unchanged and wrote nothing to OpenCode's state directory.
-- DuckDB refuses `CREATE`/`UPDATE`/`DELETE`/`ATTACH` in read-only mode; a
-  `COPY ... TO` file write succeeds.
+- **Connected is not working.** A missing database can pass the handshake and
+  still fail every query. Ask the agent what a query returned.
+- **Read-only is not write-free.** DuckDB in read-only mode refuses `CREATE`,
+  `UPDATE`, `DELETE` and `ATTACH`, but `COPY ... TO` still writes a file
+  outside the database.
+- **Tool counts:** 4 for DuckDB, 38 for RCSB, 83 for BioMCP and 5 for Open
+  Targets, read from each server's `tools/list`.
+- **Downloads:** the three local servers' wheels are 30 MB, 8.5 MB and 8.7 MB
+  on their own, 31 MB together.
+- **Switching a server on or off** with `/mcps` leaves `opencode.json`
+  unchanged.

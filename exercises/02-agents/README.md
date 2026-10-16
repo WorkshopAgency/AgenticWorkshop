@@ -200,7 +200,7 @@ model can run several agents with different instructions and permissions.
 The settings below are a reference; you do not need all of them.
 
 ## Agent settings reference
-This reference is for **OpenCode v2**, checked with 2.0.14 on 23 September 2026.<br>
+This reference is for **OpenCode v2**.<br>
 Start with the first few fields; the remaining options
 are available when you need them. Provider-specific options are open-ended,
 so there is no universal list that every model accepts.

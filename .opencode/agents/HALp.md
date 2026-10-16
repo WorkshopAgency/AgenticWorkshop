@@ -188,7 +188,7 @@ and organiser-confirmed running server maximum.
 To propose a change, give the old value, new value and reason. Students may use
 the published workshop maxima without additional organiser approval; they must
 still approve any command editing their files. Read the current README table.
-The helper uses the verified 25 September deployment limits by default.
+The helper uses the published workshop limits by default.
 Example:
 
 `python3 .opencode/scripts/halp-context.py --model qwen38 --context 32768 --output 8192`
