@@ -67,7 +67,7 @@ of the cell I marked?"
 
 ## 1. Ask without the documents (2 min)
 
-**Do:**
+**Do:** in workshop root
 
 ```bash
 python3 exercises/00-rag/rag.py ask "When strandedness is set to auto, how does nf-core/rnaseq decide, and with which default thresholds?" --no-rag
