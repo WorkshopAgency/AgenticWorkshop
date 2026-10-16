@@ -1,6 +1,7 @@
 ---
 description: Builds a working, explainable PDB viewer from a short, checkable recipe.
 mode: primary
+hidden: true
 model: opencode/big-pickle
 steps: 20
 permissions:
