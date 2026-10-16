@@ -99,7 +99,7 @@ under the input box.
 |---|---|
 | **Plan** | Discuss and design. It reads files without asking, but cannot run commands or create or change files |
 | **Build** | Do the work: write files and run commands, asking you first |
-| Workshop agents | `bad-agent`, `good-agent`, the genome team and `safe-analyst`, used in Exercises 3 and 6. They are not in the shift+tab cycle: you start each for one message with its command, `/bad-agent`, `/good-agent`, `/genome-team` or `/safe-analyst`, like `/halp` |
+| Workshop agents | `bad-agent`, `good-agent`, `genome-coordinator`, `safe-analyst`, … are used in Exercises 3 and 6 |
 
 **Agents and models.** The model shown under the input box answers for the
 current agent. Plan and Build can use different models: add a `model` to the
@@ -418,7 +418,6 @@ AgenticWorkshop/
          safe-analyst.md        Locked-down data agent, Exercise 6
       commands/
          halp.md                The /halp command
-         bad-agent.md, …        /bad-agent, /good-agent, /genome-team, /safe-analyst
       scripts/
          halp-context.py        Show safe limits or adjust one context with approval
       skills/
