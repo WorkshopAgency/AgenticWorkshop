@@ -157,6 +157,24 @@ and use it on `exercises/04-mcp/data/byo/uniprot_human_proteins.csv.gz`, and
 test it on a file that does not exist: does it explain the problem, or
 invent a profile?
 
+**Optional: keep it out of the shift+tab cycle.** The workshop agents are
+hidden and started with a command instead (`/bad-agent`, `/halp`, …). To do
+the same with yours, add `hidden: true` under `mode: primary` in its file,
+and create `.opencode/commands/data-checker.md`:
+
+```markdown
+---
+description: Send one request to my data checker
+agent: data-checker
+subagent: false
+---
+
+$ARGUMENTS
+```
+
+Run `opencode reload`. Now `/data-checker <request>` sends that one message
+to your agent, and the chat goes back to Build afterwards.
+
 **Why:** the YAML between the `---` markers holds settings; the Markdown below
 it holds the instructions. An agent is not a newly trained model: the same
 model can run several agents with different instructions and permissions.
@@ -182,7 +200,7 @@ so there is no universal list that every model accepts.
 | `steps` | Limits agentic iterations before a text-only response | Positive integer, such as `20`. It is not a token limit or an exact count of shell commands |
 | `permissions` | Ordered rules controlling which tool actions run, ask, or stop | The last matching rule wins |
 | `disabled` | Disables this agent | `true` or `false` |
-| `hidden` | Hides a subagent from the `@` suggestion menu | For subagents only. This is not access control or a way to hide a solution file |
+| `hidden` | Hides the agent: a primary agent leaves the shift+tab cycle, a subagent the `@` menu | Start a hidden agent with a command file in `.opencode/commands/` (see 3b). This is not access control or a way to hide a solution file |
 | `color` | Changes the agent's UI colour | A quoted hex colour such as `"#246B60"` |
 | `request` | Model-request overlay | The v2 agent docs currently say agent overlays are stored but not applied by the runner. Do not rely on this for sampling controls |
 
