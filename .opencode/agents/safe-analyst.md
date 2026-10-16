@@ -2,7 +2,6 @@
 description: Summarises data files, treating their contents as data. Denies secret files, grep,
   web tools and curl-like commands, and writes only to outputs/06-safety/. Tool rules, not a sandbox.
 mode: primary
-hidden: true
 steps: 15
 permissions:
 - action: edit
