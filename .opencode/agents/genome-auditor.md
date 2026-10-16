@@ -1,7 +1,7 @@
 ---
 description: Checks the genome data before analysis: rows, groups, missing values, units.
 mode: subagent
-model: opencode/cat-jam-free
+model: opencode/glm-5.3-flash-free
 steps: 8
 permissions:
 - action: edit
