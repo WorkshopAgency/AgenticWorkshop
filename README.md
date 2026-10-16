@@ -1,7 +1,7 @@
 # Agentic Workshop
 
 **Building and employing agents for data analysis and visualization**
-Danish bioinformatics conference, 2026 · 2 h 30 min, hands-on, individual work.
+Hands-on, individual work, about 2 h 30 min.
 Dimitrios S. Kanakoglou (dimkan@dtu.dk) · Peter Wad Sackett (pwsa@dtu.dk)
 
 OpenCode offers a changing selection of AI Large Language Models free of charge. We have also
@@ -9,7 +9,7 @@ prepared **four DTU-hosted LLM models** for this workshop. You can use
 either option, or connect your own supported subscriptions or API accounts.
 A paid subscription is not required to participate.
 
-[Download the workshop ZIP](https://github.com/WorkshopAgency/AgenticWorkshop/archive/refs/heads/main.zip) ·
+[Download the workshop ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip) ·
 [Quick start](#quick-start--download-extract-and-open) ·
 [Exercises](#exercises)
 
@@ -19,17 +19,17 @@ Every module stands alone: you can start any of them from a fresh chat, skip
 one, or come back to it later. Each module's README starts with its time,
 model, needs, and a *Done when* check.
 
-| Time | Module | You'll learn |
-|---|---|---|
-| 0:00 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
-| 0:10 | Concepts (slides) | Model, harness, tool, skill, agent, MCP |
-| 0:20 | [Exercise 0 — RAG](exercises/00-rag/README.md) | Why retrieval stops a weak model inventing answers |
-| 0:35 | [Exercise 1 — Skills](exercises/01-skills/README.md) | Turn a repeated task into a tested skill |
-| 1:05 | [Exercise 2 — Agents](exercises/02-agents/README.md) | A plugin, instructions and permissions, and a team of agents |
-| 1:50 | [Exercise 3 — MCP](exercises/03-mcp/README.md) | Connect a database, then check its answers |
-| 2:00 | [Exercise 4 — Decision model](exercises/04-decide/README.md) | Typed decisions with probabilities instead of prose |
-| 2:10 | [Exercise 5 — Safety](exercises/05-safety/README.md) | Prompt injection, and what permissions do and don't stop |
-| 2:20 | Wrap-up | When to use an agent, and how to check one |
+| Minutes | Module | You'll learn |
+|---:|---|---|
+| 10 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
+| 10 | Concepts (slides) | Model, harness, tool, skill, agent, MCP |
+| 15 | [Exercise 0 — RAG](exercises/00-rag/README.md) | Why retrieval stops a weak model inventing answers |
+| 30 | [Exercise 1 — Skills](exercises/01-skills/README.md) | Turn a repeated task into a tested skill |
+| 45 | [Exercise 2 — Agents](exercises/02-agents/README.md) | A plugin, instructions and permissions, and a team of agents |
+| 10 | [Exercise 3 — MCP](exercises/03-mcp/README.md) | Connect a database, then check its answers |
+| 10 | [Exercise 4 — Decision model](exercises/04-decide/README.md) | Typed decisions with probabilities instead of prose |
+| 10 | [Exercise 5 — Safety](exercises/05-safety/README.md) | Prompt injection, and what permissions do and don't stop |
+| 10 | Wrap-up | When to use an agent, and how to check one |
 
 Use **OpenCode on your laptop** to work on the exercises. The DTU models run
 on our server cluster; you do not need a cluster account, SSH, model downloads or
@@ -143,9 +143,9 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
    a desktop version in a browser at no extra cost.
 2. For Linux and WSL2 Ubuntu, the command to install the OpenCode CLI (terminal) is<br>
    `npm install -g @opencode/cli`
-3. Get the conference version of the workshop, either with Git:
-   `git clone https://github.com/WorkshopAgency/AgenticWorkshop.git`
-   or by [downloading the ZIP](https://github.com/WorkshopAgency/AgenticWorkshop/archive/refs/heads/main.zip).
+3. Get the workshop, either with Git:
+   `git clone https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026.git`
+   or by [downloading the ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip).
 4. Put the folder wherever you want to work. Its name does not matter;
    the text calls it the workshop root, and every path you will type is
    relative to it.
@@ -541,7 +541,7 @@ your JSON does not increase the server's capacity.
 | GPT-OSS | 16384 | 16384 | 4096 | 8192 |
 
 **Students may choose up to the maxima above without asking an organiser.**
-These running limits were verified on 25 September 2026. Start with the supplied
+Start with the supplied
 values and increase when useful. Changing JSON does not enlarge the server.
 Higher limits require a server change and validation by an organiser.
 **Do not select 262144 for ordinary workshop tasks.** Long requests consume

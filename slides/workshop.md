@@ -107,19 +107,19 @@ Free does not mean private.
 
 ---
 
-# Today
+# The workshop
 
-| Time | Block | You will |
-|---|---|---|
-| 0:00 | Setup | Run `scripts/check-setup.sh`, say `/halp hello` |
-| 0:10 | Concepts | These slides |
-| 0:20 | Exercise 0 · RAG | Watch a model stop halluncinating once it gets the documents |
-| 0:35 | Exercise 1 · Skills | Turn a repeated task into a tested skill |
-| 1:05 | Exercise 2 · Agents | Add a plugin, compare two agents, run a team of five agents|
-| 1:50 | Exercise 3 · MCP | Connect to a database and check the capabilities it provides |
-| 2:00 | Exercise 4 · Decision model | Get typed answers with probabilities |
-| 2:10 | Exercise 5 · Safety | Find an instruction hidden in a data file |
-| 2:20 | Wrap-up | When to use an agent, and how to check one |
+| Minutes | Block | You will |
+|---:|---|---|
+| 10 | Setup | Run `scripts/check-setup.sh`, say `/halp hello` |
+| 10 | Concepts | These slides |
+| 15 | Exercise 0 · RAG | Watch a model stop hallucinating once it gets the documents |
+| 30 | Exercise 1 · Skills | Turn a repeated task into a tested skill |
+| 45 | Exercise 2 · Agents | Add a plugin, compare two agents, run a team of five agents|
+| 10 | Exercise 3 · MCP | Connect to a database and check the capabilities it provides |
+| 10 | Exercise 4 · Decision model | Get typed answers with probabilities |
+| 10 | Exercise 5 · Safety | Find an instruction hidden in a data file |
+| 10 | Wrap-up | When to use an agent, and how to check one |
 
 Each exercise stands alone and its README says what to do.<br>
 Stuck? `/halp <exercise> <what you tried>`
@@ -239,6 +239,6 @@ Not suitable: no way to check the answer, irreversible actions, confidential dat
 
 # Thank you
 
-Material: github.com/WorkshopAgency/AgenticWorkshop
+Material: github.com/WorkshopAgency/AgenticWorkshop_dbc2026
 
 Dimitrios S. Kanakoglou · dimkan@dtu.dk<br>Peter Wad Sackett · pwsa@dtu.dk

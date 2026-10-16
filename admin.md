@@ -6,9 +6,9 @@ Operating notes for Peter and Dimitrios. For participant setup see the
 All paths below are `/home/local/workshop` on the compute nodes, not the
 repository on a laptop.
 
-## Before the conference
+## Before a workshop
 
-The conference session is 2.5 hours, 30 participants working alone, no break.
+A session is about 2.5 hours, with up to 30 participants working alone and no break.
 
 - **DTU models.** `qwen36`, `qwen38`, `mistral` and `gptoss` up, plus a new
   `embed` route serving an embedding model at `…/workshop/embed/embeddings`
@@ -27,7 +27,7 @@ The conference session is 2.5 hours, 30 participants working alone, no break.
   their plugins into `.opencode/plugins/`. On OpenCode 2.0.29 a plugin
   installed with `opencode plugin add github:…` loads but never redraws, so a
   sidebar that never changes means that install; HALp knows.
-- **On the day**, one of us watches the gateway while the other teaches. If
+- **During a session**, one of us watches the gateway while the other teaches. If
   DTU stops answering, tell the room to switch to a free model with `/models`;
   a DTU model that cannot be reached hangs without an error message.
 
@@ -108,7 +108,7 @@ Add `--dry-run` to preview. `bash bin/llm --help` for the rest.
 The checkpoint maximum is what the model supports, not what the current GPU
 allocation fits. The launcher ceiling is what it will accept without testing.
 
-**25 September live check:** Qwen 3.6 is currently running with 32768 context
+**Running limits:** Qwen 3.6 runs with 32768 context
 (its persistent default above remains 16384); Qwen 3.8 has 32768, Mistral and
 GPT-OSS have 16384. All four passed public chat, streaming and tool round trips.
 Students may set client context/output up to these running limits and the
@@ -158,7 +158,7 @@ bash bin/llm start mistral --context 32768
 
 ### Gateway request limits
 
-**Raised 25 September 2026, during the workshop,** after the room hit
+**Raised during a session** after the room hit
 `Provider request failed with HTTP 429` retries. Every student reaches the
 gateway without a key, so the whole room counts as a single team,
 `workshop-shared`, and shares one set of limits.
@@ -193,7 +193,7 @@ summary lists each as READY or NOT READY with a reason. Check both nodes.
 Re-running the start command repeats the checks without reloading running
 models.
 
-**Isolation warning (checked 23 September 2026):** the shared gateway's
+**Isolation warning:** the shared gateway's
 `/health` and `/models` handlers probe every configured backend, including
 compute05. A compute04-only start's normal readiness checks can therefore
 contact compute05. Do not use those checks when compute05 must be completely
@@ -231,14 +231,14 @@ That leaves the models loaded, but disconnects every model while the gateway
 is down. Warn the room first, and run the two commands separately rather than
 chained with `&&`.
 
-**Observed on 25 September 2026:** `stop` waits for open requests to finish.
+**Observed:** `stop` waits for open requests to finish.
 It waited on a 179-second Qwen 3.8 request, and the replacement gateway did not
 start after that stop. The room had no DTU models for about 1–2 minutes, until
 `bash bin/llm start gateway` was run on its own. After a stop, confirm with
 `bash bin/llm status all` that the gateway shows a new PID, and check
 `/health`.
 
-### Model switching and effort compatibility (25 September 2026)
+### Model switching and effort compatibility
 
 - Mistral Nemo rejects reasoning metadata from earlier GPT-OSS/Qwen turns
   (`ThinkChunk`). On compute04, `app/request_compat.py` now removes assistant

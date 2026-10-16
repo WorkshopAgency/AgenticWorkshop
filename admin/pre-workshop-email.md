@@ -1,6 +1,6 @@
 # Pre-workshop email (send about a week before)
 
-Subject: Agents workshop at the conference: 10 minutes of setup before you come
+Subject: Agents workshop: 10 minutes of setup before you come
 
 Dear participant,
 
@@ -28,19 +28,19 @@ about 10 minutes.
 4. **Get the workshop material:**
 
    ```bash
-   git clone https://github.com/WorkshopAgency/AgenticWorkshop.git
+   git clone https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026.git
    cd AgenticWorkshop
    ```
 
-   No Git? Download https://github.com/WorkshopAgency/AgenticWorkshop/archive/refs/heads/main.zip and unzip it.
+   No Git? Download https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip and unzip it.
 5. **Run the setup check** from inside that folder:
 
    ```bash
    scripts/check-setup.sh
    ```
 
-   Every line should show ✅. A ⚠️ about the DTU models is expected before the
-   workshop day: they are switched on for the session.
+   Every line should show ✅. A ⚠️ about the DTU models is expected beforehand:
+   they are switched on for the session.
 
 Optional: Exercise 1 ends with an extra in which you run a notebook inside
 OpenCode. Its first run downloads about 400 MB of Python packages; to fetch

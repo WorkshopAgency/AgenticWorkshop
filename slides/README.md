@@ -8,25 +8,19 @@ drift apart.
 
 | File | Deck | Published |
 |---|---|---|
-| [`dkb2026.md`](dkb2026.md) | **Conference edition.** 14 slides: agenda, concepts, where data goes, one slide per module, agent suitability, limitations | Yes |
-| [`unoriginalSlop.md`](unoriginalSlop.md) | Harnesses, skills, agents, MCP, plugins, model choices, the three README lessons and HALp, followed by exercise instructions and tips | Yes |
-| [`semioriginalSlop.md`](semioriginalSlop.md) | Building and employing agents for data analysis. An earlier deck, kept for reference | No |
-| [`originalSlop.md`](originalSlop.md) | Skills, agents and MCP. An earlier draft, kept for reference | No |
+| [`workshop.md`](workshop.md) | The introduction: LLMs, open weights, where data goes, the modules, the terms, agent suitability and limitations | Yes |
 | [`themes/dtu.css`](themes/dtu.css) | The workshop theme. Not a deck | — |
 
-Only `unoriginalSlop.md` is published, as HTML. Drafts are listed in `SKIP` in
-[the workflow](../.github/workflows/slides.yml); add a name there to keep a
-deck in the repository but off the site.
+Decks are published as HTML. To keep a deck in the repository but off the
+site, add its name to `SKIP` in
+[the workflow](../.github/workflows/slides.yml).
 
-The revised deck is **15 slides**: 14 introductory and exercise slides,
-followed by a thank-you slide. Further reading, project links and references
-live in [additional.md](../additional.md) as an ordinary Markdown document,
-outside this folder so the slide workflow does not turn it into a presentation.
-The exercise READMEs retain the detailed instructions. Speaker notes contain
-source references. The supplied MCP diagram lives in
-`assets/mcp-overview.png`; the publishing workflow copies assets alongside
-the HTML. Keep the filename unchanged
-so the existing published link stays valid when the revision is approved.
+Further reading, project links and references live in
+[additional.md](../additional.md), an ordinary Markdown document outside this
+folder so the slide workflow does not turn it into a presentation. The
+exercise READMEs hold the detailed instructions. Speaker notes contain source
+references. Figures live in `assets/`, which the publishing workflow copies
+alongside the HTML; each one is credited on its slide.
 
 ## Reading it
 
@@ -46,9 +40,9 @@ command palette. Nothing else to install.
 npx @marp-team/marp-cli@4.5.1 -s slides --theme-set slides/themes
 
 # one-off exports
-npx @marp-team/marp-cli@4.5.1 slides/unoriginalSlop.md --theme-set slides/themes -o unoriginalSlop.html
-npx @marp-team/marp-cli@4.5.1 slides/unoriginalSlop.md --theme-set slides/themes --pdf --allow-local-files
-npx @marp-team/marp-cli@4.5.1 slides/unoriginalSlop.md --theme-set slides/themes --pptx
+npx @marp-team/marp-cli@4.5.1 slides/workshop.md --theme-set slides/themes -o workshop.html
+npx @marp-team/marp-cli@4.5.1 slides/workshop.md --theme-set slides/themes --pdf --allow-local-files
+npx @marp-team/marp-cli@4.5.1 slides/workshop.md --theme-set slides/themes --pptx
 ```
 
 In the HTML deck: arrow keys to move, <kbd>F</kbd> for fullscreen,
@@ -98,5 +92,5 @@ never what you want.
 
 **Keep slides short.** Marp does not shrink text to fit; content taller than
 the slide is simply clipped. Check the rendered output before presenting —
-`npx @marp-team/marp-cli@4.5.1 slides/unoriginalSlop.md --theme-set slides/themes --pdf`
+`npx @marp-team/marp-cli@4.5.1 slides/workshop.md --theme-set slides/themes --pdf`
 and page through it.

@@ -8,7 +8,7 @@ name: Build and publish slides
 
 on:
   push:
-    branches: [main, dkb-2026]
+    branches: [main]
     paths:
       - 'slides/**'
       - '.github/workflows/slides.yml'
@@ -46,7 +46,7 @@ jobs:
       # Add a name here (without .md) to keep a draft out of the site.
       - name: Build each deck to HTML
         env:
-          SKIP: 'README originalSlop semioriginalSlop'
+          SKIP: 'README'
         run: |
           set -euo pipefail
           mkdir -p _site

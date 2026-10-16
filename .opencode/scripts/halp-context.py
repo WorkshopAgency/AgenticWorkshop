@@ -9,7 +9,7 @@ from pathlib import Path
 import tempfile
 import os
 
-# Public deployment snapshot verified 25 September 2026; not a live probe.
+# The published workshop limits (the README table); not a live probe.
 SERVER_CONTEXT = {'gptoss': 16384, 'mistral': 16384, 'qwen36': 32768, 'qwen38': 32768}
 SERVER_OUTPUT = {'gptoss': 8192, 'mistral': 4096, 'qwen36': 4096, 'qwen38': 8192}
 CHECKPOINT_CONTEXT = {'gptoss': 131072, 'mistral': 131072, 'qwen36': 262144, 'qwen38': 262144}
@@ -40,7 +40,7 @@ def main():
         print(json.dumps({'kind': 'project_client_budgets',
                           'server_capacity': 'NOT CHECKED: these are not live server limits',
                           'models': safe,
-                          'verified_2026_09_25': {name: {'context': SERVER_CONTEXT[name], 'output': SERVER_OUTPUT[name]}
+                          'published_limits': {name: {'context': SERVER_CONTEXT[name], 'output': SERVER_OUTPUT[name]}
                                                   for name in safe if name in SERVER_CONTEXT},
                           'no_verified_limit': sorted(name for name in safe if name not in SERVER_CONTEXT)}, indent=2))
         return
