@@ -34,7 +34,8 @@ Open the workshop folder in OpenCode: in a terminal, `cd` into it and type
 OpenCode has two main agents, and you switch between them with
 **shift+tab** (in Desktop, with the agent selector):
 
-- **Plan** reads and discusses. It cannot create or change files.
+- **Plan** reads and discusses. It reads files without asking, and cannot
+  run commands or create or change files.
 - **Build** does the work: it writes files and runs commands, and asks you
   first.
 

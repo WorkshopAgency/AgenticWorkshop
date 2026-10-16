@@ -140,5 +140,16 @@
       "resource": "*",
       "effect": "ask"
     }
-  ]
+  ],
+  "agents": {
+    "plan": {
+      "permissions": [
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    }
+  }
 }

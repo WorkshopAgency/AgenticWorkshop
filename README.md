@@ -187,7 +187,7 @@ under the input box.
 
 | Agent | Use it to |
 |---|---|
-| **Plan** | Discuss and design. It reads, but cannot create or change files |
+| **Plan** | Discuss and design. It reads files without asking, but cannot run commands or create or change files |
 | **Build** | Do the work: write files and run commands, asking you first |
 | Workshop agents | `bad-agent`, `good-agent`, `genome-coordinator`, `safe-analyst`, … are used in Exercises 2 and 5 |
 
