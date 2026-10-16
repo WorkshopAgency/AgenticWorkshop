@@ -60,8 +60,6 @@ model, needs, and a *Done when* check.
 8. The default model is **Big Pickle**, a free OpenCode model. Other models
    are in the model selector (`/models` in the terminal version); see
    [the models you can use](#llm-models-you-can-use).
-9. Do [Exercise 0](exercises/00-plugins/README.md): it installs the two
-   plugins you use in the exercises and adds the workshop key.
 
 All modules need Python **3.10 or later** (`python3 --version`), with no
 additional Python packages, and [`uv`](https://docs.astral.sh/uv/)

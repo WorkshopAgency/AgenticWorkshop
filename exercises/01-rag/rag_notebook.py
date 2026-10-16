@@ -16,7 +16,7 @@ rag.status()
 
 # %% 1. Ask without the documents
 question = "Which chat model is the default in this workshop?"
-rag.answer(question)
+closed = rag.answer(question)
 
 # %% [markdown] Step 2 · Cut the documents into pieces
 # The documents are this workshop's pages. A model can only be given a few
@@ -41,7 +41,7 @@ index = rag.embed(pieces)
 hits = rag.find(question, index, k=3)
 
 # %% 4b. Find the pieces that share the most words
-rag.find(question, index, k=3, words=True)
+word_hits = rag.find(question, index, k=3, words=True)
 
 # %% [markdown] Step 5 · Open book
 # Now the same question, with the pieces and strict rules: answer only from
@@ -63,7 +63,7 @@ rag.cited(reply, hits)
 
 # %% 7. Ask something that is not in the documents
 q7 = "When is the coffee break?"
-rag.answer(q7, rag.find(q7, index, k=3))
+reply7 = rag.answer(q7, rag.find(q7, index, k=3))
 
 # %% [markdown] Step 8 · One piece or eight?
 # How many pieces you send is a trade-off: too few can miss half the answer,
@@ -71,7 +71,7 @@ rag.answer(q7, rag.find(q7, index, k=3))
 
 # %% 8a. One piece
 q8 = "How long is Exercise 3, and what are its parts?"
-rag.answer(q8, rag.find(q8, index, k=1))
+reply8a = rag.answer(q8, rag.find(q8, index, k=1))
 
 # %% 8b. Eight pieces
-rag.answer(q8, rag.find(q8, index, k=8))
+reply8b = rag.answer(q8, rag.find(q8, index, k=8))

@@ -38,7 +38,7 @@ OpenCode.
 `tui.tsx` (what you see) and `server.ts` (what the agent gets):
 
 - [Sidebar Plus at v0.3.1](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.1)
-- [opencode-notebook at v0.1.1](https://github.com/dskanakoglou/opencode-notebook/tree/v0.1.1)
+- [opencode-notebook at v0.1.2](https://github.com/dskanakoglou/opencode-notebook/tree/v0.1.2)
 
 **Why:** ask of every plugin what it reads and what it adds to OpenCode. The
 notebook plugin, for example, gives the agent a tool that runs Python, and
@@ -50,13 +50,13 @@ its README says plainly that this tool does not ask before it runs.
 
 ```bash
 git clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/sidebar-plus
-git clone -q --depth 1 --branch v0.1.1 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
+git clone -q --depth 1 --branch v0.1.2 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
 ```
 
 Git notes that the tag "is not a commit" and that you are on a "detached
 HEAD"; both are expected. No Git? Download the ZIP of
 [Sidebar Plus](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.1.zip)
-and of [the notebook](https://github.com/dskanakoglou/opencode-notebook/archive/refs/tags/v0.1.1.zip),
+and of [the notebook](https://github.com/dskanakoglou/opencode-notebook/archive/refs/tags/v0.1.2.zip),
 unzip them, and move the folders to `.opencode/plugins/sidebar-plus` and
 `.opencode/plugins/opencode-notebook`.
 

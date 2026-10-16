@@ -151,10 +151,11 @@ answer, too many add noise, cost and room for the model to embroider.
 
 Ask the agent in the chat to change a question in the notebook, for example:
 
-> In exercises/01-rag/rag_notebook.py, change the question in cell 1 to
-> "What does /compact do?"
+> In exercises/01-rag/rag_notebook.py, change the question in the cell
+> "1. Ask without the documents" to "What does /compact do?"
 
-Approve the edit, then run cells 1, 4, 5 and 6 again. Or mark a cell with
+Approve the edit, then run cells 1, 4, 5 and 6 again (the numbers in their
+titles). Or mark a cell with
 `space`, go back to the chat with `ctrl+x ←`, and ask: "Is the cited text
 really in the pieces of the cell I marked?"
 
