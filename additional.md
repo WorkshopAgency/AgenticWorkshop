@@ -84,7 +84,7 @@ rendered result. Image viewing and image understanding are different capabilitie
 stateful agent workflows. Explore it if you want to express the flow in code,
 with explicit state, persistence and human intervention, rather than relying
 only on a coordinator's Markdown instructions. It is a separate development
-choice, not an OpenCode plugin you need for Exercise 2.
+choice, not an OpenCode plugin you need for Exercise 3.
 
 A small experiment: implement the same audit → analysis → review task with
 an OpenCode coordinator and with an explicit workflow. Compare recovery after

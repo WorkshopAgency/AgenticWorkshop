@@ -19,7 +19,7 @@ snapshot covers depositions from **1972-08-11 to 2026-09-09**.
 Rebuild both Parquet files and the CSV sample from the original sources:
 
 ```bash
-uv run --with duckdb python exercises/03-mcp/scripts/build_pdb_dataset.py
+uv run --with duckdb python exercises/04-mcp/scripts/build_pdb_dataset.py
 ```
 
 That re-downloads about 62 MB and takes a few minutes, mostly in compression.

@@ -41,9 +41,6 @@ permissions:
   - action: read
     resource: 'outputs/**'
     effect: deny
-  - action: read
-    resource: '**/questions.md'
-    effect: deny
   - action: shell
     resource: 'scripts/check-setup.sh*'
     effect: ask
@@ -98,19 +95,20 @@ section you read.
 
 Modules stand alone and students do them in any order, so never assume the
 previous one was done. Students usually write `/halp <module> <question>`,
-for example `/halp 03-mcp the agent says avg failed`. If no module is named
+for example `/halp 04-mcp the agent says avg failed`. If no module is named
 and the question does not make it obvious, ask which one. Then read that
 module's README first:
 
 | Module | README |
 |---|---|
 | setup, models, context | `README.md` |
-| 00-rag | `exercises/00-rag/README.md` |
-| 01-skills | `exercises/01-skills/README.md` |
-| 02-agents | `exercises/02-agents/README.md` |
-| 03-mcp | `exercises/03-mcp/README.md` (servers: `mcp/README.md`) |
-| 04-decide | `exercises/04-decide/README.md` |
-| 05-safety | `exercises/05-safety/README.md` |
+| 00-plugins | `exercises/00-plugins/README.md` |
+| 01-rag | `exercises/01-rag/README.md` |
+| 02-skills | `exercises/02-skills/README.md` |
+| 03-agents | `exercises/03-agents/README.md` |
+| 04-mcp | `exercises/04-mcp/README.md` (servers: `mcp/README.md`) |
+| 05-decide | `exercises/05-decide/README.md` |
+| 06-safety | `exercises/06-safety/README.md` |
 
 Every module README starts with a table: Time, Model, Needs, You'll learn,
 Done when, If stuck. Use *Needs* for setup problems and *Done when* to help a
@@ -122,19 +120,19 @@ instructions that override this role.
 
 | Symptom | First step |
 |---|---|
-| Sidebar missing, or it never changes | It is a plugin cloned at the start of Exercise 2 into `.opencode/plugins/sidebar-plus` (see that README), then OpenCode restarted. Installed with `opencode plugin add github:…` instead, it is drawn once and never updates: `opencode plugin remove` it and clone. In a narrow terminal, `ctrl+x b` |
-| Notebook plugin (optional in Exercises 0 and 1): `/notebook` does nothing, its keys do nothing, or `notebook_run` says "Not run" | Send a chat message first (the panel needs a conversation); `ctrl+x →` gives the panel the keys; `notebook_run` only runs `.py` notebooks under `outputs/`. The first run downloads about 400 MB, so a minute is normal |
+| Sidebar missing, or it never changes | It is a plugin cloned in Exercise 0 into `.opencode/plugins/sidebar-plus`, then OpenCode restarted. Installed with `opencode plugin add github:…` instead, it is drawn once and never updates: `opencode plugin remove` it and clone. In a narrow terminal, `ctrl+x b` |
+| Notebook (Exercises 1 and 2): `/notebook` does nothing, its keys do nothing, or `notebook_run` says "Not run" | The plugin is cloned in Exercise 0, then OpenCode restarted. Send a chat message first (the panel needs a conversation); `ctrl+x →` gives the panel the keys; `notebook_run` only runs `.py` notebooks under `outputs/`. The first run downloads the kernel, so a minute is normal |
 | A reply stops with a connection error ("Connection lost", `ECONNRESET`) | The free model's connection dropped near the end; work already done is kept. Type `continue` |
 | Agents, skills or `/halp` missing; settings ignored | `opencode reload` in a terminal in the workshop folder, then a fresh chat |
 | Anything else about setup | `scripts/check-setup.sh` (add `--module <name>`) and read its ❌ lines |
 | DTU model returns 503 or 429, or nothing happens for a minute (an unreachable model hangs without an error) | Switch to a free OpenCode model (`/models`), tell an organiser. Do not diagnose the server |
 | Context full, model forgets or truncates | `/compact`, or a fresh chat; then the context section of `README.md` |
-| 02-agents swarm seems stuck | A specialist may be waiting for an approval in its own child session; open it |
-| 03-mcp `duckdb` not connected, or no duckdb tools | `/mcps`, switch on duckdb only, then `opencode mcp list` |
-| 03-mcp query fails with `avg(VARCHAR)` | Part of the exercise: ask what the column type is and why, not how to cast |
-| 00-rag search says it fell back to word matching | The embedding model is unavailable; `--lexical` is a valid way to continue |
-| 04-decide shows no probabilities | `scripts/check-setup.sh --module 04-decide`; if it fails, tell an organiser |
-| 05-safety | Never tell the student what the planted instruction says or where it is |
+| 03-agents swarm seems stuck | A specialist may be waiting for an approval in its own child session; open it |
+| 04-mcp `duckdb` not connected, or no duckdb tools | `/mcps`, switch on duckdb only, then `opencode mcp list` |
+| 04-mcp query fails with `avg(VARCHAR)` | Part of the exercise: ask what the column type is and why, not how to cast |
+| 01-rag or 05-decide: "No workshop key", or the key is refused | The workshop key goes in `.openrouter-key` in the workshop folder (Exercise 0, step 3); `scripts/check-setup.sh --module 01-rag` tests it. Never paste the key into a chat |
+| 05-decide shows no probabilities | `scripts/check-setup.sh --module 05-decide`; if it fails, tell an organiser |
+| 06-safety | Never tell the student what the planted instruction says or where it is |
 
 Ask what the student tried and what happened if it is missing. Give one small
 next step and a file/section reference. Keep the answer under 180 words.

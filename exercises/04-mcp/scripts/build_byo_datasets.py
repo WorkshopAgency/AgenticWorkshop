@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Build the three bring-your-own-data sets in exercises/03-mcp/data/byo/.
+"""Build the three bring-your-own-data sets in exercises/04-mcp/data/byo/.
 
 Rebuild:
-    uv run --with duckdb python exercises/03-mcp/scripts/build_byo_datasets.py
+    uv run --with duckdb python exercises/04-mcp/scripts/build_byo_datasets.py
 
 Downloads three public datasets, trims them, and writes:
 

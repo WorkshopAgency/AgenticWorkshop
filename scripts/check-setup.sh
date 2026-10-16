@@ -2,13 +2,12 @@
 # Check that this laptop is ready for the workshop, or for one module.
 #
 #   scripts/check-setup.sh                      shared setup (run this first)
-#   scripts/check-setup.sh --module 03-mcp      also that module's own needs
+#   scripts/check-setup.sh --module 04-mcp      also that module's own needs
 #
-# Modules: 00-rag 01-skills 02-agents 03-mcp 04-decide 05-safety
+# Modules: 00-plugins 01-rag 02-skills 03-agents 04-mcp 05-decide 06-safety
 # Works on macOS, Linux and Windows WSL2. Only reads; changes nothing.
 
-MIN="2.0.16"   # oldest OpenCode the workshop plugin supports
-DTU="https://teaching.healthtech.dtu.dk/workshop"
+MIN="2.0.29"   # oldest OpenCode the workshop plugins were tested with
 ZEN="https://opencode.ai/zen/v1"
 
 fails=0
@@ -20,9 +19,15 @@ have() { command -v "$1" >/dev/null 2>&1; }
 limit() { local s=$1; shift; perl -e 'alarm shift; exec @ARGV' "$s" "$@"; }
 http() { curl -s -o /dev/null -w '%{http_code}' --max-time 15 "$@"; }
 
-dtu_model() {   # $1 = model id
-  if [ "$(http "$DTU/$1/health")" = "200" ]; then ok "DTU model $1 answers"
-  else warn "DTU model $1 is not answering" "use a free OpenCode model instead and tell an organiser"; fi
+plugin() {      # $1 = folder in .opencode/plugins
+  if [ -f ".opencode/plugins/$1/tui.tsx" ]; then ok "plugin $1 installed"
+  else bad "plugin $1 is not installed" "Exercise 0, step 2"; fi
+}
+key() {         # the workshop key, tested with Exercise 1's own code
+  if [ ! -s .openrouter-key ] && [ -z "$OPENROUTER_API_KEY" ]; then
+    bad "no workshop key" "Exercise 0, step 3: put it in .openrouter-key"
+  elif limit 40 python3 exercises/01-rag/rag.py 2>&1 | grep -q "key works"; then ok "the workshop key works"
+  else bad "the workshop key was refused or OpenRouter is unreachable" "check .openrouter-key, then tell an organiser"; fi
 }
 
 shared() {
@@ -43,40 +48,35 @@ shared() {
   if have python3 && python3 -c 'import sys; sys.exit(sys.version_info < (3, 10))'; then
     ok "Python $(python3 -c 'import platform; print(platform.python_version())')"
   else bad "Python 3.10 or newer is missing" "install python3 (WSL: sudo apt install python3)"; fi
-  if have python3; then
-    if limit 20 python3 -c 'import urllib.request; urllib.request.urlopen("https://github.com", timeout=15)' 2>/dev/null; then
-      ok "Python can open HTTPS addresses"
-    elif limit 20 python3 -c 'import urllib.request; urllib.request.urlopen("https://github.com", timeout=15)' 2>&1 | grep -q CERTIFICATE_VERIFY_FAILED; then
-      bad "Python cannot check HTTPS certificates" "Mac with Python from python.org: run 'Install Certificates.command' in /Applications/Python 3.x/"
-    else warn "Python could not reach github.com" "check your internet connection"; fi
-  fi
 
   if [ "$(http "$ZEN/models")" = "200" ]; then ok "free OpenCode models reachable"
   else bad "cannot reach opencode.ai" "check the network / Wi-Fi"; fi
-  dtu_model qwen36
 }
 
 module() {
   echo "Module $1"
   case "$1" in
-    00-rag)
-      dtu_model mistral
-      if have uv && have git; then ok "uv and git, for the optional notebook"
-      else warn "the optional notebook needs uv and git" "uv: curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
-      if [ "$(http "$DTU/embed/health")" = "200" ]; then ok "embedding model answers"
-      else warn "embedding model is not answering" "rag.py falls back to word matching (--lexical)"; fi
+    00-plugins)
+      if have git; then ok "git $(git --version | cut -d' ' -f3)"
+      else warn "git is missing" "download the plugin ZIPs instead, as the README says"; fi
+      if have uv; then ok "uv $(uv --version | cut -d' ' -f2), which starts the notebook's Python"
+      else bad "uv is missing" "curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
+      plugin sidebar-plus
+      plugin opencode-notebook
+      key
       ;;
-    01-skills)
-      ok "nothing extra needed for 1a-1f"
-      if have uv && have git; then ok "uv and git, for the optional notebook extra"
-      else warn "the optional notebook extra needs uv and git" "uv: curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
-      nv=$(opencode --version 2>/dev/null | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
-      if [ -n "$nv" ] && [ "$(printf '%s\n%s\n' "$nv" 2.0.29 | sort -V | head -1)" != 2.0.29 ]; then
-        warn "the optional notebook extra needs OpenCode 2.0.29 or later; you have $nv" "opencode upgrade"; fi
+    01-rag)
+      plugin opencode-notebook
+      if have uv; then ok "uv, which starts the notebook's Python"
+      else bad "uv is missing" "curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
+      key
       ;;
-    02-agents)
-      if have git; then ok "git $(git --version | cut -d' ' -f3), to clone the plugin"
-      else warn "git is missing" "download the plugin ZIP instead, as the README says"; fi
+    02-skills)
+      ok "nothing extra needed for 2a-2f"
+      if [ -f .opencode/plugins/opencode-notebook/tui.tsx ]; then ok "notebook plugin, for the optional extra"
+      else warn "the optional extra needs the notebook plugin" "Exercise 0, step 2"; fi
+      ;;
+    03-agents)
       models=$(curl -s --max-time 15 "$ZEN/models")
       for f in .opencode/agents/genome-*.md; do
         m=$(sed -n 's/^model: *opencode\///p' "$f")
@@ -85,27 +85,26 @@ module() {
           *) bad "$(basename "$f" .md) model $m is not offered any more" "tell an organiser" ;; esac
       done
       ;;
-    03-mcp)
+    04-mcp)
       if have uv; then ok "uv $(uv --version | cut -d' ' -f2)"
       else bad "uv is missing" "curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
-      if [ -f exercises/03-mcp/data/workshop.duckdb ]; then ok "database built"
+      if [ -f exercises/04-mcp/data/workshop.duckdb ]; then ok "database built"
       else warn "database not built yet" "step 1 of the exercise builds it"; fi
       if have opencode && limit 30 opencode mcp list 2>/dev/null | grep -i duckdb | grep -qi connected; then
         ok "duckdb MCP server connected"
       else warn "duckdb MCP server not connected yet" "type /mcps in OpenCode and switch on duckdb"; fi
       ;;
-    04-decide)
-      body='{"model":"qwen36","messages":[{"role":"user","content":"Answer A or B. Answer:"}],"max_tokens":1,"temperature":0,"logprobs":true,"top_logprobs":5}'
-      out=$(curl -s --max-time 30 -H 'content-type: application/json' -d "$body" "$DTU/qwen36/chat/completions")
-      if printf '%s' "$out" | python3 -c 'import sys,json; c=json.load(sys.stdin)["choices"][0]; sys.exit(0 if c["logprobs"]["content"][0]["top_logprobs"] else 1)' 2>/dev/null
-      then ok "qwen36 returns token probabilities"
-      else bad "qwen36 returned no token probabilities" "tell an organiser: decide.py needs logprobs"; fi
+    05-decide)
+      key
+      if limit 90 python3 exercises/05-decide/decide.py --state "A bar chart of three values." --json >/dev/null 2>&1
+      then ok "the decision model returns token probabilities"
+      else bad "decide.py got no token probabilities" "run it once to see the message, then tell an organiser"; fi
       ;;
-    05-safety)
+    06-safety)
       if [ -f .opencode/agents/safe-analyst.md ]; then ok "safe-analyst agent present"
       else bad "safe-analyst agent missing" "update your copy: git pull, or download the ZIP again"; fi
       ;;
-    *) bad "unknown module '$1'" "choose one of: 00-rag 01-skills 02-agents 03-mcp 04-decide 05-safety" ;;
+    *) bad "unknown module '$1'" "choose one of: 00-plugins 01-rag 02-skills 03-agents 04-mcp 05-decide 06-safety" ;;
   esac
 }
 

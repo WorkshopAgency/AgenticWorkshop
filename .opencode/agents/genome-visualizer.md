@@ -67,7 +67,7 @@ next to each bar. Say in your reply that the axis is logarithmic.
 
 ## Rules
 
-- Input: `exercises/03-mcp/data/byo/ncbi_reference_genomes.csv.gz` (gzip CSV; columns include `group`, `assembly_level`,
+- Input: `exercises/04-mcp/data/byo/ncbi_reference_genomes.csv.gz` (gzip CSV; columns include `group`, `assembly_level`,
   `genome_size` in base pairs). Its `PROVENANCE.md` is in the same folder.
 - Work only in the run folder you are given. Never change the input.
 - Do not explore with shell commands (`ls`, `zcat`, `awk`, `python3 -c`):

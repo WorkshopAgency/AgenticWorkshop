@@ -4,7 +4,7 @@ OpenCode 2.0.16 on macOS (Apple Silicon). DTU models offline all day (503,
 then no connection). Everything model-driven ran on OpenCode Zen free models.
 Detailed evidence: [model-bakeoff.md](model-bakeoff.md),
 [2a-rehearsal.md](2a-rehearsal.md), and the "For organisers" section of
-[05-safety](../exercises/05-safety/README.md).
+[05-safety](../exercises/06-safety/README.md).
 
 ## Verified
 

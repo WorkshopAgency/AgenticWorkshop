@@ -1,19 +1,19 @@
-# Exercise 2 — Agents
+# Exercise 3 — Agents
 
 | | |
 |---|---|
-| **Time** | 45 min: plugin (5) · 2a (10) · 2b (10) · 2c (10, plus discussion) |
-| **Model** | 2a: `opencode/big-pickle`, selected by you for both agents. 2b: your choice. 2c: the coordinator on Big Pickle; each specialist's own model is set in its file |
-| **Needs** | `scripts/check-setup.sh` passed, and access to GitHub for the plugin. Nothing from other modules: 2b supplies its own skill |
+| **Time** | 40 min: 3a (10) · 3b (10) · 3c (10, plus discussion) |
+| **Model** | 3a: `opencode/big-pickle`, selected by you for both agents. 3b: your choice. 3c: the coordinator on Big Pickle; each specialist's own model is set in its file |
+| **Needs** | `scripts/check-setup.sh` passed. Sidebar Plus from Exercise 0 helps in 3c. Nothing else from other modules: 3b supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
-| **Done when** | 2a: `check_viewer.py` scored both viewers. 2b: your agent ran on one normal and one invalid input. 2c: you checked `report.md` against `review.md` and looked at the chart yourself |
-| **If stuck** | `/halp 02-agents <what you tried>` |
+| **Done when** | 3a: `check_viewer.py` scored both viewers. 3b: your agent ran on one normal and one invalid input. 3c: you checked `report.md` against `review.md` and looked at the chart yourself |
+| **If stuck** | `/halp 03-agents <what you tried>` |
 
-Your outputs go under `outputs/02-agents/`.
+Your outputs go under `outputs/03-agents/`.
 
 ## Why agents
 
-In Exercise 1 the model followed a skill you gave it. An **agent** goes one
+In Exercise 2 the model followed a skill you gave it. An **agent** goes one
 step further: it is a model with its own instructions, its own tools and
 permissions, and a step limit, working in a loop. It reads, decides what to
 do next, asks OpenCode to run a tool, reads the result, and repeats until the
@@ -23,52 +23,13 @@ job is done or the step limit is reached.
 that differ only in their instructions, write one of your own, and run a
 team of five that hand work to each other.
 
-# Before you start — add a plugin (5 min)
+# Before you start
 
-A skill gives an agent instructions. An MCP server connects it to a tool
-outside OpenCode. A **plugin** changes OpenCode itself: it is code that runs
-inside OpenCode, with the same access to your laptop as OpenCode has, and
-nothing sandboxes it. So you look before you install, you pin a version, and
-you know how to take it out again.
+You installed Sidebar Plus in [Exercise 0](../00-plugins/README.md). Keep the
+sidebar open in this exercise: in 3c it shows every agent of the team, what
+each is doing, and which one waits for your approval.
 
-The plugin here is Sidebar Plus, written for this workshop. It shows what
-each agent is doing, which you will want in 2c.
-
-**Do:**
-
-1. Look at it first:
-   [opencode-sidebar-plus at v0.3.1](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.1).
-   Skim the README and the two entry files, `tui.tsx` and `server.ts`.
-2. Install that exact version: in a terminal in the workshop folder, clone it
-   into this project's plugin folder:
-
-   ```bash
-   git clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/sidebar-plus
-   ```
-
-   Git notes that the tag "is not a commit" and that you are on a "detached
-   HEAD"; both are expected. No Git? Download
-   [the v0.3.1 ZIP](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.1.zip),
-   unzip it, and move the folder to `.opencode/plugins/sidebar-plus`.
-3. Quit OpenCode (`ctrl+c`), start it again in the workshop folder, and start
-   a new chat.
-
-**Look for:** a sidebar on the right with the context window, the agent's
-to-do list, its activity and any sub-agents. `/sidebar` changes what it
-shows. If you do not see it, widen the terminal or press `ctrl+x b`.
-
-**Why:** OpenCode runs whatever it finds in `.opencode/plugins/` when it
-starts: a plugin is just a folder of code. `--branch v0.3.1` pins the version,
-so what you looked at is what runs, even if the author changes the plugin
-later. While skimming, ask yourself what it reads and what it adds to
-OpenCode; that is the question to ask of every plugin. It is installed for
-this project only; to remove it, delete the folder and restart OpenCode:
-
-```bash
-rm -rf .opencode/plugins/sidebar-plus
-```
-
-# Exercise 2a — From a basic agent to a good agent
+# Exercise 3a — From a basic agent to a good agent
 
 Use **`opencode/big-pickle`** for both agents and select it yourself before
 each run. Two agents, the same request, the same model, the same permissions
@@ -86,12 +47,12 @@ agent selector in Desktop) and send:
 
 > Create an interactive browser visualization of PDB 4HHB that I can use to
 > explain the structure to another researcher. Save everything under
-> outputs/02-agents/bad-agent. I have a browser and OpenCode; do not require
+> outputs/03-agents/bad-agent. I have a browser and OpenCode; do not require
 > additional software installation. Briefly explain how to open and use the
 > result.
 
 Then start another new chat, select `good-agent`, and send the same request
-with `outputs/02-agents/good-agent`.
+with `outputs/03-agents/good-agent`.
 
 **Look for:** count the approvals each one asks for, and watch which files
 each reads. If the bad agent stops at "Maximum steps reached", leave it: the
@@ -104,8 +65,8 @@ instructions alone.
 
 **Do:**
 
-    python3 exercises/02-agents/check_viewer.py outputs/02-agents/bad-agent --browser
-    python3 exercises/02-agents/check_viewer.py outputs/02-agents/good-agent --browser
+    python3 exercises/03-agents/check_viewer.py outputs/03-agents/bad-agent --browser
+    python3 exercises/03-agents/check_viewer.py outputs/03-agents/good-agent --browser
 
 Without Chrome, leave out `--browser`.
 
@@ -140,7 +101,7 @@ makes the nicer-looking page, with methods that do not exist, a heme that
 stays when its chain is hidden, or old text after loading a new structure.
 Judge the files and the behaviour, not the agent's summary.
 
-# Exercise 2b — From a good agent to your agent
+# Exercise 3b — From a good agent to your agent
 
 Write your own agent with a specific job and a definition of success. The
 suggested job: an agent that **checks a dataset before anyone analyses it**,
@@ -149,12 +110,12 @@ analysis or visualizing a structure, as long as you can check the result.
 
 ## Install the skill it will use (1 min)
 
-**Do:** this exercise supplies the skill, so you do not need Exercise 1. From
-the workshop folder (if you built your own `csv-profile` in 1f, keep yours
+**Do:** this exercise supplies the skill, so you do not need Exercise 2. From
+the workshop folder (if you built your own `csv-profile` in 2f, keep yours
 and skip this):
 
 ```bash
-cp -r exercises/02-agents/starter/csv-profile .opencode/skills/
+cp -r exercises/03-agents/starter/csv-profile .opencode/skills/
 ```
 
 **Look for:** `/skills` in OpenCode lists `csv-profile` (run `opencode reload`
@@ -187,10 +148,10 @@ Report the checks performed, findings, and unresolved limitations.
 
 Change the description and instructions to your job, for example: use the
 `csv-profile` skill, never change the input, report problems and save the
-report under `outputs/02-agents/`. Then run `opencode reload`.
+report under `outputs/03-agents/`. Then run `opencode reload`.
 
 **Look for:** the new agent in the agent list (shift+tab). Then select it
-and use it on `exercises/03-mcp/data/byo/uniprot_human_proteins.csv.gz`, and
+and use it on `exercises/04-mcp/data/byo/uniprot_human_proteins.csv.gz`, and
 test it on a file that does not exist: does it explain the problem, or
 invent a profile?
 
@@ -317,7 +278,7 @@ References: [permissions](https://opencode.ai/v2/docs/permissions/),
 | Shared project rules | An `AGENTS.md` file or configured instruction files; these can affect several agents |
 | MCP server connection | `mcp.servers`, with any required server software and credentials |
 
-Start with the supplied DTU limits. Follow the [context instructions](../../README.md#changing-your-context-setting)
+Start with the supplied DTU limits. Follow the [context instructions](../../README.md#changing-your-context-setting-dtu-models)
 before increasing them, and require organiser approval above 32768. A larger
 value must fit the model's currently verified server limit. Do not add a made-up
 `context` field to agent frontmatter or assume a raw API `max_tokens` field works there.
@@ -342,7 +303,7 @@ opened", "controls checked", and "scientific content verified" distinct.
 
 ---
 
-# Exercise 2c — A team of specialists
+# Exercise 3c — A team of specialists
 
 One agent can do a task. A **team** (sometimes called a swarm) splits it into
 bounded jobs with explicit hand-offs: a coordinator and specialist
@@ -370,7 +331,7 @@ task uses public NCBI data.
 **Do:** check that the models are still offered:
 
 ```bash
-scripts/check-setup.sh --module 02-agents
+scripts/check-setup.sh --module 03-agents
 ```
 
 Start `opencode` in the workshop folder, start a new chat, press
@@ -429,11 +390,11 @@ model and note it.
 
 1. What made the good agent good: which lines in its instructions mattered
    most?
-2. Your agent from 2b: what would it need before you trusted it with your own
+2. Your agent from 3b: what would it need before you trusted it with your own
    data?
 3. Which jobs in your own work would you split between specialists, and who
    would review whom?
 
 ---
 
-Previous: [Exercise 1 — Skills](../01-skills/README.md) · Next: [Exercise 3 — MCP](../03-mcp/README.md).
+Previous: [Exercise 2 — Skills](../02-skills/README.md) · Next: [Exercise 4 — MCP](../04-mcp/README.md).

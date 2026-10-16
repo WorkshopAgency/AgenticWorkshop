@@ -6,7 +6,7 @@ from it.
 
 | Server | Kind | Setup cost | Tools | Used by |
 |---|---|---|---:|---|
-| [`duckdb`](#duckdb--query-a-local-database) | local (`uv`) | 30 MB download | 4 | [Exercise 3](../exercises/03-mcp/README.md) |
+| [`duckdb`](#duckdb--query-a-local-database) | local (`uv`) | 30 MB download | 4 | [Exercise 4](../exercises/04-mcp/README.md) |
 | [`rcsb`](#rcsb--the-live-pdb) | local (`uv`) | ~1 MB more | 38 | not used in an exercise |
 | [`biomcp`](#biomcp--43-biomedical-databases) | local (`uv`) | ~1 MB more | 83 | exercises planned |
 | [`opentargets`](#opentargets--remote-no-install) | **remote** (no auth) | **nothing** | 5 | exercise planned |
@@ -80,7 +80,7 @@ Someone else runs the server. OpenCode connects to a URL over HTTPS.
 
 Neither kind is better. Local costs a download and gives you independence;
 remote costs a dependency on someone else's uptime and gives you zero setup.
-Exercise 3 uses a local one to reduce dependence on an external data service.
+Exercise 4 uses a local one to reduce dependence on an external data service.
 Installation, permissions, paths and model availability can still fail.
 
 ---
@@ -90,7 +90,7 @@ Installation, permissions, paths and model availability can still fail.
 **Local, `uv`, 4 tools.** `mcp-server-motherduck` 1.0.8, by MotherDuck.
 
 Opens a DuckDB database file and runs SQL against it. Not tied to any
-dataset: `--db-path` points it at whatever database you give it. Exercise 3
+dataset: `--db-path` points it at whatever database you give it. Exercise 4
 supplies a PDB snapshot; point it at your own data and nothing else changes.
 
 | Tool | Does |
@@ -119,7 +119,7 @@ read-only when it can still run shell commands.
 `--max-rows 100` and `--max-chars 8000` are set deliberately: the default cap
 is 1024 rows, and one careless `SELECT *` would fill a small model's context.
 
-Setup and the exercise: [Exercise 3](../exercises/03-mcp/README.md).
+Setup and the exercise: [Exercise 4](../exercises/04-mcp/README.md).
 
 ## `rcsb` — the live PDB
 
@@ -127,7 +127,7 @@ Setup and the exercise: [Exercise 3](../exercises/03-mcp/README.md).
 
 The Protein Data Bank, live, as structured tools. No exercise uses it — it is
 here to explore, and because it is the natural companion to the frozen PDB
-snapshot in Exercise 3. Ask both the same question and the difference between
+snapshot in Exercise 4. Ask both the same question and the difference between
 a local snapshot and a live service becomes concrete.
 
 | Group | Tools |
@@ -145,7 +145,7 @@ It does real structural work, not only metadata: **sequence-similarity search**
 (MMseqs2), **3D shape similarity** against an existing structure, and
 **structural-motif search** for a geometric arrangement of residues. Its own
 examples use `4HHB`, `4HHB.A` and `4HHB_3` — the same haemoglobin structure as
-Exercises 1 to 3.
+Exercises 2 to 3.
 
 It queries RCSB over the network, so it needs a connection despite being a
 local process.
@@ -198,7 +198,7 @@ diseases, with the supporting evidence and scores.
 This one is interesting for a reason beyond the data. It does not wrap each
 question in its own tool — it hands the agent **a schema and a query
 language** and expects it to compose the query. That is the same skill as
-writing SQL against DuckDB in Exercise 3, one layer up, and it is checkable
+writing SQL against DuckDB in Exercise 4, one layer up, and it is checkable
 the same way: read the query before approving it, and ask what it returned
 rather than trusting the summary.
 
@@ -227,7 +227,7 @@ These are **v1 full-catalog measurements**, not the current v2 prompt cost.
 V2 defaults to Code Mode, which groups MCP tools and changes their exposure;
 do not assume every full tool schema is sent in every request. Returned data
 still uses context. The larger columns are **target-capacity comparisons, not deployment
-claims**. Follow the [context guide](../README.md#changing-your-context-setting)
+claims**. Follow the [context guide](../README.md#changing-your-context-setting-dtu-models)
 and confirm server support before changing your budget; approval is required
 above 32768. Inputs, results and answers need space too. Keep unnecessary
 servers off even when they fit: context capacity and reliable tool selection

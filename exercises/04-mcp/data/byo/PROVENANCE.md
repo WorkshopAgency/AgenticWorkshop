@@ -8,7 +8,7 @@ organiser.
 Rebuild all three from their sources:
 
 ```bash
-uv run --with duckdb python exercises/03-mcp/scripts/build_byo_datasets.py
+uv run --with duckdb python exercises/04-mcp/scripts/build_byo_datasets.py
 ```
 
 That downloads about 250 MB, most of it the NCBI file, and caches it in
@@ -156,6 +156,6 @@ proline-rich.
 ## All three share one property
 
 Each hides the same mistake, in a different domain: an average taken across
-categories that should never have been pooled. That is the mistake Exercise 3c
+categories that should never have been pooled. That is the mistake Exercise 4c
 finds in the PDB data, where averaging resolution across X-ray and NMR
 structures silently drops 15,104 entries. It is not a quirk of the PDB.

@@ -2,12 +2,12 @@
 """Build the workshop DuckDB/Parquet dataset from wwPDB derived data.
 
 Rebuild:
-    uv run --with duckdb python exercises/03-mcp/scripts/build_pdb_dataset.py
+    uv run --with duckdb python exercises/04-mcp/scripts/build_pdb_dataset.py
 
 Downloads three public wwPDB index files, normalises them, and writes the
-Parquet tables and the hand-checkable CSV sample into exercises/03-mcp/data/.
+Parquet tables and the hand-checkable CSV sample into exercises/04-mcp/data/.
 Run it from the workshop root. Students do not need to run this; the built
-files are shipped. See exercises/03-mcp/data/PROVENANCE.md.
+files are shipped. See exercises/04-mcp/data/PROVENANCE.md.
 """
 import os, sys, urllib.request
 

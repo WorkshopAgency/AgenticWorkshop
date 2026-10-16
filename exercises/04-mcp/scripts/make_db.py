@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Create exercises/03-mcp/data/workshop.duckdb from the shipped data files.
+"""Create exercises/04-mcp/data/workshop.duckdb from the shipped data files.
 
 Run from the workshop root, before enabling the DuckDB MCP server:
 
-    uv run --with duckdb python exercises/03-mcp/scripts/make_db.py
+    uv run --with duckdb python exercises/04-mcp/scripts/make_db.py
 
 It does nothing if the database already exists; pass --force to rebuild.
 
@@ -14,7 +14,7 @@ mode, which an in-memory database cannot do.
 
 Tables: entries and entry_types (PDB snapshot), and penguins. The penguins
 CSV is loaded exactly as shipped, so its missing values, written as the text
-"NA", are still in it. Finding that out is part of Exercise 3.
+"NA", are still in it. Finding that out is part of Exercise 4.
 """
 import os, sys
 
@@ -29,14 +29,14 @@ def main():
     files = list(TABLES.values()) + list(CSV_TABLES.values())
     missing = [f for f in files if not os.path.exists(os.path.join(DATA, f))]
     if missing:
-        sys.exit(f"Missing data file(s) in exercises/03-mcp/data: {', '.join(missing)}\n"
+        sys.exit(f"Missing data file(s) in exercises/04-mcp/data: {', '.join(missing)}\n"
                  f"Run this from the workshop root, or rebuild with "
-                 f"exercises/03-mcp/scripts/build_pdb_dataset.py")
+                 f"exercises/04-mcp/scripts/build_pdb_dataset.py")
     try:
         import duckdb
     except ImportError:
         sys.exit("duckdb is not installed. Run:\n"
-                 "  uv run --with duckdb python exercises/03-mcp/scripts/make_db.py")
+                 "  uv run --with duckdb python exercises/04-mcp/scripts/make_db.py")
 
     force = "--force" in sys.argv
     if os.path.exists(DB) and not force:
