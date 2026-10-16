@@ -40,8 +40,8 @@ model, needs, and a *Done when* check.
    The terminal version (CLI) is preferred; OpenCode Desktop is also supported, however the CLI can function as
    a desktop version in a browser at no extra cost.
 2. For Linux and WSL2 Ubuntu, the command to install the OpenCode CLI (terminal) is<br>
-   `npm install -g @opencode/cli`          or
-   `curl -fsSL https://opencode.ai/v2/install | bash`<br>
+   `curl -fsSL https://opencode.ai/v2/install | bash`          or
+   `npm install -g @opencode/cli`<br>
    Use the latest version; if you already have v2, run `opencode upgrade`.
 3. Go to or make a folder where you want the workshop to be.
 4. Get the workshop, either with Git:
@@ -54,7 +54,7 @@ model, needs, and a *Done when* check.
    For the terminal version, run `opencode` from inside that folder, or
    `opencode serve` for the browser version.
 6. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
-7. Start a new chat. Using the CLI, just write `opencode`. There are subfolders in the workshop root for different exercises and you can create your own.
+7. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. There are subfolders in the workshop root for different exercises and you can create your own.
    Go in those and run `opencode` for a clean start for the project/task/exercise. Exiting and running opencode again is a common way for fresh starts
    and incorporating new skills, etc.
 8. The default model is **Big Pickle**, a free OpenCode model. Other models
