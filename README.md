@@ -657,4 +657,8 @@ can keep the earlier conversation and tool results.
 
 After the workshop: [additional tools, projects and research](additional.md).
 
+To go deeper: the full-day workshop, with longer exercises on skills, agent
+teams, MCP servers and plugins, is at
+[WorkshopAgency/AgenticWorkshop_sectionday](https://github.com/WorkshopAgency/AgenticWorkshop_sectionday).
+
 For WorkShop organisers: [server administration and model settings](admin.md).

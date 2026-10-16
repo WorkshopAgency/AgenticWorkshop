@@ -185,7 +185,7 @@ wide and shallow; `rcsb` is narrow and deep. They complement each other.
 **Remote, no authentication, 5 tools.** Run by the Open Targets Platform.
 
 Target–disease association evidence: which genes are implicated in which
-diseases, with the supporting evidence and scores. An exercise is planned.
+diseases, with the supporting evidence and scores.
 
 | Tool | Does |
 |---|---|
