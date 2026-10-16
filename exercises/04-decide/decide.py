@@ -60,7 +60,11 @@ def post_json(url, payload, timeout=120):
                     "(drops chat_template_kwargs) and leave out --guided.")
         sys.exit(f"{url} answered HTTP {err.code}: {body}{hint}")
     except (urllib.error.URLError, TimeoutError, OSError) as err:
-        sys.exit(f"Could not reach {url}: {err}")
+        hint = ""
+        if "CERTIFICATE_VERIFY_FAILED" in str(err):
+            hint = ("\nPython cannot check HTTPS certificates. With Python from python.org on a Mac, run its "
+                    "'Install Certificates.command' (in /Applications/Python 3.x/) once, then try again.")
+        sys.exit(f"Could not reach {url}: {err}{hint}")
 
 
 # ------------------------------------------------------------------ questions

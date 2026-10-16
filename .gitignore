@@ -222,3 +222,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Written when the Exercise 0 notebook runs
+/exercises/00-rag/rag_notebook.ipynb
+/exercises/00-rag/rag_notebook_files/

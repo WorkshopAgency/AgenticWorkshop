@@ -43,6 +43,13 @@ shared() {
   if have python3 && python3 -c 'import sys; sys.exit(sys.version_info < (3, 10))'; then
     ok "Python $(python3 -c 'import platform; print(platform.python_version())')"
   else bad "Python 3.10 or newer is missing" "install python3 (WSL: sudo apt install python3)"; fi
+  if have python3; then
+    if limit 20 python3 -c 'import urllib.request; urllib.request.urlopen("https://github.com", timeout=15)' 2>/dev/null; then
+      ok "Python can open HTTPS addresses"
+    elif limit 20 python3 -c 'import urllib.request; urllib.request.urlopen("https://github.com", timeout=15)' 2>&1 | grep -q CERTIFICATE_VERIFY_FAILED; then
+      bad "Python cannot check HTTPS certificates" "Mac with Python from python.org: run 'Install Certificates.command' in /Applications/Python 3.x/"
+    else warn "Python could not reach github.com" "check your internet connection"; fi
+  fi
 
   if [ "$(http "$ZEN/models")" = "200" ]; then ok "free OpenCode models reachable"
   else bad "cannot reach opencode.ai" "check the network / Wi-Fi"; fi
@@ -54,6 +61,8 @@ module() {
   case "$1" in
     00-rag)
       dtu_model mistral
+      if have uv && have git; then ok "uv and git, for the optional notebook"
+      else warn "the optional notebook needs uv and git" "uv: curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
       if [ "$(http "$DTU/embed/health")" = "200" ]; then ok "embedding model answers"
       else warn "embedding model is not answering" "rag.py falls back to word matching (--lexical)"; fi
       ;;

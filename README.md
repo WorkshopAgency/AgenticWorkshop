@@ -209,7 +209,7 @@ calls, not the agent's summary, are the record of what happened.
 | `/compact` | Summarise a long chat to free up the context window |
 | `/halp <exercise> <question>` | Ask HALp, the workshop helper, for a hint |
 | `/sidebar` | Change what the sidebar shows, once you add it in Exercise 2. `ctrl+x b` shows or hides it |
-| `/notebook <file>` | Open the notebook panel, once you add it in the optional extra of Exercise 1 |
+| `/notebook <file>` | Open the notebook panel, once you add the plugin (optional, in Exercise 0 or 1) |
 | `opencode reload` | In a terminal: make OpenCode pick up new skills, agents or settings |
 
 Start a **new chat** for each exercise, so the model does not carry the last
