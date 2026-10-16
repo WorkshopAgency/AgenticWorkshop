@@ -194,7 +194,7 @@ how do we establish that the resulting system works?
 3. **Validate the scientific result.** Successful execution does not establish
    correct methods, interpretation or reproducibility.
 
-[github.com/peterwadsackett/AgenticWorkshop](https://github.com/peterwadsackett/AgenticWorkshop)
+[github.com/WorkshopAgency/AgenticWorkshop](https://github.com/WorkshopAgency/AgenticWorkshop)
 
 ## References: research and further reading
 
