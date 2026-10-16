@@ -142,19 +142,22 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
    The terminal version (CLI) is preferred; OpenCode Desktop is also supported, however the CLI can function as
    a desktop version in a browser at no extra cost.
 2. For Linux and WSL2 Ubuntu, the command to install the OpenCode CLI (terminal) is<br>
-   `npm install -g @opencode/cli`
-3. Get the workshop, either with Git:
+   `npm install -g @opencode/cli`          or
+   `curl -fsSL https://opencode.ai/v2/install | bash`
+3. Go to or make a folder where you want the workshop to be.
+4. Get the workshop, either with Git:
    `git clone https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026.git`
-   or by [downloading the ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip).
-4. Put the folder wherever you want to work. Its name does not matter;
-   the text calls it the workshop root, and every path you will type is
+   or by [downloading the ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip) and unzipping it.
+   This creates the workshop folder where the rest of the workshop will be. It can be renamed, but the text calls it the workshop root, and every path you will type is
    relative to it.
 5. In **OpenCode Desktop**, open that extracted folder as your project—the
    folder containing both `README.md` and `opencode.json`, not its parent.
    For the terminal version, run `opencode` from inside that folder, or
    `opencode serve` for the browser version.
-6. In a terminal inside that folder, run `scripts/check-setup.sh`. Fix any ❌.
-7. Start a new chat. The default model is **Big Pickle**, a free OpenCode model.
+6. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
+7. Start a new chat. Using the CLI, just write `opencode`. You can create subfolders in the the workshop root for different exercises.
+   Go in those and run `opencode` for a clean start.
+   The default model is **Big Pickle**, a free OpenCode model.
    To use one of the DTU models instead, open the model selector (`/models` in
    the terminal version) and choose a model under **DTU**.
 
