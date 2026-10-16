@@ -1,6 +1,7 @@
 ---
 description: Coordinates four specialists to answer one small genome-size question in a few minutes.
 mode: primary
+hidden: true
 model: opencode/big-pickle
 steps: 20
 permissions:

@@ -99,7 +99,7 @@ under the input box.
 |---|---|
 | **Plan** | Discuss and design. It reads files without asking, but cannot run commands or create or change files |
 | **Build** | Do the work: write files and run commands, asking you first |
-| Workshop agents | `bad-agent`, `good-agent`, `genome-coordinator`, `safe-analyst`, … are used in Exercises 3 and 6 |
+| Workshop agents | `bad-agent`, `good-agent`, the genome team and `safe-analyst`, used in Exercises 3 and 6. They are not in the shift+tab cycle: you start each for one message with its command, `/bad-agent`, `/good-agent`, `/genome-team` or `/safe-analyst`, like `/halp` |
 
 **Agents and models.** The model shown under the input box answers for the
 current agent. Plan and Build can use different models: add a `model` to the
@@ -264,12 +264,11 @@ list.
 | Model ID | Notes |
 |---|---|
 | `opencode/big-pickle` | **Workshop default**, and the 3c coordinator. Free-period data may be used to improve the model |
-| `opencode/step-5-preview-free` | Zero-retention provider. Preview: may disappear |
 | `opencode/mimo-v2.6-flash-free` | 3c analyst. Free-period data may be used to improve the model |
 | `opencode/space-bunny-free` | 3c visualizer. Zero-retention provider |
 | `opencode/longcat-2.5-preview-free` | Zero-retention provider. Preview: may disappear |
-| `opencode/cat-jam-free` | 3c auditor and reviewer |
-| `opencode/ling-3.1-flash-free` | |
+| `opencode/glm-5.3-flash-free` | 3c auditor |
+| `opencode/deepseek-v4.1-flash-free` | 3c reviewer |
 | `opencode/nemotron-3.5-lightning-free` | |
 | `opencode/muse-spark-1.2-contributor-free` ⚠️ | Contributor model, see below |
 | `opencode/muse-spark-1.3-contributor-free` ⚠️ | Contributor model, see below |
@@ -419,6 +418,7 @@ AgenticWorkshop/
          safe-analyst.md        Locked-down data agent, Exercise 6
       commands/
          halp.md                The /halp command
+         bad-agent.md, …        /bad-agent, /good-agent, /genome-team, /safe-analyst
       scripts/
          halp-context.py        Show safe limits or adjust one context with approval
       skills/

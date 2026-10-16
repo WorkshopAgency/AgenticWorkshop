@@ -31,9 +31,10 @@ each is doing, and which one waits for your approval.
 
 # Exercise 3a — From a basic agent to a good agent
 
-Use **`opencode/big-pickle`** for both agents and select it yourself before
-each run. Two agents, the same request, the same model, the same permissions
-and the same 20-step limit:
+Two agents, the same request, the same model (Big Pickle, set in each
+agent's file), the same permissions and the same 20-step limit. You start
+each one with a command; the agent answers that one message, and the chat
+then goes back to Build:
 
 | Agent | Instructions |
 |---|---|
@@ -42,17 +43,18 @@ and the same 20-step limit:
 
 ## 1. Run both (about 6 min)
 
-**Do:** start a new chat, select `bad-agent` (shift+tab in the terminal, the
-agent selector in Desktop) and send:
+**Do:** start a new chat and send, starting with `/bad-agent`:
 
-> Create an interactive browser visualization of PDB 4HHB that I can use to
+> /bad-agent Create an interactive browser visualization of PDB 4HHB that I can use to
 > explain the structure to another researcher. Save everything under
 > outputs/03-agents/bad-agent. I have a browser and OpenCode; do not require
 > additional software installation. Briefly explain how to open and use the
 > result.
 
-Then start another new chat, select `good-agent`, and send the same request
-with `outputs/03-agents/good-agent`.
+Then start another new chat and send the same request, starting with
+`/good-agent` and saving to `outputs/03-agents/good-agent`. For a follow-up
+question to either agent, start the message with its command again;
+otherwise Build answers.
 
 **Look for:** count the approvals each one asks for, and watch which files
 each reads. If the bad agent stops at "Maximum steps reached", leave it: the
@@ -155,6 +157,24 @@ and use it on `exercises/04-mcp/data/byo/uniprot_human_proteins.csv.gz`, and
 test it on a file that does not exist: does it explain the problem, or
 invent a profile?
 
+**Optional: keep it out of the shift+tab cycle.** The workshop agents are
+hidden and started with a command instead (`/bad-agent`, `/halp`, …). To do
+the same with yours, add `hidden: true` under `mode: primary` in its file,
+and create `.opencode/commands/data-checker.md`:
+
+```markdown
+---
+description: Send one request to my data checker
+agent: data-checker
+subagent: false
+---
+
+$ARGUMENTS
+```
+
+Run `opencode reload`. Now `/data-checker <request>` sends that one message
+to your agent, and the chat goes back to Build afterwards.
+
 **Why:** the YAML between the `---` markers holds settings; the Markdown below
 it holds the instructions. An agent is not a newly trained model: the same
 model can run several agents with different instructions and permissions.
@@ -180,7 +200,7 @@ so there is no universal list that every model accepts.
 | `steps` | Limits agentic iterations before a text-only response | Positive integer, such as `20`. It is not a token limit or an exact count of shell commands |
 | `permissions` | Ordered rules controlling which tool actions run, ask, or stop | The last matching rule wins |
 | `disabled` | Disables this agent | `true` or `false` |
-| `hidden` | Hides a subagent from the `@` suggestion menu | For subagents only. This is not access control or a way to hide a solution file |
+| `hidden` | Hides the agent: a primary agent leaves the shift+tab cycle, a subagent the `@` menu | Start a hidden agent with a command file in `.opencode/commands/` (see 3b). This is not access control or a way to hide a solution file |
 | `color` | Changes the agent's UI colour | A quoted hex colour such as `"#246B60"` |
 | `request` | Model-request overlay | The v2 agent docs currently say agent overlays are stored but not applied by the runner. Do not rely on this for sampling controls |
 
@@ -317,10 +337,10 @@ have one small task:
 | Agent | Job | Writes | Model |
 |---|---|---|---|
 | [genome-coordinator](../../.opencode/agents/genome-coordinator.md) | Delegates, then writes the report | `report.md` | `opencode/big-pickle` |
-| [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks rows, groups, missing values and units | `audit.md` | `opencode/cat-jam-free` |
+| [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks rows, groups, missing values and units | `audit.md` | `opencode/glm-5.3-flash-free` |
 | [genome-analyst](../../.opencode/agents/genome-analyst.md) | Computes the medians | `medians.csv` | `opencode/mimo-v2.6-flash-free` |
 | [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Draws one chart | `medians.svg` | `opencode/space-bunny-free` |
-| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/cat-jam-free` |
+| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/deepseek-v4.1-flash-free` |
 
 All five are free external models: prompts, data and results leave DTU, and
 Big Pickle and MiMo may use them to improve their models. That is why the
@@ -334,11 +354,12 @@ task uses public NCBI data.
 scripts/check-setup.sh --module 03-agents
 ```
 
-Start `opencode` in the workshop folder, start a new chat, press
-**shift+tab** until the agent is `genome-coordinator`, check the model is
-**Big Pickle** (`/models` if not), and send:
+Start `opencode` in the workshop folder, start a new chat, and send:
 
-> Run the genome team task.
+> /genome-team Run the genome team task.
+
+The command hands this one message to `genome-coordinator`, which runs on
+Big Pickle and starts the four specialists.
 
 Approve what it asks; do not use `--auto`.
 
