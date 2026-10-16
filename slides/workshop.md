@@ -226,7 +226,7 @@ Not suitable: no way to check the answer, irreversible actions, confidential dat
 
 # Limitations
 
-- **Halluncinations:** A confident answer with no evidence behind it - looks like any other answer.
+- **Hallucinations:** A confident answer with no evidence behind it - looks like any other answer.
 - **Correct numbers, misleading picture:** Every value right, the conclusion wrong.
 - **Success that was never verified:** "Done" is a claim, not evidence.
 - **Instructions in the data:** The agent reads everything as text.
@@ -239,6 +239,6 @@ Not suitable: no way to check the answer, irreversible actions, confidential dat
 
 # Thank you
 
-Material: github.com/WorkshopAgency/AgenticWorkshop_dbc2026
+Material: github.com/WorkshopAgency/AgenticWorkshop_dbc2026<br>To go deeper, the full-day workshop: github.com/WorkshopAgency/AgenticWorkshop_sectionday
 
 Dimitrios S. Kanakoglou · dimkan@dtu.dk<br>Peter Wad Sackett · pwsa@dtu.dk
