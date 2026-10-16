@@ -101,6 +101,24 @@ under the input box.
 | **Build** | Do the work: write files and run commands, asking you first |
 | Workshop agents | `bad-agent`, `good-agent`, the genome team and `safe-analyst`, used in Exercises 3 and 6. They are not in the shift+tab cycle: you start each for one message with its command, `/bad-agent`, `/good-agent`, `/genome-team` or `/safe-analyst`, like `/halp` |
 
+**Agents and models.** The model shown under the input box answers for the
+current agent. Plan and Build can use different models: add a `model` to the
+agent in `opencode.json`, next to the `permissions` the workshop already gives
+Plan, for example
+
+```json
+"agents": { "plan": { "model": "opencode/mimo-v2.6-flash-free", "permissions": [ … ] } }
+```
+
+Restart OpenCode; shift+tab then switches agent and model together.
+
+**One chat, one history.** Switching agent or model inside a chat keeps the
+whole conversation: the next model receives your messages, the earlier answers
+and every tool result, including the contents of files the agent read, and
+all of it goes to that model's provider. Each model keeps its own cache, so
+after a switch the history is processed again. To compare models, or to keep
+something away from a provider, start a new chat.
+
 **Approvals.** When an agent wants to edit a file or run a command, OpenCode
 shows a prompt. Read what it wants to do, then choose:
 
