@@ -28,11 +28,11 @@ about 10 minutes.
 4. **Get the workshop material:**
 
    ```bash
-   git clone https://github.com/peterwadsackett/AgenticWorkshop.git
+   git clone https://github.com/WorkshopAgency/AgenticWorkshop.git
    cd AgenticWorkshop
    ```
 
-   No Git? Download https://github.com/peterwadsackett/AgenticWorkshop/archive/refs/heads/main.zip and unzip it.
+   No Git? Download https://github.com/WorkshopAgency/AgenticWorkshop/archive/refs/heads/main.zip and unzip it.
 5. **Run the setup check** from inside that folder:
 
    ```bash

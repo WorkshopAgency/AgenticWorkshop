@@ -9,7 +9,7 @@ prepared **four DTU-hosted LLM models** for this workshop. You can use
 either option, or connect your own supported subscriptions or API accounts.
 A paid subscription is not required to participate.
 
-[Download the workshop ZIP](https://github.com/peterwadsackett/AgenticWorkshop/archive/refs/heads/main.zip) ·
+[Download the workshop ZIP](https://github.com/WorkshopAgency/AgenticWorkshop/archive/refs/heads/main.zip) ·
 [Quick start](#quick-start--download-extract-and-open) ·
 [Exercises](#exercises)
 
@@ -144,8 +144,8 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
 2. For Linux and WSL2 Ubuntu, the command to install the OpenCode CLI (terminal) is<br>
    `npm install -g @opencode/cli`
 3. Get the conference version of the workshop, either with Git:
-   `git clone https://github.com/peterwadsackett/AgenticWorkshop.git`
-   or by [downloading the ZIP](https://github.com/peterwadsackett/AgenticWorkshop/archive/refs/heads/main.zip).
+   `git clone https://github.com/WorkshopAgency/AgenticWorkshop.git`
+   or by [downloading the ZIP](https://github.com/WorkshopAgency/AgenticWorkshop/archive/refs/heads/main.zip).
 4. Put the folder wherever you want to work. Its name does not matter;
    the text calls it the workshop root, and every path you will type is
    relative to it.
