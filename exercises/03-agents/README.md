@@ -180,7 +180,7 @@ so there is no universal list that every model accepts.
 | `steps` | Limits agentic iterations before a text-only response | Positive integer, such as `20`. It is not a token limit or an exact count of shell commands |
 | `permissions` | Ordered rules controlling which tool actions run, ask, or stop | The last matching rule wins |
 | `disabled` | Disables this agent | `true` or `false` |
-| `hidden` | Hides a subagent from the `@` suggestion menu | For subagents only. This is not access control or a way to hide a solution file |
+| `hidden` | Hides the agent: a primary agent leaves the shift+tab cycle, a subagent the `@` menu | A hidden primary agent can then only be started by a command, which hands it just its first answer before Build takes over. Not access control |
 | `color` | Changes the agent's UI colour | A quoted hex colour such as `"#246B60"` |
 | `request` | Model-request overlay | The v2 agent docs currently say agent overlays are stored but not applied by the runner. Do not rely on this for sampling controls |
 
