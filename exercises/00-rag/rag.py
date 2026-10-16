@@ -17,6 +17,9 @@ environment variables:
     EMBED_MODEL  embedding model name (default: embed)
     RAG_URL      full base URL for the chat model (default: $DTU_BASE/$RAG_MODEL)
     EMBED_URL    full base URL for embeddings (default: $DTU_BASE/$EMBED_MODEL)
+    RAG_OPENCODE a free OpenCode model for the answers instead, for example
+                 opencode/glm-5.3-flash-free; for testing while the DTU models
+                 are down (search then uses word matching)
 
 The client appends /chat/completions or /embeddings to the base URL.
 """
@@ -26,7 +29,9 @@ import json
 import math
 import os
 import re
+import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -44,6 +49,7 @@ RAG_MODEL = os.environ.get("RAG_MODEL", "mistral")
 EMBED_MODEL = os.environ.get("EMBED_MODEL", "embed")
 RAG_URL = os.environ.get("RAG_URL", f"{DTU_BASE}/{RAG_MODEL}")
 EMBED_URL = os.environ.get("EMBED_URL", f"{DTU_BASE}/{EMBED_MODEL}")
+RAG_OPENCODE = os.environ.get("RAG_OPENCODE", "")
 
 SYSTEM_RAG = """You answer questions using ONLY the evidence chunks given by the user.
 Rules:
@@ -270,8 +276,47 @@ def build_messages(question, hits):
     return [{"role": "system", "content": SYSTEM_RAG}, {"role": "user", "content": user}]
 
 
+def chat_opencode(messages):
+    """Ask a free OpenCode model through `opencode run`, from an empty folder.
+
+    OpenCode's free models only answer requests that come with OpenCode's
+    tools, so the tools stay, set to "ask": a non-interactive run refuses
+    every call, and the empty folder leaves nothing to read anyway. The first
+    line keeps it from trying web search first, which only wastes time.
+    """
+    text = "Answer in text only; do not call any tools.\n\n" + "\n\n".join(m["content"] if m["role"] == "user" else f"Instructions:\n{m['content']}"
+                       for m in messages)
+    env = dict(os.environ, OPENCODE_CONFIG_CONTENT=json.dumps(
+        {"permissions": [{"action": "*", "resource": "*", "effect": "ask"}]}))
+    with tempfile.TemporaryDirectory() as empty:
+        env["PWD"] = empty
+        try:
+            done = subprocess.run(["opencode", "run", "--standalone", "--format", "json",
+                                   "--model", RAG_OPENCODE, text],
+                                  cwd=empty, env=env, stdin=subprocess.DEVNULL,
+                                  capture_output=True, text=True, timeout=240)
+        except (OSError, subprocess.TimeoutExpired) as err:
+            raise RuntimeError(f"opencode run failed: {err}") from None
+    parts = []
+    for line in done.stdout.splitlines():
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue
+        if event.get("type") == "error":
+            raise RuntimeError(event["error"].get("message", "error"))
+        part = event.get("part", {})
+        if part.get("type") == "text":
+            parts.append(part.get("text", ""))
+    if not parts:
+        raise RuntimeError(f"no answer from {RAG_OPENCODE}: {done.stderr.strip()[-300:]}")
+    return "\n".join(parts)
+
+
 def chat(messages, temperature):
     """Send messages to the chat model and return its text answer."""
+    if RAG_OPENCODE:
+        return chat_opencode(messages)
     payload = {"model": RAG_MODEL, "messages": messages,
                "temperature": temperature, "max_tokens": 512}
     reply = post_json(f"{RAG_URL}/chat/completions", payload, timeout=180)
@@ -305,7 +350,10 @@ def cmd_ask(args):
     for message in messages:
         print(f"--- {message['role'].upper()} ---\n{message['content']}\n")
     print("=" * 79)
-    print(f"Asking '{RAG_MODEL}' at {RAG_URL}/chat/completions ...\n")
+    if RAG_OPENCODE:
+        print(f"Asking '{RAG_OPENCODE}' through opencode run ...\n")
+    else:
+        print(f"Asking '{RAG_MODEL}' at {RAG_URL}/chat/completions ...\n")
     try:
         answer = chat(messages, args.temperature)
     except RuntimeError as err:
@@ -314,7 +362,7 @@ def cmd_ask(args):
     if hits is not None:
         check_citations(answer, hits)
     record = {"time": time.strftime("%Y-%m-%d %H:%M:%S"), "question": args.question,
-              "model": RAG_MODEL, "retrieval": method,
+              "model": RAG_OPENCODE or RAG_MODEL, "retrieval": method,
               "chunk_ids": [c["id"] for _, c in hits or []], "answer": answer}
     OUT.mkdir(parents=True, exist_ok=True)
     with open(OUT / "answers.jsonl", "a", encoding="utf-8") as handle:

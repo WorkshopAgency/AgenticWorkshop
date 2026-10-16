@@ -11,15 +11,15 @@ about 10 minutes.
 
 1. **Windows only:** install WSL2 and do every step below inside the Ubuntu
    (WSL2) terminal.
-2. **Install OpenCode 2.0.16**, the version the material was tested on:
+2. **Install the latest OpenCode:**
 
    ```bash
-   npm install -g @opencode/cli@2.0.16
+   npm install -g @opencode/cli
    ```
 
-   If you already have OpenCode v2, run `opencode upgrade 2.0.16` instead.
-   Check with `opencode --version`.
-3. **Install `uv`** (used in one exercise):
+   If you already have OpenCode v2, run `opencode upgrade` instead. Check with
+   `opencode --version`.
+3. **Install `uv`** (used in Exercise 3 and in an optional extra):
 
    ```bash
    curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -41,6 +41,14 @@ about 10 minutes.
 
    Every line should show ✅. A ⚠️ about the DTU models is expected before the
    workshop day: they are switched on for the session.
+
+Optional: Exercise 1 ends with an extra in which you run a notebook inside
+OpenCode. Its first run downloads about 400 MB of Python packages; to fetch
+them at home instead, run this once:
+
+```bash
+uv run --no-project --with jupyter_client --with ipykernel --with pandas --with matplotlib python -c "print('ready')"
+```
 
 You do not need a paid AI subscription. We provide models hosted at DTU, and
 OpenCode offers free models. If you have a subscription (for example Claude
