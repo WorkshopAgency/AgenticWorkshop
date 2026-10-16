@@ -19,7 +19,7 @@ about 10 minutes.
 
    If you already have OpenCode v2, run `opencode upgrade` instead. Check with
    `opencode --version`.
-3. **Install `uv`** (used in Exercise 3 and in an optional extra):
+3. **Install `uv`** (it starts the notebooks' Python, and a database server in one exercise):
 
    ```bash
    curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -42,9 +42,8 @@ about 10 minutes.
    Every line should show ✅. A ⚠️ about the DTU models is expected beforehand:
    they are switched on for the session.
 
-Optional: Exercise 1 ends with an extra in which you run a notebook inside
-OpenCode. Its first run downloads about 400 MB of Python packages; to fetch
-them at home instead, run this once:
+Some exercises run notebooks inside OpenCode. The first one downloads Python
+packages, up to about 400 MB; to fetch them at home instead, run this once:
 
 ```bash
 uv run --no-project --with jupyter_client --with ipykernel --with pandas --with matplotlib python -c "print('ready')"

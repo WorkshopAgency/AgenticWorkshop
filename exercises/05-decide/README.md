@@ -3,8 +3,8 @@
 | | |
 |---|---|
 | **Time** | 10 min |
-| **Model** | `dtu/qwen36`; your data stays at DTU |
-| **Needs** | `scripts/check-setup.sh --module 05-decide` passed. Python 3.10+, nothing to install. Nothing from other modules |
+| **Model** | Llama 3.1 8B at OpenRouter, with the workshop key |
+| **Needs** | The workshop key from Exercise 0, and `scripts/check-setup.sh --module 05-decide` passed. Python 3.10+, nothing to install |
 | **You'll learn** | How to get a yes/no, a choice or a score with a probability from a model, instead of a paragraph you have to interpret |
 | **Done when** | You have run the three examples, compared a stated confidence with a token probability, and written one question of your own |
 | **If stuck** | `/halp 05-decide <what you tried>` |
@@ -35,9 +35,10 @@ probabilities of the option letters, rescaled to sum to 1, are the answer:
 
 ## Before you start
 
-Like Exercise 1, this runs in an ordinary terminal, not in OpenCode, from the
-workshop folder. The model runs at DTU, so the descriptions you send stay
-there.
+This exercise runs in an ordinary terminal, from the workshop folder: you
+call the model directly, so you can see exactly what you get back. The model
+runs at OpenRouter with the workshop key from Exercise 0, so the descriptions
+you send leave your laptop; they are made up for the exercise.
 
 ## 1. Run the three examples (3 min)
 

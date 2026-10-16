@@ -113,9 +113,10 @@ Free does not mean private.
 |---:|---|---|
 | 10 | Setup | Run `scripts/check-setup.sh`, say `/halp hello` |
 | 10 | Concepts | These slides |
+| 5 | Exercise 0 · Plugins | Install the sidebar and the notebook you use today |
 | 15 | Exercise 1 · RAG | Watch a model stop hallucinating once it gets the documents |
 | 30 | Exercise 2 · Skills | Turn a repeated task into a tested skill |
-| 45 | Exercise 3 · Agents | Add a plugin, compare two agents, run a team of five agents|
+| 40 | Exercise 3 · Agents | Compare two agents, write your own, run a team of five |
 | 10 | Exercise 4 · MCP | Connect to a database and check the capabilities it provides |
 | 10 | Exercise 5 · Decision model | Get typed answers with probabilities |
 | 10 | Exercise 6 · Safety | Find an instruction hidden in a data file |
@@ -196,7 +197,7 @@ A plugin is foreign code executed in the harness: **LOOK** before you install it
 **RAG** (retrieval-augmented generation): Framework that gives an AI model access to external data sources to find accurate information, allowing it to generate up-to-date and reliable answers without needing to be retrained. It also works as a safety measure against halluncinations.<br>
 It cuts your document(s) into pieces, turns them into a vector (an **embedding**) and stores them. When prompted, it finds the pieces closest associated to it, and gives only those to the model, with ids that can be cited and traced.
 
-The model only sees what you retrieved: in Exercise 1, about 800 tokens instead of 55,000.
+The model only sees what you retrieved: in Exercise 1, three pieces of about 200 tokens each, instead of all 21,000 tokens of the workshop's pages.
 
 <div class="source">Figure: "RAG diagram" by Turtlecrown (2024), Wikimedia Commons, CC BY-SA 4.0</div>
 

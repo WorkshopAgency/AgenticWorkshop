@@ -227,7 +227,7 @@ These are **v1 full-catalog measurements**, not the current v2 prompt cost.
 V2 defaults to Code Mode, which groups MCP tools and changes their exposure;
 do not assume every full tool schema is sent in every request. Returned data
 still uses context. The larger columns are **target-capacity comparisons, not deployment
-claims**. Follow the [context guide](../README.md#changing-your-context-setting)
+claims**. Follow the [context guide](../README.md#changing-your-context-setting-dtu-models)
 and confirm server support before changing your budget; approval is required
 above 32768. Inputs, results and answers need space too. Keep unnecessary
 servers off even when they fit: context capacity and reliable tool selection

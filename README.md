@@ -4,10 +4,11 @@
 Hands-on, individual work, about 2 h 30 min.
 Dimitrios S. Kanakoglou (dimkan@dtu.dk) · Peter Wad Sackett (pwsa@dtu.dk)
 
-OpenCode offers a changing selection of AI Large Language Models free of charge. We have also
-prepared **four DTU-hosted LLM models** for this workshop. You can use
-either option, or connect your own supported subscriptions or API accounts.
-A paid subscription is not required to participate.
+You work in OpenCode on your own laptop. The chat uses OpenCode's free
+models, Big Pickle by default. Exercises 1 and 5 call two small models at
+OpenRouter directly, with a workshop key the organisers give you. The DTU
+models are optional, when they are running. A paid subscription is not
+required to participate.
 
 [Download the workshop ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip) ·
 [Quick start](#quick-start--download-extract-and-open) ·
@@ -23,117 +24,14 @@ model, needs, and a *Done when* check.
 |---:|---|---|
 | 10 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
 | 10 | Concepts (slides) | Model, harness, tool, skill, agent, MCP |
+| 5 | [Exercise 0 — Plugins](exercises/00-plugins/README.md) | What a plugin is; install the two you use today |
 | 15 | [Exercise 1 — RAG](exercises/01-rag/README.md) | Why retrieval stops a weak model inventing answers |
 | 30 | [Exercise 2 — Skills](exercises/02-skills/README.md) | Turn a repeated task into a tested skill |
-| 45 | [Exercise 3 — Agents](exercises/03-agents/README.md) | A plugin, instructions and permissions, and a team of agents |
+| 40 | [Exercise 3 — Agents](exercises/03-agents/README.md) | Instructions and permissions, and a team of agents |
 | 10 | [Exercise 4 — MCP](exercises/04-mcp/README.md) | Connect a database, then check its answers |
 | 10 | [Exercise 5 — Decision model](exercises/05-decide/README.md) | Typed decisions with probabilities instead of prose |
 | 10 | [Exercise 6 — Safety](exercises/06-safety/README.md) | Prompt injection, and what permissions do and don't stop |
 | 10 | Wrap-up | When to use an agent, and how to check one |
-
-Use **OpenCode on your laptop** to work on the exercises. The DTU models run
-on our server cluster; you do not need a cluster account, SSH, model downloads or
-server-start commands.
-
-Install from your terminal: `npm install -g @opencode/cli`
-or for CLI: `curl -fsSL https://opencode.ai/v2/install | bash`.
-Use the latest version; if you already have v2, run `opencode upgrade`.
-> **This workshop has moved to OpenCode v2.** v2 ships as a different package,
-> `@opencode/cli`, so the old `curl -fsSL https://opencode.ai/install | bash`
-> installs v1 and will not match these materials. Install with
-> `npm install -g @opencode/cli` and check `opencode --version` reports 2.x.
->
-> If you already have v1, remove it first. On Homebrew that is
-> `brew uninstall opencode`. Avoid `opencode uninstall`: it removes all related
-> files, including your global configuration and saved credentials.
->
-> Some commands changed. `opencode agent list` is now `opencode debug agents`,
-> `opencode web` is now `opencode serve`, and `opencode debug skill` is gone;
-> use `/skills` in the chat instead.
-
-## Something not working? Try this first
-
-If `/halp`, workshop agents or updated settings are missing, OpenCode may still
-be using cached configuration. Exit OpenCode, then run these commands **in your
-terminal, inside the extracted workshop folder**:
-
-```bash
-opencode reload
-opencode .
-```
-
-Start a fresh chat and try `/halp hello`. Simply closing and reopening the
-interface may not refresh its background service. This reload does not edit
-your files or restart the DTU models. If the problem remains, show an organiser
-the error and your `opencode --version`; do not reinstall or delete your settings.
-
-## Before the exercises: three pieces of advice in a lesson format
-
-### Lesson one — you are in charge of your data
-
-Every prompt you send goes somewhere. Where depends on the model you picked
-in the selector, and the difference matters before you paste anything real
-into a chat.
-
-| What you choose | Where your data goes |
-|---|---|
-| **DTU models** | Model requests go to our DTU service; external tools can still send data elsewhere |
-| **Free models** | Model requests go to a third party; retention and training terms depend on the specific offer |
-| **Your own subscription** (Codex, Claude, others) | Depends on that provider, and on whether you have opted out of having your data used for training |
-
-User discretion is advised at all times. You are in charge of your data, you
-are in charge of the permissions you give your models, and you are in charge
-of which data you put in front of them. Nothing in this workshop removes that
-responsibility from you, and no default setting decides it for you.
-
-Use public data with external models. Keep anything confidential or personal
-on the DTU models, or off the machine entirely.
-
-### Lesson two — `/compact` is your friend
-
-A conversation has a fixed budget. Everything counts against it: your
-messages, the model's replies, file contents it has read, and every tool
-result it has seen. When the budget runs out mid-task, the run stops being
-useful.
-
-`/compact` summarises the conversation so far and continues with the summary
-in place of the raw history. You keep the thread, you get the room back.
-
-Get to know it early, on a conversation you do not mind losing, rather than
-discovering it when you are deep in an exercise. The sooner the better.
-
-### Lesson three — use `/theme` before anything else to look cool (in front of your PI) and personalise your experience
-
-Opencode (v1 and v2) harnesses comes with their own preinstalled themes. Pick one 
-that inspires you to finish this workshop (hint: maybe `matrix` will do the trick).
-
-## Meet HALp before you start
-
-HALp offers hints and setup help, not finished exercise answers. In a **fresh
-chat**, try `/halp Where should I start?` It uses a **free external model**:
-public information and redacted errors only; do not use a private research chat.
-
-<details>
-<summary>Using HALp and returning to your exercise</summary>
-
-Open a **fresh chat** and type `/halp` followed by your question:
-
-```text
-/halp I am on Exercise 2c. Where should I copy my skill?
-/halp Why can I not see the workshop agents?
-```
-
-HALp reads the current workshop instructions and gives hints and setup help,
-not finished exercise answers. It can help adjust context settings after
-you approve the change. It initially uses **Big Pickle, a free external model**:
-share public information and redacted errors only. Do not invoke it inside
-a private research conversation, because the existing history can reach
-that provider too.
-
-When you return to an exercise, select your exercise agent and model again.
-See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
-
-</details>
 
 ## Quick start — download, extract and open
 
@@ -143,7 +41,8 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
    a desktop version in a browser at no extra cost.
 2. For Linux and WSL2 Ubuntu, the command to install the OpenCode CLI (terminal) is<br>
    `npm install -g @opencode/cli`          or
-   `curl -fsSL https://opencode.ai/v2/install | bash`
+   `curl -fsSL https://opencode.ai/v2/install | bash`<br>
+   Use the latest version; if you already have v2, run `opencode upgrade`.
 3. Go to or make a folder where you want the workshop to be.
 4. Get the workshop, either with Git:
    `git clone https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026.git`
@@ -157,22 +56,35 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
 6. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
 7. Start a new chat. Using the CLI, just write `opencode`. There are subfolders in the workshop root for different exercises and you can create your own.
    Go in those and run `opencode` for a clean start for the project/task/exercise. Exiting and running opencode again is a common way for fresh starts
-   and incorporating new skills, etc. 
-9. The default model is **Big Pickle**, a free OpenCode model.
-   To use one of the DTU models instead, open the model selector (`/models` in
-   the terminal version) and choose a model under **DTU**.
-
-**For the supplied DTU models, no JSON editing, manual merging, API key or
-Custom provider setup is needed.**
+   and incorporating new skills, etc.
+8. The default model is **Big Pickle**, a free OpenCode model. Other models
+   are in the model selector (`/models` in the terminal version); see
+   [the models you can use](#llm-models-you-can-use).
+9. Do [Exercise 0](exercises/00-plugins/README.md): it installs the two
+   plugins you use in the exercises and adds the workshop key.
 
 All modules need Python **3.10 or later** (`python3 --version`), with no
-additional Python packages. Exercise 4 also needs [`uv`](https://docs.astral.sh/uv/)
-(`curl -LsSf https://astral.sh/uv/install.sh | sh`, inside WSL2 on Windows).
+additional Python packages, and [`uv`](https://docs.astral.sh/uv/)
+(`curl -LsSf https://astral.sh/uv/install.sh | sh`, inside WSL2 on Windows),
+which starts the notebook's Python and the database server in Exercise 4.
 No GitHub account is needed during the workshop.
 
 Leave your existing global `opencode.jsonc`, `package.json` and
 `node_modules` alone. OpenCode combines the project configuration with your
 global settings automatically.
+
+> **This workshop has moved to OpenCode v2.** v2 ships as a different package,
+> `@opencode/cli`, so the old `curl -fsSL https://opencode.ai/install | bash`
+> installs v1 and will not match these materials. Install with
+> `npm install -g @opencode/cli` and check `opencode --version` reports 2.x.
+>
+> If you already have v1, remove it first. On Homebrew that is
+> `brew uninstall opencode`. Avoid `opencode uninstall`: it removes all related
+> files, including your global configuration and saved credentials.
+>
+> Some commands changed. `opencode agent list` is now `opencode debug agents`,
+> `opencode web` is now `opencode serve`, and `opencode debug skill` is gone;
+> use `/skills` in the chat instead.
 
 ## How OpenCode works in this workshop
 
@@ -207,50 +119,123 @@ calls, not the agent's summary, are the record of what happened.
 
 | Command | What it does |
 |---|---|
-| `/models` | Choose the model. The default is Big Pickle, a free model; the DTU models are under **DTU** |
+| `/models` | Choose the model. The default is Big Pickle, a free model; the DTU models, when running, are under **DTU** |
 | `/skills` | List the skills OpenCode has found |
 | `/mcps` | Switch MCP servers on and off (Exercise 4) |
 | `/compact` | Summarise a long chat to free up the context window |
 | `/halp <exercise> <question>` | Ask HALp, the workshop helper, for a hint |
-| `/sidebar` | Change what the sidebar shows, once you add it in Exercise 3. `ctrl+x b` shows or hides it |
-| `/notebook <file>` | Open the notebook panel, once you add the plugin (optional, in Exercise 1 or 2) |
+| `/sidebar` | Change what the sidebar shows (plugin from Exercise 0). `ctrl+x b` shows or hides it |
+| `/notebook <file>` | Open a notebook next to the chat (plugin from Exercise 0) |
 | `opencode reload` | In a terminal: make OpenCode pick up new skills, agents or settings |
 
 Start a **new chat** for each exercise, so the model does not carry the last
 one's context into the next. Your results go under `outputs/<exercise>/`,
 which Git ignores.
 
+## Before the exercises: three pieces of advice in a lesson format
+
+### Lesson one — you are in charge of your data
+
+Every prompt you send goes somewhere. Where depends on the model you picked
+in the selector, and the difference matters before you paste anything real
+into a chat.
+
+| What you choose | Where your data goes |
+|---|---|
+| **Free models** (the default) | Model requests go to a third party; retention and training terms depend on the specific offer |
+| **The workshop key** (Exercises 1 and 5) | Requests go to OpenRouter and the model's provider; send only the exercises' own data |
+| **DTU models** (optional) | Model requests go to our DTU service; external tools can still send data elsewhere |
+| **Your own subscription** (Codex, Claude, others) | Depends on that provider, and on whether you have opted out of having your data used for training |
+
+User discretion is advised at all times. You are in charge of your data, you
+are in charge of the permissions you give your models, and you are in charge
+of which data you put in front of them. Nothing in this workshop removes that
+responsibility from you, and no default setting decides it for you.
+
+Use public data with external models. Keep anything confidential or personal
+on the DTU models, or off the machine entirely.
+
+### Lesson two — `/compact` is your friend
+
+A conversation has a fixed budget. Everything counts against it: your
+messages, the model's replies, file contents it has read, and every tool
+result it has seen. When the budget runs out mid-task, the run stops being
+useful.
+
+`/compact` summarises the conversation so far and continues with the summary
+in place of the raw history. You keep the thread, you get the room back.
+
+Get to know it early, on a conversation you do not mind losing, rather than
+discovering it when you are deep in an exercise. The sooner the better.
+
+### Lesson three — use `/themes` before anything else to look cool (in front of your PI) and personalise your experience
+
+Opencode (v1 and v2) harnesses comes with their own preinstalled themes. Pick one 
+that inspires you to finish this workshop (hint: maybe `matrix` will do the trick).
+
+## Meet HALp before you start
+
+HALp offers hints and setup help, not finished exercise answers. In a **fresh
+chat**, try `/halp Where should I start?` It uses a **free external model**:
+public information and redacted errors only; do not use a private research chat.
+
+<details>
+<summary>Using HALp and returning to your exercise</summary>
+
+Open a **fresh chat** and type `/halp` followed by your question:
+
+```text
+/halp I am on Exercise 2c. Where should I copy my skill?
+/halp Why can I not see the workshop agents?
+```
+
+HALp reads the current workshop instructions and gives hints and setup help,
+not finished exercise answers. It can help adjust context settings after
+you approve the change. It initially uses **Big Pickle, a free external model**:
+share public information and redacted errors only. Do not invoke it inside
+a private research conversation, because the existing history can reach
+that provider too.
+
+When you return to an exercise, select your exercise agent and model again.
+HALp's permissions and context help are just below.
+
+</details>
+
+<details>
+<summary>HALp's permissions, privacy and context adjustments</summary>
+
+Start a **fresh chat**, then type `/halp` followed by your question:
+
+```text
+/halp I am on Exercise 2c. Where should I copy the skill folder?
+/halp What should I check before increasing Mistral's context?
+```
+
+HALp reads the current exercise instructions, offers one next step and helps
+with setup. Its instructions prohibit exercise solutions; check its advice
+as you would any model output. It uses **Big Pickle,
+a free external model**: only send public workshop information and redacted
+errors. The command switches the current chat, so its existing history can
+also reach that provider—do not invoke it inside a private research chat.
+
+HALp can show this project's DTU budgets and change `limit.context` and
+`limit.output` up to the published running maxima, with your command approval.
+Higher server limits need organiser verification. The supplied helper cannot
+change URLs or keys. HALp is not allowed to operate the
+cluster or publish your work. Read every approval request.
+
+To resume an exercise, select **Build** or your exercise agent **and model**
+again. HALp is hidden from the usual agent selector; `/halp` is the intended
+entry point. This is a UI convention, not an access-control boundary.
+
+</details>
+
 ## LLM Models you can use
 First be aware of the pricing - it can be creative.
 * Free models - check the provider's retention and training terms; no price does not mean private
 * Paid models - often subscription-based. Maybe as safe and confidential as the provider says
 * Local models - running on your own hardware. As confidential as your system
-* DTU models - hosted by the workshop organisers. Use the supplied public data and follow DTU's data-handling rules
-### Our four DTU models
-<details>
-<summary>Model list</summary>
-
-The workshop project shows one **DTU** group containing:
-
-| Model | Context | Maximum output | Description |
-|---|---:|---:|---:|
-| GPT-OSS 20B | 16384 | 4096 | Alternative general model |
-| Mistral Nemo 12B | 16384 | 4096 | Smaller checkpoint; check tool behaviour on your task |
-| Qwen 3.6 35B-A3B | 16384 | 4096 | Analysis and tool use |
-| Qwen 3.8 27B FP8 | 32768 | 4096 | Larger starting context; availability depends on compute05 |
-
-The DTU group is added alongside OpenCode's available free models
-and your other configured providers. This file does not restrict the provider
-list or change your global configuration. Other providers may require their
-own sign-in or API key.
-
-**Does opening the folder start the models?** No. It connects to models that
-Peter and Dimitrios have already started. If a model is unavailable, ask an
-organiser.
-
-See [OpenCode project configuration](https://opencode.ai/v2/docs/config/#per-project).
-</details>
-
+* DTU models - hosted by the workshop organisers, optional and only when running. Use the supplied public data and follow DTU's data-handling rules
 ### Free models from OpenCode
 <details>
 <summary>Model list</summary>
@@ -290,6 +275,47 @@ send nothing confidential or personal. See
 Sources: [live model list](https://opencode.ai/zen/v1/models),
 [model catalogue](https://models.dev/api.json),
 [Zen pricing](https://opencode.ai/docs/zen/#pricing).
+</details>
+
+### The workshop key: two small models at OpenRouter
+
+Exercises 1 and 5 call models directly, outside OpenCode, so you can see
+exactly what goes in and what comes back. They use
+[OpenRouter](https://openrouter.ai), with a key the organisers give you at
+the start (Exercise 0, step 3):
+
+| Exercise | Model | For |
+|---|---|---|
+| 1 — RAG | Mistral Nemo 12B, and `bge-base` for search | Answers from retrieved pieces |
+| 5 — Decision model | Llama 3.1 8B | Answers with token probabilities |
+
+The key is shared by the room and has a spending limit. Keep it in
+`.openrouter-key`, which Git ignores; never paste it into a chat or commit it.
+
+### The DTU models (optional)
+<details>
+<summary>Model list</summary>
+
+The workshop project shows one **DTU** group containing:
+
+| Model | Context | Maximum output | Description |
+|---|---:|---:|---:|
+| GPT-OSS 20B | 16384 | 4096 | Alternative general model |
+| Mistral Nemo 12B | 16384 | 4096 | Smaller checkpoint; check tool behaviour on your task |
+| Qwen 3.6 35B-A3B | 16384 | 4096 | Analysis and tool use |
+| Qwen 3.8 27B FP8 | 32768 | 4096 | Larger starting context; availability depends on compute05 |
+
+The DTU group is added alongside OpenCode's available free models
+and your other configured providers. This file does not restrict the provider
+list or change your global configuration. Other providers may require their
+own sign-in or API key.
+
+**Does opening the folder start the models?** No. It connects to models that
+Peter and Dimitrios start when they are available; the workshop does not
+depend on them. With them running, `RAG_DTU=1` in front of the commands of
+Exercises 1 and 5 uses them instead of the workshop key.
+
+See [OpenCode project configuration](https://opencode.ai/v2/docs/config/#per-project).
 </details>
 
 ### Show free models if they are hidden
@@ -382,9 +408,10 @@ AgenticWorkshop/
       skills/
          skill-builder/         A subfolder INSIDE skills
             SKILL.md            The skill-builder instructions
-      plugins/                  Plugins you clone in Exercises 2 and 3 (not in Git)
+      plugins/                  The plugins you clone in Exercise 0 (not in Git)
    exercises/
-      01-rag/                   Retrieval-augmented generation, every stage visible
+      00-plugins/               Install the two plugins and the workshop key
+      01-rag/                   Retrieval-augmented generation, as a notebook
       02-skills/
       03-agents/
          starter/csv-profile/   A ready-made skill for Exercise 3b
@@ -413,8 +440,8 @@ an otherwise empty folder is only a Git/ZIP placeholder, not an agent or skill.
 Files inside `exercises/` are not loaded by OpenCode. An agent or skill only
 takes effect once it is in `.opencode/agents/` or `.opencode/skills/`, which
 is why Exercise 3b asks you to copy its starter skill there. Plugins are
-loaded from `.opencode/plugins/` when OpenCode starts, which is why Exercise 3
-clones Sidebar Plus there and then restarts OpenCode.
+loaded from `.opencode/plugins/` when OpenCode starts, which is why Exercise 0
+clones the plugins there and then restarts OpenCode.
 
 The leading dot may hide `.opencode` in your file browser, but OpenCode can
 still read it. Do not rename it, move it out of the project, or put
@@ -433,6 +460,7 @@ and [skills](https://opencode.ai/v2/docs/skills/).
 </details>
 
 ### Exercises
+- **Exercise 0** — [Plugins](exercises/00-plugins/README.md).
 - **Exercise 1** — [RAG](exercises/01-rag/README.md).
 - **Exercise 2** — [Skills](exercises/02-skills/README.md).
 - **Exercise 3** — [Agents](exercises/03-agents/README.md).
@@ -440,7 +468,11 @@ and [skills](https://opencode.ai/v2/docs/skills/).
 - **Exercise 5** — [Decision model](exercises/05-decide/README.md).
 - **Exercise 6** — [Safety](exercises/06-safety/README.md).
 
-## Manual connection reference — optional
+## Reference
+
+You do not need these for the exercises.
+
+### Connecting to the DTU models by hand
 
 <details>
 <summary>Connection fields for a separate project without the supplied JSON</summary>
@@ -461,7 +493,7 @@ set those limits in JSON using the instructions after the tables.
 The supplied JSON already contains them.
 See [OpenCode custom providers](https://opencode.ai/v2/docs/providers/#custom-provider).
 
-### Qwen 3.6 35B-A3B
+#### Qwen 3.6 35B-A3B
 
 | Field in OpenCode | What to enter |
 |---|---|
@@ -475,7 +507,7 @@ See [OpenCode custom providers](https://opencode.ai/v2/docs/providers/#custom-pr
 | Context limit, in JSON | `16384` |
 | Output limit, in JSON | `4096` |
 
-### Qwen 3.8 27B FP8
+#### Qwen 3.8 27B FP8
 
 | Field in OpenCode | What to enter |
 |---|---|
@@ -489,7 +521,7 @@ See [OpenCode custom providers](https://opencode.ai/v2/docs/providers/#custom-pr
 | Context limit, in JSON | `32768` |
 | Output limit, in JSON | `4096` |
 
-### Mistral Nemo 12B
+#### Mistral Nemo 12B
 
 | Field in OpenCode | What to enter |
 |---|---|
@@ -503,7 +535,7 @@ See [OpenCode custom providers](https://opencode.ai/v2/docs/providers/#custom-pr
 | Context limit, in JSON | `16384` |
 | Output limit, in JSON | `4096` |
 
-### GPT-OSS 20B
+#### GPT-OSS 20B
 
 | Field in OpenCode | What to enter |
 |---|---|
@@ -519,7 +551,7 @@ See [OpenCode custom providers](https://opencode.ai/v2/docs/providers/#custom-pr
 
 </details>
 
-## Changing your context setting
+### Changing your context setting (DTU models)
 
 The project sets OpenCode v2's compaction buffer to `2048` and retains about
 `4096` recent tokens. Its default `20000` buffer is larger than our smaller
@@ -564,7 +596,7 @@ These are useful sizes to recognise, not a requirement to use powers of two:
 | `131072` | Target ceiling for Mistral/GPT-OSS; not a normal workshop budget |
 | `262144` | Target ceiling for Qwen only; do not use without explicit approval |
 
-### Change the budget in your own project
+#### Change the budget in your own project
 
 In `opencode.json`, find the model under `providers → dtu → models → model ID`.
 Edit `limit.context` and/or `limit.output`, within the table above. For example,
@@ -602,47 +634,33 @@ conversation before lowering its budget. Return to the supplied defaults
 after your task.
 </details>
 
-## Ask HALp for a hint
+## If something does not work
 
-<details>
-<summary>HALp's permissions, privacy and context adjustments</summary>
+### Try this first
 
-Start a **fresh chat**, then type `/halp` followed by your question:
+If `/halp`, workshop agents or updated settings are missing, OpenCode may still
+be using cached configuration. Exit OpenCode, then run these commands **in your
+terminal, inside the extracted workshop folder**:
 
-```text
-/halp I am on Exercise 2c. Where should I copy the skill folder?
-/halp What should I check before increasing Mistral's context?
+```bash
+opencode reload
+opencode .
 ```
 
-HALp reads the current exercise instructions, offers one next step and helps
-with setup. Its instructions prohibit exercise solutions; check its advice
-as you would any model output. It uses **Big Pickle,
-a free external model**: only send public workshop information and redacted
-errors. The command switches the current chat, so its existing history can
-also reach that provider—do not invoke it inside a private research chat.
+Start a fresh chat and try `/halp hello`. Simply closing and reopening the
+interface may not refresh its background service. This reload does not edit
+your files. If the problem remains, show an organiser
+the error and your `opencode --version`; do not reinstall or delete your settings.
 
-HALp can show this project's DTU budgets and change `limit.context` and
-`limit.output` up to the published running maxima, with your command approval.
-Higher server limits need organiser verification. The supplied helper cannot
-change URLs or keys. HALp is not allowed to operate the
-cluster or publish your work. Read every approval request.
-
-To resume an exercise, select **Build** or your exercise agent **and model**
-again. HALp is hidden from the usual agent selector; `/halp` is the intended
-entry point. This is a UI convention, not an access-control boundary.
-
-</details>
-
-## If something does not work
 <details>
 <summary>So many errors - so little time</summary>
 
 | What you see | What to do |
 |---|---|
-| `/halp`, agents or updated settings are missing | Follow [the first troubleshooting step](#something-not-working-try-this-first): exit, run `opencode reload` in the workshop folder, then reopen. |
-| DTU models are missing | Check that OpenCode opened the folder containing `opencode.json`, then follow the reload step above. |
+| `/halp`, agents or updated settings are missing | [Try this first](#try-this-first): exit, run `opencode reload` in the workshop folder, then reopen. |
+| DTU models are missing | They are optional and may not be running. Otherwise check that OpenCode opened the folder containing `opencode.json`, then follow the reload step above. |
 | Connection failed / 503 | Ask an organiser to check the model's start command. |
-| Invalid API key / 401 | The workshop does not currently require a key; check for old provider settings. |
+| Invalid API key / 401 | In Exercises 1 and 5: check `.openrouter-key` (Exercise 0, step 3). In the chat: check for old provider settings. |
 | Not found / 404 | Use a fresh workshop download; ask an organiser to check the URL if it persists. |
 | Free models or other providers are missing | Check model visibility and v2 `disabled` settings; ask an organiser about stale v1 configuration. The supplied workshop JSON does not hide them. |
 | Too many requests / 429 | Wait briefly and try again; the servers are shared. |

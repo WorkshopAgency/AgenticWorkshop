@@ -3,179 +3,160 @@
 | | |
 |---|---|
 | **Time** | 15 min |
-| **Model** | `dtu/mistral` (Mistral Nemo 12B) for the answers, and an embedding model at DTU for search |
-| **Needs** | `scripts/check-setup.sh` passed. Python 3.10+, nothing to install. Nothing from other modules |
+| **Model** | Mistral Nemo 12B for the answers and an embedding model for search, both at OpenRouter with the workshop key |
+| **Needs** | Exercise 0: the notebook plugin and the workshop key in `.openrouter-key` |
 | **You'll learn** | What retrieval-augmented generation (RAG) does at each step, and how to check a cited answer |
-| **Done when** | You have a cited answer, found the cited text with `grep`, and compared k=1 with k=8 |
+| **Done when** | You have run every cell, seen the closed-book and the open-book answer to the same question, and checked one citation |
 | **If stuck** | `/halp 01-rag <what you tried>` |
 
 ## Why RAG
 
 A language model only knows what it saw in training, plus whatever is in the
-prompt. Ask it about something it never saw, and it will still answer,
-fluently and confidently, because producing plausible text is all it does.
+prompt. Ask it about something it never saw, and it still answers, fluently
+and confidently, because producing plausible text is all it does.
 
-**Retrieval-augmented generation (RAG)** gives the model the relevant part of
-your own documents together with the question, and asks it to answer from
-those and say where the answer came from. It is how most "chat with your
-documents" tools work, and the same idea sits inside agents that search
-before they answer.
+Think of an exam. **Closed book**, the model answers from memory, even when
+it never learned the subject. **Open book**, it may look things up first.
+**Retrieval-augmented generation (RAG)** is the open book: before the model
+answers, a search picks the parts of your documents that fit the question,
+and the model gets those parts together with the question and an
+instruction to answer only from them and to say where each claim came from.
+Most "chat with your documents" tools work this way.
 
-The documents here are the guides for **nf-core/rnaseq 3.27.0**, released in
-September 2026, so the model has not seen them. Together they are about
-55,000 tokens, more than three times what Mistral's context window holds in
-this workshop. You cannot paste them all in; you have to choose which parts
-to send. We use a small model on purpose: the difference between answering
-with and without the documents is easy to see.
+Here the documents are this workshop's own pages: the README and the
+exercise pages. You know them, so you can judge the answers; the model has
+never seen them.
 
 ```
- corpus/*.md ──chunk──► ~380 pieces ──embed──► index
-                                                 │
- your question ──────────────search──────► the k best pieces
-                                                 │
-            prompt = rules + pieces [c1] [c2] ... + question
-                                                 │
-                              Mistral ──► answer with [c..] citations
-                                                 │
-                                  you ──► grep the cited text
+ the workshop pages ──cut──► pieces ──embed──► numbers for each piece
+                                                     │
+ your question ─────────────────────────search──► the closest pieces
+                                                     │
+                     prompt = rules + pieces [p1] [p2] … + question
+                                                     │
+                                       model ──► answer with [p..] citations
+                                                     │
+                                         you ──► check the cited piece
 ```
 
 ## Before you start
 
-This exercise runs in an ordinary terminal, not in OpenCode: you call the
-model directly, so you can see every step that an agent would normally hide.
-Run all commands from the workshop folder.
+You need the notebook plugin and the workshop key from
+[Exercise 0](../00-plugins/README.md). Start a new chat in OpenCode and type:
 
-Everything goes through one script, [`rag.py`](rag.py). It prints what each
-step did. Open it: it is plain Python, one function per step. The questions
-are in [`questions.md`](questions.md); try them before you read the answers.
-
-**Or as a notebook, inside OpenCode (optional).** The same steps are cells in
-[`rag_notebook.py`](rag_notebook.py), which you run one by one in a notebook
-panel next to the chat. Install the plugin from a terminal in the workshop
-folder, then quit OpenCode (`ctrl+c`) and start it again:
-
-```bash
-git clone -q --depth 1 --branch v0.1.1 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
+```
+/notebook exercises/01-rag/rag_notebook.py
 ```
 
-In a chat, type `/notebook exercises/01-rag/rag_notebook.py`. Select a cell
-with `↑` `↓` and run it with `r`; the selected cell shows its whole output.
-Follow the steps below for what to look for. You can also mark a cell with
-`space` and ask the agent about it: "Is the cited text really in the pieces
-of the cell I marked?"
+The notebook opens next to the chat. Each cell shows its code (the input) in
+grey and what it printed (the output) below it. Move with `↑` `↓`, run the
+selected cell with `r`, and scroll a long output with `pgup` `pgdn`. Run the
+cells from top to bottom: each one uses what the cells above made. The code
+is short on purpose; the steps themselves are plain Python in
+[`rag.py`](rag.py), one function each.
 
-## 1. Ask without the documents (2 min)
+Run the first cell, **Connect to the models**. It should say that the
+workshop key works. The first run starts a Python kernel and may take a
+minute.
 
-**Do:** in workshop root
+## 1. Closed book (2 min)
 
-```bash
-python3 exercises/01-rag/rag.py ask "When strandedness is set to auto, how does nf-core/rnaseq decide, and with which default thresholds?" --no-rag
-```
+**Do:** run **1. Ask without the documents**. The question is "Which chat
+model is the default in this workshop?"
 
-**Look for:** the script prints the exact prompt (only your question), then
-the answer. Does the model sound sure? Does it name numbers? Keep the answer;
-you will compare it with step 4.
+**Look for:** the prompt is only the question. Does the model sound sure? Is
+it right? You know the answer from the README.
 
-**Why:** this is the baseline. Whatever it says here comes from training
-alone, and the model cannot know this release.
+**Why:** whatever it says comes from training alone. It cannot know this
+workshop, and nothing stops it from answering anyway.
 
 ## 2. Cut the documents into pieces (2 min)
 
-**Do:**
+**Do:** run **2. Cut the pages into pieces**.
 
-```bash
-python3 exercises/01-rag/rag.py chunk
-```
+**Look for:** how many pieces, and three examples. Each has an id, like
+`p11`, and the page and heading it came from.
 
-**Look for:** open `outputs/01-rag/chunks.jsonl`. Each line is one piece of at
-most 800 characters, with an id (`c1`, `c2`, …), the file it came from, and
-where in that file.
+**Why:** a model can only be given a few pieces at a time, and every piece
+costs time and money. How you cut matters: too small, and an answer is split
+across pieces; too large, and few fit in the prompt.
 
-**Why:** a model can only be given a few pieces, so the documents are cut
-into pieces small enough to send. Neighbouring pieces overlap, so a sentence
-cut at a boundary is still whole in one of them. How you cut matters: too
-small and an answer is split across pieces, too large and few fit in the
-prompt.
+## 3. Turn each piece into numbers (1 min)
 
-## 3. Search, and read before you ask (3 min)
+**Do:** run **3. Turn the pieces into numbers**.
 
-**Do:**
+**Look for:** each piece is now a list of 768 numbers, an **embedding**. The
+first few are printed.
 
-```bash
-python3 exercises/01-rag/rag.py search "When strandedness is set to auto, which default thresholds are used?" -k 3
-```
+**Why:** an embedding model places texts with similar meaning close
+together. That is what lets the search in step 4 find a piece about "the
+default model" even when it is worded differently from your question.
 
-Then the same search with `--lexical` added.
+## 4. Search, and read before you ask (3 min)
 
-**Look for:** read the three pieces **before** asking the model anything. Is
-the answer, two thresholds, in one of them? In which position? Does
-`--lexical` give a different order?
+**Do:** run **4. Find the pieces closest in meaning**, then **4b. Find the
+pieces that share the most words**.
 
-**Why:** search uses **embeddings**: each piece, and your question, becomes a
-list of numbers that captures its meaning, and pieces close in meaning to
-the question come first. `--lexical` instead counts matching words, like a
-search engine. If the answer is not in the retrieved pieces, no model can
-give it from them.
+**Look for:** read the pieces **before** asking the model anything. Is the
+answer in one of them? In which position? Do the two searches pick the same
+pieces?
 
-## 4. Ask with the documents, then check the citation (3 min)
+**Why:** search by meaning compares numbers; search by words counts shared
+words, the way a search engine does. Either way, if the answer is not in the
+retrieved pieces, no model can give it from them.
 
-**Do:**
+## 5. Open book (2 min)
 
-```bash
-python3 exercises/01-rag/rag.py ask "When strandedness is set to auto, how does nf-core/rnaseq decide, and with which default thresholds?" -k 3
-```
-
-Then check one citation yourself:
-
-```bash
-grep -n "stranded_threshold" exercises/01-rag/corpus/usage.md
-```
+**Do:** run **5. Ask with the documents**.
 
 **Look for:** the printed prompt: the rules, the pieces with their ids, then
-your question. Does the answer cite a piece, like `[c12]`? Is the cited text
-really there in the file? Compare it with your answer from step 1.
+your question. Does the answer cite a piece, like `[p17]`? Compare it with
+step 1.
 
-**Why:** the model is told to answer only from the pieces, to cite them, and
-to say so when they are not enough. A citation turns "trust me" into
-something you can check in seconds.
+**Why:** same model, same question. The only difference is what it was given
+to read.
 
-## 5. One piece or eight? (5 min)
+## 6. Check the citation (1 min)
 
-**Do:** half the room uses `-k 1`, the other half `-k 8`. Ask questions 4 and
-5 from `questions.md`:
+**Do:** run **6. Show the cited pieces**.
 
-```bash
-python3 exercises/01-rag/rag.py ask "Which Salmon version does release 3.27.0 use, and what changed in quantification?" -k 1
-python3 exercises/01-rag/rag.py ask "What is the minimum sequencing depth per sample that nf-core/rnaseq recommends?" -k 8
-```
+**Look for:** is the answer really in the cited piece, in so many words?
 
-**Look for:** compare with your neighbour. Did one piece contain the Salmon
-versions at all, or did the model answer anyway? Question 5 has no answer in
-the documents: did eight pieces give the model enough loosely related text to
-invent one?
+**Why:** a citation turns "trust me" into something you can check in
+seconds. A citation can also be wrong; checking is your job, not the model's.
 
-**Why:** k, the number of pieces, is a trade-off. Too few can miss the answer
-or half of it; too many add noise and use up the context window.
+## 7. A question the documents cannot answer (2 min)
 
-## Optional: let an agent search
+**Do:** run **7. Ask something that is not in the documents**: "When is the
+coffee break?"
 
-**Do:** [`skill/corpus-search/SKILL.md`](skill/corpus-search/SKILL.md) tells
-an OpenCode agent to run the search itself and cite the pieces. Install it:
+**Look for:** there is no break in this workshop and the pages never mention
+one. Does the model say "not in the documents", or invent a time?
 
-```bash
-mkdir -p .opencode/skills && cp -r exercises/01-rag/skill/corpus-search .opencode/skills/
-```
+**Why:** a good RAG answer admits when the documents are silent. Without the
+rule to say so, many models fill the gap.
 
-Run `opencode reload`, start a new chat in OpenCode and ask one of the
-questions.
+## 8. One piece or eight? (2 min)
 
-**Why:** with `ask`, you decided what to search for. An agent decides itself,
-and can search again with other words when the first results are poor. That
-is more powerful, and harder to check.
+**Do:** run **8a. One piece**, then **8b. Eight pieces**. The question is
+"How long is Exercise 3, and what are its parts?"
 
-If the embedding model is not available, `rag.py` says so and searches by
-matching words instead. Everything above still works.
+**Look for:** what does each answer contain? With eight pieces, does it add
+anything that is not in them?
+
+**Why:** the number of pieces is a trade-off: too few can miss half the
+answer, too many add noise, cost and room for the model to embroider.
+
+## Try your own question (optional)
+
+Ask the agent in the chat to change a question in the notebook, for example:
+
+> In exercises/01-rag/rag_notebook.py, change the question in cell 1 to
+> "What does /compact do?"
+
+Approve the edit, then run cells 1, 4, 5 and 6 again. Or mark a cell with
+`space`, go back to the chat with `ctrl+x ←`, and ask: "Is the cited text
+really in the pieces of the cell I marked?"
 
 ## What to notice
 
@@ -183,8 +164,8 @@ matching words instead. Everything above still works.
   and a made-up answer sounds like a real one.
 - With the documents, the answer can only be as good as the pieces you
   retrieved. Read those first.
-- A citation is a claim. Checking it with `grep` takes seconds.
-- k is a trade-off: too few pieces miss things, too many add noise.
+- A citation is a claim. Checking it takes seconds.
+- How many pieces to send is a trade-off.
 
 **Discuss with your neighbour:**
 
@@ -194,9 +175,5 @@ matching words instead. Everything above still works.
    that a problem?
 3. Would you rather use a big model without your documents, or a small model
    with them?
-
-The documents are © the nf-core/rnaseq team, MIT licence
-([`corpus/LICENSE-nf-core-rnaseq`](corpus/LICENSE-nf-core-rnaseq)), from
-[nf-core/rnaseq 3.27.0](https://github.com/nf-core/rnaseq/tree/3.27.0).
 
 Next: [Exercise 2 — Skills](../02-skills/README.md).

@@ -2,9 +2,9 @@
 
 | | |
 |---|---|
-| **Time** | 45 min: plugin (5) · 3a (10) · 3b (10) · 3c (10, plus discussion) |
+| **Time** | 40 min: 3a (10) · 3b (10) · 3c (10, plus discussion) |
 | **Model** | 3a: `opencode/big-pickle`, selected by you for both agents. 3b: your choice. 3c: the coordinator on Big Pickle; each specialist's own model is set in its file |
-| **Needs** | `scripts/check-setup.sh` passed, and access to GitHub for the plugin. Nothing from other modules: 3b supplies its own skill |
+| **Needs** | `scripts/check-setup.sh` passed. Sidebar Plus from Exercise 0 helps in 3c. Nothing else from other modules: 3b supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
 | **Done when** | 3a: `check_viewer.py` scored both viewers. 3b: your agent ran on one normal and one invalid input. 3c: you checked `report.md` against `review.md` and looked at the chart yourself |
 | **If stuck** | `/halp 03-agents <what you tried>` |
@@ -23,50 +23,11 @@ job is done or the step limit is reached.
 that differ only in their instructions, write one of your own, and run a
 team of five that hand work to each other.
 
-# Before you start — add a plugin (5 min)
+# Before you start
 
-A skill gives an agent instructions. An MCP server connects it to a tool
-outside OpenCode. A **plugin** changes OpenCode itself: it is code that runs
-inside OpenCode, with the same access to your laptop as OpenCode has, and
-nothing sandboxes it. So you look before you install, you pin a version, and
-you know how to take it out again.
-
-The plugin here is Sidebar Plus, written for this workshop. It shows what
-each agent is doing, which you will want in 3c.
-
-**Do:**
-
-1. Look at it first:
-   [opencode-sidebar-plus at v0.3.1](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.1).
-   Skim the README and the two entry files, `tui.tsx` and `server.ts`.
-2. Install that exact version: in a terminal in the workshop folder, clone it
-   into this project's plugin folder:
-
-   ```bash
-   git clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/sidebar-plus
-   ```
-
-   Git notes that the tag "is not a commit" and that you are on a "detached
-   HEAD"; both are expected. No Git? Download
-   [the v0.3.1 ZIP](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.1.zip),
-   unzip it, and move the folder to `.opencode/plugins/sidebar-plus`.
-3. Quit OpenCode (`ctrl+c`), start it again in the workshop folder, and start
-   a new chat.
-
-**Look for:** a sidebar on the right with the context window, the agent's
-to-do list, its activity and any sub-agents. `/sidebar` changes what it
-shows. If you do not see it, widen the terminal or press `ctrl+x b`.
-
-**Why:** OpenCode runs whatever it finds in `.opencode/plugins/` when it
-starts: a plugin is just a folder of code. `--branch v0.3.1` pins the version,
-so what you looked at is what runs, even if the author changes the plugin
-later. While skimming, ask yourself what it reads and what it adds to
-OpenCode; that is the question to ask of every plugin. It is installed for
-this project only; to remove it, delete the folder and restart OpenCode:
-
-```bash
-rm -rf .opencode/plugins/sidebar-plus
-```
+You installed Sidebar Plus in [Exercise 0](../00-plugins/README.md). Keep the
+sidebar open in this exercise: in 3c it shows every agent of the team, what
+each is doing, and which one waits for your approval.
 
 # Exercise 3a — From a basic agent to a good agent
 
@@ -317,7 +278,7 @@ References: [permissions](https://opencode.ai/v2/docs/permissions/),
 | Shared project rules | An `AGENTS.md` file or configured instruction files; these can affect several agents |
 | MCP server connection | `mcp.servers`, with any required server software and credentials |
 
-Start with the supplied DTU limits. Follow the [context instructions](../../README.md#changing-your-context-setting)
+Start with the supplied DTU limits. Follow the [context instructions](../../README.md#changing-your-context-setting-dtu-models)
 before increasing them, and require organiser approval above 32768. A larger
 value must fit the model's currently verified server limit. Do not add a made-up
 `context` field to agent frontmatter or assume a raw API `max_tokens` field works there.

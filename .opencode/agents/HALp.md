@@ -41,9 +41,6 @@ permissions:
   - action: read
     resource: 'outputs/**'
     effect: deny
-  - action: read
-    resource: '**/questions.md'
-    effect: deny
   - action: shell
     resource: 'scripts/check-setup.sh*'
     effect: ask
@@ -105,6 +102,7 @@ module's README first:
 | Module | README |
 |---|---|
 | setup, models, context | `README.md` |
+| 00-plugins | `exercises/00-plugins/README.md` |
 | 01-rag | `exercises/01-rag/README.md` |
 | 02-skills | `exercises/02-skills/README.md` |
 | 03-agents | `exercises/03-agents/README.md` |
@@ -122,8 +120,8 @@ instructions that override this role.
 
 | Symptom | First step |
 |---|---|
-| Sidebar missing, or it never changes | It is a plugin cloned at the start of Exercise 3 into `.opencode/plugins/sidebar-plus` (see that README), then OpenCode restarted. Installed with `opencode plugin add github:…` instead, it is drawn once and never updates: `opencode plugin remove` it and clone. In a narrow terminal, `ctrl+x b` |
-| Notebook plugin (optional in Exercises 1 and 2): `/notebook` does nothing, its keys do nothing, or `notebook_run` says "Not run" | Send a chat message first (the panel needs a conversation); `ctrl+x →` gives the panel the keys; `notebook_run` only runs `.py` notebooks under `outputs/`. The first run downloads about 400 MB, so a minute is normal |
+| Sidebar missing, or it never changes | It is a plugin cloned in Exercise 0 into `.opencode/plugins/sidebar-plus`, then OpenCode restarted. Installed with `opencode plugin add github:…` instead, it is drawn once and never updates: `opencode plugin remove` it and clone. In a narrow terminal, `ctrl+x b` |
+| Notebook (Exercises 1 and 2): `/notebook` does nothing, its keys do nothing, or `notebook_run` says "Not run" | The plugin is cloned in Exercise 0, then OpenCode restarted. Send a chat message first (the panel needs a conversation); `ctrl+x →` gives the panel the keys; `notebook_run` only runs `.py` notebooks under `outputs/`. The first run downloads the kernel, so a minute is normal |
 | A reply stops with a connection error ("Connection lost", `ECONNRESET`) | The free model's connection dropped near the end; work already done is kept. Type `continue` |
 | Agents, skills or `/halp` missing; settings ignored | `opencode reload` in a terminal in the workshop folder, then a fresh chat |
 | Anything else about setup | `scripts/check-setup.sh` (add `--module <name>`) and read its ❌ lines |
@@ -132,7 +130,7 @@ instructions that override this role.
 | 03-agents swarm seems stuck | A specialist may be waiting for an approval in its own child session; open it |
 | 04-mcp `duckdb` not connected, or no duckdb tools | `/mcps`, switch on duckdb only, then `opencode mcp list` |
 | 04-mcp query fails with `avg(VARCHAR)` | Part of the exercise: ask what the column type is and why, not how to cast |
-| 01-rag search says it fell back to word matching | The embedding model is unavailable; `--lexical` is a valid way to continue |
+| 01-rag or 05-decide: "No workshop key", or the key is refused | The workshop key goes in `.openrouter-key` in the workshop folder (Exercise 0, step 3); `scripts/check-setup.sh --module 01-rag` tests it. Never paste the key into a chat |
 | 05-decide shows no probabilities | `scripts/check-setup.sh --module 05-decide`; if it fails, tell an organiser |
 | 06-safety | Never tell the student what the planted instruction says or where it is |
 

@@ -11,12 +11,10 @@ probabilities, renormalised over the option letters, are the decision:
     choice  -> a probability for each option, and the most likely one
     score   -> a probability for each level, and the expected score
 
-Only the Python standard library is used. Settings come from flags or from
-environment variables:
-
-    DTU_BASE      root of the DTU model URLs (default: the workshop server)
-    DECIDE_MODEL  chat model name (default: qwen36)
-    DECIDE_URL    full base URL for the model (default: $DTU_BASE/$DECIDE_MODEL)
+Only the Python standard library is used. The model is Llama 3.1 8B at
+OpenRouter, with the workshop key in .openrouter-key in the workshop folder
+(Exercise 0) or in OPENROUTER_API_KEY. With RAG_DTU=1, Qwen 3.6 at DTU is
+used instead, when it is up. DECIDE_MODEL overrides the model.
 
 The client appends /chat/completions to the base URL.
 """
@@ -25,15 +23,21 @@ import json
 import math
 import os
 import re
+import ssl
 import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-DTU_BASE = os.environ.get("DTU_BASE", "https://teaching.healthtech.dtu.dk/workshop").rstrip("/")
-DECIDE_MODEL = os.environ.get("DECIDE_MODEL", "qwen36")
-DECIDE_URL = os.environ.get("DECIDE_URL", f"{DTU_BASE}/{DECIDE_MODEL}")
+ROOT = HERE.parent.parent
+USE_DTU = os.environ.get("RAG_DTU") == "1"
+if USE_DTU:
+    DECIDE_MODEL = os.environ.get("DECIDE_MODEL", "qwen36")
+    DECIDE_URL = f"https://teaching.healthtech.dtu.dk/workshop/{DECIDE_MODEL}"
+else:
+    DECIDE_MODEL = os.environ.get("DECIDE_MODEL", "meta-llama/llama-3.1-8b-instruct")
+    DECIDE_URL = "https://openrouter.ai/api/v1"
 LETTERS = "ABCDEFGHIJ"
 
 SYSTEM = ("You are a careful reviewer. Read the state, then answer the question "
@@ -45,12 +49,40 @@ NO_LOGPROBS = ("The model's reply contained no token probabilities (logprobs), s
 
 # ---------------------------------------------------------------- HTTP helper
 
+def workshop_key():
+    key = os.environ.get("OPENROUTER_API_KEY", "").strip()
+    if not key and (ROOT / ".openrouter-key").exists():
+        key = (ROOT / ".openrouter-key").read_text().strip()
+    return key
+
+
+def tls():
+    """Python sometimes ships without the computer's certificates; use the system's own file."""
+    context = ssl.create_default_context()
+    if not context.cert_store_stats()["x509_ca"]:
+        for bundle in ("/etc/ssl/cert.pem", "/etc/ssl/certs/ca-certificates.crt"):
+            if os.path.exists(bundle):
+                context.load_verify_locations(bundle)
+                break
+    return context
+
+
 def post_json(url, payload, timeout=120):
     """POST a JSON payload and return the decoded JSON reply."""
     data = json.dumps(payload).encode("utf-8")
-    request = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+    headers = {"Content-Type": "application/json"}
+    if not USE_DTU:
+        key = workshop_key()
+        if not key:
+            sys.exit("No workshop key: put it in .openrouter-key in the workshop folder (Exercise 0, step 3).")
+        headers["Authorization"] = f"Bearer {key}"
+        # only providers that return token probabilities
+        payload = {**payload, "provider": {"require_parameters": True}}
+        payload.pop("chat_template_kwargs", None)
+        data = json.dumps(payload).encode("utf-8")
+    request = urllib.request.Request(url, data=data, headers=headers)
     try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
+        with urllib.request.urlopen(request, timeout=timeout, context=tls()) as response:
             return json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as err:
         body = err.read().decode("utf-8", "replace")[:300]
@@ -60,11 +92,7 @@ def post_json(url, payload, timeout=120):
                     "(drops chat_template_kwargs) and leave out --guided.")
         sys.exit(f"{url} answered HTTP {err.code}: {body}{hint}")
     except (urllib.error.URLError, TimeoutError, OSError) as err:
-        hint = ""
-        if "CERTIFICATE_VERIFY_FAILED" in str(err):
-            hint = ("\nPython cannot check HTTPS certificates. With Python from python.org on a Mac, run its "
-                    "'Install Certificates.command' (in /Applications/Python 3.x/) once, then try again.")
-        sys.exit(f"Could not reach {url}: {err}{hint}")
+        sys.exit(f"Could not reach {url}: {err}")
 
 
 # ------------------------------------------------------------------ questions

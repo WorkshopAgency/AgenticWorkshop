@@ -1,59 +1,77 @@
-# %% [markdown]
-# # Exercise 1 — RAG as a notebook
-#
-# The same five steps as the README, one cell each, with the same `rag.py`.
-# Open it with `/notebook exercises/01-rag/rag_notebook.py`; select a cell
-# with the arrow keys and run it with `r`. Read the README's **Look for** and
-# **Why** for each step as you go.
+# %% [markdown] Exercise 1 — RAG, step by step
+# Select a cell with the arrow keys and press r to run it. Go from top to
+# bottom: each cell uses what the cells above it made. The grey lines are the
+# code (the input); below them is what it printed (the output).
 
-# %% Setup
-import os
-import subprocess
+# %% Connect to the models
 import sys
-
-# The DTU models down? Remove the # below, then restart the kernel with k.
-# os.environ["RAG_OPENCODE"] = "opencode/glm-5.3-flash-free"
-
 sys.path.insert(0, "exercises/01-rag")
 import rag
 
-QUESTION = ("When strandedness is set to auto, how does nf-core/rnaseq decide, "
-            "and with which default thresholds?")
+rag.status()
 
-
-def step(*args):
-    """Run one rag.py command, exactly as in the terminal."""
-    sys.argv = ["rag.py", *args]
-    try:
-        rag.main()
-    except SystemExit as stop:
-        if stop.code not in (0, None):
-            print(stop.code)
-
-
-print("Answers from:", rag.RAG_OPENCODE or f"{rag.RAG_MODEL} at {rag.RAG_URL}")
+# %% [markdown] Step 1 · Closed book
+# First, the model on its own. It has never seen this workshop's pages, so it
+# can only answer from what it learned in training. Watch how sure it sounds.
 
 # %% 1. Ask without the documents
-step("ask", QUESTION, "--no-rag")
+question = "Which chat model is the default in this workshop?"
+rag.answer(question)
 
-# %% 2. Cut the documents into pieces
-step("chunk")
+# %% [markdown] Step 2 · Cut the documents into pieces
+# The documents are this workshop's pages. A model can only be given a few
+# pieces at a time, so we cut the pages at headings and paragraphs.
 
-# %% 3. Search, and read before you ask
-step("search", "When strandedness is set to auto, which default thresholds are used?", "-k", "3")
+# %% 2. Cut the pages into pieces
+pieces = rag.cut()
 
-# %% 3b. The same search by matching words
-step("search", "When strandedness is set to auto, which default thresholds are used?", "-k", "3", "--lexical")
+# %% [markdown] Step 3 · Turn each piece into numbers
+# An embedding model turns each piece into a long list of numbers that
+# captures its meaning. Pieces about similar things get similar numbers.
 
-# %% 4. Ask with the documents
-step("ask", QUESTION, "-k", "3")
+# %% 3. Turn the pieces into numbers
+index = rag.embed(pieces)
 
-# %% 4b. Check the citation yourself
-print(subprocess.run(["grep", "-n", "stranded_threshold", "exercises/01-rag/corpus/usage.md"],
-                     capture_output=True, text=True).stdout)
+# %% [markdown] Step 4 · Search
+# The question is turned into numbers too, and the closest pieces win. Read
+# them before you ask the model anything: is the answer in there? Then the
+# same search by shared words, the way a search engine does it.
 
-# %% 5a. One piece
-step("ask", "Which Salmon version does release 3.27.0 use, and what changed in quantification?", "-k", "1")
+# %% 4. Find the pieces closest in meaning
+hits = rag.find(question, index, k=3)
 
-# %% 5b. Eight pieces
-step("ask", "What is the minimum sequencing depth per sample that nf-core/rnaseq recommends?", "-k", "8")
+# %% 4b. Find the pieces that share the most words
+rag.find(question, index, k=3, words=True)
+
+# %% [markdown] Step 5 · Open book
+# Now the same question, with the pieces and strict rules: answer only from
+# the pieces, and cite them. Compare with step 1.
+
+# %% 5. Ask with the documents
+reply = rag.answer(question, hits)
+
+# %% [markdown] Step 6 · Check the citation
+# A citation is a claim. Here are the cited pieces in full: is the answer
+# really in them?
+
+# %% 6. Show the cited pieces
+rag.cited(reply, hits)
+
+# %% [markdown] Step 7 · A question the documents cannot answer
+# There is no coffee break in this workshop, and the pages never mention one.
+# Does the model say so, or invent a time?
+
+# %% 7. Ask something that is not in the documents
+q7 = "When is the coffee break?"
+rag.answer(q7, rag.find(q7, index, k=3))
+
+# %% [markdown] Step 8 · One piece or eight?
+# How many pieces you send is a trade-off: too few can miss half the answer,
+# too many add noise and cost. Run both and compare.
+
+# %% 8a. One piece
+q8 = "How long is Exercise 3, and what are its parts?"
+rag.answer(q8, rag.find(q8, index, k=1))
+
+# %% 8b. Eight pieces
+rag.answer(q8, rag.find(q8, index, k=8))

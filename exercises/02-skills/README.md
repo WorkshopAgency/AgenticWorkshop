@@ -220,16 +220,7 @@ plugin is code that runs inside OpenCode; Exercise 3 says more.
 
 **Do:**
 
-1. Install it, unless you already did in Exercise 1: in a terminal in the
-   workshop folder, clone it into this project's plugin folder, then quit
-   OpenCode (`ctrl+c`) and start it again:
-
-   ```bash
-   git clone -q --depth 1 --branch v0.1.1 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
-   ```
-
-   Git notes that the tag "is not a commit" and that you are on a "detached
-   HEAD"; both are expected.
+1. The notebook plugin is installed in [Exercise 0](../00-plugins/README.md).
 2. In **Build**, in a new chat:
 
    > Write outputs/02-skills/penguins.py as a notebook with # %% cells that
