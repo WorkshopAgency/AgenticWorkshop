@@ -20,7 +20,7 @@ you know how to take it out again.
 You install two plugins, written for this workshop, and use them in the
 exercises that follow:
 
-- **Sidebar Plus** shows what each agent is doing: its context, its to-do
+- **opencode-sidebar-plus** shows what each agent is doing: its context, its to-do
   list, the tool it is running, and every sub-agent it starts.
 - **opencode-notebook** opens a notebook next to the chat. You run it one
   cell at a time and see each cell's input and output; the agent can run and
@@ -37,7 +37,7 @@ OpenCode.
 **Do:** skim the README of each plugin, and the two files OpenCode runs,
 `tui.tsx` (what you see) and `server.ts` (what the agent gets):
 
-- [Sidebar Plus at v0.3.1](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.1)
+- [opencode-sidebar-plus at v0.3.1](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.1)
 - [opencode-notebook at v0.1.2](https://github.com/dskanakoglou/opencode-notebook/tree/v0.1.2)
 
 **Why:** ask of every plugin what it reads and what it adds to OpenCode. The
@@ -49,15 +49,15 @@ its README says plainly that this tool does not ask before it runs.
 **Do:** clone each one into this project's plugin folder:
 
 ```bash
-git clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/sidebar-plus
+git clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/opencode-sidebar-plus
 git clone -q --depth 1 --branch v0.1.2 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
 ```
 
 Git notes that the tag "is not a commit" and that you are on a "detached
 HEAD"; both are expected. No Git? Download the ZIP of
-[Sidebar Plus](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.1.zip)
-and of [the notebook](https://github.com/dskanakoglou/opencode-notebook/archive/refs/tags/v0.1.2.zip),
-unzip them, and move the folders to `.opencode/plugins/sidebar-plus` and
+[opencode-sidebar-plus](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.1.zip)
+and of [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook/archive/refs/tags/v0.1.2.zip),
+unzip them, and move the folders to `.opencode/plugins/opencode-sidebar-plus` and
 `.opencode/plugins/opencode-notebook`.
 
 **Why:** OpenCode runs whatever it finds in `.opencode/plugins/` when it
@@ -103,7 +103,7 @@ whether the key works.
   folder and restart OpenCode:
 
   ```bash
-  rm -rf .opencode/plugins/sidebar-plus
+  rm -rf .opencode/plugins/opencode-sidebar-plus
   ```
 
 **Discuss with your neighbour:** which of the two plugins could do more harm

@@ -180,7 +180,7 @@ A team adds hand-offs, and a reviewer agent that does not trust the others (adve
 | Term | What it is | Example today |
 |---|---|---|
 | **MCP server** | A capability **outside** OpenCode behind a standard protocol (Model Context Protocol). OpenCode starts it or connects to it | A DuckDB database you query in plain English |
-| **Plugin** | Code that changes **OpenCode itself**. It runs with your permissions, unsandboxed | Sidebar Plus: shows what every agent is doing |
+| **Plugin** | Code that changes **OpenCode itself**. It runs with your permissions, unsandboxed | opencode-sidebar-plus: shows what every agent is doing |
 
 A skill is instructions.<br>
 An MCP server is a separate program mostly associated with adding additional capabilities to agents.<br>

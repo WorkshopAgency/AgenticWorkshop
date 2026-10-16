@@ -61,7 +61,7 @@ module() {
       else warn "git is missing" "download the plugin ZIPs instead, as the README says"; fi
       if have uv; then ok "uv $(uv --version | cut -d' ' -f2), which starts the notebook's Python"
       else bad "uv is missing" "curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
-      plugin sidebar-plus
+      plugin opencode-sidebar-plus
       plugin opencode-notebook
       key
       ;;
