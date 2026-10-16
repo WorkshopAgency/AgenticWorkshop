@@ -50,6 +50,21 @@ Everything goes through one script, [`rag.py`](rag.py). It prints what each
 step did. Open it: it is plain Python, one function per step. The questions
 are in [`questions.md`](questions.md); try them before you read the answers.
 
+**Or as a notebook, inside OpenCode (optional).** The same steps are cells in
+[`rag_notebook.py`](rag_notebook.py), which you run one by one in a notebook
+panel next to the chat. Install the plugin from a terminal in the workshop
+folder, then quit OpenCode (`ctrl+c`) and start it again:
+
+```bash
+git clone -q --depth 1 --branch v0.1.1 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
+```
+
+In a chat, type `/notebook exercises/00-rag/rag_notebook.py`. Select a cell
+with `↑` `↓` and run it with `r`; the selected cell shows its whole output.
+Follow the steps below for what to look for. You can also mark a cell with
+`space` and ask the agent about it: "Is the cited text really in the pieces
+of the cell I marked?"
+
 ## 1. Ask without the documents (2 min)
 
 **Do:**

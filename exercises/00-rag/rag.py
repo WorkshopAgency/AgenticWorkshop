@@ -17,6 +17,7 @@ environment variables:
     EMBED_MODEL  embedding model name (default: embed)
     RAG_URL      full base URL for the chat model (default: $DTU_BASE/$RAG_MODEL)
     EMBED_URL    full base URL for embeddings (default: $DTU_BASE/$EMBED_MODEL)
+    RAG_API_KEY  API key sent with every request, for providers that need one
     RAG_OPENCODE a free OpenCode model for the answers instead, for example
                  opencode/glm-5.3-flash-free; for testing while the DTU models
                  are down (search then uses word matching)
@@ -50,6 +51,7 @@ EMBED_MODEL = os.environ.get("EMBED_MODEL", "embed")
 RAG_URL = os.environ.get("RAG_URL", f"{DTU_BASE}/{RAG_MODEL}")
 EMBED_URL = os.environ.get("EMBED_URL", f"{DTU_BASE}/{EMBED_MODEL}")
 RAG_OPENCODE = os.environ.get("RAG_OPENCODE", "")
+RAG_API_KEY = os.environ.get("RAG_API_KEY", "")
 
 SYSTEM_RAG = """You answer questions using ONLY the evidence chunks given by the user.
 Rules:
@@ -72,7 +74,10 @@ def shown(path):
 def post_json(url, payload, timeout):
     """POST a JSON payload and return the decoded JSON reply."""
     data = json.dumps(payload).encode("utf-8")
-    request = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+    headers = {"Content-Type": "application/json"}
+    if RAG_API_KEY:
+        headers["Authorization"] = f"Bearer {RAG_API_KEY}"
+    request = urllib.request.Request(url, data=data, headers=headers)
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             return json.loads(response.read().decode("utf-8"))
@@ -80,7 +85,11 @@ def post_json(url, payload, timeout):
         body = err.read().decode("utf-8", "replace")[:300]
         raise RuntimeError(f"{url} answered HTTP {err.code}: {body}") from None
     except (urllib.error.URLError, TimeoutError, OSError) as err:
-        raise RuntimeError(f"could not reach {url}: {err}") from None
+        hint = ""
+        if "CERTIFICATE_VERIFY_FAILED" in str(err):
+            hint = ("\nPython cannot check HTTPS certificates. With Python from python.org on a Mac, run its "
+                    "'Install Certificates.command' (in /Applications/Python 3.x/) once, then try again.")
+        raise RuntimeError(f"could not reach {url}: {err}{hint}") from None
 
 
 # --------------------------------------------------------------------- chunk

@@ -219,11 +219,12 @@ plugin is code that runs inside OpenCode; Exercise 2 says more.
 
 **Do:**
 
-1. Install it: in a terminal in the workshop folder, clone it into this
-   project's plugin folder, then quit OpenCode (`ctrl+c`) and start it again:
+1. Install it, unless you already did in Exercise 0: in a terminal in the
+   workshop folder, clone it into this project's plugin folder, then quit
+   OpenCode (`ctrl+c`) and start it again:
 
    ```bash
-   git clone -q --depth 1 --branch v0.1.0 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
+   git clone -q --depth 1 --branch v0.1.1 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
    ```
 
    Git notes that the tag "is not a commit" and that you are on a "detached
