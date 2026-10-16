@@ -156,8 +156,9 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
    `opencode serve` for the browser version.
 6. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
 7. Start a new chat. Using the CLI, just write `opencode`. There are subfolders in the workshop root for different exercises and you can create your own.
-   Go in those and run `opencode` for a clean start for the project/task/exercise.<br>
-   The default model is **Big Pickle**, a free OpenCode model.
+   Go in those and run `opencode` for a clean start for the project/task/exercise. Exiting and running opencode again is a common way for fresh starts
+   and incorporating new skills, etc. 
+9. The default model is **Big Pickle**, a free OpenCode model.
    To use one of the DTU models instead, open the model selector (`/models` in
    the terminal version) and choose a model under **DTU**.
 
