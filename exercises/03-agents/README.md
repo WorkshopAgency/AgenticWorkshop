@@ -4,7 +4,7 @@
 |---|---|
 | **Time** | 40 min: 3a (10) · 3b (10) · 3c (10, plus discussion) |
 | **Model** | 3a: `opencode/big-pickle`, selected by you for both agents. 3b: your choice. 3c: the coordinator on Big Pickle; each specialist's own model is set in its file |
-| **Needs** | `scripts/check-setup.sh` passed. Sidebar Plus from Exercise 0 helps in 3c. Nothing else from other modules: 3b supplies its own skill |
+| **Needs** | `scripts/check-setup.sh` passed. opencode-sidebar-plus from Exercise 0 helps in 3c. Nothing else from other modules: 3b supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
 | **Done when** | 3a: `check_viewer.py` scored both viewers. 3b: your agent ran on one normal and one invalid input. 3c: you checked `report.md` against `review.md` and looked at the chart yourself |
 | **If stuck** | `/halp 03-agents <what you tried>` |
@@ -25,7 +25,7 @@ team of five that hand work to each other.
 
 # Before you start
 
-You installed Sidebar Plus in [Exercise 0](../00-plugins/README.md). Keep the
+You installed opencode-sidebar-plus in [Exercise 0](../00-plugins/README.md). Keep the
 sidebar open in this exercise: in 3c it shows every agent of the team, what
 each is doing, and which one waits for your approval.
 

@@ -14,25 +14,6 @@ required to participate.
 [Quick start](#quick-start--download-extract-and-open) ·
 [Exercises](#exercises)
 
-## Agenda
-
-Every module stands alone: you can start any of them from a fresh chat, skip
-one, or come back to it later. Each module's README starts with its time,
-model, needs, and a *Done when* check.
-
-| Minutes | Module | You'll learn |
-|---:|---|---|
-| 10 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
-| 10 | Concepts (slides) | Model, harness, tool, skill, agent, MCP |
-| 5 | [Exercise 0 — Plugins](exercises/00-plugins/README.md) | What a plugin is; install the two you use today |
-| 15 | [Exercise 1 — RAG](exercises/01-rag/README.md) | Why retrieval stops a weak model inventing answers |
-| 30 | [Exercise 2 — Skills](exercises/02-skills/README.md) | Turn a repeated task into a tested skill |
-| 40 | [Exercise 3 — Agents](exercises/03-agents/README.md) | Instructions and permissions, and a team of agents |
-| 10 | [Exercise 4 — MCP](exercises/04-mcp/README.md) | Connect a database, then check its answers |
-| 10 | [Exercise 5 — Decision model](exercises/05-decide/README.md) | Typed decisions with probabilities instead of prose |
-| 10 | [Exercise 6 — Safety](exercises/06-safety/README.md) | Prompt injection, and what permissions do and don't stop |
-| 10 | Wrap-up | When to use an agent, and how to check one |
-
 ## Quick start — download, extract and open
 
 1. Install [OpenCode](https://opencode.ai/docs/#install) before the workshop.
@@ -67,6 +48,9 @@ additional Python packages, and [`uv`](https://docs.astral.sh/uv/)
 which starts the notebook's Python and the database server in Exercise 4.
 No GitHub account is needed during the workshop.
 
+<details>
+<summary>Coming from OpenCode v1, and your global settings</summary>
+
 Leave your existing global `opencode.jsonc`, `package.json` and
 `node_modules` alone. OpenCode combines the project configuration with your
 global settings automatically.
@@ -84,12 +68,77 @@ global settings automatically.
 > `opencode web` is now `opencode serve`, and `opencode debug skill` is gone;
 > use `/skills` in the chat instead.
 
+</details>
+
+## Before the exercises: three pieces of advice in a lesson format
+
+### Lesson one — you are in charge of your data
+
+Every prompt you send goes somewhere. Where depends on the model you picked
+in the selector, and the difference matters before you paste anything real
+into a chat.
+
+| What you choose | Where your data goes |
+|---|---|
+| **Free models** (the default) | Model requests go to a third party; retention and training terms depend on the specific offer |
+| **The workshop key** (Exercises 1 and 5) | Requests go to OpenRouter and the model's provider; send only the exercises' own data |
+| **DTU models** (optional) | Model requests go to our DTU service; external tools can still send data elsewhere |
+| **Your own subscription** (Codex, Claude, others) | Depends on that provider, and on whether you have opted out of having your data used for training |
+
+User discretion is advised at all times. You are in charge of your data, you
+are in charge of the permissions you give your models, and you are in charge
+of which data you put in front of them. Nothing in this workshop removes that
+responsibility from you, and no default setting decides it for you.
+
+Use public data with external models. Keep anything confidential or personal
+on the DTU models, or off the machine entirely.
+
+### Lesson two — `/compact` is your friend
+
+A conversation has a fixed budget. Everything counts against it: your
+messages, the model's replies, file contents it has read, and every tool
+result it has seen. When the budget runs out mid-task, the run stops being
+useful.
+
+`/compact` summarises the conversation so far and continues with the summary
+in place of the raw history. You keep the thread, you get the room back.
+
+Get to know it early, on a conversation you do not mind losing, rather than
+discovering it when you are deep in an exercise. The sooner the better.
+
+### Lesson three — use `/themes` before anything else to look cool (in front of your PI) and personalise your experience
+
+Opencode (v1 and v2) harnesses comes with their own preinstalled themes. Pick one 
+that inspires you to finish this workshop (hint: maybe `matrix` will do the trick).
+
+## Agenda
+
+Every module stands alone: you can start any of them from a fresh chat, skip
+one, or come back to it later. Each module's README starts with its time,
+model, needs, and a *Done when* check.
+
+| Minutes | Module | You'll learn |
+|---:|---|---|
+| 10 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
+| 10 | Concepts (slides) | Model, harness, tool, skill, agent, MCP |
+| 5 | [Exercise 0 — Plugins](exercises/00-plugins/README.md) | What a plugin is; install the two you use today |
+| 15 | [Exercise 1 — RAG](exercises/01-rag/README.md) | Why retrieval stops a weak model inventing answers |
+| 30 | [Exercise 2 — Skills](exercises/02-skills/README.md) | Turn a repeated task into a tested skill |
+| 40 | [Exercise 3 — Agents](exercises/03-agents/README.md) | Instructions and permissions, and a team of agents |
+| 10 | [Exercise 4 — MCP](exercises/04-mcp/README.md) | Connect a database, then check its answers |
+| 10 | [Exercise 5 — Decision model](exercises/05-decide/README.md) | Typed decisions with probabilities instead of prose |
+| 10 | [Exercise 6 — Safety](exercises/06-safety/README.md) | Prompt injection, and what permissions do and don't stop |
+| 10 | Wrap-up | When to use an agent, and how to check one |
+
 ## How OpenCode works in this workshop
 
 OpenCode is the **harness**: the program around the model. You type in a
 chat; the model proposes what to do; OpenCode runs the tools on your laptop,
 after asking you, and sends the results back to the model. Everything you do
 today happens in that loop.
+
+<details>
+<summary>Agents, models, approvals and commands</summary>
 
 **Agents.** OpenCode always runs one agent in the chat. Switch with
 **shift+tab** (in Desktop, with the agent selector); the current one is shown
@@ -148,46 +197,7 @@ Start a **new chat** for each exercise, so the model does not carry the last
 one's context into the next. Your results go under `outputs/<exercise>/`,
 which Git ignores.
 
-## Before the exercises: three pieces of advice in a lesson format
-
-### Lesson one — you are in charge of your data
-
-Every prompt you send goes somewhere. Where depends on the model you picked
-in the selector, and the difference matters before you paste anything real
-into a chat.
-
-| What you choose | Where your data goes |
-|---|---|
-| **Free models** (the default) | Model requests go to a third party; retention and training terms depend on the specific offer |
-| **The workshop key** (Exercises 1 and 5) | Requests go to OpenRouter and the model's provider; send only the exercises' own data |
-| **DTU models** (optional) | Model requests go to our DTU service; external tools can still send data elsewhere |
-| **Your own subscription** (Codex, Claude, others) | Depends on that provider, and on whether you have opted out of having your data used for training |
-
-User discretion is advised at all times. You are in charge of your data, you
-are in charge of the permissions you give your models, and you are in charge
-of which data you put in front of them. Nothing in this workshop removes that
-responsibility from you, and no default setting decides it for you.
-
-Use public data with external models. Keep anything confidential or personal
-on the DTU models, or off the machine entirely.
-
-### Lesson two — `/compact` is your friend
-
-A conversation has a fixed budget. Everything counts against it: your
-messages, the model's replies, file contents it has read, and every tool
-result it has seen. When the budget runs out mid-task, the run stops being
-useful.
-
-`/compact` summarises the conversation so far and continues with the summary
-in place of the raw history. You keep the thread, you get the room back.
-
-Get to know it early, on a conversation you do not mind losing, rather than
-discovering it when you are deep in an exercise. The sooner the better.
-
-### Lesson three — use `/themes` before anything else to look cool (in front of your PI) and personalise your experience
-
-Opencode (v1 and v2) harnesses comes with their own preinstalled themes. Pick one 
-that inspires you to finish this workshop (hint: maybe `matrix` will do the trick).
+</details>
 
 ## Meet HALp before you start
 
@@ -247,14 +257,24 @@ entry point. This is a UI convention, not an access-control boundary.
 </details>
 
 ## LLM Models you can use
+
+The chat uses Big Pickle, a free model, unless you choose another with `/models`. Exercises 1 and 5 use the workshop key; the DTU models are optional.
+
+<details>
+<summary>Free, paid, local and DTU models: what to be aware of</summary>
+
 First be aware of the pricing - it can be creative.
 * Free models - check the provider's retention and training terms; no price does not mean private
 * Paid models - often subscription-based. Maybe as safe and confidential as the provider says
 * Local models - running on your own hardware. As confidential as your system
 * DTU models - hosted by the workshop organisers, optional and only when running. Use the supplied public data and follow DTU's data-handling rules
+
+</details>
+
 ### Free models from OpenCode
+
 <details>
-<summary>Model list</summary>
+<summary>Details</summary>
 
 The free models OpenCode offers at the time of writing. Free offers change
 without notice, and your local `opencode models` list can still show models
@@ -290,9 +310,13 @@ send nothing confidential or personal. See
 Sources: [live model list](https://opencode.ai/zen/v1/models),
 [model catalogue](https://models.dev/api.json),
 [Zen pricing](https://opencode.ai/docs/zen/#pricing).
+
 </details>
 
 ### The workshop key: two small models at OpenRouter
+
+<details>
+<summary>Details</summary>
 
 Exercises 1 and 5 call models directly, outside OpenCode, so you can see
 exactly what goes in and what comes back. They use
@@ -307,9 +331,12 @@ the start (Exercise 0, step 3):
 The key is shared by the room and has a spending limit. Keep it in
 `.openrouter-key`, which Git ignores; never paste it into a chat or commit it.
 
+</details>
+
 ### The DTU models (optional)
+
 <details>
-<summary>Model list</summary>
+<summary>Details</summary>
 
 The workshop project shows one **DTU** group containing:
 
@@ -331,17 +358,20 @@ depend on them. With them running, `RAG_DTU=1` in front of the commands of
 Exercises 1 and 5 uses them instead of the workshop key.
 
 See [OpenCode project configuration](https://opencode.ai/v2/docs/config/#per-project).
+
 </details>
 
 ### Show free models if they are hidden
+
+<details>
+<summary>Details</summary>
+
 The DTU Qwen 3.8 effort choices are **low** and **medium**, plus the model's
 default when no effort is selected. Mistral Nemo has **no reasoning-effort
 selector**. These are model-specific: do not copy an effort from another model.
 After updating the workshop files, run `opencode reload`, reopen OpenCode and
 select the model again if an old session still shows an unsupported effort.
 
-<details>
-<summary>Model management</summary>
 
 - **Desktop:** open the model selector → **Manage models**, search for a
   model above, and turn its switch on under OpenCode. Return to the selector
@@ -362,11 +392,13 @@ select the model again if an old session still shows an unsupported effort.
 The Desktop visibility switches and configuration restrictions are different
 things. We do not change your saved visibility choices or global settings.
 See [provider filtering](https://opencode.ai/v2/docs/config/#disabled-providers).
+
 </details>
 
 ### Your own subscriptions or API accounts
+
 <details>
-<summary>Other model selection</summary>
+<summary>Details</summary>
 
 Use `/connect` in the terminal, or **Connect provider** in Desktop, choose
 your provider, and complete its supported sign-in. Then select its model.
@@ -378,9 +410,22 @@ See [supported providers and sign-in methods](https://opencode.ai/v2/docs/provid
 Changing the selected model changes the chat model. Background tasks, such
 as naming the chat, use a small model from the same provider as your chat, so
 they do not send your conversation anywhere else.
+
 </details>
 
-## Exercises overview
+## Exercises
+
+- **Exercise 0** — [Plugins](exercises/00-plugins/README.md).
+- **Exercise 1** — [RAG](exercises/01-rag/README.md).
+- **Exercise 2** — [Skills](exercises/02-skills/README.md).
+- **Exercise 3** — [Agents](exercises/03-agents/README.md).
+- **Exercise 4** — [MCP](exercises/04-mcp/README.md).
+- **Exercise 5** — [Decision model](exercises/05-decide/README.md).
+- **Exercise 6** — [Safety](exercises/06-safety/README.md).
+
+<details>
+<summary>What skills, agents and MCP are</summary>
+
 We will introduce skills, agents and MCP as cornerstones of agentic processing through exercises.
 * **Skills**: Reusable instructions an agent loads for a task, optionally with supporting scripts. A skill explains a workflow; it is not itself a tool call.
 * **Agents**: AI components that use skills to achieve a goal. An agent can **reason, plan, choose skills, execute actions, and adapt** based on the results.
@@ -389,13 +434,14 @@ We will introduce skills, agents and MCP as cornerstones of agentic processing t
 **Simple example:**
 A travel-planning agent might have skills such as *search flights*, *find hotels*, and *create itinerary*. The **agent** decides which skills to use and in what order to plan the trip.
 
-### Project folder design
+</details>
+
+<details>
+<summary>The workshop folder: where agents, skills and plugins go</summary>
 
 Open the workshop root folder. OpenCode reads agents and skills from
 `.opencode/`; the exercise folders hold the teaching materials.
 
-<details>
-<summary>Folder map and where to put agents and skills</summary>
 
 This is the structure of the extracted folder. Everything you will be asked to
 run or open is a path relative to this root, so the folder's own name does not
@@ -473,15 +519,6 @@ See the OpenCode documentation for [agents](https://opencode.ai/v2/docs/agents/)
 and [skills](https://opencode.ai/v2/docs/skills/).
 
 </details>
-
-### Exercises
-- **Exercise 0** — [Plugins](exercises/00-plugins/README.md).
-- **Exercise 1** — [RAG](exercises/01-rag/README.md).
-- **Exercise 2** — [Skills](exercises/02-skills/README.md).
-- **Exercise 3** — [Agents](exercises/03-agents/README.md).
-- **Exercise 4** — [MCP](exercises/04-mcp/README.md).
-- **Exercise 5** — [Decision model](exercises/05-decide/README.md).
-- **Exercise 6** — [Safety](exercises/06-safety/README.md).
 
 ## Reference
 
@@ -568,13 +605,14 @@ See [OpenCode custom providers](https://opencode.ai/v2/docs/providers/#custom-pr
 
 ### Changing your context setting (DTU models)
 
+<details>
+<summary>Details</summary>
+
 The project sets OpenCode v2's compaction buffer to `2048` and retains about
 `4096` recent tokens. Its default `20000` buffer is larger than our smaller
 DTU context budgets and caused repeated compaction during testing. Leave
 these supplied settings in place. This client setting does not allocate GPU
 memory or increase a model server's context capacity.
-<details>
-<summary>Choose a task budget without consuming the whole shared service</summary>
 
 Context is the space available for instructions, conversation, tool results
 and the answer. Output is the maximum answer length, including reasoning.
