@@ -1,19 +1,19 @@
-# Exercise 2 — Agents
+# Exercise 3 — Agents
 
 | | |
 |---|---|
-| **Time** | 45 min: plugin (5) · 2a (10) · 2b (10) · 2c (10, plus discussion) |
-| **Model** | 2a: `opencode/big-pickle`, selected by you for both agents. 2b: your choice. 2c: the coordinator on Big Pickle; each specialist's own model is set in its file |
-| **Needs** | `scripts/check-setup.sh` passed, and access to GitHub for the plugin. Nothing from other modules: 2b supplies its own skill |
+| **Time** | 45 min: plugin (5) · 3a (10) · 3b (10) · 3c (10, plus discussion) |
+| **Model** | 3a: `opencode/big-pickle`, selected by you for both agents. 3b: your choice. 3c: the coordinator on Big Pickle; each specialist's own model is set in its file |
+| **Needs** | `scripts/check-setup.sh` passed, and access to GitHub for the plugin. Nothing from other modules: 3b supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
-| **Done when** | 2a: `check_viewer.py` scored both viewers. 2b: your agent ran on one normal and one invalid input. 2c: you checked `report.md` against `review.md` and looked at the chart yourself |
-| **If stuck** | `/halp 02-agents <what you tried>` |
+| **Done when** | 3a: `check_viewer.py` scored both viewers. 3b: your agent ran on one normal and one invalid input. 3c: you checked `report.md` against `review.md` and looked at the chart yourself |
+| **If stuck** | `/halp 03-agents <what you tried>` |
 
-Your outputs go under `outputs/02-agents/`.
+Your outputs go under `outputs/03-agents/`.
 
 ## Why agents
 
-In Exercise 1 the model followed a skill you gave it. An **agent** goes one
+In Exercise 2 the model followed a skill you gave it. An **agent** goes one
 step further: it is a model with its own instructions, its own tools and
 permissions, and a step limit, working in a loop. It reads, decides what to
 do next, asks OpenCode to run a tool, reads the result, and repeats until the
@@ -32,7 +32,7 @@ nothing sandboxes it. So you look before you install, you pin a version, and
 you know how to take it out again.
 
 The plugin here is Sidebar Plus, written for this workshop. It shows what
-each agent is doing, which you will want in 2c.
+each agent is doing, which you will want in 3c.
 
 **Do:**
 
@@ -68,7 +68,7 @@ this project only; to remove it, delete the folder and restart OpenCode:
 rm -rf .opencode/plugins/sidebar-plus
 ```
 
-# Exercise 2a — From a basic agent to a good agent
+# Exercise 3a — From a basic agent to a good agent
 
 Use **`opencode/big-pickle`** for both agents and select it yourself before
 each run. Two agents, the same request, the same model, the same permissions
@@ -86,12 +86,12 @@ agent selector in Desktop) and send:
 
 > Create an interactive browser visualization of PDB 4HHB that I can use to
 > explain the structure to another researcher. Save everything under
-> outputs/02-agents/bad-agent. I have a browser and OpenCode; do not require
+> outputs/03-agents/bad-agent. I have a browser and OpenCode; do not require
 > additional software installation. Briefly explain how to open and use the
 > result.
 
 Then start another new chat, select `good-agent`, and send the same request
-with `outputs/02-agents/good-agent`.
+with `outputs/03-agents/good-agent`.
 
 **Look for:** count the approvals each one asks for, and watch which files
 each reads. If the bad agent stops at "Maximum steps reached", leave it: the
@@ -104,8 +104,8 @@ instructions alone.
 
 **Do:**
 
-    python3 exercises/02-agents/check_viewer.py outputs/02-agents/bad-agent --browser
-    python3 exercises/02-agents/check_viewer.py outputs/02-agents/good-agent --browser
+    python3 exercises/03-agents/check_viewer.py outputs/03-agents/bad-agent --browser
+    python3 exercises/03-agents/check_viewer.py outputs/03-agents/good-agent --browser
 
 Without Chrome, leave out `--browser`.
 
@@ -140,7 +140,7 @@ makes the nicer-looking page, with methods that do not exist, a heme that
 stays when its chain is hidden, or old text after loading a new structure.
 Judge the files and the behaviour, not the agent's summary.
 
-# Exercise 2b — From a good agent to your agent
+# Exercise 3b — From a good agent to your agent
 
 Write your own agent with a specific job and a definition of success. The
 suggested job: an agent that **checks a dataset before anyone analyses it**,
@@ -149,12 +149,12 @@ analysis or visualizing a structure, as long as you can check the result.
 
 ## Install the skill it will use (1 min)
 
-**Do:** this exercise supplies the skill, so you do not need Exercise 1. From
-the workshop folder (if you built your own `csv-profile` in 1f, keep yours
+**Do:** this exercise supplies the skill, so you do not need Exercise 2. From
+the workshop folder (if you built your own `csv-profile` in 2f, keep yours
 and skip this):
 
 ```bash
-cp -r exercises/02-agents/starter/csv-profile .opencode/skills/
+cp -r exercises/03-agents/starter/csv-profile .opencode/skills/
 ```
 
 **Look for:** `/skills` in OpenCode lists `csv-profile` (run `opencode reload`
@@ -187,10 +187,10 @@ Report the checks performed, findings, and unresolved limitations.
 
 Change the description and instructions to your job, for example: use the
 `csv-profile` skill, never change the input, report problems and save the
-report under `outputs/02-agents/`. Then run `opencode reload`.
+report under `outputs/03-agents/`. Then run `opencode reload`.
 
 **Look for:** the new agent in the agent list (shift+tab). Then select it
-and use it on `exercises/03-mcp/data/byo/uniprot_human_proteins.csv.gz`, and
+and use it on `exercises/04-mcp/data/byo/uniprot_human_proteins.csv.gz`, and
 test it on a file that does not exist: does it explain the problem, or
 invent a profile?
 
@@ -342,7 +342,7 @@ opened", "controls checked", and "scientific content verified" distinct.
 
 ---
 
-# Exercise 2c — A team of specialists
+# Exercise 3c — A team of specialists
 
 One agent can do a task. A **team** (sometimes called a swarm) splits it into
 bounded jobs with explicit hand-offs: a coordinator and specialist
@@ -370,7 +370,7 @@ task uses public NCBI data.
 **Do:** check that the models are still offered:
 
 ```bash
-scripts/check-setup.sh --module 02-agents
+scripts/check-setup.sh --module 03-agents
 ```
 
 Start `opencode` in the workshop folder, start a new chat, press
@@ -429,11 +429,11 @@ model and note it.
 
 1. What made the good agent good: which lines in its instructions mattered
    most?
-2. Your agent from 2b: what would it need before you trusted it with your own
+2. Your agent from 3b: what would it need before you trusted it with your own
    data?
 3. Which jobs in your own work would you split between specialists, and who
    would review whom?
 
 ---
 
-Previous: [Exercise 1 — Skills](../01-skills/README.md) · Next: [Exercise 3 — MCP](../03-mcp/README.md).
+Previous: [Exercise 2 — Skills](../02-skills/README.md) · Next: [Exercise 4 — MCP](../04-mcp/README.md).

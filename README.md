@@ -23,12 +23,12 @@ model, needs, and a *Done when* check.
 |---:|---|---|
 | 10 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
 | 10 | Concepts (slides) | Model, harness, tool, skill, agent, MCP |
-| 15 | [Exercise 0 — RAG](exercises/00-rag/README.md) | Why retrieval stops a weak model inventing answers |
-| 30 | [Exercise 1 — Skills](exercises/01-skills/README.md) | Turn a repeated task into a tested skill |
-| 45 | [Exercise 2 — Agents](exercises/02-agents/README.md) | A plugin, instructions and permissions, and a team of agents |
-| 10 | [Exercise 3 — MCP](exercises/03-mcp/README.md) | Connect a database, then check its answers |
-| 10 | [Exercise 4 — Decision model](exercises/04-decide/README.md) | Typed decisions with probabilities instead of prose |
-| 10 | [Exercise 5 — Safety](exercises/05-safety/README.md) | Prompt injection, and what permissions do and don't stop |
+| 15 | [Exercise 1 — RAG](exercises/01-rag/README.md) | Why retrieval stops a weak model inventing answers |
+| 30 | [Exercise 2 — Skills](exercises/02-skills/README.md) | Turn a repeated task into a tested skill |
+| 45 | [Exercise 3 — Agents](exercises/03-agents/README.md) | A plugin, instructions and permissions, and a team of agents |
+| 10 | [Exercise 4 — MCP](exercises/04-mcp/README.md) | Connect a database, then check its answers |
+| 10 | [Exercise 5 — Decision model](exercises/05-decide/README.md) | Typed decisions with probabilities instead of prose |
+| 10 | [Exercise 6 — Safety](exercises/06-safety/README.md) | Prompt injection, and what permissions do and don't stop |
 | 10 | Wrap-up | When to use an agent, and how to check one |
 
 Use **OpenCode on your laptop** to work on the exercises. The DTU models run
@@ -119,7 +119,7 @@ public information and redacted errors only; do not use a private research chat.
 Open a **fresh chat** and type `/halp` followed by your question:
 
 ```text
-/halp I am on Exercise 1c. Where should I copy my skill?
+/halp I am on Exercise 2c. Where should I copy my skill?
 /halp Why can I not see the workshop agents?
 ```
 
@@ -166,7 +166,7 @@ See [HALp's permissions and context help](#ask-halp-for-a-hint) for details.
 Custom provider setup is needed.**
 
 All modules need Python **3.10 or later** (`python3 --version`), with no
-additional Python packages. Exercise 3 also needs [`uv`](https://docs.astral.sh/uv/)
+additional Python packages. Exercise 4 also needs [`uv`](https://docs.astral.sh/uv/)
 (`curl -LsSf https://astral.sh/uv/install.sh | sh`, inside WSL2 on Windows).
 No GitHub account is needed during the workshop.
 
@@ -189,7 +189,7 @@ under the input box.
 |---|---|
 | **Plan** | Discuss and design. It reads files without asking, but cannot run commands or create or change files |
 | **Build** | Do the work: write files and run commands, asking you first |
-| Workshop agents | `bad-agent`, `good-agent`, `genome-coordinator`, `safe-analyst`, … are used in Exercises 2 and 5 |
+| Workshop agents | `bad-agent`, `good-agent`, `genome-coordinator`, `safe-analyst`, … are used in Exercises 3 and 6 |
 
 **Approvals.** When an agent wants to edit a file or run a command, OpenCode
 shows a prompt. Read what it wants to do, then choose:
@@ -209,11 +209,11 @@ calls, not the agent's summary, are the record of what happened.
 |---|---|
 | `/models` | Choose the model. The default is Big Pickle, a free model; the DTU models are under **DTU** |
 | `/skills` | List the skills OpenCode has found |
-| `/mcps` | Switch MCP servers on and off (Exercise 3) |
+| `/mcps` | Switch MCP servers on and off (Exercise 4) |
 | `/compact` | Summarise a long chat to free up the context window |
 | `/halp <exercise> <question>` | Ask HALp, the workshop helper, for a hint |
-| `/sidebar` | Change what the sidebar shows, once you add it in Exercise 2. `ctrl+x b` shows or hides it |
-| `/notebook <file>` | Open the notebook panel, once you add the plugin (optional, in Exercise 0 or 1) |
+| `/sidebar` | Change what the sidebar shows, once you add it in Exercise 3. `ctrl+x b` shows or hides it |
+| `/notebook <file>` | Open the notebook panel, once you add the plugin (optional, in Exercise 1 or 2) |
 | `opencode reload` | In a terminal: make OpenCode pick up new skills, agents or settings |
 
 Start a **new chat** for each exercise, so the model does not carry the last
@@ -257,17 +257,17 @@ See [OpenCode project configuration](https://opencode.ai/v2/docs/config/#per-pro
 
 The free models OpenCode offers at the time of writing. Free offers change
 without notice, and your local `opencode models` list can still show models
-that are gone; `scripts/check-setup.sh --module 02-agents` checks the live
+that are gone; `scripts/check-setup.sh --module 03-agents` checks the live
 list.
 
 | Model ID | Notes |
 |---|---|
-| `opencode/big-pickle` | **Workshop default**, and the 2c coordinator. Free-period data may be used to improve the model |
+| `opencode/big-pickle` | **Workshop default**, and the 3c coordinator. Free-period data may be used to improve the model |
 | `opencode/step-5-preview-free` | Zero-retention provider. Preview: may disappear |
-| `opencode/mimo-v2.6-flash-free` | 2c analyst. Free-period data may be used to improve the model |
-| `opencode/space-bunny-free` | 2c visualizer. Zero-retention provider |
+| `opencode/mimo-v2.6-flash-free` | 3c analyst. Free-period data may be used to improve the model |
+| `opencode/space-bunny-free` | 3c visualizer. Zero-retention provider |
 | `opencode/longcat-2.5-preview-free` | Zero-retention provider. Preview: may disappear |
-| `opencode/cat-jam-free` | 2c auditor and reviewer |
+| `opencode/cat-jam-free` | 3c auditor and reviewer |
 | `opencode/ling-3.1-flash-free` | |
 | `opencode/nemotron-3.5-lightning-free` | |
 | `opencode/muse-spark-1.2-contributor-free` ⚠️ | Contributor model, see below |
@@ -278,7 +278,7 @@ train on what you submit to it. The word `contributor` is in the model ID but
 **not** in the name the selector shows you, which reads only "Muse Spark 1.2
 Free". If you want to avoid them, check the ID rather than the name.
 
-None of the agents in exercise 2c uses a contributor model. Big Pickle and
+None of the agents in exercise 3c uses a contributor model. Big Pickle and
 MiMo may still use free-period data to improve the model, according to
 [OpenCode's model page](https://opencode.ai/docs/zen/).
 
@@ -367,14 +367,14 @@ AgenticWorkshop/
    .opencode/                   What OpenCode loads: agents, skills and plugins
       agents/
          HALp.md                Hidden hint helper, invoked with /halp
-         bad-agent.md           Basic PDB agent example, Exercise 2a
-         good-agent.md          More explicit PDB agent example, Exercise 2a
-         genome-coordinator.md  Delegates to the four specialists below, Exercise 2c
+         bad-agent.md           Basic PDB agent example, Exercise 3a
+         good-agent.md          More explicit PDB agent example, Exercise 3a
+         genome-coordinator.md  Delegates to the four specialists below, Exercise 3c
          genome-auditor.md      Checks data, units and missing values
          genome-analyst.md      Writes and runs the analysis
          genome-visualizer.md   Makes the plots
          genome-reviewer.md     Independently rechecks the results
-         safe-analyst.md        Locked-down data agent, Exercise 5
+         safe-analyst.md        Locked-down data agent, Exercise 6
       commands/
          halp.md                The /halp command
       scripts/
@@ -382,17 +382,17 @@ AgenticWorkshop/
       skills/
          skill-builder/         A subfolder INSIDE skills
             SKILL.md            The skill-builder instructions
-      plugins/                  Plugins you clone in Exercises 1 and 2 (not in Git)
+      plugins/                  Plugins you clone in Exercises 2 and 3 (not in Git)
    exercises/
-      00-rag/                   Retrieval-augmented generation, every stage visible
-      01-skills/
-      02-agents/
-         starter/csv-profile/   A ready-made skill for Exercise 2b
-      03-mcp/
+      01-rag/                   Retrieval-augmented generation, every stage visible
+      02-skills/
+      03-agents/
+         starter/csv-profile/   A ready-made skill for Exercise 3b
+      04-mcp/
          data/                  The PDB snapshot, and byo/ for three other datasets
          scripts/               Build the DuckDB database
-      04-decide/                A typed decision model built on token probabilities
-      05-safety/                A data file with a planted instruction
+      05-decide/                A typed decision model built on token probabilities
+      06-safety/                A data file with a planted instruction
    outputs/                     Where your results go, one folder per module (not in Git)
    mcp/                         Notes on the four MCP servers this project configures
    slides/                      The concepts deck, published from Markdown
@@ -412,8 +412,8 @@ an otherwise empty folder is only a Git/ZIP placeholder, not an agent or skill.
 
 Files inside `exercises/` are not loaded by OpenCode. An agent or skill only
 takes effect once it is in `.opencode/agents/` or `.opencode/skills/`, which
-is why Exercise 2b asks you to copy its starter skill there. Plugins are
-loaded from `.opencode/plugins/` when OpenCode starts, which is why Exercise 2
+is why Exercise 3b asks you to copy its starter skill there. Plugins are
+loaded from `.opencode/plugins/` when OpenCode starts, which is why Exercise 3
 clones Sidebar Plus there and then restarts OpenCode.
 
 The leading dot may hide `.opencode` in your file browser, but OpenCode can
@@ -424,7 +424,7 @@ The `exercises/` and `mcp/` folders organize workshop materials. Creating
 an `mcp/` folder does not activate an MCP server: `mcp/` holds documentation
 only. An MCP server is configured under `mcp` in `opencode.json`, and is
 either a program downloaded on demand or a remote service you connect to.
-Four are configured and all ship switched off; Exercise 3 turns one on.
+Four are configured and all ship switched off; Exercise 4 turns one on.
 See [mcp/README.md](mcp/README.md) for what each provides.
 
 See the OpenCode documentation for [agents](https://opencode.ai/v2/docs/agents/)
@@ -433,12 +433,12 @@ and [skills](https://opencode.ai/v2/docs/skills/).
 </details>
 
 ### Exercises
-- **Exercise 0** — [RAG](exercises/00-rag/README.md).
-- **Exercise 1** — [Skills](exercises/01-skills/README.md).
-- **Exercise 2** — [Agents](exercises/02-agents/README.md).
-- **Exercise 3** — [MCP](exercises/03-mcp/README.md).
-- **Exercise 4** — [Decision model](exercises/04-decide/README.md).
-- **Exercise 5** — [Safety](exercises/05-safety/README.md).
+- **Exercise 1** — [RAG](exercises/01-rag/README.md).
+- **Exercise 2** — [Skills](exercises/02-skills/README.md).
+- **Exercise 3** — [Agents](exercises/03-agents/README.md).
+- **Exercise 4** — [MCP](exercises/04-mcp/README.md).
+- **Exercise 5** — [Decision model](exercises/05-decide/README.md).
+- **Exercise 6** — [Safety](exercises/06-safety/README.md).
 
 ## Manual connection reference — optional
 
@@ -610,7 +610,7 @@ after your task.
 Start a **fresh chat**, then type `/halp` followed by your question:
 
 ```text
-/halp I am on Exercise 1c. Where should I copy the skill folder?
+/halp I am on Exercise 2c. Where should I copy the skill folder?
 /halp What should I check before increasing Mistral's context?
 ```
 

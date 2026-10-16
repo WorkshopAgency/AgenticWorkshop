@@ -217,12 +217,12 @@ __marimo__/
 # Local exercise runs; the curated reference under genome-demo is tracked.
 /outputs/
 
-# Plugins participants clone in Exercises 1 and 2
+# Plugins participants clone in Exercises 2 and 3
 /.opencode/plugins/
 
 # Streamlit
 .streamlit/secrets.toml
 
-# Written when the Exercise 0 notebook runs
-/exercises/00-rag/rag_notebook.ipynb
-/exercises/00-rag/rag_notebook_files/
+# Written when the Exercise 1 notebook runs
+/exercises/01-rag/rag_notebook.ipynb
+/exercises/01-rag/rag_notebook_files/

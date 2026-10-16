@@ -12,18 +12,18 @@ A session is about 2.5 hours, with up to 30 participants working alone and no br
 
 - **DTU models.** `qwen36`, `qwen38`, `mistral` and `gptoss` up, plus a new
   `embed` route serving an embedding model at `…/workshop/embed/embeddings`
-  for Exercise 0. Without it `rag.py` falls back to word matching.
+  for Exercise 1. Without it `rag.py` falls back to word matching.
 - **Token probabilities.** The gateway must pass `logprobs` and
   `top_logprobs` through for `qwen36` (check `app/request_compat.py`).
-  Exercise 4 does not work without them.
-  `scripts/check-setup.sh --module 04-decide` tests it.
+  Exercise 5 does not work without them.
+  `scripts/check-setup.sh --module 05-decide` tests it.
 - **Load test** with 30 simultaneous sessions before the day. Raise limits
   only from what it shows, and do not restart the gateway during the session.
-- **Free models.** The default chat model and the 2c team run on OpenCode's
+- **Free models.** The default chat model and the 3c team run on OpenCode's
   free models. Their rate limits are not published and may be shared by
   everyone on one network; if the room gets HTTP 429, switch people to a DTU
   model with `/models`.
-- **Plugins are cloned, not added.** Exercises 1 (optional extra) and 2 clone
+- **Plugins are cloned, not added.** Exercises 2 (optional extra) and 3 clone
   their plugins into `.opencode/plugins/`. On OpenCode 2.0.29 a plugin
   installed with `opencode plugin add github:…` loads but never redraws, so a
   sidebar that never changes means that install; HALp knows.
@@ -33,18 +33,18 @@ A session is about 2.5 hours, with up to 30 participants working alone and no br
 
 ### Still to check
 
-1. **Exercises 0 and 4 against the DTU models.** Exercise 0: Mistral's answers
+1. **Exercises 1 and 5 against the DTU models.** Exercise 1: Mistral's answers
    with and without the documents, the embedding search, and building the
-   shipped index (`rag.py embed`, then commit `exercises/00-rag/index.json`).
-   Exercise 4: `decide.py` on `qwen36`, which needs the token probabilities
+   shipped index (`rag.py embed`, then commit `exercises/01-rag/index.json`).
+   Exercise 5: `decide.py` on `qwen36`, which needs the token probabilities
    through the gateway. About 15 minutes once the models are up. Until then,
-   `RAG_OPENCODE=opencode/glm-5.3-flash-free` runs Exercise 0's answers on a
+   `RAG_OPENCODE=opencode/glm-5.3-flash-free` runs Exercise 1's answers on a
    free OpenCode model (about a minute per answer; search falls back to word
    matching).
 2. **One run-through in the real interface.** The exercises were run with
    `opencode run`, which approves automatically. Still to see by hand:
    switching between Plan and Build, clicking through approvals one by one,
-   and switching on `duckdb` with `/mcps` in Exercise 3.
+   and switching on `duckdb` with `/mcps` in Exercise 4.
 3. **Windows (WSL2) and Linux.** Everything so far ran on a Mac: the install,
    `scripts/check-setup.sh`, the plugin install and the exercises.
 

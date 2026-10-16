@@ -70,7 +70,7 @@
           "uvx",
           "mcp-server-motherduck@1.0.8",
           "--db-path",
-          "exercises/03-mcp/data/workshop.duckdb",
+          "exercises/04-mcp/data/workshop.duckdb",
           "--max-rows",
           "100",
           "--max-chars",

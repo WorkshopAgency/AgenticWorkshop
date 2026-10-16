@@ -1,13 +1,13 @@
-# Exercise 1 — Skills
+# Exercise 2 — Skills
 
 | | |
 |---|---|
-| **Time** | 30 min: 1a (12) · 1e (3) · 1f (15) |
+| **Time** | 30 min: 2a (12) · 2e (3) · 2f (15) |
 | **Model** | `opencode/big-pickle` (default). Any chat model works |
 | **Needs** | `scripts/check-setup.sh` passed. Nothing from other modules |
 | **You'll learn** | Turn a repeated task into a skill: describe → discuss → build → test → improve |
 | **Done when** | `/skills` lists your two skills, and each has passed one normal, one invalid and one different input that *you* checked |
-| **If stuck** | `/halp 01-skills <what you tried>` |
+| **If stuck** | `/halp 02-skills <what you tried>` |
 
 ## Why skills
 
@@ -47,7 +47,7 @@ choose; planning first is not a substitute for checking the prompts.
 
 Type `/` in the chat to see all commands.
 
-# Exercise 1a — Download a PDB file
+# Exercise 2a — Download a PDB file
 
 ## Ask for a skill, and let it ask you back (4 min)
 
@@ -94,13 +94,13 @@ the skill, so it matters more than it looks.
 
 **Do:**
 
-> Use the pdb-download skill to download 4HHB into outputs/01-skills/pdb.
+> Use the pdb-download skill to download 4HHB into outputs/02-skills/pdb.
 
 Then the list of IDs supplied in [`pdb_to_download.txt`](pdb_to_download.txt),
 where one is deliberately invalid:
 
 > Use the pdb-download skill to download the entries listed in
-> exercises/01-skills/pdb_to_download.txt into outputs/01-skills/pdb.
+> exercises/02-skills/pdb_to_download.txt into outputs/02-skills/pdb.
 
 **Look for:** open the saved files. Is each one really a structure, with
 atom records, or could it be an error page saved under a structure-file name? Did it
@@ -126,7 +126,7 @@ and an invalid one.
 the first draft. A checksum you computed yourself is a fingerprint of your
 file, not proof that it matches the source.
 
-# Exercise 1e — A skill that helps make skills (3 min)
+# Exercise 2e — A skill that helps make skills (3 min)
 
 **Do:** open [skill-builder](../../.opencode/skills/skill-builder/SKILL.md)
 and skim it. Then, in **Plan**:
@@ -142,7 +142,7 @@ Build.
 **Why:** skill-builder is itself just a skill: instructions for writing good
 instructions. Skills can build on each other.
 
-# Exercise 1f — Make and test your own data-analysis skill (15 min)
+# Exercise 2f — Make and test your own data-analysis skill (15 min)
 
 Every analysis should start with the same question: **can I trust this
 table?** Build a skill that profiles a table before anyone computes anything
@@ -157,7 +157,7 @@ task you repeat in your own work instead.
 > profiles a CSV or CSV.GZ file before analysis: rows, columns, types,
 > missing values (including text markers such as NA), and counts per
 > group for a column I name. It must use only what is on my laptop and
-> write its report to outputs/01-skills/. Ask me about choices first.
+> write its report to outputs/02-skills/. Ask me about choices first.
 
 Answer its questions, then switch to **Build** and ask it to implement the
 design.
@@ -172,16 +172,16 @@ what it tested.
 
 | Test | Ask it to profile | What a correct skill does |
 |---|---|---|
-| Normal | `exercises/03-mcp/data/byo/uniprot_human_proteins.csv.gz`, grouped by `protein_existence` | Reports counts you can confirm yourself |
+| Normal | `exercises/04-mcp/data/byo/uniprot_human_proteins.csv.gz`, grouped by `protein_existence` | Reports counts you can confirm yourself |
 | Invalid | a file name that does not exist | Says so; invents no profile |
-| Different | `exercises/03-mcp/data/byo/penguins.csv`, grouped by `species` | Finds the `NA` markers: 2 rows with no measurements; 11 rows without `sex` (those 2 plus 9 measured ones) |
+| Different | `exercises/04-mcp/data/byo/penguins.csv`, grouped by `species` | Finds the `NA` markers: 2 rows with no measurements; 11 rows without `sex` (those 2 plus 9 measured ones) |
 
 If it says a report already exists, decide whether to overwrite it: a skill
 that asks before replacing your results is doing its job.
 
 **Look for:** check at least one number yourself, for example the penguin
 `NA` counts. The data provenance is in
-[`PROVENANCE.md`](../03-mcp/data/byo/PROVENANCE.md).
+[`PROVENANCE.md`](../04-mcp/data/byo/PROVENANCE.md).
 
 **Why:** three inputs test three different things: that it works, that it
 fails honestly, and that it was not written for one file only. Record what
@@ -206,8 +206,8 @@ failed.
    inputs would you test it on?
 3. When would you rather write a plain script than a skill?
 
-Exercise 2b uses a profiling skill too; it supplies its own copy, so you do
-not need to finish 1f first. The skill file format is described at
+Exercise 3b uses a profiling skill too; it supplies its own copy, so you do
+not need to finish 2f first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
 # Optional extra — a notebook inside OpenCode (8 min)
@@ -216,11 +216,11 @@ For when you finish early. A plugin,
 [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook), adds a
 Jupyter-style notebook panel next to the chat. You and the agent share one
 live Python kernel: either of you can run cells, and both see the outputs. A
-plugin is code that runs inside OpenCode; Exercise 2 says more.
+plugin is code that runs inside OpenCode; Exercise 3 says more.
 
 **Do:**
 
-1. Install it, unless you already did in Exercise 0: in a terminal in the
+1. Install it, unless you already did in Exercise 1: in a terminal in the
    workshop folder, clone it into this project's plugin folder, then quit
    OpenCode (`ctrl+c`) and start it again:
 
@@ -232,13 +232,13 @@ plugin is code that runs inside OpenCode; Exercise 2 says more.
    HEAD"; both are expected.
 2. In **Build**, in a new chat:
 
-   > Write outputs/01-skills/penguins.py as a notebook with # %% cells that
-   > profiles exercises/03-mcp/data/byo/penguins.csv: its shape, missing
+   > Write outputs/02-skills/penguins.py as a notebook with # %% cells that
+   > profiles exercises/04-mcp/data/byo/penguins.csv: its shape, missing
    > values per column, penguins per species, and a scatter plot of bill
    > length against bill depth. List pandas and matplotlib in a
    > # /// script block. Then run it with notebook_run.
 
-3. Open the panel with `/notebook outputs/01-skills/penguins.py`. Move with
+3. Open the panel with `/notebook outputs/02-skills/penguins.py`. Move with
    `↑` `↓`, run a cell with `r`, all of them with `a`, open a plot with `o`.
 4. Mark the missing-values cell with `space`, go back to the chat with
    `ctrl+x ←`, and ask:
@@ -255,4 +255,4 @@ rule that says "ask". That is why `notebook_run` only runs notebooks under
 `outputs/`, and why you read a plugin before you install it. To remove it,
 delete `.opencode/plugins/opencode-notebook` and restart OpenCode.
 
-Next: [Exercise 2 — Agents](../02-agents/README.md).
+Next: [Exercise 3 — Agents](../03-agents/README.md).

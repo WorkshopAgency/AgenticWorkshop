@@ -41,7 +41,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
-OUT = ROOT / "outputs" / "00-rag"
+OUT = ROOT / "outputs" / "01-rag"
 CORPUS = HERE / "corpus"
 SHIPPED_INDEX = HERE / "index.json"
 
@@ -404,7 +404,7 @@ def main():
         p.add_argument("question")
         p.add_argument("--lexical", action="store_true", help="use BM25 keyword search")
         p.add_argument("--chunks", default=chunks_default)
-        p.add_argument("--index", help="index.json to use (default: outputs/00-rag, then shipped)")
+        p.add_argument("--index", help="index.json to use (default: outputs/01-rag, then shipped)")
         if name == "search":
             p.add_argument("-k", type=int, default=3, help="number of chunks to retrieve")
         else:

@@ -1,21 +1,21 @@
 ---
 name: corpus-search
-description: Search the Exercise 00 document corpus (exercises/00-rag/corpus) and answer only from the retrieved chunks, quoting chunk ids. Use when the user asks a question that the workshop corpus should answer. Do not use it for general knowledge questions.
+description: Search the Exercise 00 document corpus (exercises/01-rag/corpus) and answer only from the retrieved chunks, quoting chunk ids. Use when the user asks a question that the workshop corpus should answer. Do not use it for general knowledge questions.
 ---
 
 # Search the workshop corpus before answering
 
-Answer questions about the documents in `exercises/00-rag/corpus/` only from
+Answer questions about the documents in `exercises/01-rag/corpus/` only from
 text retrieved by the search tool, never from memory.
 
 ## Steps
 
-1. If `outputs/00-rag/chunks.jsonl` does not exist, run
-   `python3 exercises/00-rag/rag.py chunk` first.
+1. If `outputs/01-rag/chunks.jsonl` does not exist, run
+   `python3 exercises/01-rag/rag.py chunk` first.
 2. Search with the user's question, or a shorter keyword version of it:
 
    ```bash
-   python3 exercises/00-rag/rag.py search "<question>" -k 5
+   python3 exercises/01-rag/rag.py search "<question>" -k 5
    ```
 
    Add `--lexical` to use keyword (BM25) search. If the output starts with
@@ -32,6 +32,6 @@ text retrieved by the search tool, never from memory.
 
 ## Do not
 
-- Do not edit or delete files in `exercises/00-rag/corpus/`.
+- Do not edit or delete files in `exercises/01-rag/corpus/`.
 - Do not cite a chunk id that did not appear in the search output.
 - Do not run `rag.py ask`; you are the model that answers here.

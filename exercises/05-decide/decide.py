@@ -40,7 +40,7 @@ SYSTEM = ("You are a careful reviewer. Read the state, then answer the question 
           "with the letter of exactly one option.")
 NO_LOGPROBS = ("The model's reply contained no token probabilities (logprobs), so a "
                "typed decision cannot be computed.\nThis model or gateway may not "
-               "support logprobs. Run the setup check: scripts/check-setup.sh --module 04-decide")
+               "support logprobs. Run the setup check: scripts/check-setup.sh --module 05-decide")
 
 
 # ---------------------------------------------------------------- HTTP helper

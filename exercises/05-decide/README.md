@@ -1,13 +1,13 @@
-# Exercise 4 — A decision model: typed answers with probabilities
+# Exercise 5 — A decision model: typed answers with probabilities
 
 | | |
 |---|---|
 | **Time** | 10 min |
 | **Model** | `dtu/qwen36`; your data stays at DTU |
-| **Needs** | `scripts/check-setup.sh --module 04-decide` passed. Python 3.10+, nothing to install. Nothing from other modules |
+| **Needs** | `scripts/check-setup.sh --module 05-decide` passed. Python 3.10+, nothing to install. Nothing from other modules |
 | **You'll learn** | How to get a yes/no, a choice or a score with a probability from a model, instead of a paragraph you have to interpret |
 | **Done when** | You have run the three examples, compared a stated confidence with a token probability, and written one question of your own |
-| **If stuck** | `/halp 04-decide <what you tried>` |
+| **If stuck** | `/halp 05-decide <what you tried>` |
 
 ## Why a decision model
 
@@ -35,7 +35,7 @@ probabilities of the option letters, rescaled to sum to 1, are the answer:
 
 ## Before you start
 
-Like Exercise 0, this runs in an ordinary terminal, not in OpenCode, from the
+Like Exercise 1, this runs in an ordinary terminal, not in OpenCode, from the
 workshop folder. The model runs at DTU, so the descriptions you send stay
 there.
 
@@ -44,9 +44,9 @@ there.
 **Do:**
 
 ```bash
-python3 exercises/04-decide/decide.py --state exercises/04-decide/examples/1-pooled-no-colour.txt
-python3 exercises/04-decide/decide.py --state exercises/04-decide/examples/2-pooled-with-claim.txt
-python3 exercises/04-decide/decide.py --state exercises/04-decide/examples/3-by-species.txt
+python3 exercises/05-decide/decide.py --state exercises/05-decide/examples/1-pooled-no-colour.txt
+python3 exercises/05-decide/decide.py --state exercises/05-decide/examples/2-pooled-with-claim.txt
+python3 exercises/05-decide/decide.py --state exercises/05-decide/examples/3-by-species.txt
 ```
 
 **Look for:** all three describe the same Palmer penguins plot of bill length
@@ -67,7 +67,7 @@ have to pick a fix. Designing the options is part of designing the decision.
 **Do:**
 
 ```bash
-python3 exercises/04-decide/decide.py --state exercises/04-decide/examples/1-pooled-no-colour.txt --stated --swap
+python3 exercises/05-decide/decide.py --state exercises/05-decide/examples/1-pooled-no-colour.txt --stated --swap
 ```
 
 **Look for:** `--stated` asks for the answer in prose with a confidence from 0
@@ -85,8 +85,8 @@ plot.
 **Do:**
 
 ```bash
-mkdir -p outputs/04-decide
-cp exercises/04-decide/questions.json outputs/04-decide/my-questions.json
+mkdir -p outputs/05-decide
+cp exercises/05-decide/questions.json outputs/05-decide/my-questions.json
 ```
 
 Add a question to your copy, for example:
@@ -96,12 +96,12 @@ Add a question to your copy, for example:
 ```
 
 ```bash
-python3 exercises/04-decide/decide.py --state exercises/04-decide/examples/3-by-species.txt --questions outputs/04-decide/my-questions.json
+python3 exercises/05-decide/decide.py --state exercises/05-decide/examples/3-by-species.txt --questions outputs/05-decide/my-questions.json
 ```
 
 **Look for:** a `choice` question needs `options`, and a `score` question needs
 ordered `levels`; see [`questions.json`](questions.json). If you did
-Exercise 3, describe your own plot instead: `--state "A scatter plot of …"`.
+Exercise 4, describe your own plot instead: `--state "A scatter plot of …"`.
 
 **Why:** the question decides what you can learn. A yes/no is easy to act on;
 a score shows how sure the model is spread across levels.
@@ -124,7 +124,7 @@ a score shows how sure the model is spread across levels.
 3. How would you check whether the probabilities can be trusted on your data?
 
 If the script says the reply contained no token probabilities, run
-`scripts/check-setup.sh --module 04-decide` and tell an organiser.
-`python3 exercises/04-decide/decide.py --help` lists the other options.
+`scripts/check-setup.sh --module 05-decide` and tell an organiser.
+`python3 exercises/05-decide/decide.py --help` lists the other options.
 
-Next: [Exercise 5 — Safety](../05-safety/README.md).
+Next: [Exercise 6 — Safety](../06-safety/README.md).

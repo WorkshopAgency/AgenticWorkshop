@@ -1,4 +1,4 @@
-# Exercise 3 — MCP: connect a database yourself, then check what it tells you
+# Exercise 4 — MCP: connect a database yourself, then check what it tells you
 
 | | |
 |---|---|
@@ -7,7 +7,7 @@
 | **Needs** | `scripts/check-setup.sh` passed, and `uv` (`uv --version`). Nothing from other modules |
 | **You'll learn** | What MCP adds, how to connect a server, and why "connected" and "the query ran" are not "the answer is right" |
 | **Done when** | `opencode mcp list` shows `duckdb` connected, and your agent's numbers match the checkpoints at the bottom |
-| **If stuck** | `/halp 03-mcp <what you tried>` |
+| **If stuck** | `/halp 04-mcp <what you tried>` |
 
 ## Why MCP
 
@@ -30,7 +30,7 @@ query result the agent reads is sent to the model you selected.
 (259,693 entries) and the Palmer penguins table:
 
 ```bash
-uv run --with duckdb python exercises/03-mcp/scripts/make_db.py
+uv run --with duckdb python exercises/04-mcp/scripts/make_db.py
 ```
 
 Fetch the server once, so its first use is not a silent 30 MB download:
@@ -74,13 +74,13 @@ treated is a decision, and you want to know who made it.
 
 > Is bill depth related to bill length? Using the duckdb tools, give the
 > correlation, then write the plot as a single self-contained SVG file to
-> outputs/03-mcp/bill.svg. Write the SVG directly; do not install or import
+> outputs/04-mcp/bill.svg. Write the SVG directly; do not install or import
 > any plotting package.
 
 Open the SVG in your browser. Then ask:
 
 > Now give the same correlation within each species, and write a second
-> SVG, outputs/03-mcp/bill-by-species.svg, coloured by species with one fit
+> SVG, outputs/04-mcp/bill-by-species.svg, coloured by species with one fit
 > per species.
 
 **Look for:** compare the two answers and the two plots. Which one would you
@@ -90,8 +90,8 @@ put in a paper, and what would you write in one sentence?
 your laptop; an open-ended "make a plot" can spend minutes looking for
 plotting libraries. And a single number can hide groups that behave
 differently: look before you conclude. If you also do
-[Exercise 4](../04-decide/README.md), you can give it the agent's description
-of your first plot; that is optional, Exercise 4 supplies its own examples.
+[Exercise 5](../05-decide/README.md), you can give it the agent's description
+of your first plot; that is optional, Exercise 5 supplies its own examples.
 
 <details>
 <summary><b>Checkpoints</b> (open after you have your own answer)</summary>
@@ -122,4 +122,4 @@ of your first plot; that is optional, Exercise 4 supplies its own examples.
 The other three configured servers (`rcsb`, `biomcp`, `opentargets`) are
 described in [mcp/README.md](../../mcp/README.md).
 
-Previous: [Exercise 2 — Agents](../02-agents/README.md) · Next: [Exercise 4 — Decision model](../04-decide/README.md).
+Previous: [Exercise 3 — Agents](../03-agents/README.md) · Next: [Exercise 5 — Decision model](../05-decide/README.md).

@@ -80,7 +80,7 @@ You coordinate a team of four specialists. The question:
 > Which organism group has the largest median genome size, and does the
 > answer change if you keep only complete assemblies?
 
-The data is `exercises/03-mcp/data/byo/ncbi_reference_genomes.csv.gz`. You do not analyse it yourself,
+The data is `exercises/04-mcp/data/byo/ncbi_reference_genomes.csv.gz`. You do not analyse it yourself,
 and you run no shell commands: the specialists create the files, and you
 check them with the read tool.
 

@@ -1,4 +1,4 @@
-# Exercise 0 — RAG: give the model the documents
+# Exercise 1 — RAG: give the model the documents
 
 | | |
 |---|---|
@@ -7,7 +7,7 @@
 | **Needs** | `scripts/check-setup.sh` passed. Python 3.10+, nothing to install. Nothing from other modules |
 | **You'll learn** | What retrieval-augmented generation (RAG) does at each step, and how to check a cited answer |
 | **Done when** | You have a cited answer, found the cited text with `grep`, and compared k=1 with k=8 |
-| **If stuck** | `/halp 00-rag <what you tried>` |
+| **If stuck** | `/halp 01-rag <what you tried>` |
 
 ## Why RAG
 
@@ -59,7 +59,7 @@ folder, then quit OpenCode (`ctrl+c`) and start it again:
 git clone -q --depth 1 --branch v0.1.1 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
 ```
 
-In a chat, type `/notebook exercises/00-rag/rag_notebook.py`. Select a cell
+In a chat, type `/notebook exercises/01-rag/rag_notebook.py`. Select a cell
 with `↑` `↓` and run it with `r`; the selected cell shows its whole output.
 Follow the steps below for what to look for. You can also mark a cell with
 `space` and ask the agent about it: "Is the cited text really in the pieces
@@ -70,7 +70,7 @@ of the cell I marked?"
 **Do:** in workshop root
 
 ```bash
-python3 exercises/00-rag/rag.py ask "When strandedness is set to auto, how does nf-core/rnaseq decide, and with which default thresholds?" --no-rag
+python3 exercises/01-rag/rag.py ask "When strandedness is set to auto, how does nf-core/rnaseq decide, and with which default thresholds?" --no-rag
 ```
 
 **Look for:** the script prints the exact prompt (only your question), then
@@ -85,10 +85,10 @@ alone, and the model cannot know this release.
 **Do:**
 
 ```bash
-python3 exercises/00-rag/rag.py chunk
+python3 exercises/01-rag/rag.py chunk
 ```
 
-**Look for:** open `outputs/00-rag/chunks.jsonl`. Each line is one piece of at
+**Look for:** open `outputs/01-rag/chunks.jsonl`. Each line is one piece of at
 most 800 characters, with an id (`c1`, `c2`, …), the file it came from, and
 where in that file.
 
@@ -103,7 +103,7 @@ prompt.
 **Do:**
 
 ```bash
-python3 exercises/00-rag/rag.py search "When strandedness is set to auto, which default thresholds are used?" -k 3
+python3 exercises/01-rag/rag.py search "When strandedness is set to auto, which default thresholds are used?" -k 3
 ```
 
 Then the same search with `--lexical` added.
@@ -123,13 +123,13 @@ give it from them.
 **Do:**
 
 ```bash
-python3 exercises/00-rag/rag.py ask "When strandedness is set to auto, how does nf-core/rnaseq decide, and with which default thresholds?" -k 3
+python3 exercises/01-rag/rag.py ask "When strandedness is set to auto, how does nf-core/rnaseq decide, and with which default thresholds?" -k 3
 ```
 
 Then check one citation yourself:
 
 ```bash
-grep -n "stranded_threshold" exercises/00-rag/corpus/usage.md
+grep -n "stranded_threshold" exercises/01-rag/corpus/usage.md
 ```
 
 **Look for:** the printed prompt: the rules, the pieces with their ids, then
@@ -146,8 +146,8 @@ something you can check in seconds.
 5 from `questions.md`:
 
 ```bash
-python3 exercises/00-rag/rag.py ask "Which Salmon version does release 3.27.0 use, and what changed in quantification?" -k 1
-python3 exercises/00-rag/rag.py ask "What is the minimum sequencing depth per sample that nf-core/rnaseq recommends?" -k 8
+python3 exercises/01-rag/rag.py ask "Which Salmon version does release 3.27.0 use, and what changed in quantification?" -k 1
+python3 exercises/01-rag/rag.py ask "What is the minimum sequencing depth per sample that nf-core/rnaseq recommends?" -k 8
 ```
 
 **Look for:** compare with your neighbour. Did one piece contain the Salmon
@@ -164,7 +164,7 @@ or half of it; too many add noise and use up the context window.
 an OpenCode agent to run the search itself and cite the pieces. Install it:
 
 ```bash
-mkdir -p .opencode/skills && cp -r exercises/00-rag/skill/corpus-search .opencode/skills/
+mkdir -p .opencode/skills && cp -r exercises/01-rag/skill/corpus-search .opencode/skills/
 ```
 
 Run `opencode reload`, start a new chat in OpenCode and ask one of the
@@ -199,4 +199,4 @@ The documents are © the nf-core/rnaseq team, MIT licence
 ([`corpus/LICENSE-nf-core-rnaseq`](corpus/LICENSE-nf-core-rnaseq)), from
 [nf-core/rnaseq 3.27.0](https://github.com/nf-core/rnaseq/tree/3.27.0).
 
-Next: [Exercise 1 — Skills](../01-skills/README.md).
+Next: [Exercise 2 — Skills](../02-skills/README.md).

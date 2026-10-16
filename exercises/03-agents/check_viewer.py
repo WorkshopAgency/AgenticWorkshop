@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Quick checks for a generated PDB viewer (Exercise 2a).
+"""Quick checks for a generated PDB viewer (Exercise 3a).
 
 Usage:
-    python3 exercises/02-agents/check_viewer.py outputs/bad-agent
-    python3 exercises/02-agents/check_viewer.py outputs/good-agent --browser
+    python3 exercises/03-agents/check_viewer.py outputs/bad-agent
+    python3 exercises/03-agents/check_viewer.py outputs/good-agent --browser
 
 Without --browser this only READS the files (static analysis): it looks for
 evidence of each feature in the HTML/JS text. Finding a word is not proof that

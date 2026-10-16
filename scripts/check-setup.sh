@@ -2,9 +2,9 @@
 # Check that this laptop is ready for the workshop, or for one module.
 #
 #   scripts/check-setup.sh                      shared setup (run this first)
-#   scripts/check-setup.sh --module 03-mcp      also that module's own needs
+#   scripts/check-setup.sh --module 04-mcp      also that module's own needs
 #
-# Modules: 00-rag 01-skills 02-agents 03-mcp 04-decide 05-safety
+# Modules: 01-rag 02-skills 03-agents 04-mcp 05-decide 06-safety
 # Works on macOS, Linux and Windows WSL2. Only reads; changes nothing.
 
 MIN="2.0.16"   # oldest OpenCode the workshop plugin supports
@@ -59,14 +59,14 @@ shared() {
 module() {
   echo "Module $1"
   case "$1" in
-    00-rag)
+    01-rag)
       dtu_model mistral
       if have uv && have git; then ok "uv and git, for the optional notebook"
       else warn "the optional notebook needs uv and git" "uv: curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
       if [ "$(http "$DTU/embed/health")" = "200" ]; then ok "embedding model answers"
       else warn "embedding model is not answering" "rag.py falls back to word matching (--lexical)"; fi
       ;;
-    01-skills)
+    02-skills)
       ok "nothing extra needed for 1a-1f"
       if have uv && have git; then ok "uv and git, for the optional notebook extra"
       else warn "the optional notebook extra needs uv and git" "uv: curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
@@ -74,7 +74,7 @@ module() {
       if [ -n "$nv" ] && [ "$(printf '%s\n%s\n' "$nv" 2.0.29 | sort -V | head -1)" != 2.0.29 ]; then
         warn "the optional notebook extra needs OpenCode 2.0.29 or later; you have $nv" "opencode upgrade"; fi
       ;;
-    02-agents)
+    03-agents)
       if have git; then ok "git $(git --version | cut -d' ' -f3), to clone the plugin"
       else warn "git is missing" "download the plugin ZIP instead, as the README says"; fi
       models=$(curl -s --max-time 15 "$ZEN/models")
@@ -85,27 +85,27 @@ module() {
           *) bad "$(basename "$f" .md) model $m is not offered any more" "tell an organiser" ;; esac
       done
       ;;
-    03-mcp)
+    04-mcp)
       if have uv; then ok "uv $(uv --version | cut -d' ' -f2)"
       else bad "uv is missing" "curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
-      if [ -f exercises/03-mcp/data/workshop.duckdb ]; then ok "database built"
+      if [ -f exercises/04-mcp/data/workshop.duckdb ]; then ok "database built"
       else warn "database not built yet" "step 1 of the exercise builds it"; fi
       if have opencode && limit 30 opencode mcp list 2>/dev/null | grep -i duckdb | grep -qi connected; then
         ok "duckdb MCP server connected"
       else warn "duckdb MCP server not connected yet" "type /mcps in OpenCode and switch on duckdb"; fi
       ;;
-    04-decide)
+    05-decide)
       body='{"model":"qwen36","messages":[{"role":"user","content":"Answer A or B. Answer:"}],"max_tokens":1,"temperature":0,"logprobs":true,"top_logprobs":5}'
       out=$(curl -s --max-time 30 -H 'content-type: application/json' -d "$body" "$DTU/qwen36/chat/completions")
       if printf '%s' "$out" | python3 -c 'import sys,json; c=json.load(sys.stdin)["choices"][0]; sys.exit(0 if c["logprobs"]["content"][0]["top_logprobs"] else 1)' 2>/dev/null
       then ok "qwen36 returns token probabilities"
       else bad "qwen36 returned no token probabilities" "tell an organiser: decide.py needs logprobs"; fi
       ;;
-    05-safety)
+    06-safety)
       if [ -f .opencode/agents/safe-analyst.md ]; then ok "safe-analyst agent present"
       else bad "safe-analyst agent missing" "update your copy: git pull, or download the ZIP again"; fi
       ;;
-    *) bad "unknown module '$1'" "choose one of: 00-rag 01-skills 02-agents 03-mcp 04-decide 05-safety" ;;
+    *) bad "unknown module '$1'" "choose one of: 01-rag 02-skills 03-agents 04-mcp 05-decide 06-safety" ;;
   esac
 }
 

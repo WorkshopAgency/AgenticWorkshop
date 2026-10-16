@@ -1,8 +1,8 @@
 # %% [markdown]
-# # Exercise 0 — RAG as a notebook
+# # Exercise 1 — RAG as a notebook
 #
 # The same five steps as the README, one cell each, with the same `rag.py`.
-# Open it with `/notebook exercises/00-rag/rag_notebook.py`; select a cell
+# Open it with `/notebook exercises/01-rag/rag_notebook.py`; select a cell
 # with the arrow keys and run it with `r`. Read the README's **Look for** and
 # **Why** for each step as you go.
 
@@ -14,7 +14,7 @@ import sys
 # The DTU models down? Remove the # below, then restart the kernel with k.
 # os.environ["RAG_OPENCODE"] = "opencode/glm-5.3-flash-free"
 
-sys.path.insert(0, "exercises/00-rag")
+sys.path.insert(0, "exercises/01-rag")
 import rag
 
 QUESTION = ("When strandedness is set to auto, how does nf-core/rnaseq decide, "
@@ -49,7 +49,7 @@ step("search", "When strandedness is set to auto, which default thresholds are u
 step("ask", QUESTION, "-k", "3")
 
 # %% 4b. Check the citation yourself
-print(subprocess.run(["grep", "-n", "stranded_threshold", "exercises/00-rag/corpus/usage.md"],
+print(subprocess.run(["grep", "-n", "stranded_threshold", "exercises/01-rag/corpus/usage.md"],
                      capture_output=True, text=True).stdout)
 
 # %% 5a. One piece
