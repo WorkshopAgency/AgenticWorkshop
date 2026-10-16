@@ -37,28 +37,35 @@ each agent is doing, which you will want in 2c.
 **Do:**
 
 1. Look at it first:
-   [opencode-sidebar-plus at v0.3.0](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.0).
+   [opencode-sidebar-plus at v0.3.1](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.1).
    Skim the README and the two entry files, `tui.tsx` and `server.ts`.
-2. Install that exact version, then reload:
+2. Install that exact version: in a terminal in the workshop folder, clone it
+   into this project's plugin folder:
 
    ```bash
-   opencode plugin add github:dskanakoglou/opencode-sidebar-plus#v0.3.0
-   opencode reload
+   git clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/sidebar-plus
    ```
 
-3. Start a new chat.
+   Git notes that the tag "is not a commit" and that you are on a "detached
+   HEAD"; both are expected. No Git? Download
+   [the v0.3.1 ZIP](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.1.zip),
+   unzip it, and move the folder to `.opencode/plugins/sidebar-plus`.
+3. Quit OpenCode (`ctrl+c`), start it again in the workshop folder, and start
+   a new chat.
 
 **Look for:** a sidebar on the right with the context window, the agent's
 to-do list, its activity and any sub-agents. `/sidebar` changes what it
 shows. If you do not see it, widen the terminal or press `ctrl+x b`.
 
-**Why:** `#v0.3.0` pins the version: what you looked at is what runs, even if
-the author changes the plugin later. While skimming, ask yourself what it
-reads and what it adds to OpenCode; that is the question to ask of every
-plugin. `plugin add` installs it for all your projects; to remove it:
+**Why:** OpenCode runs whatever it finds in `.opencode/plugins/` when it
+starts: a plugin is just a folder of code. `--branch v0.3.1` pins the version,
+so what you looked at is what runs, even if the author changes the plugin
+later. While skimming, ask yourself what it reads and what it adds to
+OpenCode; that is the question to ask of every plugin. It is installed for
+this project only; to remove it, delete the folder and restart OpenCode:
 
 ```bash
-opencode plugin remove github:dskanakoglou/opencode-sidebar-plus#v0.3.0
+rm -rf .opencode/plugins/sidebar-plus
 ```
 
 # Exercise 2a — From a basic agent to a good agent

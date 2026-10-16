@@ -58,9 +58,16 @@ module() {
       else warn "embedding model is not answering" "rag.py falls back to word matching (--lexical)"; fi
       ;;
     01-skills)
-      ok "nothing extra needed"
+      ok "nothing extra needed for 1a-1f"
+      if have uv && have git; then ok "uv and git, for the optional notebook extra"
+      else warn "the optional notebook extra needs uv and git" "uv: curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
+      nv=$(opencode --version 2>/dev/null | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+      if [ -n "$nv" ] && [ "$(printf '%s\n%s\n' "$nv" 2.0.29 | sort -V | head -1)" != 2.0.29 ]; then
+        warn "the optional notebook extra needs OpenCode 2.0.29 or later; you have $nv" "opencode upgrade"; fi
       ;;
     02-agents)
+      if have git; then ok "git $(git --version | cut -d' ' -f3), to clone the plugin"
+      else warn "git is missing" "download the plugin ZIP instead, as the README says"; fi
       models=$(curl -s --max-time 15 "$ZEN/models")
       for f in .opencode/agents/genome-*.md; do
         m=$(sed -n 's/^model: *opencode\///p' "$f")

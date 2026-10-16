@@ -209,6 +209,7 @@ calls, not the agent's summary, are the record of what happened.
 | `/compact` | Summarise a long chat to free up the context window |
 | `/halp <exercise> <question>` | Ask HALp, the workshop helper, for a hint |
 | `/sidebar` | Change what the sidebar shows, once you add it in Exercise 2. `ctrl+x b` shows or hides it |
+| `/notebook <file>` | Open the notebook panel, once you add it in the optional extra of Exercise 1 |
 | `opencode reload` | In a terminal: make OpenCode pick up new skills, agents or settings |
 
 Start a **new chat** for each exercise, so the model does not carry the last
@@ -359,7 +360,7 @@ AgenticWorkshop/
    opencode.json                Model connections, limits, permissions, MCP servers
    admin.md                     Server notes for the organisers
    scripts/check-setup.sh       Is this laptop ready? (--module <name> for one module)
-   .opencode/                   What OpenCode loads: agents and skills
+   .opencode/                   What OpenCode loads: agents, skills and plugins
       agents/
          HALp.md                Hidden hint helper, invoked with /halp
          bad-agent.md           Basic PDB agent example, Exercise 2a
@@ -377,6 +378,7 @@ AgenticWorkshop/
       skills/
          skill-builder/         A subfolder INSIDE skills
             SKILL.md            The skill-builder instructions
+      plugins/                  Plugins you clone in Exercises 1 and 2 (not in Git)
    exercises/
       00-rag/                   Retrieval-augmented generation, every stage visible
       01-skills/
@@ -391,7 +393,7 @@ AgenticWorkshop/
    mcp/                         Notes on the four MCP servers this project configures
    slides/                      The concepts deck, published from Markdown
 ```
-OpenCode reads `.opencode/` folder for project agents and skills, while `opencode.json` in the workshop root
+OpenCode reads `.opencode/` folder for project agents, skills and plugins, while `opencode.json` in the workshop root
 contains the model connections, limits and permissions.
 
 `skills` is the parent skill folder and `skill-builder` - the workshop supplied skill - is a separate subfolder
@@ -406,7 +408,9 @@ an otherwise empty folder is only a Git/ZIP placeholder, not an agent or skill.
 
 Files inside `exercises/` are not loaded by OpenCode. An agent or skill only
 takes effect once it is in `.opencode/agents/` or `.opencode/skills/`, which
-is why Exercise 2b asks you to copy its starter skill there.
+is why Exercise 2b asks you to copy its starter skill there. Plugins are
+loaded from `.opencode/plugins/` when OpenCode starts, which is why Exercise 2
+clones Sidebar Plus there and then restarts OpenCode.
 
 The leading dot may hide `.opencode` in your file browser, but OpenCode can
 still read it. Do not rename it, move it out of the project, or put

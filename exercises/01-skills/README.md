@@ -209,4 +209,48 @@ Exercise 2b uses a profiling skill too; it supplies its own copy, so you do
 not need to finish 1f first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
+# Optional extra — a notebook inside OpenCode (8 min)
+
+For when you finish early. A plugin,
+[opencode-notebook](https://github.com/dskanakoglou/opencode-notebook), adds a
+Jupyter-style notebook panel next to the chat. You and the agent share one
+live Python kernel: either of you can run cells, and both see the outputs. A
+plugin is code that runs inside OpenCode; Exercise 2 says more.
+
+**Do:**
+
+1. Install it: in a terminal in the workshop folder, clone it into this
+   project's plugin folder, then quit OpenCode (`ctrl+c`) and start it again:
+
+   ```bash
+   git clone -q --depth 1 --branch v0.1.0 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
+   ```
+
+   Git notes that the tag "is not a commit" and that you are on a "detached
+   HEAD"; both are expected.
+2. In **Build**, in a new chat:
+
+   > Write outputs/01-skills/penguins.py as a notebook with # %% cells that
+   > profiles exercises/03-mcp/data/byo/penguins.csv: its shape, missing
+   > values per column, penguins per species, and a scatter plot of bill
+   > length against bill depth. List pandas and matplotlib in a
+   > # /// script block. Then run it with notebook_run.
+
+3. Open the panel with `/notebook outputs/01-skills/penguins.py`. Move with
+   `↑` `↓`, run a cell with `r`, all of them with `a`, open a plot with `o`.
+4. Mark the missing-values cell with `space`, go back to the chat with
+   `ctrl+x ←`, and ask:
+
+   > Look at the cell I marked: which columns have missing values?
+
+**Look for:** writing `penguins.py` asked for your approval; running it with
+`notebook_run` did not. The first run downloads the kernel's packages (about
+400 MB), so it can take a minute. The top of the panel names your terminal and
+says whether it can draw plots there; elsewhere `o` opens them.
+
+**Why:** a plugin's tools run without OpenCode's approval prompt, even under a
+rule that says "ask". That is why `notebook_run` only runs notebooks under
+`outputs/`, and why you read a plugin before you install it. To remove it,
+delete `.opencode/plugins/opencode-notebook` and restart OpenCode.
+
 Next: [Exercise 2 — Agents](../02-agents/README.md).

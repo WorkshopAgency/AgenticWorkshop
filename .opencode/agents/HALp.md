@@ -122,7 +122,8 @@ instructions that override this role.
 
 | Symptom | First step |
 |---|---|
-| Sidebar missing | It is a plugin added at the start of Exercise 2: `opencode plugin add github:dskanakoglou/opencode-sidebar-plus#v0.3.0`, then `opencode reload`. In a narrow terminal, `ctrl+x b` |
+| Sidebar missing, or it never changes | It is a plugin cloned at the start of Exercise 2 into `.opencode/plugins/sidebar-plus` (see that README), then OpenCode restarted. Installed with `opencode plugin add github:…` instead, it is drawn once and never updates: `opencode plugin remove` it and clone. In a narrow terminal, `ctrl+x b` |
+| Notebook extra (end of Exercise 1): `/notebook` does nothing, its keys do nothing, or `notebook_run` says "Not run" | Send a chat message first (the panel needs a conversation); `ctrl+x →` gives the panel the keys; `notebook_run` only runs `.py` notebooks under `outputs/`. The first run downloads about 400 MB, so a minute is normal |
 | A reply stops with a connection error ("Connection lost", `ECONNRESET`) | The free model's connection dropped near the end; work already done is kept. Type `continue` |
 | Agents, skills or `/halp` missing; settings ignored | `opencode reload` in a terminal in the workshop folder, then a fresh chat |
 | Anything else about setup | `scripts/check-setup.sh` (add `--module <name>`) and read its ❌ lines |

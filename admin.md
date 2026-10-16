@@ -23,6 +23,10 @@ The conference session is 2.5 hours, 30 participants working alone, no break.
   free models. Their rate limits are not published and may be shared by
   everyone on one network; if the room gets HTTP 429, switch people to a DTU
   model with `/models`.
+- **Plugins are cloned, not added.** Exercises 1 (optional extra) and 2 clone
+  their plugins into `.opencode/plugins/`. On OpenCode 2.0.29 a plugin
+  installed with `opencode plugin add github:…` loads but never redraws, so a
+  sidebar that never changes means that install; HALp knows.
 - **On the day**, one of us watches the gateway while the other teaches. If
   DTU stops answering, tell the room to switch to a free model with `/models`;
   a DTU model that cannot be reached hangs without an error message.
@@ -33,7 +37,10 @@ The conference session is 2.5 hours, 30 participants working alone, no break.
    with and without the documents, the embedding search, and building the
    shipped index (`rag.py embed`, then commit `exercises/00-rag/index.json`).
    Exercise 4: `decide.py` on `qwen36`, which needs the token probabilities
-   through the gateway. About 15 minutes once the models are up.
+   through the gateway. About 15 minutes once the models are up. Until then,
+   `RAG_OPENCODE=opencode/glm-5.3-flash-free` runs Exercise 0's answers on a
+   free OpenCode model (about a minute per answer; search falls back to word
+   matching).
 2. **One run-through in the real interface.** The exercises were run with
    `opencode run`, which approves automatically. Still to see by hand:
    switching between Plan and Build, clicking through approvals one by one,
