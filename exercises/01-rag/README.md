@@ -2,7 +2,6 @@
 
 | | |
 |---|---|
-| **Time** | 15 min |
 | **Model** | Mistral Nemo 12B for the answers and an embedding model for search, both at OpenRouter with the workshop key |
 | **Needs** | Exercise 0: the notebook plugin and the workshop key in `.openrouter-key` |
 | **You'll learn** | What retrieval-augmented generation (RAG) does at each step, and how to check a cited answer |
@@ -59,7 +58,7 @@ Run the first cell, **Connect to the models**. It should say that the
 workshop key works. The first run starts a Python kernel and may take a
 minute.
 
-## 1. Closed book (2 min)
+## 1. Closed book
 
 **Do:** run **1. Ask without the documents**. The question is "Which chat
 model is the default in this workshop?"
@@ -70,7 +69,7 @@ it right? You know the answer from the README.
 **Why:** whatever it says comes from training alone. It cannot know this
 workshop, and nothing stops it from answering anyway.
 
-## 2. Cut the documents into pieces (2 min)
+## 2. Cut the documents into pieces
 
 **Do:** run **2. Cut the pages into pieces**.
 
@@ -81,7 +80,7 @@ workshop, and nothing stops it from answering anyway.
 costs time and money. How you cut matters: too small, and an answer is split
 across pieces; too large, and few fit in the prompt.
 
-## 3. Turn each piece into numbers (1 min)
+## 3. Turn each piece into numbers
 
 **Do:** run **3. Turn the pieces into numbers**.
 
@@ -92,7 +91,7 @@ first few are printed.
 together. That is what lets the search in step 4 find a piece about "the
 default model" even when it is worded differently from your question.
 
-## 4. Search, and read before you ask (3 min)
+## 4. Search, and read before you ask
 
 **Do:** run **4. Find the pieces closest in meaning**, then **4b. Find the
 pieces that share the most words**.
@@ -105,7 +104,7 @@ pieces?
 words, the way a search engine does. Either way, if the answer is not in the
 retrieved pieces, no model can give it from them.
 
-## 5. Open book (2 min)
+## 5. Open book
 
 **Do:** run **5. Ask with the documents**.
 
@@ -116,7 +115,7 @@ step 1.
 **Why:** same model, same question. The only difference is what it was given
 to read.
 
-## 6. Check the citation (1 min)
+## 6. Check the citation
 
 **Do:** run **6. Show the cited pieces**.
 
@@ -125,7 +124,7 @@ to read.
 **Why:** a citation turns "trust me" into something you can check in
 seconds. A citation can also be wrong; checking is your job, not the model's.
 
-## 7. A question the documents cannot answer (2 min)
+## 7. A question the documents cannot answer
 
 **Do:** run **7. Ask something that is not in the documents**: "When is the
 coffee break?"
@@ -136,7 +135,7 @@ one. Does the model say "not in the documents", or invent a time?
 **Why:** a good RAG answer admits when the documents are silent. Without the
 rule to say so, many models fill the gap.
 
-## 8. One piece or eight? (2 min)
+## 8. One piece or eight?
 
 **Do:** run **8a. One piece**, then **8b. Eight pieces**. The question is
 "How long is Exercise 3, and what are its parts?"

@@ -2,7 +2,6 @@
 
 | | |
 |---|---|
-| **Time** | 5 min |
 | **Model** | None; you only install |
 | **Needs** | `scripts/check-setup.sh` passed, Git, and the workshop key from the organisers |
 | **You'll learn** | What a plugin is, how to look at one before you install it, and how to take it out again |
@@ -32,7 +31,7 @@ Open a terminal in the workshop folder (the one with `opencode.json`). The
 commands below are the only ones in this exercise; after that you work in
 OpenCode.
 
-## 1. Look before you install (1 min)
+## 1. Look before you install
 
 **Do:** skim the README of each plugin, and the two files OpenCode runs,
 `tui.tsx` (what you see) and `server.ts` (what the agent gets):
@@ -44,7 +43,7 @@ OpenCode.
 notebook plugin, for example, gives the agent a tool that runs Python, and
 its README says plainly that this tool does not ask before it runs.
 
-## 2. Install both (2 min)
+## 2. Install both
 
 **Do:** clone each one into this project's plugin folder:
 
@@ -64,7 +63,7 @@ unzip them, and move the folders to `.opencode/plugins/opencode-sidebar-plus` an
 starts: a plugin is just a folder of code. `--branch` pins the version, so
 what you looked at is what runs, even if the author changes the plugin later.
 
-## 3. Add the workshop key (1 min)
+## 3. Add the workshop key
 
 **Do:** the organisers show a key at the start of the session. Put it in a
 file in the workshop folder, replacing `PASTE-THE-KEY-HERE`:
@@ -79,7 +78,7 @@ key is how OpenRouter knows the call is allowed. Treat a key like a password:
 it stays in this file, which Git ignores, and is never pasted into a chat,
 because everything in a chat is sent to the model.
 
-## 4. Check it worked (1 min)
+## 4. Check it worked
 
 **Do:** quit OpenCode if it is running (`ctrl+c`), start it again in the
 workshop folder, and send any message, for example "hello".
