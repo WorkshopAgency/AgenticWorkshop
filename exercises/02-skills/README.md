@@ -212,7 +212,7 @@ not need to finish 2f first. The skill file format is described at
 <details>
 <summary><b>Dive Deeper</b></summary>
 
-For when you finish early.
+For when you finish early, want to learn more, or you are super talented and fast.
 
 ## Exercise 2g — A notebook inside OpenCode
 
