@@ -45,10 +45,9 @@ and the same 20-step limit:
 agent selector in Desktop) and send:
 
 > Create an interactive browser visualization of PDB 4HHB that I can use to
-> explain the structure to another researcher. Save everything under
-> outputs/03-agents/bad-agent. I have a browser and OpenCode; do not require
-> additional software installation. Briefly explain how to open and use the
-> result.
+> explain the structure to another researcher. I have a browser and OpenCode;
+> do not require additional software installation. Briefly explain how to open
+> and use the result. Save everything under outputs/03-agents/bad-agent.
 
 Then start another new chat, select `good-agent`, and send the same request
 with `outputs/03-agents/good-agent`.
