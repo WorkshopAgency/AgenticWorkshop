@@ -43,11 +43,17 @@ shared() {
     if older "$v" "$MIN"; then bad "OpenCode $v is too old" "opencode upgrade"
     elif [ -n "$latest" ] && older "$v" "$latest"; then warn "OpenCode $v; $latest is out" "opencode upgrade"
     else ok "OpenCode $v"; fi
-  else bad "OpenCode is not installed" "see the README, Install section"; fi
+  else bad "OpenCode is not installed" "README, Quick start step 1"; fi
 
   if have python3 && python3 -c 'import sys; sys.exit(sys.version_info < (3, 10))'; then
     ok "Python $(python3 -c 'import platform; print(platform.python_version())')"
-  else bad "Python 3.10 or newer is missing" "install python3 (WSL: sudo apt install python3)"; fi
+  else bad "Python 3.10 or newer is missing" "README, Quick start step 1: uv python install 3.12 --default"; fi
+
+  if have uv; then ok "uv $(uv --version | cut -d' ' -f2)"
+  else bad "uv is missing" "README, Quick start step 1"; fi
+
+  if have git; then ok "git $(git --version | cut -d' ' -f3)"
+  else warn "git is missing" "README, Quick start step 1; without it, use the ZIP downloads"; fi
 
   if [ "$(http "$ZEN/models")" = "200" ]; then ok "free OpenCode models reachable"
   else bad "cannot reach opencode.ai" "check the network / Wi-Fi"; fi

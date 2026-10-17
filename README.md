@@ -11,53 +11,72 @@ models are optional, when they are running. A paid subscription is not
 required to participate.
 
 [Download the workshop ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip) ·
-[Quick start](#quick-start--download-extract-and-open) ·
+[Quick start](#quick-start--install-download-and-open) ·
 [Agenda](#agenda)
 
-## Quick start — download, extract and open
+## Quick start — install, download and open
 
-1. Install [OpenCode](https://opencode.ai/docs/#install) before the workshop.
-   For this workshop, Windows users should install and run it inside WSL2.
-   The terminal version (CLI) is preferred; OpenCode Desktop is also supported, however the CLI can function as
-   a desktop version in a browser at no extra cost.
-2. For Linux and WSL2 Ubuntu, the command to install the OpenCode CLI (terminal) is<br>
-   `curl -fsSL https://opencode.ai/v2/install | bash`          or
-   `npm install -g @opencode/cli`<br>
-   Use the latest version; if you already have v2, run `opencode upgrade`.
-3. Install [`uv`](https://docs.astral.sh/uv/) and **Python 3.10 or later**,
-   the only other things the exercises need (no Python packages; uv fetches
-   them when needed). In a terminal (on Windows, inside WSL2):
+1. **Install dependencies:** OpenCode, Git, uv and Python 3.10 or later.
+   Nothing else: uv fetches the Python packages an exercise needs when it
+   needs them. Use the block for your computer.
+
+   **macOS**, in Terminal:
 
    ```bash
+   xcode-select --install
    curl -LsSf https://astral.sh/uv/install.sh | sh
+   curl -fsSL https://opencode.ai/v2/install | bash
    ```
 
-   If you have no Python, or one older than 3.10 (Macs come with 3.9; the
-   setup check in step 7 tells you), let uv install a current one:
+   `xcode-select` opens a window that installs Git; accept it and let it
+   finish. If it says the tools are already installed, you already have Git.
+   Then open a new terminal and install a current Python, since Macs come
+   with 3.9:
 
    ```bash
    uv python install 3.12 --default
    ```
 
-   Then open a new terminal. If the setup check still reports the old Python,
-   run `uv python update-shell` and open one more terminal.
-   (On a Mac, `brew install uv python` does both; on Ubuntu or WSL2,
-   `sudo apt install python3` gives a recent Python.)
-4. Go to or make a folder where you want the workshop to be.
-5. Get the workshop, either with Git:
+   With Homebrew, `brew install git uv python` does the same for Git, uv and
+   Python.
+
+   **Windows (WSL2) and Linux.** On Windows, install WSL2 first: open
+   PowerShell as administrator, run `wsl --install`, restart, and open
+   **Ubuntu** from the Start menu. Do everything in this workshop in that
+   Ubuntu terminal. Then, in Ubuntu or in your Linux terminal:
+
+   ```bash
+   sudo apt update && sudo apt install -y git curl python3
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   curl -fsSL https://opencode.ai/v2/install | bash
+   ```
+
+   Then open a new terminal. Ubuntu 22.04 and later come with Python 3.10 or
+   newer; on an older system, also run `uv python install 3.12 --default`.
+   On other Linux distributions, install Git, curl and Python with your
+   package manager.
+
+   **On both:** `npm install -g @opencode/cli` installs the same OpenCode if
+   you prefer npm. If you already have OpenCode v2, run `opencode upgrade`
+   instead. The terminal version (CLI) is preferred; OpenCode Desktop is also
+   supported, and the CLI can run in a browser too, at no extra cost. If the
+   setup check in step 5 reports an old Python after this, run
+   `uv python update-shell` and open one more terminal.
+2. Go to or make a folder where you want the workshop to be.
+3. Get the workshop, either with Git:
    `git clone https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026.git`
    or by [downloading the ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip) and unzipping it.
    This creates the workshop folder where the rest of the workshop will be. It can be renamed, but the text calls it the workshop root, and every path you will type is
    relative to it.
-6. In **OpenCode Desktop**, open that extracted folder as your project—the
+4. In **OpenCode Desktop**, open that extracted folder as your project—the
    folder containing both `README.md` and `opencode.json`, not its parent.
    For the terminal version, run `opencode` from inside that folder, or
    `opencode serve` for the browser version.
-7. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
-8. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. There are subfolders in the workshop root for different exercises and you can create your own.
+5. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
+6. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. There are subfolders in the workshop root for different exercises and you can create your own.
    Go in those and run `opencode` for a clean start for the project/task/exercise. Exiting and running opencode again is a common way for fresh starts
    and incorporating new skills, etc.
-9. The default model is **Big Pickle**, a free OpenCode model. Other models
+7. The default model is **Big Pickle**, a free OpenCode model. Other models
    are in the model selector (`/models` in the terminal version); see
    [the models you can use](#llm-models-you-can-use).
 
@@ -204,7 +223,7 @@ AgenticWorkshop/
       skills/
          skill-builder/         A subfolder INSIDE skills
             SKILL.md            The skill-builder instructions
-      plugins/                  The plugins you clone in Exercise 0 (not in Git)
+      plugins/                  The plugins you clone in Exercise 0; only its README is in Git
    exercises/
       00-plugins/               Install the two plugins and the workshop key
       01-rag/                   Retrieval-augmented generation, as a notebook
