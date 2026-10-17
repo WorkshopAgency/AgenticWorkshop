@@ -2,7 +2,7 @@
 # requires-python = ">=3.10"
 # dependencies = ["tokenizers", "tiktoken"]
 # ///
-"""How three models cut text into tokens (Exercise 1i).
+"""How three models cut text into tokens (Exercise 1j).
 
     uv run exercises/01-rag/tokens.py
     uv run exercises/01-rag/tokens.py "TP53 R175H" ENSG00000141510

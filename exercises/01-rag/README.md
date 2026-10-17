@@ -147,18 +147,25 @@ answer out of pieces that are about something else?
 **Why:** the number of pieces is a trade-off: too few can miss half the
 answer, too many add noise, cost and room for the model to embroider.
 
-## Try your own question (optional)
+# Exercise 1i — Try your own question
 
-Ask the agent in the chat to change a question in the notebook, for example:
+**Do:** ask the agent in the chat to change a question in the notebook, for
+example:
 
 > In exercises/01-rag/rag_notebook.py, change the question in the cell
 > "Ask the model on its own" to "What does /compact do?"
 
 Approve the edit, then run **Ask the model on its own**, **Find the pieces
 closest in meaning**, **Ask with the documents** and **Show the cited
-pieces** again. Or mark a cell with
-`space`, go back to the chat with `ctrl+x ←`, and ask: "Is the cited text
-really in the pieces of the cell I marked?"
+pieces** again.
+
+**Look for:** is the answer in the pieces the search found, and does the
+cited piece really say it? To ask the agent, mark a cell with `space`, go
+back to the chat with `ctrl+x ←`, and ask: "Is the cited text really in the
+pieces of the cell I marked?"
+
+**Why:** a question whose answer you know is the quickest test of a RAG
+setup. If the search misses the right piece, no model can answer from it.
 
 ## What to notice
 
@@ -180,10 +187,13 @@ really in the pieces of the cell I marked?"
 
 # === Dive Deeper ===
 
-# Exercise 1i — What the model reads: tokens and embeddings
+# Exercise 1j — What the model reads: tokens and embeddings
 
-In this exercise, Mistral Nemo wrote the answers and bge-base found the
-pieces. Neither reads letters or words. Text is first cut into
+This exercise used two models. **Mistral Nemo** is the chat model: every
+answer the notebook printed, in 1a, 1e, 1g and 1h, was written by it.
+**bge-base** is the embedding model: it turned the pieces and your question
+into numbers (1c), and that is how the search found the closest pieces (1d).
+Neither model reads letters or words. Text is first cut into
 **tokens**: short pieces of text from a fixed list, the model's vocabulary.
 Each token is then turned into numbers. (Tokens are much smaller than the
 pieces of up to 800 characters you cut the documents into in 1b.)
@@ -192,13 +202,12 @@ pieces of up to 800 characters you cut the documents into in 1b.)
 
 | Model | Tokenizer | Vocabulary |
 |---|---|---|
-| Mistral Nemo (the answers) | BPE, built from bytes | 131,072 tokens |
-| bge-base-en-v1.5 (the search) | WordPiece, lower case only | 30,522 tokens |
+| Mistral Nemo (writes the answers) | BPE, built from bytes | 131,072 tokens |
+| bge-base-en-v1.5 (finds the pieces) | WordPiece, lower case only | 30,522 tokens |
 | GPT-4o, for comparison | BPE, built from bytes (`o200k_base`) | 200,019 tokens |
 
-This part is for reading; running something is optional, at the end. Below,
-colours separate the tokens, `␣` is a space that belongs to a token, and
-`##` (bge only) means "continues the previous word".
+Read the examples first, then try your own text in 1k. Below, colours
+separate the tokens, and `␣` is a space that belongs to a token.
 
 ## What are the tokens?
 
@@ -215,7 +224,10 @@ Mistral Nemo, 9 tokens
 {\color{RoyalBlue}\text{We}} \, {\color{OrangeRed}\text{␣quantified}} \, {\color{ForestGreen}\text{␣BRCA}} \, {\color{Orchid}\text{1}} \, {\color{RoyalBlue}\text{␣isoforms}} \, {\color{OrangeRed}\text{␣using}} \, {\color{ForestGreen}\text{␣RNA}} \, {\color{Orchid}\text{-seq}} \, {\color{RoyalBlue}\text{.}}
 ```
 
-bge-base, 15 tokens
+bge-base, 15 tokens. `##` marks a token that continues the word before it,
+with no space: `quan` `##ti` `##fied` is one word, "quantified", in three
+tokens. Mistral and GPT-4o do it the other way round: a token that starts a
+new word carries its space, as in `␣quantified`.
 
 ```math
 {\color{RoyalBlue}\text{we}} \, {\color{OrangeRed}\text{quan}} \, {\color{ForestGreen}\#\#\text{ti}} \, {\color{Orchid}\#\#\text{fied}} \, {\color{RoyalBlue}\text{br}} \, {\color{OrangeRed}\#\#\text{ca}} \, {\color{ForestGreen}\#\#\text{1}} \, {\color{Orchid}\text{iso}} \, {\color{RoyalBlue}\#\#\text{forms}} \, {\color{OrangeRed}\text{using}} \, {\color{ForestGreen}\text{rna}} \, {\color{Orchid}\text{-}} \, {\color{RoyalBlue}\text{se}} \, {\color{OrangeRed}\#\#\text{q}} \, {\color{ForestGreen}\text{.}}
@@ -362,8 +374,10 @@ the probabilities for the next token, is what the decision model in
 [Exercise 5](../05-decide/README.md) reads instead of the model's written
 answer.
 
-**Try it yourself (optional).** See how the three tokenizers cut your own
-gene names, sample IDs or sequences:
+# Exercise 1k — Tokenize your own text
+
+**Do:** in a terminal in the workshop folder, see how the three tokenizers
+cut your own gene names, sample IDs or sequences:
 
 ```bash
 uv run exercises/01-rag/tokens.py "TP53 R175H" ENSG00000141510
@@ -371,6 +385,13 @@ uv run exercises/01-rag/tokens.py "TP53 R175H" ENSG00000141510
 
 Without text it prints the examples above. The first run downloads the three
 vocabularies, a few MB; no key is needed.
+
+**Look for:** which of your strings become many small tokens, and which
+tokenizer keeps them together best. Does bge show `[UNK]` anywhere?
+
+**Why:** the examples above are ours. Your own identifiers show where a
+model is most likely to miscount, drop a digit, or not see a character at
+all.
 
 **Discuss with your neighbour:** which of your own identifiers would a model
 most likely copy wrongly, and how would you check?
