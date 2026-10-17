@@ -37,7 +37,7 @@ OpenCode.
 `tui.tsx` (what you see) and `server.ts` (what the agent gets):
 
 - [opencode-sidebar-plus at v0.3.1](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.1)
-- [opencode-notebook at v0.1.5](https://github.com/dskanakoglou/opencode-notebook/tree/v0.1.5)
+- [opencode-notebook at v0.1.6](https://github.com/dskanakoglou/opencode-notebook/tree/v0.1.6)
 
 **Why:** ask of every plugin what it reads and what it adds to OpenCode. The
 notebook plugin, for example, gives the agent a tool that runs Python, and
@@ -49,12 +49,12 @@ its README says plainly that this tool does not ask before it runs.
 
 ```bash
 git -c advice.detachedHead=false clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/opencode-sidebar-plus
-git -c advice.detachedHead=false clone -q --depth 1 --branch v0.1.5 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
+git -c advice.detachedHead=false clone -q --depth 1 --branch v0.1.6 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
 ```
 
 No Git? Download the ZIP of
 [opencode-sidebar-plus](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.1.zip)
-and of [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook/archive/refs/tags/v0.1.5.zip),
+and of [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook/archive/refs/tags/v0.1.6.zip),
 unzip them, and move the folders to `.opencode/plugins/opencode-sidebar-plus` and
 `.opencode/plugins/opencode-notebook`.
 
