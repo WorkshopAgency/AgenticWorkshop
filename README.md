@@ -18,9 +18,12 @@ required to participate.
 
 1. **Install dependencies:** OpenCode, Git, uv and Python 3.10 or later.
    Nothing else: uv fetches the Python packages an exercise needs when it
-   needs them. Use the block for your computer.
+   needs them. Open the one for your computer:
 
-   **macOS**, in Terminal:
+   <details>
+   <summary><b>macOS</b></summary>
+
+   In Terminal:
 
    ```bash
    xcode-select --install
@@ -40,7 +43,12 @@ required to participate.
    With Homebrew, `brew install git uv python` does the same for Git, uv and
    Python.
 
-   **Windows (WSL2) and Linux.** On Windows, install WSL2 first: open
+   </details>
+
+   <details>
+   <summary><b>Windows (WSL2) and Linux</b></summary>
+
+   On Windows, install WSL2 first: open
    PowerShell as administrator, run `wsl --install`, restart, and open
    **Ubuntu** from the Start menu. Do everything in this workshop in that
    Ubuntu terminal. Then, in Ubuntu or in your Linux terminal:
@@ -55,6 +63,8 @@ required to participate.
    newer; on an older system, also run `uv python install 3.12 --default`.
    On other Linux distributions, install Git, curl and Python with your
    package manager.
+
+   </details>
 
    **On both:** `npm install -g @opencode/cli` installs the same OpenCode if
    you prefer npm. If you already have OpenCode v2, run `opencode upgrade`
