@@ -48,12 +48,11 @@ its README says plainly that this tool does not ask before it runs.
 **Do:** clone each one into this project's plugin folder - `.opencode/plugins/`:
 
 ```bash
-git clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/opencode-sidebar-plus
-git clone -q --depth 1 --branch v0.1.2 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
+git -c advice.detachedHead=false clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/opencode-sidebar-plus
+git -c advice.detachedHead=false clone -q --depth 1 --branch v0.1.2 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
 ```
 
-Git notes that the tag "is not a commit" and that you are on a "detached
-HEAD"; both are expected. No Git? Download the ZIP of
+No Git? Download the ZIP of
 [opencode-sidebar-plus](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.1.zip)
 and of [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook/archive/refs/tags/v0.1.2.zip),
 unzip them, and move the folders to `.opencode/plugins/opencode-sidebar-plus` and
