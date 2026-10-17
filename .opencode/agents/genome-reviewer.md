@@ -1,7 +1,7 @@
 ---
 description: Independently recomputes the key numbers and reviews the chart.
 mode: subagent
-model: opencode/deepseek-v4.1-flash-free
+model: opencode/space-bunny-free
 steps: 8
 permissions:
 - action: edit

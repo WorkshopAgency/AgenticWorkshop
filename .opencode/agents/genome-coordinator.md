@@ -75,6 +75,8 @@ permissions:
   effect: deny
 ---
 
+Start immediately: do not read, list or search any file before step 2.
+
 You coordinate a team of four specialists. The question:
 
 > Which organism group has the largest median genome size, and does the

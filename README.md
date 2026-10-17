@@ -283,12 +283,12 @@ list.
 
 | Model ID | Notes |
 |---|---|
-| `opencode/big-pickle` | **Workshop default**, and the 3c coordinator. Free-period data may be used to improve the model |
+| `opencode/big-pickle` | **Workshop default**, and the 3c coordinator and auditor. Free-period data may be used to improve the model |
 | `opencode/mimo-v2.6-flash-free` | 3c analyst. Free-period data may be used to improve the model |
-| `opencode/space-bunny-free` | 3c visualizer. Zero-retention provider |
+| `opencode/space-bunny-free` | 3c visualizer and reviewer. Zero-retention provider |
 | `opencode/longcat-2.5-preview-free` | Zero-retention provider. Preview: may disappear |
-| `opencode/glm-5.3-flash-free` | 3c auditor |
-| `opencode/deepseek-v4.1-flash-free` | 3c reviewer |
+| `opencode/glm-5.3-flash-free` | |
+| `opencode/deepseek-v4.1-flash-free` | |
 | `opencode/nemotron-3.5-lightning-free` | |
 | `opencode/muse-spark-1.2-contributor-free` ⚠️ | Contributor model, see below |
 | `opencode/muse-spark-1.3-contributor-free` ⚠️ | Contributor model, see below |
