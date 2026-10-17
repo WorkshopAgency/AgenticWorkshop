@@ -147,18 +147,25 @@ answer out of pieces that are about something else?
 **Why:** the number of pieces is a trade-off: too few can miss half the
 answer, too many add noise, cost and room for the model to embroider.
 
-## Try your own question (optional)
+# Exercise 1i — Try your own question
 
-Ask the agent in the chat to change a question in the notebook, for example:
+**Do:** ask the agent in the chat to change a question in the notebook, for
+example:
 
 > In exercises/01-rag/rag_notebook.py, change the question in the cell
 > "Ask the model on its own" to "What does /compact do?"
 
 Approve the edit, then run **Ask the model on its own**, **Find the pieces
 closest in meaning**, **Ask with the documents** and **Show the cited
-pieces** again. Or mark a cell with
-`space`, go back to the chat with `ctrl+x ←`, and ask: "Is the cited text
-really in the pieces of the cell I marked?"
+pieces** again.
+
+**Look for:** is the answer in the pieces the search found, and does the
+cited piece really say it? To ask the agent, mark a cell with `space`, go
+back to the chat with `ctrl+x ←`, and ask: "Is the cited text really in the
+pieces of the cell I marked?"
+
+**Why:** a question whose answer you know is the quickest test of a RAG
+setup. If the search misses the right piece, no model can answer from it.
 
 ## What to notice
 
@@ -180,7 +187,7 @@ really in the pieces of the cell I marked?"
 
 # === Dive Deeper ===
 
-# Exercise 1i — What the model reads: tokens and embeddings
+# Exercise 1j — What the model reads: tokens and embeddings
 
 This exercise used two models. **Mistral Nemo** is the chat model: every
 answer the notebook printed, in 1a, 1e, 1g and 1h, was written by it.
