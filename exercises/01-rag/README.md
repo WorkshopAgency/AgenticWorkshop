@@ -60,7 +60,7 @@ minute.
 
 # Exercise 1a — Ask without the documents
 
-**Do:** run **Ask the model on its own**. The question is "Which chat
+**Do:** run **1a · Ask the model on its own**. The question is "Which chat
 model is the default in this workshop?"
 
 **Look for:** the prompt is only the question. Does the model sound sure? Is
@@ -71,7 +71,7 @@ workshop, and nothing stops it from answering anyway.
 
 # Exercise 1b — Cut the documents into pieces
 
-**Do:** run **Cut the pages into pieces**.
+**Do:** run **1b · Cut the pages into pieces**.
 
 **Look for:** how many pieces, and three examples. Each has an id, like
 `p11`, and the page and heading it came from.
@@ -82,7 +82,7 @@ across pieces; too large, and few fit in the prompt.
 
 # Exercise 1c — Turn each piece into numbers
 
-**Do:** run **Turn the pieces into numbers**.
+**Do:** run **1c · Turn the pieces into numbers**.
 
 **Look for:** each piece is now a list of 768 numbers, an **embedding**. The
 first few are printed.
@@ -93,8 +93,8 @@ default model" even when it is worded differently from your question.
 
 # Exercise 1d — Search, and read before you ask
 
-**Do:** run **Find the pieces closest in meaning**, then **Find the pieces
-that share the most words**.
+**Do:** run **1d · Find the pieces closest in meaning**, then **1d · Find
+the pieces that share the most words**.
 
 **Look for:** read the pieces **before** asking the model anything. Is the
 answer in one of them? In which position? Do the two searches pick the same
@@ -106,7 +106,7 @@ retrieved pieces, no model can give it from them.
 
 # Exercise 1e — Ask with the documents
 
-**Do:** run **Ask with the documents**.
+**Do:** run **1e · Ask with the documents**.
 
 **Look for:** the printed prompt: the rules, the pieces with their ids, then
 your question. Does the answer cite a piece, like `[p17]`? Compare it with
@@ -117,7 +117,7 @@ to read.
 
 # Exercise 1f — Check the citation
 
-**Do:** run **Show the cited pieces**.
+**Do:** run **1f · Show the cited pieces**.
 
 **Look for:** is the answer really in the cited piece, in so many words?
 
@@ -126,7 +126,7 @@ seconds. A citation can also be wrong; checking is your job, not the model's.
 
 # Exercise 1g — A question the documents cannot answer
 
-**Do:** run **Ask something that is not in the documents**: "When is the
+**Do:** run **1g · Ask something that is not in the documents**: "When is the
 coffee break?"
 
 **Look for:** there is no break in this workshop and the pages never mention
@@ -137,7 +137,7 @@ rule to say so, many models fill the gap.
 
 # Exercise 1h — One piece or eight?
 
-**Do:** run **Send one piece**, then **Send eight pieces**. The question is
+**Do:** run **1h · Send one piece**, then **1h · Send eight pieces**. The question is
 "What are the three lessons of this workshop?"
 
 **Look for:** compare both answers with the three lessons in the
@@ -153,11 +153,10 @@ answer, too many add noise, cost and room for the model to embroider.
 example:
 
 > In exercises/01-rag/rag_notebook.py, change the question in the cell
-> "Ask the model on its own" to "What does /compact do?"
+> "1a · Ask the model on its own" to "What does /compact do?"
 
-Approve the edit, then run **Ask the model on its own**, **Find the pieces
-closest in meaning**, **Ask with the documents** and **Show the cited
-pieces** again.
+Approve the edit, then run **1a**, the first **1d**, **1e** and **1f**
+again.
 
 **Look for:** is the answer in the pieces the search found, and does the
 cited piece really say it? To ask the agent, mark a cell with `space`, go
