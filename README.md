@@ -307,7 +307,9 @@ which Git ignores.
 
 </details>
 
-## Meet HALp before you start
+## Getting help
+
+### Ask HALp
 
 HALp offers hints and setup help, not finished exercise answers. In a **fresh
 chat**, try `/halp Where should I start?` It uses a **free external model**:
@@ -362,6 +364,46 @@ To resume an exercise, select **Build** or your exercise agent **and model**
 again. HALp is hidden from the usual agent selector; `/halp` is the intended
 entry point. This is a UI convention, not an access-control boundary.
 
+</details>
+
+### Try this first
+
+If `/halp`, workshop agents or updated settings are missing, OpenCode may still
+be using cached configuration. Exit OpenCode, then run these commands **in your
+terminal, inside the extracted workshop folder**:
+
+```bash
+opencode reload
+opencode .
+```
+
+Start a fresh chat and try `/halp hello`. Simply closing and reopening the
+interface may not refresh its background service. This reload does not edit
+your files. If the problem remains, show an organiser
+the error and your `opencode --version`; do not reinstall or delete your settings.
+
+<details>
+<summary>So many errors - so little time</summary>
+
+| What you see | What to do |
+|---|---|
+| `/halp`, agents or updated settings are missing | [Try this first](#try-this-first): exit, run `opencode reload` in the workshop folder, then reopen. |
+| DTU models are missing | They are optional and may not be running. Otherwise check that OpenCode opened the folder containing `opencode.json`, then follow the reload step above. |
+| Connection failed / 503 | Ask an organiser to check the model's start command. |
+| Invalid API key / 401 | In Exercises 1 and 5: check `.openrouter-key` (Exercise 0, step 3). In the chat: check for old provider settings. |
+| Not found / 404 | Use a fresh workshop download; ask an organiser to check the URL if it persists. |
+| Free models or other providers are missing | Check model visibility and v2 `disabled` settings; ask an organiser about stale v1 configuration. The supplied workshop JSON does not hide them. |
+| Too many requests / 429 | Wait briefly and try again; the servers are shared. |
+| Context too long | Compact the conversation or start a new chat. |
+| Repeated compaction or the same reads without progress | Keep the supplied `compaction` settings: OpenCode 2.0.14's default buffer can exceed a small local context budget. Restart with the current workshop configuration and a fresh chat; send persistent failures to an organiser. |
+
+Send Peter or Dimitrios the **model name and exact error message** if you need
+help. Do not disable certificate checks or change server settings yourself.
+
+OpenCode may ask to edit files or run commands **on your computer**. Review
+those requests before allowing them. Work in the exercise folder.
+When comparing models, start a fresh chat: switching models within a chat
+can keep the earlier conversation and tool results.
 </details>
 
 ## LLM Models you can use
@@ -689,47 +731,6 @@ conversation before lowering its budget. Return to the supplied defaults
 after your task.
 </details>
 
-## If something does not work
-
-### Try this first
-
-If `/halp`, workshop agents or updated settings are missing, OpenCode may still
-be using cached configuration. Exit OpenCode, then run these commands **in your
-terminal, inside the extracted workshop folder**:
-
-```bash
-opencode reload
-opencode .
-```
-
-Start a fresh chat and try `/halp hello`. Simply closing and reopening the
-interface may not refresh its background service. This reload does not edit
-your files. If the problem remains, show an organiser
-the error and your `opencode --version`; do not reinstall or delete your settings.
-
-<details>
-<summary>So many errors - so little time</summary>
-
-| What you see | What to do |
-|---|---|
-| `/halp`, agents or updated settings are missing | [Try this first](#try-this-first): exit, run `opencode reload` in the workshop folder, then reopen. |
-| DTU models are missing | They are optional and may not be running. Otherwise check that OpenCode opened the folder containing `opencode.json`, then follow the reload step above. |
-| Connection failed / 503 | Ask an organiser to check the model's start command. |
-| Invalid API key / 401 | In Exercises 1 and 5: check `.openrouter-key` (Exercise 0, step 3). In the chat: check for old provider settings. |
-| Not found / 404 | Use a fresh workshop download; ask an organiser to check the URL if it persists. |
-| Free models or other providers are missing | Check model visibility and v2 `disabled` settings; ask an organiser about stale v1 configuration. The supplied workshop JSON does not hide them. |
-| Too many requests / 429 | Wait briefly and try again; the servers are shared. |
-| Context too long | Compact the conversation or start a new chat. |
-| Repeated compaction or the same reads without progress | Keep the supplied `compaction` settings: OpenCode 2.0.14's default buffer can exceed a small local context budget. Restart with the current workshop configuration and a fresh chat; send persistent failures to an organiser. |
-
-Send Peter or Dimitrios the **model name and exact error message** if you need
-help. Do not disable certificate checks or change server settings yourself.
-
-OpenCode may ask to edit files or run commands **on your computer**. Review
-those requests before allowing them. Work in the exercise folder.
-When comparing models, start a fresh chat: switching models within a chat
-can keep the earlier conversation and tool results.
-</details>
 ---
 
 After the workshop: [additional tools, projects and research](additional.md).
