@@ -436,7 +436,7 @@ the error and your `opencode --version`; do not reinstall or delete your setting
 | `/halp`, agents or updated settings are missing | [Try this first](#try-this-first): exit, run `opencode reload` in the workshop folder, then reopen. |
 | DTU models are missing | They are optional and may not be running. Otherwise check that OpenCode opened the folder containing `opencode.json`, then follow the reload step above. |
 | Connection failed / 503 | Ask an organiser to check the model's start command. |
-| Invalid API key / 401 | In Exercises 1 and 5: check `.openrouter-key` (Exercise 0, step 3). In the chat: check for old provider settings. |
+| Invalid API key / 401 | In Exercises 1 and 5: check `.openrouter-key` (Exercise 0c). In the chat: check for old provider settings. |
 | Not found / 404 | Use a fresh workshop download; ask an organiser to check the URL if it persists. |
 | Free models or other providers are missing | Check model visibility and v2 `disabled` settings; ask an organiser about stale v1 configuration. The supplied workshop JSON does not hide them. |
 | Too many requests / 429 | Wait briefly and try again; the servers are shared. |
@@ -518,7 +518,7 @@ Sources: [live model list](https://opencode.ai/zen/v1/models),
 Exercises 1 and 5 call models directly, outside OpenCode, so you can see
 exactly what goes in and what comes back. They use
 [OpenRouter](https://openrouter.ai), with a key the organisers give you at
-the start (Exercise 0, step 3):
+the start (Exercise 0c):
 
 | Exercise | Model | For |
 |---|---|---|

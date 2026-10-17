@@ -74,7 +74,7 @@ def _post(url, payload):
         key = _key()
         if not key:
             raise SystemExit("No workshop key: put it in .openrouter-key in the workshop folder "
-                             "(Exercise 0, step 3).")
+                             "(Exercise 0c).")
         headers["Authorization"] = f"Bearer {key}"
     request = urllib.request.Request(url, data=json.dumps(payload).encode(), headers=headers)
     try:
@@ -93,7 +93,7 @@ def status():
         return
     print(f"Answers: {CHAT_MODEL}. Search: {EMBED_MODEL}. Both at OpenRouter.")
     if not _key():
-        print("No workshop key yet: see Exercise 0, step 3.")
+        print("No workshop key yet: see Exercise 0c.")
         return
     request = urllib.request.Request("https://openrouter.ai/api/v1/key",
                                      headers={"Authorization": f"Bearer {_key()}"})

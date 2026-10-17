@@ -13,7 +13,7 @@ A session is about 2.5 hours, with up to 30 participants working alone and no br
 - **The workshop key.** Exercises 1 and 5 call OpenRouter (Mistral Nemo,
   `bge-base` embeddings, Llama 3.1 8B) with one shared key. Give it a
   spending limit in OpenRouter, show it on a slide or the board at the start
-  (Exercise 0, step 3), never put it in the repository, and rotate it after
+  (Exercise 0c), never put it in the repository, and rotate it after
   the session. A whole room costs cents.
 - **DTU models (optional).** Nothing depends on them. When `qwen36`,
   `qwen38`, `mistral`, `gptoss` and an `embed` route are up, `RAG_DTU=1`

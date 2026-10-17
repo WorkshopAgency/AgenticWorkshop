@@ -74,7 +74,7 @@ def post_json(url, payload, timeout=120):
     if not USE_DTU:
         key = workshop_key()
         if not key:
-            sys.exit("No workshop key: put it in .openrouter-key in the workshop folder (Exercise 0, step 3).")
+            sys.exit("No workshop key: put it in .openrouter-key in the workshop folder (Exercise 0c).")
         headers["Authorization"] = f"Bearer {key}"
         # only providers that return token probabilities
         payload = {**payload, "provider": {"require_parameters": True}}

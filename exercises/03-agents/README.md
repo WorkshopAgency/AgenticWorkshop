@@ -140,7 +140,7 @@ analysis or visualizing a structure, as long as you can check the result.
 ## Install the skill it will use
 
 **Do:** this exercise supplies the skill, so you do not need Exercise 2. From
-the workshop folder (if you built your own `csv-profile` in 2f, keep yours
+the workshop folder (if you built your own `csv-profile` in 2c, keep yours
 and skip this):
 
 ```bash

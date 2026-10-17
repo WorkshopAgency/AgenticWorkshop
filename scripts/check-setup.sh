@@ -21,11 +21,11 @@ http() { curl -s -o /dev/null -w '%{http_code}' --max-time 15 "$@"; }
 
 plugin() {      # $1 = folder in .opencode/plugins
   if [ -f ".opencode/plugins/$1/tui.tsx" ]; then ok "plugin $1 installed"
-  else bad "plugin $1 is not installed" "Exercise 0, step 2"; fi
+  else bad "plugin $1 is not installed" "Exercise 0b"; fi
 }
 key() {         # the workshop key, tested with Exercise 1's own code
   if [ ! -s .openrouter-key ] && [ -z "$OPENROUTER_API_KEY" ]; then
-    bad "no workshop key" "Exercise 0, step 3: put it in .openrouter-key"
+    bad "no workshop key" "Exercise 0c: put it in .openrouter-key"
   elif limit 40 python3 exercises/01-rag/rag.py 2>&1 | grep -q "key works"; then ok "the workshop key works"
   else bad "the workshop key was refused or OpenRouter is unreachable" "check .openrouter-key, then tell an organiser"; fi
 }
@@ -78,9 +78,9 @@ module() {
       key
       ;;
     02-skills)
-      ok "nothing extra needed for 2a-2f"
+      ok "nothing extra needed for 2a-2c"
       if [ -f .opencode/plugins/opencode-notebook/tui.tsx ]; then ok "notebook plugin, for the optional extra"
-      else warn "the optional extra needs the notebook plugin" "Exercise 0, step 2"; fi
+      else warn "the optional extra needs the notebook plugin" "Exercise 0b"; fi
       ;;
     03-agents)
       models=$(curl -s --max-time 15 "$ZEN/models")
@@ -95,7 +95,7 @@ module() {
       if have uv; then ok "uv $(uv --version | cut -d' ' -f2)"
       else bad "uv is missing" "curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
       if [ -f exercises/04-mcp/data/workshop.duckdb ]; then ok "database built"
-      else warn "database not built yet" "step 1 of the exercise builds it"; fi
+      else warn "database not built yet" "Exercise 4a builds it"; fi
       if have opencode && limit 30 opencode mcp list 2>/dev/null | grep -i duckdb | grep -qi connected; then
         ok "duckdb MCP server connected"
       else warn "duckdb MCP server not connected yet" "type /mcps in OpenCode and switch on duckdb"; fi

@@ -39,7 +39,7 @@ call the model directly, so you can see exactly what you get back. The model
 runs at OpenRouter with the workshop key from Exercise 0, so the descriptions
 you send leave your laptop; they are made up for the exercise.
 
-## 1. Run the three examples
+# Exercise 5a — Run the three examples
 
 **Do:**
 
@@ -62,7 +62,7 @@ wanted to say something else.
 only return one of its options; without a "none of these" option it would
 have to pick a fix. Designing the options is part of designing the decision.
 
-## 2. Stated confidence versus probability
+# Exercise 5b — Stated confidence versus probability
 
 **Do:**
 
@@ -80,7 +80,7 @@ it is how likely the model was to write that letter. If reversing the options
 moves it, the answer depends on the layout of the prompt as well as on the
 plot.
 
-## 3. Write your own question
+# Exercise 5c — Write your own question
 
 **Do:**
 

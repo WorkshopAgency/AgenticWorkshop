@@ -125,7 +125,7 @@ and an invalid one.
 the first draft. A checksum you computed yourself is a fingerprint of your
 file, not proof that it matches the source.
 
-# Exercise 2e — A skill that helps make skills
+# Exercise 2b — A skill that helps make skills
 
 **Do:** open [skill-builder](../../.opencode/skills/skill-builder/SKILL.md)
 and skim it. Then, in **Plan**:
@@ -141,7 +141,7 @@ Build.
 **Why:** skill-builder is itself just a skill: instructions for writing good
 instructions. Skills can build on each other.
 
-# Exercise 2f — Make and test your own data-analysis skill
+# Exercise 2c — Make and test your own data-analysis skill
 
 Every analysis should start with the same question: **can I trust this
 table?** Build a skill that profiles a table before anyone computes anything
@@ -206,12 +206,12 @@ failed.
 3. When would you rather write a plain script than a skill?
 
 Exercise 3b uses a profiling skill too; it supplies its own copy, so you do
-not need to finish 2f first. The skill file format is described at
+not need to finish 2c first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
 # === Dive Deeper ===
 
-# Exercise 2g — A notebook inside OpenCode
+# Exercise 2d — A notebook inside OpenCode
 
 A plugin,
 [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook), adds a

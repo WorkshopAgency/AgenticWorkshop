@@ -1,6 +1,6 @@
 # Provenance — bring-your-own datasets
 
-Three datasets for Exercise 3h, for anyone without data of their own. None is
+Three datasets used in Exercises 2, 3 and 4, and for anyone without data of their own. None is
 generated, estimated or synthetic: every row comes from the source below. If a
 number in the exercise disagrees with the data, trust the data and tell an
 organiser.
@@ -157,5 +157,6 @@ proline-rich.
 
 Each hides the same mistake, in a different domain: an average taken across
 categories that should never have been pooled. That is the mistake Exercise 4c
-finds in the PDB data, where averaging resolution across X-ray and NMR
-structures silently drops 15,104 entries. It is not a quirk of the PDB.
+finds in the penguins, where one correlation across the three species has the
+opposite sign to the correlation within each. It is not a quirk of one
+dataset.
