@@ -9,38 +9,29 @@ analysis and visualization**. The session is 2 h 30 min of hands-on work on
 your own laptop, so please do the setup below before you arrive. It takes
 about 10 minutes.
 
-1. **Windows only:** install WSL2 and do every step below inside the Ubuntu
-   (WSL2) terminal.
-2. **Install the latest OpenCode:**
+1. **Install the dependencies** (OpenCode, Git, uv and Python 3.10 or later)
+   by following step 1 of the Quick start, which has one block for macOS and
+   one for Windows (WSL2) and Linux:
+   https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026#quick-start--install-download-and-open
 
-   ```bash
-   npm install -g @opencode/cli
-   ```
+   If you already have OpenCode v2, run `opencode upgrade`.
 
-   If you already have OpenCode v2, run `opencode upgrade` instead. Check with
-   `opencode --version`.
-3. **Install `uv`** (it starts the notebooks' Python, and a database server in one exercise):
-
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-4. **Get the workshop material:**
+2. **Get the workshop material:**
 
    ```bash
    git clone https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026.git
-   cd AgenticWorkshop
+   cd AgenticWorkshop_dbc2026
    ```
 
    No Git? Download https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip and unzip it.
-5. **Run the setup check** from inside that folder:
+3. **Run the setup check** from inside that folder:
 
    ```bash
    scripts/check-setup.sh
    ```
 
-   Every line should show ✅. A ⚠️ about the DTU models is expected beforehand:
-   they are switched on for the session.
+   Every line of the shared setup should show ✅. The workshop key and the
+   plugins come at the start of the session.
 
 Some exercises run notebooks inside OpenCode. The first one downloads Python
 packages, up to about 400 MB; to fetch them at home instead, run this once:
@@ -49,8 +40,8 @@ packages, up to about 400 MB; to fetch them at home instead, run this once:
 uv run --no-project --with jupyter_client --with ipykernel --with pandas --with matplotlib python -c "print('ready')"
 ```
 
-You do not need a paid AI subscription. We provide models hosted at DTU, and
-OpenCode offers free models. If you have a subscription (for example Claude
+You do not need a paid AI subscription. The chat uses OpenCode's free
+models, and we give you a key for two small models used in two exercises. If you have a subscription (for example Claude
 or ChatGPT), you may connect it, but it is not required.
 
 Please bring your charger.

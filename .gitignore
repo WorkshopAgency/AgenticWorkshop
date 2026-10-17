@@ -218,7 +218,8 @@ __marimo__/
 /outputs/
 
 # Plugins participants clone in Exercise 0, and the workshop key
-/.opencode/plugins/
+/.opencode/plugins/*
+!/.opencode/plugins/README.md
 /.openrouter-key
 
 # Streamlit
