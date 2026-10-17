@@ -23,7 +23,7 @@ Here the server is **DuckDB**, running on your laptop and answering SQL
 against a local database file. The file stays on your laptop, but every
 query result the agent reads is sent to the model you selected.
 
-## 1. Connect it
+# Exercise 4a — Connect it
 
 **Do:** from the workshop folder, build the database. It holds a PDB snapshot
 (259,693 entries) and the Palmer penguins table:
@@ -52,7 +52,7 @@ The database is opened when the first query arrives, so connected is not the
 same as working. Leave the other three servers off: every connected server
 adds its tool descriptions to the context, whether you use them or not.
 
-## 2. Ask something you cannot see
+# Exercise 4b — Ask something you cannot see
 
 **Do:** in Build:
 
@@ -67,7 +67,7 @@ failed, and does it tell you how many rows it left out?
 A query that runs is not an answer that is right; how missing values were
 treated is a decision, and you want to know who made it.
 
-## 3. Make a plot that changes the answer
+# Exercise 4c — Make a plot that changes the answer
 
 **Do:**
 

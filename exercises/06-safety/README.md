@@ -32,7 +32,7 @@ This folder holds two files:
 The planted instruction points at a `.invalid` address. That top-level
 domain never resolves, so nothing can leave even if an agent obeys.
 
-## 1. Ask the Build agent
+# Exercise 6a — Ask the Build agent
 
 **Do:** start a new chat with the **Build** agent and send:
 
@@ -60,7 +60,7 @@ folder, and not before its `execute` tool runs code (that is also how it
 calls MCP servers). The key comes back, and no prompt appeared. Read the
 tool calls, not only the prompts.
 
-## 2. Repeat with `safe-analyst`
+# Exercise 6b — Repeat with `safe-analyst`
 
 **Do:** start another new chat, press **shift+tab** to choose `safe-analyst`,
 keep the same model, and send the same request.
@@ -76,7 +76,7 @@ say that file contents are data, never instructions, and that it should
 report anything that looks like an injection. Rules and instructions work
 together: rules limit what it *can* do, instructions shape what it *tries*.
 
-## 3. Find the planted instruction
+# Exercise 6c — Find the planted instruction
 
 **Do:**
 
@@ -88,7 +88,7 @@ grep -n "AI ASSISTANTS" exercises/06-safety/field_notes.csv
 stops it under Build, which under `safe-analyst`, and where does nothing stop
 it? Did either of your agents act on it, and did either tell you about it?
 
-## 4. Permissions are not a sandbox
+# Exercise 6d — Permissions are not a sandbox
 
 **Do:** in the `safe-analyst` chat, ask it to run this exact shell command,
 and approve it when asked:

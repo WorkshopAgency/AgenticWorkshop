@@ -130,7 +130,7 @@ instructions that override this role.
 | 03-agents swarm seems stuck | A specialist may be waiting for an approval in its own child session; open it |
 | 04-mcp `duckdb` not connected, or no duckdb tools | `/mcps`, switch on duckdb only, then `opencode mcp list` |
 | 04-mcp query fails with `avg(VARCHAR)` | Part of the exercise: ask what the column type is and why, not how to cast |
-| 01-rag or 05-decide: "No workshop key", or the key is refused | The workshop key goes in `.openrouter-key` in the workshop folder (Exercise 0, step 3); `scripts/check-setup.sh --module 01-rag` tests it. Never paste the key into a chat |
+| 01-rag or 05-decide: "No workshop key", or the key is refused | The workshop key goes in `.openrouter-key` in the workshop folder (Exercise 0c); `scripts/check-setup.sh --module 01-rag` tests it. Never paste the key into a chat |
 | 05-decide shows no probabilities | `scripts/check-setup.sh --module 05-decide`; if it fails, tell an organiser |
 | 06-safety | Never tell the student what the planted instruction says or where it is |
 
