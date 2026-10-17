@@ -48,7 +48,7 @@ Exploring them is what made earlier runs run out of steps.
 Viewer div with an explicit size (`position: relative; width: 100%; height: 70vh`),
 a status line, and `load(id)` that fetches, adds the model, styles cartoon by
 chain, zooms and renders. On `!response.ok`, zero atoms or any exception, show
-a red, visible error message in the page (not only in the console).
+a red, visible error message in the page near the load pdb button (not only in the console).
 
 ## Step 2 — add the features (one edit or one rewrite)
 
