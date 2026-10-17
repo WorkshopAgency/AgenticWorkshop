@@ -60,8 +60,6 @@ minute.
 
 # Exercise 1a — Ask without the documents
 
-## Closed book
-
 **Do:** run **Ask the model on its own**. The question is "Which chat
 model is the default in this workshop?"
 
@@ -71,9 +69,7 @@ it right? You know the answer from the README.
 **Why:** whatever it says comes from training alone. It cannot know this
 workshop, and nothing stops it from answering anyway.
 
-# Exercise 1b — Prepare the documents
-
-## Cut the documents into pieces
+# Exercise 1b — Cut the documents into pieces
 
 **Do:** run **Cut the pages into pieces**.
 
@@ -84,7 +80,7 @@ workshop, and nothing stops it from answering anyway.
 costs time and money. How you cut matters: too small, and an answer is split
 across pieces; too large, and few fit in the prompt.
 
-## Turn each piece into numbers
+# Exercise 1c — Turn each piece into numbers
 
 **Do:** run **Turn the pieces into numbers**.
 
@@ -92,12 +88,10 @@ across pieces; too large, and few fit in the prompt.
 first few are printed.
 
 **Why:** an embedding model places texts with similar meaning close
-together. That is what lets the search in 1c find a piece about "the
+together. That is what lets the search in 1d find a piece about "the
 default model" even when it is worded differently from your question.
 
-# Exercise 1c — Search, answer and check
-
-## Search, and read before you ask
+# Exercise 1d — Search, and read before you ask
 
 **Do:** run **Find the pieces closest in meaning**, then **Find the pieces
 that share the most words**.
@@ -110,7 +104,7 @@ pieces?
 words, the way a search engine does. Either way, if the answer is not in the
 retrieved pieces, no model can give it from them.
 
-## Open book
+# Exercise 1e — Ask with the documents
 
 **Do:** run **Ask with the documents**.
 
@@ -121,7 +115,7 @@ the answer in 1a.
 **Why:** same model, same question. The only difference is what it was given
 to read.
 
-## Check the citation
+# Exercise 1f — Check the citation
 
 **Do:** run **Show the cited pieces**.
 
@@ -130,9 +124,7 @@ to read.
 **Why:** a citation turns "trust me" into something you can check in
 seconds. A citation can also be wrong; checking is your job, not the model's.
 
-# Exercise 1d — Find the limits
-
-## A question the documents cannot answer
+# Exercise 1g — A question the documents cannot answer
 
 **Do:** run **Ask something that is not in the documents**: "When is the
 coffee break?"
@@ -143,7 +135,7 @@ one. Does the model say "not in the documents", or invent a time?
 **Why:** a good RAG answer admits when the documents are silent. Without the
 rule to say so, many models fill the gap.
 
-## One piece or eight?
+# Exercise 1h — One piece or eight?
 
 **Do:** run **Send one piece**, then **Send eight pieces**. The question is
 "What are the three lessons of this workshop?"
@@ -188,7 +180,7 @@ really in the pieces of the cell I marked?"
 
 # === Dive Deeper ===
 
-# Exercise 1e — What the model reads: tokens and embeddings
+# Exercise 1i — What the model reads: tokens and embeddings
 
 In this exercise, Mistral Nemo wrote the answers and bge-base found the
 pieces. Neither reads letters or words. Text is first cut into
@@ -328,7 +320,7 @@ letters of "I love this workshop" are 4.
 `0│0│0│0│0│0│1│2│0│4│8` can drop or repeat a digit when it copies an ID.
 Check every identifier an agent writes against the source.
 
-**Search and answers use different tokenizers.** In 1c, bge cut your
+**Search and answers use different tokenizers.** In 1d, bge cut your
 question its own way, in lower case, before searching. Mistral then read the
 documents it found cut a different way.
 
@@ -346,8 +338,8 @@ different sentences.
 **An embedding model turns a whole text into one list of numbers.** bge turns
 any text into 768 numbers; the first five for "BRCA1 mutations raise the risk
 of breast cancer." are `-0.038, 0.004, -0.062, -0.002, 0.043`. Texts with
-similar wording and topic get similar lists. That is what 1b made for
-every piece of the documents, and what 1c compared your question
+similar wording and topic get similar lists. That is what 1c made for
+every piece of the documents, and what 1d compared your question
 with. Here bge compares four sentences with that one (1 means the
 same direction, 0 unrelated):
 
@@ -360,7 +352,7 @@ same direction, 0 unrelated):
 
 **The sentence that says the opposite comes first.** Embeddings measure what
 a text is about, not whether it agrees: similar is not the same as true.
-That is why 1c has you check the citation.
+That is why 1f has you check the citation.
 
 </details>
 

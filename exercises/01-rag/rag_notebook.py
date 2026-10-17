@@ -25,14 +25,14 @@ closed = rag.answer(question)
 # %% Cut the pages into pieces
 pieces = rag.cut()
 
-# %% [markdown] 1b · Turn each piece into numbers
+# %% [markdown] 1c · Turn each piece into numbers
 # An embedding model turns each piece into a long list of numbers that
 # captures its meaning. Pieces about similar things get similar numbers.
 
 # %% Turn the pieces into numbers
 index = rag.embed(pieces)
 
-# %% [markdown] 1c · Search
+# %% [markdown] 1d · Search, and read before you ask
 # The question is turned into numbers too, and the closest pieces win. Read
 # them before you ask the model anything: is the answer in there? Then the
 # same search by shared words, the way a search engine does it.
@@ -43,21 +43,21 @@ hits = rag.find(question, index, k=3)
 # %% Find the pieces that share the most words
 word_hits = rag.find(question, index, k=3, words=True)
 
-# %% [markdown] 1c · Ask with the documents
+# %% [markdown] 1e · Ask with the documents
 # Now the same question, with the pieces and strict rules: answer only from
 # the pieces, and cite them. Compare with the answer in 1a.
 
 # %% Ask with the documents
 reply = rag.answer(question, hits)
 
-# %% [markdown] 1c · Check the citation
+# %% [markdown] 1f · Check the citation
 # A citation is a claim. Here are the cited pieces in full: is the answer
 # really in them?
 
 # %% Show the cited pieces
 rag.cited(reply, hits)
 
-# %% [markdown] 1d · A question the documents cannot answer
+# %% [markdown] 1g · A question the documents cannot answer
 # There is no coffee break in this workshop, and the pages never mention one.
 # Does the model say so, or invent a time?
 
@@ -65,7 +65,7 @@ rag.cited(reply, hits)
 q7 = "When is the coffee break?"
 reply7 = rag.answer(q7, rag.find(q7, index, k=3))
 
-# %% [markdown] 1d · One piece or eight?
+# %% [markdown] 1h · One piece or eight?
 # How many pieces you send is a trade-off: too few can miss half the answer,
 # too many add noise and cost. Run both and compare.
 
