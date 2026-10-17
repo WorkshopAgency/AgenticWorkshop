@@ -69,9 +69,7 @@ required to participate.
    **On both:** `npm install -g @opencode/cli` installs the same OpenCode if
    you prefer npm. If you already have OpenCode v2, run `opencode upgrade`
    instead. The terminal version (CLI) is preferred; OpenCode Desktop is also
-   supported, and the CLI can run in a browser too, at no extra cost. If the
-   setup check in step 5 reports an old Python after this, run
-   `uv python update-shell` and open one more terminal.
+   supported, and the CLI can run in a browser too, at no extra cost.
 2. Go to or make a folder where you want the workshop to be.
 3. Get the workshop, either with Git:
    `git clone https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026.git`
