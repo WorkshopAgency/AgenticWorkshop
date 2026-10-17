@@ -230,6 +230,11 @@ plugin is code that runs inside OpenCode; Exercise 3 says more.
    > length against bill depth. List pandas and matplotlib in a
    > script block.
 
+   A notebook here is a plain Python file. Every line that starts with
+   `# %%` begins a new cell, and the words after it are the cell's title,
+   as in VS Code and Jupytext. The script block at the top lists the
+   packages the notebook needs.
+
 3. Open the panel with `/notebook outputs/02-skills/penguins.py`. Move with
    `↑` `↓`, run a cell with `r`, all of them with `a`, open a plot with `o`.
 4. Mark the missing-values cell with `space`, go back to the chat with
