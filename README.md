@@ -24,29 +24,47 @@ required to participate.
    `curl -fsSL https://opencode.ai/v2/install | bash`          or
    `npm install -g @opencode/cli`<br>
    Use the latest version; if you already have v2, run `opencode upgrade`.
-3. Go to or make a folder where you want the workshop to be.
-4. Get the workshop, either with Git:
+3. Install [`uv`](https://docs.astral.sh/uv/) and **Python 3.10 or later**,
+   the only other things the exercises need (no Python packages; uv fetches
+   them when needed). In a terminal (on Windows, inside WSL2):
+
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+
+   Open a new terminal and check `uv --version`. Then check
+   `python3 --version`. If it says 3.10 or later, you are done. If it is
+   older or missing (Macs come with 3.9), let uv install a current Python:
+
+   ```bash
+   uv python install 3.12 --default
+   ```
+
+   Open a new terminal and check `python3 --version` again. If it still shows
+   the old version, run `uv python update-shell` and open one more terminal.
+   (On a Mac, `brew install uv python` does both; on Ubuntu or WSL2,
+   `sudo apt install python3` gives a recent Python.)
+4. Go to or make a folder where you want the workshop to be.
+5. Get the workshop, either with Git:
    `git clone https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026.git`
    or by [downloading the ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip) and unzipping it.
    This creates the workshop folder where the rest of the workshop will be. It can be renamed, but the text calls it the workshop root, and every path you will type is
    relative to it.
-5. In **OpenCode Desktop**, open that extracted folder as your project—the
+6. In **OpenCode Desktop**, open that extracted folder as your project—the
    folder containing both `README.md` and `opencode.json`, not its parent.
    For the terminal version, run `opencode` from inside that folder, or
    `opencode serve` for the browser version.
-6. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
-7. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. There are subfolders in the workshop root for different exercises and you can create your own.
+7. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
+8. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. There are subfolders in the workshop root for different exercises and you can create your own.
    Go in those and run `opencode` for a clean start for the project/task/exercise. Exiting and running opencode again is a common way for fresh starts
    and incorporating new skills, etc.
-8. The default model is **Big Pickle**, a free OpenCode model. Other models
+9. The default model is **Big Pickle**, a free OpenCode model. Other models
    are in the model selector (`/models` in the terminal version); see
    [the models you can use](#llm-models-you-can-use).
 
-All modules need Python **3.10 or later** (`python3 --version`), with no
-additional Python packages, and [`uv`](https://docs.astral.sh/uv/)
-(`curl -LsSf https://astral.sh/uv/install.sh | sh`, inside WSL2 on Windows),
-which starts the notebook's Python and the database server in Exercise 4.
-No GitHub account is needed during the workshop.
+uv starts the notebook's Python and the database server in Exercise 4;
+Python runs the scripts in the exercises and the ones the agents write. No
+GitHub account is needed during the workshop.
 
 <details>
 <summary>Coming from OpenCode v1, and your global settings</summary>

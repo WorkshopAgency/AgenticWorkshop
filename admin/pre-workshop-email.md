@@ -19,11 +19,17 @@ about 10 minutes.
 
    If you already have OpenCode v2, run `opencode upgrade` instead. Check with
    `opencode --version`.
-3. **Install `uv`** (it starts the notebooks' Python, and a database server in one exercise):
+3. **Install `uv` and Python 3.10 or later** (uv starts the notebooks' Python
+   and a database server in one exercise; Python runs the exercise scripts):
 
    ```bash
    curl -LsSf https://astral.sh/uv/install.sh | sh
    ```
+
+   Open a new terminal and check `python3 --version`. If it is older than
+   3.10 or missing (Macs come with 3.9), run `uv python install 3.12 --default`
+   and open a new terminal. If `python3 --version` still shows the old
+   version, run `uv python update-shell` and open one more terminal.
 
 4. **Get the workshop material:**
 
