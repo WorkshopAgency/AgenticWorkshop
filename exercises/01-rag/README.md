@@ -200,8 +200,7 @@ This part is for reading; running something is optional, at the end. Below,
 colours separate the tokens, `␣` is a space that belongs to a token, and
 `##` (bge only) means "continues the previous word".
 
-<details>
-<summary><b>What are the tokens?</b></summary>
+What are the tokens?
 
 **Everyday English costs the same everywhere.** "I love this workshop" is 4
 tokens for all three models: common words are whole tokens in every
@@ -242,10 +241,7 @@ Mistral Nemo reads every digit as its own token; GPT-4o groups up to three.
 And `BRCA1` at the start of a line is `BR│CA│1` for Mistral, but `␣BRCA│1`
 after a space: the same gene, different tokens.
 
-</details>
-
-<details>
-<summary><b>From DNA to protein: tokens are not codons</b></summary>
+From DNA to protein: tokens are not codons
 
 The first 27 bases of the BRCA1 coding sequence are nine codons, which code
 for the first nine amino acids of the protein:
@@ -281,10 +277,7 @@ for rare or ambiguous residues, and markers such as start, end and mask.
 Every amino acid is its own token, so every residue gets its own numbers,
 and the embeddings it makes describe proteins, not sentences about them.
 
-</details>
-
-<details>
-<summary><b>Below the tokens: UTF-8 bytes</b></summary>
+Below the tokens: UTF-8 bytes
 
 A computer stores text as bytes. UTF-8 uses one byte for an English letter or
 a digit, two for a Greek letter such as `α` (`CE B1`), and four for an emoji
@@ -306,10 +299,7 @@ into tokens that are bytes, none of them a character on its own (`20` is the
 space before it), and bge does not see it at all. What the search model
 cannot see, it cannot find.
 
-</details>
-
-<details>
-<summary><b>Why does it matter?</b></summary>
+Why does it matter?
 
 **Limits and cost are counted in tokens.** The context window, the price and
 the speed all depend on the number of tokens. IDs, numbers and sequences
@@ -324,10 +314,7 @@ Check every identifier an agent writes against the source.
 question its own way, in lower case, before searching. Mistral then read the
 documents it found cut a different way.
 
-</details>
-
-<details>
-<summary><b>From tokens to numbers: embeddings</b></summary>
+From tokens to numbers: embeddings
 
 **Inside a model, each token becomes a list of numbers.** The model's first
 layer looks up each token in a big table, where every row holds a few hundred
@@ -354,10 +341,7 @@ same direction, 0 unrelated):
 a text is about, not whether it agrees: similar is not the same as true.
 That is why 1f has you check the citation.
 
-</details>
-
-<details>
-<summary><b>The whole path, from your text to the next token</b></summary>
+The whole path, from your text to the next token
 
 ```
 your text
@@ -377,8 +361,6 @@ per text. A chat model like Mistral goes all the way down. The last step,
 the probabilities for the next token, is what the decision model in
 [Exercise 5](../05-decide/README.md) reads instead of the model's written
 answer.
-
-</details>
 
 **Try it yourself (optional).** See how the three tokenizers cut your own
 gene names, sample IDs or sequences:
