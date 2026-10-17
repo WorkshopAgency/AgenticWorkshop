@@ -32,16 +32,15 @@ required to participate.
    curl -LsSf https://astral.sh/uv/install.sh | sh
    ```
 
-   Open a new terminal and check `uv --version`. Then check
-   `python3 --version`. If it says 3.10 or later, you are done. If it is
-   older or missing (Macs come with 3.9), let uv install a current Python:
+   If you have no Python, or one older than 3.10 (Macs come with 3.9; the
+   setup check in step 7 tells you), let uv install a current one:
 
    ```bash
    uv python install 3.12 --default
    ```
 
-   Open a new terminal and check `python3 --version` again. If it still shows
-   the old version, run `uv python update-shell` and open one more terminal.
+   Then open a new terminal. If the setup check still reports the old Python,
+   run `uv python update-shell` and open one more terminal.
    (On a Mac, `brew install uv python` does both; on Ubuntu or WSL2,
    `sudo apt install python3` gives a recent Python.)
 4. Go to or make a folder where you want the workshop to be.
