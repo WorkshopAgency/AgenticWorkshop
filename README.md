@@ -12,7 +12,7 @@ required to participate.
 
 [Download the workshop ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip) ·
 [Quick start](#quick-start--download-extract-and-open) ·
-[Exercises](#exercises)
+[Agenda](#agenda)
 
 ## Quick start — download, extract and open
 
@@ -129,6 +129,114 @@ model, needs, and a *Done when* check.
 | 10 | [Exercise 5 — Decision model](exercises/05-decide/README.md) | Typed decisions with probabilities instead of prose |
 | 10 | [Exercise 6 — Safety](exercises/06-safety/README.md) | Prompt injection, and what permissions do and don't stop |
 | 10 | Wrap-up | When to use an agent, and how to check one |
+
+<details>
+<summary>The words we use: harness, skill, agent, MCP, plugin</summary>
+
+* **Harness**: the program around the model. Here it is **OpenCode**: it builds
+  what the model sees, runs the tools on your laptop, and asks you first.
+* **Skills**: reusable instructions an agent loads for a task, optionally with
+  supporting scripts. A skill explains a workflow; it is not itself a tool call.
+* **Agents**: AI components that use skills to achieve a goal. An agent can
+  **reason, plan, choose skills, execute actions, and adapt** based on the
+  results.
+* **MCP**: a standard way to connect the agent to a capability that lives
+  outside OpenCode, such as a database or a public biological data service.
+  The server is either a program OpenCode starts on your laptop, or a remote
+  service it connects to over the network.
+* **Plugins**: code that changes OpenCode itself, such as the sidebar and the
+  notebook you install in Exercise 0. A plugin runs with your permissions and
+  nothing sandboxes it, so look before you install one.
+
+**Simple example:** a travel-planning agent might have skills such as *search
+flights*, *find hotels*, and *create itinerary*. The **agent** decides which
+skills to use and in what order to plan the trip.
+
+</details>
+
+<details>
+<summary>The workshop folder: where agents, skills and plugins go</summary>
+
+Open the workshop root folder. OpenCode reads agents and skills from
+`.opencode/`; the exercise folders hold the teaching materials.
+
+
+This is the structure of the extracted folder. Everything you will be asked to
+run or open is a path relative to this root, so the folder's own name does not
+matter.
+```text
+AgenticWorkshop/
+   opencode.json                Model connections, limits, permissions, MCP servers
+   admin.md                     Server notes for the organisers
+   scripts/check-setup.sh       Is this laptop ready? (--module <name> for one module)
+   .opencode/                   What OpenCode loads: agents, skills and plugins
+      agents/
+         HALp.md                Hidden hint helper, invoked with /halp
+         bad-agent.md           Basic PDB agent example, Exercise 3a
+         good-agent.md          More explicit PDB agent example, Exercise 3a
+         genome-coordinator.md  Delegates to the four specialists below, Exercise 3c
+         genome-auditor.md      Checks data, units and missing values
+         genome-analyst.md      Writes and runs the analysis
+         genome-visualizer.md   Makes the plots
+         genome-reviewer.md     Independently rechecks the results
+         safe-analyst.md        Locked-down data agent, Exercise 6
+      commands/
+         halp.md                The /halp command
+      scripts/
+         halp-context.py        Show safe limits or adjust one context with approval
+      skills/
+         skill-builder/         A subfolder INSIDE skills
+            SKILL.md            The skill-builder instructions
+      plugins/                  The plugins you clone in Exercise 0 (not in Git)
+   exercises/
+      00-plugins/               Install the two plugins and the workshop key
+      01-rag/                   Retrieval-augmented generation, as a notebook
+      02-skills/
+      03-agents/
+         starter/csv-profile/   A ready-made skill for Exercise 3b
+      04-mcp/
+         data/                  The PDB snapshot, and byo/ for three other datasets
+         scripts/               Build the DuckDB database
+      05-decide/                A typed decision model built on token probabilities
+      06-safety/                A data file with a planted instruction
+   outputs/                     Where your results go, one folder per module (not in Git)
+   mcp/                         Notes on the four MCP servers this project configures
+   slides/                      The concepts deck, published from Markdown
+```
+OpenCode reads `.opencode/` folder for project agents, skills and plugins, while `opencode.json` in the workshop root
+contains the model connections, limits and permissions.
+
+`skills` is the parent skill folder and `skill-builder` - the workshop supplied skill - is a separate subfolder
+inside it. The complete path is `.opencode/skills/skill-builder/SKILL.md`.
+GitHub collapses a chain of folders with a single child into one line, such
+as `skills/skill-builder`; that is a compact display, not a single folder
+name.
+
+Each additional skill gets its own subfolder and `SKILL.md`. Agent definitions
+are Markdown files directly inside `.opencode/agents/`. A `.gitkeep` file in
+an otherwise empty folder is only a Git/ZIP placeholder, not an agent or skill.
+
+Files inside `exercises/` are not loaded by OpenCode. An agent or skill only
+takes effect once it is in `.opencode/agents/` or `.opencode/skills/`, which
+is why Exercise 3b asks you to copy its starter skill there. Plugins are
+loaded from `.opencode/plugins/` when OpenCode starts, which is why Exercise 0
+clones the plugins there and then restarts OpenCode.
+
+The leading dot may hide `.opencode` in your file browser, but OpenCode can
+still read it. Do not rename it, move it out of the project, or put
+`opencode.json` inside it. Open the repository root, not `.opencode` itself.
+
+The `exercises/` and `mcp/` folders organize workshop materials. Creating
+an `mcp/` folder does not activate an MCP server: `mcp/` holds documentation
+only. An MCP server is configured under `mcp` in `opencode.json`, and is
+either a program downloaded on demand or a remote service you connect to.
+Four are configured and all ship switched off; Exercise 4 turns one on.
+See [mcp/README.md](mcp/README.md) for what each provides.
+
+See the OpenCode documentation for [agents](https://opencode.ai/v2/docs/agents/)
+and [skills](https://opencode.ai/v2/docs/skills/).
+
+</details>
 
 ## How OpenCode works in this workshop
 
@@ -411,113 +519,6 @@ See [supported providers and sign-in methods](https://opencode.ai/v2/docs/provid
 Changing the selected model changes the chat model. Background tasks, such
 as naming the chat, use a small model from the same provider as your chat, so
 they do not send your conversation anywhere else.
-
-</details>
-
-## Exercises
-
-- **Exercise 0** — [Plugins](exercises/00-plugins/README.md).
-- **Exercise 1** — [RAG](exercises/01-rag/README.md).
-- **Exercise 2** — [Skills](exercises/02-skills/README.md).
-- **Exercise 3** — [Agents](exercises/03-agents/README.md).
-- **Exercise 4** — [MCP](exercises/04-mcp/README.md).
-- **Exercise 5** — [Decision model](exercises/05-decide/README.md).
-- **Exercise 6** — [Safety](exercises/06-safety/README.md).
-
-<details>
-<summary>What skills, agents and MCP are</summary>
-
-We will introduce skills, agents and MCP as cornerstones of agentic processing through exercises.
-* **Skills**: Reusable instructions an agent loads for a task, optionally with supporting scripts. A skill explains a workflow; it is not itself a tool call.
-* **Agents**: AI components that use skills to achieve a goal. An agent can **reason, plan, choose skills, execute actions, and adapt** based on the results.
-* **MCP**: A standard way to connect the agent to a capability that lives outside OpenCode, such as a database or a public biological data service. The server is either a program OpenCode starts on your laptop, or a remote service it connects to over the network.
-
-**Simple example:**
-A travel-planning agent might have skills such as *search flights*, *find hotels*, and *create itinerary*. The **agent** decides which skills to use and in what order to plan the trip.
-
-</details>
-
-<details>
-<summary>The workshop folder: where agents, skills and plugins go</summary>
-
-Open the workshop root folder. OpenCode reads agents and skills from
-`.opencode/`; the exercise folders hold the teaching materials.
-
-
-This is the structure of the extracted folder. Everything you will be asked to
-run or open is a path relative to this root, so the folder's own name does not
-matter.
-```text
-AgenticWorkshop/
-   opencode.json                Model connections, limits, permissions, MCP servers
-   admin.md                     Server notes for the organisers
-   scripts/check-setup.sh       Is this laptop ready? (--module <name> for one module)
-   .opencode/                   What OpenCode loads: agents, skills and plugins
-      agents/
-         HALp.md                Hidden hint helper, invoked with /halp
-         bad-agent.md           Basic PDB agent example, Exercise 3a
-         good-agent.md          More explicit PDB agent example, Exercise 3a
-         genome-coordinator.md  Delegates to the four specialists below, Exercise 3c
-         genome-auditor.md      Checks data, units and missing values
-         genome-analyst.md      Writes and runs the analysis
-         genome-visualizer.md   Makes the plots
-         genome-reviewer.md     Independently rechecks the results
-         safe-analyst.md        Locked-down data agent, Exercise 6
-      commands/
-         halp.md                The /halp command
-      scripts/
-         halp-context.py        Show safe limits or adjust one context with approval
-      skills/
-         skill-builder/         A subfolder INSIDE skills
-            SKILL.md            The skill-builder instructions
-      plugins/                  The plugins you clone in Exercise 0 (not in Git)
-   exercises/
-      00-plugins/               Install the two plugins and the workshop key
-      01-rag/                   Retrieval-augmented generation, as a notebook
-      02-skills/
-      03-agents/
-         starter/csv-profile/   A ready-made skill for Exercise 3b
-      04-mcp/
-         data/                  The PDB snapshot, and byo/ for three other datasets
-         scripts/               Build the DuckDB database
-      05-decide/                A typed decision model built on token probabilities
-      06-safety/                A data file with a planted instruction
-   outputs/                     Where your results go, one folder per module (not in Git)
-   mcp/                         Notes on the four MCP servers this project configures
-   slides/                      The concepts deck, published from Markdown
-```
-OpenCode reads `.opencode/` folder for project agents, skills and plugins, while `opencode.json` in the workshop root
-contains the model connections, limits and permissions.
-
-`skills` is the parent skill folder and `skill-builder` - the workshop supplied skill - is a separate subfolder
-inside it. The complete path is `.opencode/skills/skill-builder/SKILL.md`.
-GitHub collapses a chain of folders with a single child into one line, such
-as `skills/skill-builder`; that is a compact display, not a single folder
-name.
-
-Each additional skill gets its own subfolder and `SKILL.md`. Agent definitions
-are Markdown files directly inside `.opencode/agents/`. A `.gitkeep` file in
-an otherwise empty folder is only a Git/ZIP placeholder, not an agent or skill.
-
-Files inside `exercises/` are not loaded by OpenCode. An agent or skill only
-takes effect once it is in `.opencode/agents/` or `.opencode/skills/`, which
-is why Exercise 3b asks you to copy its starter skill there. Plugins are
-loaded from `.opencode/plugins/` when OpenCode starts, which is why Exercise 0
-clones the plugins there and then restarts OpenCode.
-
-The leading dot may hide `.opencode` in your file browser, but OpenCode can
-still read it. Do not rename it, move it out of the project, or put
-`opencode.json` inside it. Open the repository root, not `.opencode` itself.
-
-The `exercises/` and `mcp/` folders organize workshop materials. Creating
-an `mcp/` folder does not activate an MCP server: `mcp/` holds documentation
-only. An MCP server is configured under `mcp` in `opencode.json`, and is
-either a program downloaded on demand or a remote service you connect to.
-Four are configured and all ship switched off; Exercise 4 turns one on.
-See [mcp/README.md](mcp/README.md) for what each provides.
-
-See the OpenCode documentation for [agents](https://opencode.ai/v2/docs/agents/)
-and [skills](https://opencode.ai/v2/docs/skills/).
 
 </details>
 
