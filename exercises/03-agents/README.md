@@ -66,7 +66,7 @@ instructions alone.
     python3 exercises/03-agents/check_viewer.py outputs/03-agents/bad-agent --browser
     python3 exercises/03-agents/check_viewer.py outputs/03-agents/good-agent --browser
 
-Without Chrome, leave out `--browser`.
+Without Chrome, leave out `--browser` and just drag the html file to your browser.
 
 **Look for:** the score out of 7, and the reason next to each check.
 
