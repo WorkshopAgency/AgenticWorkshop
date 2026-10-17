@@ -58,6 +58,8 @@ Run the first cell, **Connect to the models**. It should say that the
 workshop key works. The first run starts a Python kernel and may take a
 minute.
 
+# Exercise 1a — Ask without the documents
+
 ## 1. Closed book
 
 **Do:** run **1. Ask without the documents**. The question is "Which chat
@@ -68,6 +70,8 @@ it right? You know the answer from the README.
 
 **Why:** whatever it says comes from training alone. It cannot know this
 workshop, and nothing stops it from answering anyway.
+
+# Exercise 1b — Prepare the documents
 
 ## 2. Cut the documents into pieces
 
@@ -90,6 +94,8 @@ first few are printed.
 **Why:** an embedding model places texts with similar meaning close
 together. That is what lets the search in step 4 find a piece about "the
 default model" even when it is worded differently from your question.
+
+# Exercise 1c — Search, answer and check
 
 ## 4. Search, and read before you ask
 
@@ -123,6 +129,8 @@ to read.
 
 **Why:** a citation turns "trust me" into something you can check in
 seconds. A citation can also be wrong; checking is your job, not the model's.
+
+# Exercise 1d — Find the limits
 
 ## 7. A question the documents cannot answer
 
@@ -178,7 +186,7 @@ really in the pieces of the cell I marked?"
 
 # === Dive Deeper ===
 
-# What the model reads: tokens and embeddings
+# Exercise 1e — What the model reads: tokens and embeddings
 
 In this exercise, Mistral Nemo wrote the answers and bge-base found the
 pieces. Neither reads letters or words. Text is first cut into
