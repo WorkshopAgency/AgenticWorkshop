@@ -209,7 +209,7 @@ Exercise 3b uses a profiling skill too; it supplies its own copy, so you do
 not need to finish 2f first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
-# Dive Deeper
+ <summary><b>Dive Deeper</b></summary>
 
 <details>
   
