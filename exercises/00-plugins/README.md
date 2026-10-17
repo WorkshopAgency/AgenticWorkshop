@@ -69,7 +69,7 @@ what you looked at is what runs, even if the author changes the plugin later.
 file in the workshop folder, replacing `PASTE-THE-KEY-HERE`:
 
 ```bash
-printf '%s' 'PASTE-THE-KEY-HERE' > .openrouter-key
+echo  PASTE-THE-KEY-HERE > .openrouter-key
 ```
 
 **Why:** Exercises 1 and 5 call small models at
