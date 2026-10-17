@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Quick checks for a generated PDB viewer (Exercise 3a).
+"""Quick checks for a generated PDB viewer (Exercise 3b).
 
 Usage:
     python3 exercises/03-agents/check_viewer.py outputs/bad-agent

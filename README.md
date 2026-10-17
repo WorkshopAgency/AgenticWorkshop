@@ -220,7 +220,7 @@ AgenticWorkshop/
          HALp.md                Hidden hint helper, invoked with /halp
          bad-agent.md           Basic PDB agent example, Exercise 3a
          good-agent.md          More explicit PDB agent example, Exercise 3a
-         genome-coordinator.md  Delegates to the four specialists below, Exercise 3c
+         genome-coordinator.md  Delegates to the four specialists below, Exercise 3e
          genome-auditor.md      Checks data, units and missing values
          genome-analyst.md      Writes and runs the analysis
          genome-visualizer.md   Makes the plots
@@ -239,7 +239,7 @@ AgenticWorkshop/
       01-rag/                   Retrieval-augmented generation, as a notebook
       02-skills/
       03-agents/
-         starter/csv-profile/   A ready-made skill for Exercise 3b
+         starter/csv-profile/   A ready-made skill for Exercise 3d
       04-mcp/
          data/                  The PDB snapshot, and byo/ for three other datasets
          scripts/               Build the DuckDB database
@@ -264,7 +264,7 @@ an otherwise empty folder is only a Git/ZIP placeholder, not an agent or skill.
 
 Files inside `exercises/` are not loaded by OpenCode. An agent or skill only
 takes effect once it is in `.opencode/agents/` or `.opencode/skills/`, which
-is why Exercise 3b asks you to copy its starter skill there. Plugins are
+is why Exercise 3d asks you to copy its starter skill there. Plugins are
 loaded from `.opencode/plugins/` when OpenCode starts, which is why Exercise 0
 clones the plugins there and then restarts OpenCode.
 
@@ -479,9 +479,9 @@ list.
 
 | Model ID | Notes |
 |---|---|
-| `opencode/big-pickle` | **Workshop default**, and the 3c coordinator and auditor. Free-period data may be used to improve the model |
-| `opencode/mimo-v2.6-flash-free` | 3c analyst. Free-period data may be used to improve the model |
-| `opencode/space-bunny-free` | 3c visualizer and reviewer. Zero-retention provider |
+| `opencode/big-pickle` | **Workshop default**, and the 3e coordinator and auditor. Free-period data may be used to improve the model |
+| `opencode/mimo-v2.6-flash-free` | 3e analyst. Free-period data may be used to improve the model |
+| `opencode/space-bunny-free` | 3e visualizer and reviewer. Zero-retention provider |
 | `opencode/longcat-2.5-preview-free` | Zero-retention provider. Preview: may disappear |
 | `opencode/glm-5.3-flash-free` | Zero-retention provider |
 | `opencode/deepseek-v4.1-flash-free` | Zero-retention provider |
@@ -495,7 +495,7 @@ and go. A contributor model can train on what you submit to it, and the word
 `contributor` is in its model ID but **not** in the name the selector shows
 you. If you want to avoid them, check the ID rather than the name.
 
-None of the agents in exercise 3c uses a contributor model. Big Pickle and
+None of the agents in exercise 3e uses a contributor model. Big Pickle and
 MiMo may still use free-period data to improve the model, according to
 [OpenCode's model page](https://opencode.ai/docs/zen/).
 

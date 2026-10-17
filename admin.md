@@ -21,7 +21,7 @@ A session is about 2.5 hours, with up to 30 participants working alone and no br
   `top_logprobs` passed through for `qwen36` (check `app/request_compat.py`).
   Load-test with 30 simultaneous sessions before relying on them, and do not
   restart the gateway during a session.
-- **Free models.** The default chat model and the 3c team run on OpenCode's
+- **Free models.** The default chat model and the 3e team run on OpenCode's
   free models. Their rate limits are not published and may be shared by
   everyone on one network; if the room gets HTTP 429, switch people to
   another free model with `/models`.
