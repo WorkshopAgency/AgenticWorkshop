@@ -92,7 +92,7 @@ notebook's Python and the database server in Exercise 4; Python runs the
 scripts in the exercises and the ones the agents write. No GitHub account is
 needed during the workshop.
 There are subfolders in the workshop root for different exercises and you can create your own. When you create your own, you go in those 
-and run `opencode` for a clean start for the project/task/exercise. This workshop has dependencies and you need to run opencode from the root folder.
+and run `opencode` for a clean start for the project/task/exercise. This workshop has dependencies and you need to run opencode from the workshop's root folder.
 
 <details>
 <summary>Coming from OpenCode v1, and your global settings</summary>
