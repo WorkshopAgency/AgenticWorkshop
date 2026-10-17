@@ -249,4 +249,6 @@ rule that says "ask". That is why `notebook_run` only runs notebooks under
 `outputs/`, and why you read a plugin before you install it. To remove it,
 delete `.opencode/plugins/opencode-notebook` and restart OpenCode.
 
+<details>
+
 Next: [Exercise 3 — Agents](../03-agents/README.md).
