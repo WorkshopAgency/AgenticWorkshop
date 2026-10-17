@@ -206,7 +206,7 @@ pieces of up to 800 characters you cut the documents into in 1b.)
 | bge-base-en-v1.5 (finds the pieces) | WordPiece, lower case only | 30,522 tokens |
 | GPT-4o, for comparison | BPE, built from bytes (`o200k_base`) | 200,019 tokens |
 
-Read the examples first, then try your own text at the end. Below, colours
+Read the examples first, then try your own text in 1k. Below, colours
 separate the tokens, and `␣` is a space that belongs to a token.
 
 ## What are the tokens?
@@ -374,10 +374,10 @@ the probabilities for the next token, is what the decision model in
 [Exercise 5](../05-decide/README.md) reads instead of the model's written
 answer.
 
-## Try it yourself
+# Exercise 1k — Tokenize your own text
 
-**Do:** see how the three tokenizers cut your own gene names, sample IDs or
-sequences:
+**Do:** in a terminal in the workshop folder, see how the three tokenizers
+cut your own gene names, sample IDs or sequences:
 
 ```bash
 uv run exercises/01-rag/tokens.py "TP53 R175H" ENSG00000141510
@@ -385,6 +385,13 @@ uv run exercises/01-rag/tokens.py "TP53 R175H" ENSG00000141510
 
 Without text it prints the examples above. The first run downloads the three
 vocabularies, a few MB; no key is needed.
+
+**Look for:** which of your strings become many small tokens, and which
+tokenizer keeps them together best. Does bge show `[UNK]` anywhere?
+
+**Why:** the examples above are ours. Your own identifiers show where a
+model is most likely to miscount, drop a digit, or not see a character at
+all.
 
 **Discuss with your neighbour:** which of your own identifiers would a model
 most likely copy wrongly, and how would you check?
