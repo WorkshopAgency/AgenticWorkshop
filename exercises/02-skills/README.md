@@ -211,7 +211,7 @@ not need to finish 2f first. The skill file format is described at
 
 # === Dive Deeper ===
 
-## Exercise 2g — A notebook inside OpenCode
+# Exercise 2g — A notebook inside OpenCode
 
 A plugin,
 [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook), adds a
