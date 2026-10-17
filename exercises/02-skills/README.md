@@ -213,7 +213,7 @@ not need to finish 2f first. The skill file format is described at
 
 <details>
   
-## Optional extra — a notebook inside OpenCode
+# Exercise 2f - A notebook inside OpenCode
 
 For when you finish early. A plugin,
 [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook), adds a
@@ -230,7 +230,7 @@ plugin is code that runs inside OpenCode; Exercise 3 says more.
    > profiles exercises/04-mcp/data/byo/penguins.csv: its shape, missing
    > values per column, penguins per species, and a scatter plot of bill
    > length against bill depth. List pandas and matplotlib in a
-   > script block. Then run it with notebook run.
+   > script block.
 
 3. Open the panel with `/notebook outputs/02-skills/penguins.py`. Move with
    `↑` `↓`, run a cell with `r`, all of them with `a`, open a plot with `o`.
