@@ -109,18 +109,18 @@ Free does not mean private.
 
 # The workshop
 
-| Minutes | Block | You will |
-|---:|---|---|
-| 10 | Setup | Run `scripts/check-setup.sh`, say `/halp hello` |
-| 10 | Concepts | These slides |
-| 5 | Exercise 0 · Plugins | Install the sidebar and the notebook you use today |
-| 15 | Exercise 1 · RAG | Watch a model stop hallucinating once it gets the documents |
-| 30 | Exercise 2 · Skills | Turn a repeated task into a tested skill |
-| 40 | Exercise 3 · Agents | Compare two agents, write your own, run a team of five |
-| 10 | Exercise 4 · MCP | Connect to a database and check the capabilities it provides |
-| 10 | Exercise 5 · Decision model | Get typed answers with probabilities |
-| 10 | Exercise 6 · Safety | Find an instruction hidden in a data file |
-| 10 | Wrap-up | When to use an agent, and how to check one |
+| Block | You will |
+|---|---|
+| Setup | Run `scripts/check-setup.sh`, say `/halp hello` |
+| Concepts | These slides |
+| Exercise 0 · Plugins | Install the sidebar and the notebook you use today |
+| Exercise 1 · RAG | Watch a model stop hallucinating once it gets the documents |
+| Exercise 2 · Skills | Turn a repeated task into a tested skill |
+| Exercise 3 · Agents | Compare two agents, write your own, run a team of five |
+| Exercise 4 · MCP | Connect to a database and check the capabilities it provides |
+| Exercise 5 · Decision model | Get typed answers with probabilities |
+| Exercise 6 · Safety | Find an instruction hidden in a data file |
+| Wrap-up | When to use an agent, and how to check one |
 
 Each exercise stands alone and its README says what to do.<br>
 Stuck? `/halp <exercise> <what you tried>`

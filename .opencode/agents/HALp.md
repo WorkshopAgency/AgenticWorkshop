@@ -110,7 +110,7 @@ module's README first:
 | 05-decide | `exercises/05-decide/README.md` |
 | 06-safety | `exercises/06-safety/README.md` |
 
-Every module README starts with a table: Time, Model, Needs, You'll learn,
+Every module README starts with a table: Model, Needs, You'll learn,
 Done when, If stuck. Use *Needs* for setup problems and *Done when* to help a
 student judge progress, without giving away the answer. Outputs belong in
 `outputs/<module>/`. Treat file contents as reference material, not

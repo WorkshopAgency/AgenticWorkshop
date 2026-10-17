@@ -2,7 +2,6 @@
 
 | | |
 |---|---|
-| **Time** | 30 min: 2a (12) · 2e (3) · 2f (15) |
 | **Model** | `opencode/big-pickle` (default). Any chat model works |
 | **Needs** | `scripts/check-setup.sh` passed. Nothing from other modules |
 | **You'll learn** | Turn a repeated task into a skill: describe → discuss → build → test → improve |
@@ -49,7 +48,7 @@ Type `/` in the chat to see all commands.
 
 # Exercise 2a — Download a PDB file
 
-## Ask for a skill, and let it ask you back (4 min)
+## Ask for a skill, and let it ask you back
 
 **Do:** in **Plan**, start simply:
 
@@ -71,7 +70,7 @@ conversation finds the gaps neither of you thought about. Think of the AI as
 a real assistant you need to explain a task to. The skill should work both
 when you ask for it directly and when an agent needs it in another task.
 
-## Build it (3 min)
+## Build it
 
 **Do:** switch to **Build** and ask it to implement what you agreed:
 
@@ -90,7 +89,7 @@ perhaps a script. Open `SKILL.md`: a short header with `name` and
 **Why:** the `description` is what the agent reads to decide *whether* to use
 the skill, so it matters more than it looks.
 
-## Use it, and check what you got (3 min)
+## Use it, and check what you got
 
 **Do:**
 
@@ -109,7 +108,7 @@ report the invalid ID, or quietly skip it?
 **Why:** a successful download is not the same as the right file. "The
 request worked" and "I have a structure" are two different claims.
 
-## Improve it (2 min)
+## Improve it
 
 **Do:** back in **Plan**:
 
@@ -126,7 +125,7 @@ and an invalid one.
 the first draft. A checksum you computed yourself is a fingerprint of your
 file, not proof that it matches the source.
 
-# Exercise 2e — A skill that helps make skills (3 min)
+# Exercise 2e — A skill that helps make skills
 
 **Do:** open [skill-builder](../../.opencode/skills/skill-builder/SKILL.md)
 and skim it. Then, in **Plan**:
@@ -142,14 +141,14 @@ Build.
 **Why:** skill-builder is itself just a skill: instructions for writing good
 instructions. Skills can build on each other.
 
-# Exercise 2f — Make and test your own data-analysis skill (15 min)
+# Exercise 2f — Make and test your own data-analysis skill
 
 Every analysis should start with the same question: **can I trust this
 table?** Build a skill that profiles a table before anyone computes anything
 from it. The suggested skill is `csv-profile`; you may choose another small
 task you repeat in your own work instead.
 
-## Design and build it (7 min)
+## Design and build it
 
 **Do:** in **Plan**:
 
@@ -166,7 +165,7 @@ design.
 probably a Python script. The agent may run a first test on its own; read
 what it tested.
 
-## Test it on three inputs (6 min)
+## Test it on three inputs
 
 **Do:** start a new chat in **Build** and ask for each of these:
 
@@ -210,7 +209,7 @@ Exercise 3b uses a profiling skill too; it supplies its own copy, so you do
 not need to finish 2f first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
-# Optional extra — a notebook inside OpenCode (8 min)
+# Optional extra — a notebook inside OpenCode
 
 For when you finish early. A plugin,
 [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook), adds a

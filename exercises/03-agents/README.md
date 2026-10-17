@@ -2,7 +2,6 @@
 
 | | |
 |---|---|
-| **Time** | 40 min: 3a (10) · 3b (10) · 3c (10, plus discussion) |
 | **Model** | 3a: `opencode/big-pickle`, selected by you for both agents. 3b: your choice. 3c: the coordinator on Big Pickle; each specialist's own model is set in its file |
 | **Needs** | `scripts/check-setup.sh` passed. opencode-sidebar-plus from Exercise 0 helps in 3c. Nothing else from other modules: 3b supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
@@ -40,7 +39,7 @@ and the same 20-step limit:
 | [bad-agent](../../.opencode/agents/bad-agent.md) | Three vague sentences: "create an interactive viewer… make it look good". It is not told to make mistakes |
 | [good-agent](../../.opencode/agents/good-agent.md) | A short recipe: a fixed library and data source, the exact functions to use, a page that loads first and then a checklist of features, and what to tell you to click |
 
-## 1. Run both (about 6 min)
+## 1. Run both
 
 **Do:** start a new chat, select `bad-agent` (shift+tab in the terminal, the
 agent selector in Desktop) and send:
@@ -61,7 +60,7 @@ unfinished page is part of the result.
 **Why:** same model, same tools, same limit. Any difference comes from the
 instructions alone.
 
-## 2. Score both (1 min)
+## 2. Score both
 
 **Do:**
 
@@ -79,7 +78,7 @@ score 7/7 and still not draw anything. Did either agent read
 `check_viewer.py`? `--browser` checks that something was actually drawn and
 saves a screenshot.
 
-## 3. Click through it (3 min)
+## 3. Click through it
 
 **Do:** open each `index.html` in your browser and check:
 
@@ -108,7 +107,7 @@ suggested job: an agent that **checks a dataset before anyone analyses it**,
 using a profiling skill. Other jobs are fine too, such as reviewing an
 analysis or visualizing a structure, as long as you can check the result.
 
-## Install the skill it will use (1 min)
+## Install the skill it will use
 
 **Do:** this exercise supplies the skill, so you do not need Exercise 2. From
 the workshop folder (if you built your own `csv-profile` in 2f, keep yours
@@ -121,7 +120,7 @@ cp -r exercises/03-agents/starter/csv-profile .opencode/skills/
 **Look for:** `/skills` in OpenCode lists `csv-profile` (run `opencode reload`
 if not).
 
-## Create the agent (5 min)
+## Create the agent
 
 **Do:** ask Build to create `.opencode/agents/data-checker.md` (or
 `my-agent.md`, any name), or write the file yourself. The filename becomes
@@ -326,7 +325,7 @@ All five are free external models: prompts, data and results leave DTU, and
 Big Pickle and MiMo may use them to improve their models. That is why the
 task uses public NCBI data.
 
-## Run it (about 4 min)
+## Run it
 
 **Do:** check that the models are still offered:
 
@@ -358,7 +357,7 @@ asking, and every other command still asks you. The reviewer runs on a
 different model from the analyst and recomputes everything from the raw
 data, so it does not have to trust the analyst's summary.
 
-## What to inspect (about 5 min)
+## What to inspect
 
 **Do:** open the run folder under `outputs/genome-team/`. Read `report.md`,
 then check it against the specialists' own files:

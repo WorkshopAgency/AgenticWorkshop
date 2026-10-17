@@ -2,7 +2,6 @@
 
 | | |
 |---|---|
-| **Time** | 10 min |
 | **Model** | Llama 3.1 8B at OpenRouter, with the workshop key |
 | **Needs** | The workshop key from Exercise 0, and `scripts/check-setup.sh --module 05-decide` passed. Python 3.10+, nothing to install |
 | **You'll learn** | How to get a yes/no, a choice or a score with a probability from a model, instead of a paragraph you have to interpret |
@@ -40,7 +39,7 @@ call the model directly, so you can see exactly what you get back. The model
 runs at OpenRouter with the workshop key from Exercise 0, so the descriptions
 you send leave your laptop; they are made up for the exercise.
 
-## 1. Run the three examples (3 min)
+## 1. Run the three examples
 
 **Do:**
 
@@ -63,7 +62,7 @@ wanted to say something else.
 only return one of its options; without a "none of these" option it would
 have to pick a fix. Designing the options is part of designing the decision.
 
-## 2. Stated confidence versus probability (2 min)
+## 2. Stated confidence versus probability
 
 **Do:**
 
@@ -81,7 +80,7 @@ it is how likely the model was to write that letter. If reversing the options
 moves it, the answer depends on the layout of the prompt as well as on the
 plot.
 
-## 3. Write your own question (3 min)
+## 3. Write your own question
 
 **Do:**
 

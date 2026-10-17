@@ -1,7 +1,7 @@
 # Agentic Workshop
 
 **Building and employing agents for data analysis and visualization**
-Hands-on, individual work, about 2 h 30 min.
+Hands-on, individual work.
 Dimitrios S. Kanakoglou (dimkan@dtu.dk) · Peter Wad Sackett (pwsa@dtu.dk)
 
 You work in OpenCode on your own laptop. The chat uses OpenCode's free
@@ -114,21 +114,21 @@ that inspires you to finish this workshop (hint: maybe `matrix` will do the tric
 ## Agenda
 
 Every module stands alone: you can start any of them from a fresh chat, skip
-one, or come back to it later. Each module's README starts with its time,
+one, or come back to it later. Each module's README starts with its
 model, needs, and a *Done when* check.
 
-| Minutes | Module | You'll learn |
-|---:|---|---|
-| 10 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
-| 10 | Concepts (slides) | Model, harness, tool, skill, agent, MCP |
-| 5 | [Exercise 0 — Plugins](exercises/00-plugins/README.md) | What a plugin is; install the two you use today |
-| 15 | [Exercise 1 — RAG](exercises/01-rag/README.md) | Why retrieval stops a weak model inventing answers |
-| 30 | [Exercise 2 — Skills](exercises/02-skills/README.md) | Turn a repeated task into a tested skill |
-| 40 | [Exercise 3 — Agents](exercises/03-agents/README.md) | Instructions and permissions, and a team of agents |
-| 10 | [Exercise 4 — MCP](exercises/04-mcp/README.md) | Connect a database, then check its answers |
-| 10 | [Exercise 5 — Decision model](exercises/05-decide/README.md) | Typed decisions with probabilities instead of prose |
-| 10 | [Exercise 6 — Safety](exercises/06-safety/README.md) | Prompt injection, and what permissions do and don't stop |
-| 10 | Wrap-up | When to use an agent, and how to check one |
+| Module | You'll learn |
+|---|---|
+| Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
+| Concepts (slides) | Model, harness, tool, skill, agent, MCP |
+| [Exercise 0 — Plugins](exercises/00-plugins/README.md) | What a plugin is; install the two you use today |
+| [Exercise 1 — RAG](exercises/01-rag/README.md) | Why retrieval stops a weak model inventing answers |
+| [Exercise 2 — Skills](exercises/02-skills/README.md) | Turn a repeated task into a tested skill |
+| [Exercise 3 — Agents](exercises/03-agents/README.md) | Instructions and permissions, and a team of agents |
+| [Exercise 4 — MCP](exercises/04-mcp/README.md) | Connect a database, then check its answers |
+| [Exercise 5 — Decision model](exercises/05-decide/README.md) | Typed decisions with probabilities instead of prose |
+| [Exercise 6 — Safety](exercises/06-safety/README.md) | Prompt injection, and what permissions do and don't stop |
+| Wrap-up | When to use an agent, and how to check one |
 
 <details>
 <summary>The words we use: harness, skill, agent, MCP, plugin</summary>
