@@ -60,9 +60,7 @@ minute.
 
 # Exercise 1a — Ask without the documents
 
-## 1. Closed book
-
-**Do:** run **1. Ask without the documents**. The question is "Which chat
+**Do:** run **Ask the model on its own**. The question is "Which chat
 model is the default in this workshop?"
 
 **Look for:** the prompt is only the question. Does the model sound sure? Is
@@ -71,11 +69,9 @@ it right? You know the answer from the README.
 **Why:** whatever it says comes from training alone. It cannot know this
 workshop, and nothing stops it from answering anyway.
 
-# Exercise 1b — Prepare the documents
+# Exercise 1b — Cut the documents into pieces
 
-## 2. Cut the documents into pieces
-
-**Do:** run **2. Cut the pages into pieces**.
+**Do:** run **Cut the pages into pieces**.
 
 **Look for:** how many pieces, and three examples. Each has an id, like
 `p11`, and the page and heading it came from.
@@ -84,23 +80,21 @@ workshop, and nothing stops it from answering anyway.
 costs time and money. How you cut matters: too small, and an answer is split
 across pieces; too large, and few fit in the prompt.
 
-## 3. Turn each piece into numbers
+# Exercise 1c — Turn each piece into numbers
 
-**Do:** run **3. Turn the pieces into numbers**.
+**Do:** run **Turn the pieces into numbers**.
 
 **Look for:** each piece is now a list of 768 numbers, an **embedding**. The
 first few are printed.
 
 **Why:** an embedding model places texts with similar meaning close
-together. That is what lets the search in step 4 find a piece about "the
+together. That is what lets the search in 1d find a piece about "the
 default model" even when it is worded differently from your question.
 
-# Exercise 1c — Search, answer and check
+# Exercise 1d — Search, and read before you ask
 
-## 4. Search, and read before you ask
-
-**Do:** run **4. Find the pieces closest in meaning**, then **4b. Find the
-pieces that share the most words**.
+**Do:** run **Find the pieces closest in meaning**, then **Find the pieces
+that share the most words**.
 
 **Look for:** read the pieces **before** asking the model anything. Is the
 answer in one of them? In which position? Do the two searches pick the same
@@ -110,31 +104,29 @@ pieces?
 words, the way a search engine does. Either way, if the answer is not in the
 retrieved pieces, no model can give it from them.
 
-## 5. Open book
+# Exercise 1e — Ask with the documents
 
-**Do:** run **5. Ask with the documents**.
+**Do:** run **Ask with the documents**.
 
 **Look for:** the printed prompt: the rules, the pieces with their ids, then
 your question. Does the answer cite a piece, like `[p17]`? Compare it with
-step 1.
+the answer in 1a.
 
 **Why:** same model, same question. The only difference is what it was given
 to read.
 
-## 6. Check the citation
+# Exercise 1f — Check the citation
 
-**Do:** run **6. Show the cited pieces**.
+**Do:** run **Show the cited pieces**.
 
 **Look for:** is the answer really in the cited piece, in so many words?
 
 **Why:** a citation turns "trust me" into something you can check in
 seconds. A citation can also be wrong; checking is your job, not the model's.
 
-# Exercise 1d — Find the limits
+# Exercise 1g — A question the documents cannot answer
 
-## 7. A question the documents cannot answer
-
-**Do:** run **7. Ask something that is not in the documents**: "When is the
+**Do:** run **Ask something that is not in the documents**: "When is the
 coffee break?"
 
 **Look for:** there is no break in this workshop and the pages never mention
@@ -143,13 +135,14 @@ one. Does the model say "not in the documents", or invent a time?
 **Why:** a good RAG answer admits when the documents are silent. Without the
 rule to say so, many models fill the gap.
 
-## 8. One piece or eight?
+# Exercise 1h — One piece or eight?
 
-**Do:** run **8a. One piece**, then **8b. Eight pieces**. The question is
-"How long is Exercise 3, and what are its parts?"
+**Do:** run **Send one piece**, then **Send eight pieces**. The question is
+"What are the three lessons of this workshop?"
 
-**Look for:** what does each answer contain? With eight pieces, does it add
-anything that is not in them?
+**Look for:** compare both answers with the three lessons in the
+[main README](../../README.md). With eight pieces, does the model build an
+answer out of pieces that are about something else?
 
 **Why:** the number of pieces is a trade-off: too few can miss half the
 answer, too many add noise, cost and room for the model to embroider.
@@ -159,10 +152,11 @@ answer, too many add noise, cost and room for the model to embroider.
 Ask the agent in the chat to change a question in the notebook, for example:
 
 > In exercises/01-rag/rag_notebook.py, change the question in the cell
-> "1. Ask without the documents" to "What does /compact do?"
+> "Ask the model on its own" to "What does /compact do?"
 
-Approve the edit, then run cells 1, 4, 5 and 6 again (the numbers in their
-titles). Or mark a cell with
+Approve the edit, then run **Ask the model on its own**, **Find the pieces
+closest in meaning**, **Ask with the documents** and **Show the cited
+pieces** again. Or mark a cell with
 `space`, go back to the chat with `ctrl+x ←`, and ask: "Is the cited text
 really in the pieces of the cell I marked?"
 
@@ -186,13 +180,13 @@ really in the pieces of the cell I marked?"
 
 # === Dive Deeper ===
 
-# Exercise 1e — What the model reads: tokens and embeddings
+# Exercise 1i — What the model reads: tokens and embeddings
 
 In this exercise, Mistral Nemo wrote the answers and bge-base found the
 pieces. Neither reads letters or words. Text is first cut into
 **tokens**: short pieces of text from a fixed list, the model's vocabulary.
 Each token is then turned into numbers. (Tokens are much smaller than the
-pieces of up to 800 characters you cut the documents into in step 2.)
+pieces of up to 800 characters you cut the documents into in 1b.)
 
 Each model has its own tokenizer, so the same text is cut in different ways:
 
@@ -326,7 +320,7 @@ letters of "I love this workshop" are 4.
 `0│0│0│0│0│0│1│2│0│4│8` can drop or repeat a digit when it copies an ID.
 Check every identifier an agent writes against the source.
 
-**Search and answers use different tokenizers.** In step 4, bge cut your
+**Search and answers use different tokenizers.** In 1d, bge cut your
 question its own way, in lower case, before searching. Mistral then read the
 documents it found cut a different way.
 
@@ -344,8 +338,8 @@ different sentences.
 **An embedding model turns a whole text into one list of numbers.** bge turns
 any text into 768 numbers; the first five for "BRCA1 mutations raise the risk
 of breast cancer." are `-0.038, 0.004, -0.062, -0.002, 0.043`. Texts with
-similar wording and topic get similar lists. That is what step 3 made for
-every piece of the documents, and what step 4 compared your question
+similar wording and topic get similar lists. That is what 1c made for
+every piece of the documents, and what 1d compared your question
 with. Here bge compares four sentences with that one (1 means the
 same direction, 0 unrelated):
 
@@ -358,7 +352,7 @@ same direction, 0 unrelated):
 
 **The sentence that says the opposite comes first.** Embeddings measure what
 a text is about, not whether it agrees: similar is not the same as true.
-That is why step 6 has you check the citation.
+That is why 1f has you check the citation.
 
 </details>
 

@@ -205,7 +205,7 @@ failed.
    inputs would you test it on?
 3. When would you rather write a plain script than a skill?
 
-Exercise 3b uses a profiling skill too; it supplies its own copy, so you do
+Exercise 3d uses a profiling skill too; it supplies its own copy, so you do
 not need to finish 2c first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 

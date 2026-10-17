@@ -166,7 +166,7 @@ However, you can change the model and keep the harness (along with the tools and
 | **Skill** | Reusable instructions, with optional scripts, for one task | `.opencode/skills/<name>/SKILL.md` |
 | **Agent** | A role: instructions, model, permissions, step limit | `.opencode/agents/<name>.md` |
 | **Subagent** | An agent that another agent calls for one job | `mode: subagent` |
-| **Team / swarm** | A coordinating master agent that splits a task and delegates it to specialist subagents | Exercise 3c |
+| **Team / swarm** | A coordinating master agent that splits a task and delegates it to specialist subagents | Exercise 3e |
 
 An agent decides *which* skills and tools to use.<br>
 A team adds hand-offs, and a reviewer agent that does not trust the others (adversarial agents).

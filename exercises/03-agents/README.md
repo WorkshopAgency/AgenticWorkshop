@@ -2,10 +2,10 @@
 
 | | |
 |---|---|
-| **Model** | 3a: `opencode/big-pickle`, selected by you for both agents. 3b: your choice. 3c: the coordinator on Big Pickle; each specialist's own model is set in its file |
-| **Needs** | `scripts/check-setup.sh` passed. opencode-sidebar-plus from Exercise 0 helps in 3c. Nothing else from other modules: 3b supplies its own skill |
+| **Model** | 3a–3c: `opencode/big-pickle`, selected by you for both agents. 3d: your choice. 3e: the coordinator on Big Pickle; each specialist's own model is set in its file |
+| **Needs** | `scripts/check-setup.sh` passed. opencode-sidebar-plus from Exercise 0 helps in 3e. Nothing else from other modules: 3d supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
-| **Done when** | 3a: `check_viewer.py` scored both viewers. 3b: your agent ran on one normal and one invalid input. 3c: you checked `report.md` against `review.md` and looked at the chart yourself |
+| **Done when** | 3b: `check_viewer.py` scored both viewers. 3d: your agent ran on one normal and one invalid input. 3e: you checked `report.md` against `review.md` and looked at the chart yourself |
 | **If stuck** | `/halp 03-agents <what you tried>` |
 
 Your outputs go under `outputs/03-agents/`.
@@ -25,10 +25,10 @@ team of five that hand work to each other.
 # Before you start
 
 You installed opencode-sidebar-plus in [Exercise 0](../00-plugins/README.md). Keep the
-sidebar open in this exercise: in 3c it shows every agent of the team, what
+sidebar open in this exercise: in 3e it shows every agent of the team, what
 each is doing, and which one waits for your approval.
 
-# Exercise 3a — From a basic agent to a good agent
+# Exercise 3a — Run a basic agent and a good agent
 
 Use **`opencode/big-pickle`** for both agents and select it yourself before
 each run. Two agents, the same request, the same model, the same permissions
@@ -70,8 +70,6 @@ and the same 20-step limit:
 
 </details>
 
-## 1. Run both
-
 **Do:** start a new chat, select `bad-agent` (shift+tab in the terminal, the
 agent selector in Desktop) and send:
 
@@ -90,7 +88,7 @@ unfinished page is part of the result.
 **Why:** same model, same tools, same limit. Any difference comes from the
 instructions alone.
 
-## 2. Score both
+# Exercise 3b — Score both viewers
 
 **Do:**
 
@@ -108,7 +106,7 @@ score 7/7 and still not draw anything. Did either agent read
 `check_viewer.py`? `--browser` checks that something was actually drawn and
 saves a screenshot.
 
-## 3. Click through it
+# Exercise 3c — Click through both viewers
 
 **Do:** open each `index.html` in your browser and check:
 
@@ -130,7 +128,7 @@ makes the nicer-looking page, with methods that do not exist, a heme that
 stays when its chain is hidden, or old text after loading a new structure.
 Judge the files and the behaviour, not the agent's summary.
 
-# Exercise 3b — From a good agent to your agent
+# Exercise 3d — From a good agent to your agent
 
 Write your own agent with a specific job and a definition of success. The
 suggested job: an agent that **checks a dataset before anyone analyses it**,
@@ -332,7 +330,7 @@ opened", "controls checked", and "scientific content verified" distinct.
 
 ---
 
-# Exercise 3c — A team of specialists
+# Exercise 3e — A team of specialists
 
 One agent can do a task. A **team** (sometimes called a swarm) splits it into
 bounded jobs with explicit hand-offs: a coordinator and specialist
@@ -419,7 +417,7 @@ model and note it.
 
 1. What made the good agent good: which lines in its instructions mattered
    most?
-2. Your agent from 3b: what would it need before you trusted it with your own
+2. Your agent from 3d: what would it need before you trusted it with your own
    data?
 3. Which jobs in your own work would you split between specialists, and who
    would review whom?
