@@ -287,12 +287,12 @@ list.
 | `opencode/mimo-v2.6-flash-free` | 3c analyst. Free-period data may be used to improve the model |
 | `opencode/space-bunny-free` | 3c visualizer and reviewer. Zero-retention provider |
 | `opencode/longcat-2.5-preview-free` | Zero-retention provider. Preview: may disappear |
-| `opencode/glm-5.3-flash-free` | |
-| `opencode/deepseek-v4.1-flash-free` | |
-| `opencode/nemotron-3.5-lightning-free` | |
-| `opencode/nemotron-3.5-super-vl-free` | Also reads images |
-| `opencode/beam-free` | |
-| `opencode/jev-1.13-free` | |
+| `opencode/glm-5.3-flash-free` | Zero-retention provider |
+| `opencode/deepseek-v4.1-flash-free` | Zero-retention provider |
+| `opencode/nemotron-3.5-lightning-free` | NVIDIA free endpoint, trial use only: use is logged and may improve NVIDIA's products; no personal or confidential data |
+| `opencode/nemotron-3.5-super-vl-free` | Also reads images. NVIDIA free endpoint, trial use only: use is logged and may improve NVIDIA's products; no personal or confidential data |
+| `opencode/beam-free` | Not used for training, but kept for 30 days for safety. Not offered in some countries |
+| `opencode/jev-1.13-free` | TypeSafe AI's model for fast, structured decisions. OpenCode publishes no data terms for it |
 
 **Watch for contributor models.** None is offered at the moment, but they come
 and go. A contributor model can train on what you submit to it, and the word
