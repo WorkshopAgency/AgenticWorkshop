@@ -243,8 +243,9 @@ AgenticWorkshop/
       04-mcp/
          data/                  The PDB snapshot, and byo/ for three other datasets
          scripts/               Build the DuckDB database
-      05-decide/                A typed decision model built on token probabilities
+      05-decide/                A typed decision model built on token probabilities, as a notebook
       06-safety/                A data file with a planted instruction
+      shared/                   look.py: the colours the exercise scripts print in
    outputs/                     Where your results go, one folder per module (not in Git)
    mcp/                         Notes on the four MCP servers this project configures
    slides/                      The concepts deck, published from Markdown

@@ -29,6 +29,10 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+# the shared colours, by meaning (exercises/shared/look.py)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "shared"))
+import look  # noqa: E402
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 USE_DTU = os.environ.get("RAG_DTU") == "1"
@@ -93,6 +97,25 @@ def post_json(url, payload, timeout=120):
         sys.exit(f"{url} answered HTTP {err.code}: {body}{hint}")
     except (urllib.error.URLError, TimeoutError, OSError) as err:
         sys.exit(f"Could not reach {url}: {err}")
+
+
+def status():
+    """Say which model decides, and whether the key works."""
+    where = "DTU" if USE_DTU else "OpenRouter"
+    print(f"Decisions: {DECIDE_MODEL} at {where}.")
+    if USE_DTU:
+        return
+    if not workshop_key():
+        print(look.warn("No workshop key yet: see Exercise 0c."))
+        return
+    request = urllib.request.Request("https://openrouter.ai/api/v1/key",
+                                     headers={"Authorization": f"Bearer {workshop_key()}"})
+    try:
+        with urllib.request.urlopen(request, timeout=30, context=tls()) as response:
+            json.loads(response.read())
+        print("The workshop key works.")
+    except urllib.error.HTTPError as err:
+        print(look.warn(f"The key was refused (HTTP {err.code}). Check .openrouter-key."))
 
 
 # ------------------------------------------------------------------ questions
@@ -232,22 +255,23 @@ def ask_stated(state, question, args):
 # --------------------------------------------------------------------- output
 
 def print_result(result):
-    """Readable table for one question."""
-    print(f"[{result['id']}] {result['type']}: {result['question']}")
-    for label, p in result["distribution"].items():
-        mark = "  <- most likely" if label == result["answer"] else ""
-        print(f"    {label:<20} {p:6.3f}  {'#' * round(p * 30)}{mark}")
+    """Readable table for one question: the most likely option in green."""
+    print(f"{look.ident('[' + result['id'] + ']')} {result['type']}: {look.question(result['question'])}")
+    labels = list(result["distribution"])
+    rows = [[label, f"{p:.3f}", "#" * round(p * 30)] for label, p in result["distribution"].items()]
+    table = look.table(rows, header=["option", "probability", ""], highlight=labels.index(result["answer"]))
+    print("\n".join("    " + line for line in table.split("\n")))
     if "p_yes" in result:
-        print(f"    P(yes) = {result['p_yes']:.3f}")
+        print(f"    P(yes) = {look.answer(format(result['p_yes'], '.3f'))}")
     if "expected" in result:
-        print(f"    expected score = {result['expected']:.2f}")
-    note = "" if result["coverage"] > 0.5 else "  WARNING: low, treat with caution"
-    print(f"    option letters held {result['coverage']:.1%} of the top-20 token probability{note}")
+        print(f"    expected score = {look.answer(format(result['expected'], '.2f'))}")
+    held = f"option letters held {result['coverage']:.1%} of the top-20 token probability"
+    print("    " + (look.muted(held) if result["coverage"] > 0.5 else look.warn(held + ": low, treat with caution")))
     if "swapped" in result:
         swapped = result["swapped"]
-        print(f"    reversed option order: most likely = {swapped['answer']}, "
-              f"largest shift in any option = {swapped['shift']:.3f}"
-              + ("" if swapped["answer"] == result["answer"] else "  (TOP ANSWER CHANGED)"))
+        line = (f"reversed option order: most likely = {swapped['answer']}, "
+                f"largest shift in any option = {swapped['shift']:.3f}")
+        print("    " + (line if swapped["answer"] == result["answer"] else look.warn(line + "  (TOP ANSWER CHANGED)")))
     if "stated" in result:
         stated = result["stated"]
         token_p = result["distribution"].get(stated["answer"])
@@ -256,6 +280,39 @@ def print_result(result):
               f"  | token probability of that answer = "
               f"{'?' if token_p is None else format(token_p, '.3f')}")
     print()
+
+
+def run(state, questions=None, stated=False, swap=False, guided=False, keep_thinking=False, show=True):
+    """Ask every question about the state; print a table per question and return the results.
+
+    state: the text, or a file that holds it. questions: a list of questions, or a
+    questions file (default: questions.json next to this script).
+    """
+    args = argparse.Namespace(guided=guided, keep_thinking=keep_thinking)
+    state = load_state(str(state))
+    if questions is None:
+        questions = HERE / "questions.json"
+    if isinstance(questions, (str, Path)):
+        questions = json.loads(Path(questions).read_text(encoding="utf-8"))["questions"]
+    check_questions(questions)
+    if show:
+        print(look.heading("STATE") + "\n" + look.muted(state) + "\n")
+    results = []
+    for question in questions:
+        distribution, coverage = decide(state, question, args)
+        result = summarise(question, distribution)
+        result["coverage"] = coverage
+        if swap:
+            reversed_dist, _ = decide(state, question, args, reverse=True)
+            shift = max(abs(reversed_dist[label] - p) for label, p in distribution.items())
+            result["swapped"] = {"distribution": reversed_dist, "shift": shift,
+                                 "answer": max(reversed_dist, key=reversed_dist.get)}
+        if stated:
+            result["stated"] = ask_stated(state, question, args)
+        results.append(result)
+        if show:
+            print_result(result)
+    return results
 
 
 def main():
@@ -271,26 +328,10 @@ def main():
                         help="do not send chat_template_kwargs to switch thinking off")
     args = parser.parse_args()
 
-    state = load_state(args.state)
-    questions = json.loads(Path(args.questions).read_text(encoding="utf-8"))["questions"]
-    check_questions(questions)
     if not args.json:
         print(f"Model '{DECIDE_MODEL}' at {DECIDE_URL}/chat/completions\n")
-    results = []
-    for question in questions:
-        distribution, coverage = decide(state, question, args)
-        result = summarise(question, distribution)
-        result["coverage"] = coverage
-        if args.swap:
-            reversed_dist, _ = decide(state, question, args, reverse=True)
-            shift = max(abs(reversed_dist[label] - p) for label, p in distribution.items())
-            result["swapped"] = {"distribution": reversed_dist, "shift": shift,
-                                 "answer": max(reversed_dist, key=reversed_dist.get)}
-        if args.stated:
-            result["stated"] = ask_stated(state, question, args)
-        results.append(result)
-        if not args.json:
-            print_result(result)
+    results = run(args.state, args.questions, stated=args.stated, swap=args.swap,
+                  guided=args.guided, keep_thinking=args.keep_thinking, show=not args.json)
     if args.json:
         print(json.dumps(results, indent=2))
 

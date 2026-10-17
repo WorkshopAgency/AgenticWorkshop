@@ -101,6 +101,7 @@ module() {
       else warn "duckdb MCP server not connected yet" "type /mcps in OpenCode and switch on duckdb"; fi
       ;;
     05-decide)
+      plugin opencode-notebook
       key
       if limit 90 python3 exercises/05-decide/decide.py --state "A bar chart of three values." --json >/dev/null 2>&1
       then ok "the decision model returns token probabilities"

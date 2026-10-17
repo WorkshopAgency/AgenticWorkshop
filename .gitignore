@@ -228,3 +228,5 @@ __marimo__/
 # Written when the Exercise 1 notebook runs
 /exercises/01-rag/rag_notebook.ipynb
 /exercises/01-rag/rag_notebook_files/
+/exercises/05-decide/decide_notebook.ipynb
+/exercises/05-decide/decide_notebook_files/
