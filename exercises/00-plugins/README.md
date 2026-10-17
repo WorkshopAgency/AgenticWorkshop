@@ -36,8 +36,8 @@ OpenCode.
 **Do:** skim the README of each plugin, and the two files OpenCode runs,
 `tui.tsx` (what you see) and `server.ts` (what the agent gets):
 
-- [opencode-sidebar-plus at v0.3.1](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.1)
-- [opencode-notebook at v0.1.5](https://github.com/dskanakoglou/opencode-notebook/tree/v0.1.5)
+- [opencode-sidebar-plus at v0.3.2](https://github.com/dskanakoglou/opencode-sidebar-plus/tree/v0.3.2)
+- [opencode-notebook at v0.1.7](https://github.com/dskanakoglou/opencode-notebook/tree/v0.1.7)
 
 **Why:** ask of every plugin what it reads and what it adds to OpenCode. The
 notebook plugin, for example, gives the agent a tool that runs Python, and
@@ -48,13 +48,13 @@ its README says plainly that this tool does not ask before it runs.
 **Do:** clone each one into this project's plugin folder - `.opencode/plugins/`:
 
 ```bash
-git -c advice.detachedHead=false clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/opencode-sidebar-plus
-git -c advice.detachedHead=false clone -q --depth 1 --branch v0.1.5 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
+git -c advice.detachedHead=false clone -q --depth 1 --branch v0.3.2 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/opencode-sidebar-plus
+git -c advice.detachedHead=false clone -q --depth 1 --branch v0.1.7 https://github.com/dskanakoglou/opencode-notebook .opencode/plugins/opencode-notebook
 ```
 
 No Git? Download the ZIP of
-[opencode-sidebar-plus](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.1.zip)
-and of [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook/archive/refs/tags/v0.1.5.zip),
+[opencode-sidebar-plus](https://github.com/dskanakoglou/opencode-sidebar-plus/archive/refs/tags/v0.3.2.zip)
+and of [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook/archive/refs/tags/v0.1.7.zip),
 unzip them, and move the folders to `.opencode/plugins/opencode-sidebar-plus` and
 `.opencode/plugins/opencode-notebook`.
 
@@ -76,6 +76,31 @@ echo  PASTE-THE-KEY-HERE > .openrouter-key
 key is how OpenRouter knows the call is allowed. Treat a key like a password:
 it stays in this file, which Git ignores, and is never pasted into a chat,
 because everything in a chat is sent to the model.
+
+<details>
+<summary><b>Not at the workshop? Get your own OpenRouter key</b></summary>
+
+1. Make an account at [openrouter.ai](https://openrouter.ai).
+2. Add credit on the [Credits](https://openrouter.ai/settings/credits) page.
+   Both exercises use paid models (Mistral Nemo and the bge-base embedding
+   model in Exercise 1, Llama 3.1 8B in Exercise 5), so the key needs a
+   positive balance. They are cheap: all the runs we made while preparing
+   this workshop cost less than one US cent together. OpenRouter adds a fee
+   of 5.5% (at least $0.80) when you buy credit.
+3. Create a key on the [Keys](https://openrouter.ai/settings/keys) page. Give
+   it a name and a **credit limit**, for example $1, so a key that leaks
+   cannot spend your whole balance. Copy the key when it is shown; it starts
+   with `sk-or-v1-`.
+4. Optional: in the [privacy settings](https://openrouter.ai/settings/privacy),
+   choose whether your requests may go to providers that may train on your
+   data.
+5. Put the key in `.openrouter-key` with the command above. Or set it in your
+   shell instead, `export OPENROUTER_API_KEY=sk-or-v1-…`; the exercises read
+   either.
+
+If a key ever leaks, delete it on the Keys page and create a new one.
+
+</details>
 
 # Exercise 0d — Check it worked
 
