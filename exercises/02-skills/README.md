@@ -209,12 +209,12 @@ Exercise 3b uses a profiling skill too; it supplies its own copy, so you do
 not need to finish 2f first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
-# Dive Deeper
-
-For when you finish early. Each exercise opens with a click.
-
 <details>
-<summary><b>Exercise 2g — A notebook inside OpenCode</b></summary>
+<summary><b>Dive Deeper</b></summary>
+
+For when you finish early.
+
+## Exercise 2g — A notebook inside OpenCode
 
 A plugin,
 [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook), adds a
