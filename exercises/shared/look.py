@@ -57,6 +57,7 @@ def warn(text):
 
 
 def _numeric(cell):
+    """True for a number such as 0.731 or 45%, which the table right-aligns."""
     try:
         float(str(cell).rstrip("%"))
         return True
@@ -67,13 +68,19 @@ def _numeric(cell):
 def table(rows, header=None, highlight=None):
     """Rows as aligned columns: numbers right-aligned, the header in bold, and
     row number `highlight` (0-based) shown as the answer."""
+    # every cell as text, so its printed length can be measured
     rows = [[str(cell) for cell in row] for row in rows]
+    # the header counts too when the column widths are worked out
     every = rows + ([list(map(str, header))] if header else [])
+    # each column as wide as its longest cell; a short row just has fewer columns
     widths = [max(len(row[i]) for row in every if i < len(row)) for i in range(max(map(len, every)))]
 
     def line(row):
+        # pad each cell to its column width (numbers on the right, text on the
+        # left), two spaces between columns, no spaces left at the end
         return "  ".join(cell.rjust(w) if _numeric(cell) else cell.ljust(w) for cell, w in zip(row, widths)).rstrip()
 
+    # the header in bold, then the rows; the highlighted row in the answer colour
     out = [heading(line(list(map(str, header))))] if header else []
     out += [answer(line(row)) if i == highlight else line(row) for i, row in enumerate(rows)]
     return "\n".join(out)
