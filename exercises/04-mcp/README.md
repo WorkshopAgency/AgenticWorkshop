@@ -76,7 +76,7 @@ treated is a decision, and you want to know who made it.
 > outputs/04-mcp/bill.svg. Write the SVG directly; do not install or import
 > any plotting package.
 
-Open the SVG in your browser. Then ask:
+Open/drag the SVG in your browser. Then ask:
 
 > Now give the same correlation within each species, and write a second
 > SVG, outputs/04-mcp/bill-by-species.svg, coloured by species with one fit
