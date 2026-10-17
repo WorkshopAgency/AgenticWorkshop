@@ -4,6 +4,11 @@
 Hands-on, individual work.
 Dimitrios S. Kanakoglou (dimkan@dtu.dk) · Peter Wad Sackett (pwsa@dtu.dk)
 
+```math
+{\color{RoyalBlue}\text{We}} \, {\color{OrangeRed}\text{␣quantified}} \, {\color{ForestGreen}\#\#\text{ti}}
+```
+
+
 You work in OpenCode on your own laptop. The chat uses OpenCode's free
 models, Big Pickle by default. Exercises 1 and 5 call two small models at
 OpenRouter directly, with a workshop key the organisers give you. The DTU
