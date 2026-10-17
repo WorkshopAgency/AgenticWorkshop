@@ -176,4 +176,6 @@ really in the pieces of the cell I marked?"
 3. Would you rather use a big model without your documents, or a small model
    with them?
 
+   HERE GOES THE DEEP DIVE INTO EMBEDDINGS, PIECES, UTF-8, TAKE THE EMBEDDINGS FROM GENETIC CODE SPLIT, MAKE PROTEINS, EXPLAIN THAT WITH EMBEDDING MODELS
+
 Next: [Exercise 2 — Skills](../02-skills/README.md).
