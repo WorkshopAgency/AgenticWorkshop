@@ -209,8 +209,7 @@ Exercise 3b uses a profiling skill too; it supplies its own copy, so you do
 not need to finish 2f first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
-<details>
-<summary><b>Dive Deeper</b></summary>
+# Dive Deeper
 
 For when you finish early, want to learn more, or you are super talented and fast.
 
@@ -249,7 +248,5 @@ says whether it can draw plots there; elsewhere `o` opens them.
 rule that says "ask". That is why `notebook_run` only runs notebooks under
 `outputs/`, and why you read a plugin before you install it. To remove it,
 delete `.opencode/plugins/opencode-notebook` and restart OpenCode.
-
-</details>
 
 Next: [Exercise 3 — Agents](../03-agents/README.md).
