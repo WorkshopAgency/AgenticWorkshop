@@ -290,13 +290,14 @@ list.
 | `opencode/glm-5.3-flash-free` | |
 | `opencode/deepseek-v4.1-flash-free` | |
 | `opencode/nemotron-3.5-lightning-free` | |
-| `opencode/muse-spark-1.2-contributor-free` ⚠️ | Contributor model, see below |
-| `opencode/muse-spark-1.3-contributor-free` ⚠️ | Contributor model, see below |
+| `opencode/nemotron-3.5-super-vl-free` | Also reads images |
+| `opencode/beam-free` | |
+| `opencode/jev-1.13-free` | |
 
-**The two Muse Spark entries are contributor models.** A contributor model can
-train on what you submit to it. The word `contributor` is in the model ID but
-**not** in the name the selector shows you, which reads only "Muse Spark 1.2
-Free". If you want to avoid them, check the ID rather than the name.
+**Watch for contributor models.** None is offered at the moment, but they come
+and go. A contributor model can train on what you submit to it, and the word
+`contributor` is in its model ID but **not** in the name the selector shows
+you. If you want to avoid them, check the ID rather than the name.
 
 None of the agents in exercise 3c uses a contributor model. Big Pickle and
 MiMo may still use free-period data to improve the model, according to
