@@ -39,6 +39,37 @@ and the same 20-step limit:
 | [bad-agent](../../.opencode/agents/bad-agent.md) | Three vague sentences: "create an interactive viewer… make it look good". It is not told to make mistakes |
 | [good-agent](../../.opencode/agents/good-agent.md) | A short recipe: a fixed library and data source, the exact functions to use, a page that loads first and then a checklist of features, and what to tell you to click |
 
+<details>
+<summary><b>What are the steps?</b></summary>
+
+> **One step is one call to the model.** The model answers and, if it needs
+> to, asks for one or more tools at once: read a file, run a command, write
+> a page. OpenCode runs them and sends the results back. The model's next
+> answer is the next step.
+>
+> **`steps` is the limit per message.** `steps: 20` means at most 20 model
+> calls for each message you send. The count starts again with your next
+> message, and an agent without `steps` has no limit.
+>
+> **The last step has no tools.** When an agent reaches its limit, OpenCode
+> turns its tools off and tells the model to reply in text only: what it
+> did, what is left, and what to do next. That is the "Maximum steps
+> reached" message. With `steps: 20` an agent gets 19 rounds of tool use
+> and one closing summary. Send "continue" to give it another 20.
+>
+> **Why it matters.** Vague instructions cost steps: an agent that does not
+> know which library or file to use spends its steps reading, searching and
+> guessing. Too few steps and it stops halfway. Too many and a confused
+> agent can loop for a long time, using tokens and asking you for
+> approvals.
+>
+> **In a team, each agent counts its own steps.** A coordinator that calls
+> two specialists in one answer uses one step, and the two specialists run
+> at the same time. So be mindful for that, for both usage, spending limits
+> and provenance.
+
+</details>
+
 ## 1. Run both
 
 **Do:** start a new chat, select `bad-agent` (shift+tab in the terminal, the
