@@ -211,7 +211,7 @@ not need to finish 2f first. The skill file format is described at
 
 # Dive Deeper
 <details>
-**Optional extra — a notebook inside OpenCode:**
+## Optional extra — a notebook inside OpenCode
 For when you finish early. A plugin,
 [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook), adds a
 Jupyter-style notebook panel next to the chat. You and the agent share one
