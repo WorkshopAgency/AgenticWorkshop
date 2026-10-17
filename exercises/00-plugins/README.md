@@ -45,7 +45,7 @@ its README says plainly that this tool does not ask before it runs.
 
 ## 2. Install both
 
-**Do:** clone each one into this project's plugin folder:
+**Do:** clone each one into this project's plugin folder - `.opencode/plugins/`:
 
 ```bash
 git clone -q --depth 1 --branch v0.3.1 https://github.com/dskanakoglou/opencode-sidebar-plus .opencode/plugins/opencode-sidebar-plus

@@ -73,16 +73,18 @@ required to participate.
    For the terminal version, run `opencode` from inside that folder, or
    `opencode serve` for the browser version.
 5. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
-6. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. There are subfolders in the workshop root for different exercises and you can create your own.
-   Go in those and run `opencode` for a clean start for the project/task/exercise. Exiting and running opencode again is a common way for fresh starts
+6. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. Exiting and running opencode again is a common way for fresh starts
    and incorporating new skills, etc.
 7. The default model is **Big Pickle**, a free OpenCode model. Other models
    are in the model selector (`/models` in the terminal version); see
    [the models you can use](#llm-models-you-can-use).
 
-uv starts the notebook's Python and the database server in Exercise 4;
-Python runs the scripts in the exercises and the ones the agents write. No
-GitHub account is needed during the workshop.
+Python 3.10 or later is required for security reasons. uv starts the
+notebook's Python and the database server in Exercise 4; Python runs the
+scripts in the exercises and the ones the agents write. No GitHub account is
+needed during the workshop.
+There are subfolders in the workshop root for different exercises and you can create your own. When you create your own, you go in those 
+and run `opencode` for a clean start for the project/task/exercise. This workshop has dependencies and you need to run opencode from the root folder.
 
 <details>
 <summary>Coming from OpenCode v1, and your global settings</summary>
@@ -532,7 +534,7 @@ The workshop project shows one **DTU** group containing:
 | GPT-OSS 20B | 16384 | 4096 | Alternative general model |
 | Mistral Nemo 12B | 16384 | 4096 | Smaller checkpoint; check tool behaviour on your task |
 | Qwen 3.6 35B-A3B | 16384 | 4096 | Analysis and tool use |
-| Qwen 3.8 27B FP8 | 32768 | 4096 | Larger starting context; availability depends on compute05 |
+| Qwen 3.8 27B FP8 | 32768 | 4096 | Larger starting context |
 
 The DTU group is added alongside OpenCode's available free models
 and your other configured providers. This file does not restrict the provider
