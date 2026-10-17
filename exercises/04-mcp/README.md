@@ -32,7 +32,7 @@ query result the agent reads is sent to the model you selected.
 uv run --with duckdb python exercises/04-mcp/scripts/make_db.py
 ```
 
-Fetch the server once, so its first use is not a silent 30 MB download:
+Fetch the server once, so its first use is not a silent 30 MB download (side effect is showing the help):
 
 ```bash
 uvx mcp-server-motherduck@1.0.8 --help
