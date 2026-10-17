@@ -25,6 +25,15 @@ import urllib.request
 from collections import Counter
 from pathlib import Path
 
+# Terminal colours, so the question and the answer stand out from the prompt.
+# The notebook panel and Jupyter show them too; NO_COLOR=1 turns them off.
+COLOUR = not os.environ.get("NO_COLOR")
+BOLD, GREY, CYAN, QUESTION, ANSWER, RED = "1", "90", "36", "1;33", "32", "31"
+
+
+def _c(code, text):
+    return f"\033[{code}m{text}\033[0m" if COLOUR else text
+
 ROOT = Path(__file__).resolve().parent.parent.parent
 OUT = ROOT / "outputs" / "01-rag"
 # this exercise's own page is left out: it would hand over its answers
@@ -148,7 +157,8 @@ def cut(size=800):
         piece["id"] = f"p{number}"
     print(f"{len(PAGES)} pages cut into {len(pieces)} pieces. Three of them:\n")
     for piece in pieces[10:13]:
-        print(f"[{piece['id']}] {piece['source']}\n    {piece['text'][:160].replace(chr(10), ' ')} …\n")
+        print(f"{_c(CYAN, '[' + piece['id'] + ']')} {piece['source']}")
+        print(_c(GREY, f"    {piece['text'][:160].replace(chr(10), ' ')} …") + "\n")
     return pieces
 
 
@@ -187,8 +197,8 @@ def find(question, index, k=3, words=False):
     ranked = sorted(zip(scores, pieces), key=lambda pair: -pair[0])[:k]
     print(f"The {k} pieces closest to the question, by {how}:\n")
     for rank, (score, piece) in enumerate(ranked, 1):
-        print(f"{rank}. [{piece['id']}] score {score:.3f}  {piece['source']}")
-        print(f"   {piece['text'][:140].replace(chr(10), ' ')} …\n")
+        print(f"{rank}. {_c(CYAN, '[' + piece['id'] + ']')} score {score:.3f}  {piece['source']}")
+        print(_c(GREY, f"   {piece['text'][:140].replace(chr(10), ' ')} …") + "\n")
     return [piece for _, piece in ranked]
 
 
@@ -217,18 +227,25 @@ def answer(question, hits=None):
         evidence = "\n\n".join(f"[{p['id']}] ({p['source']})\n{p['text']}" for p in hits)
         messages = [{"role": "system", "content": RULES},
                     {"role": "user", "content": f"Pieces:\n\n{evidence}\n\nQuestion: {question}"}]
-    print("PROMPT SENT TO THE MODEL")
-    for message in messages:
-        print(f"--- {message['role']} ---\n{message['content']}\n")
+    print(_c(BOLD, "PROMPT SENT TO THE MODEL"))
+    if hits is None:
+        print(_c(GREY, "--- user ---"))
+    else:  # the same text as in messages, coloured by part
+        print(_c(GREY, f"--- system ---\n{RULES}\n\n--- user ---\nPieces:\n"))
+        for p in hits:
+            print(_c(CYAN, f"[{p['id']}] ({p['source']})"))
+            print(_c(GREY, p["text"]) + "\n")
+    print(_c(QUESTION, question if hits is None else f"Question: {question}") + "\n")
     text = _chat(messages).strip()
-    print(f"ANSWER FROM {CHAT_MODEL}\n{text}")
+    print(_c(BOLD, f"ANSWER FROM {CHAT_MODEL}"))
+    print(_c(ANSWER, text))
     if hits is not None:
         given = {p["id"] for p in hits}
         cited = sorted(set(re.findall(r"\bp\d+\b", " ".join(re.findall(r"\[([^\]]*)\]", text)))))
-        print("\nCited: " + (", ".join(cited) if cited else "nothing"))
+        print("\nCited: " + (_c(CYAN, ", ".join(cited)) if cited else _c(RED, "nothing")))
         for piece_id in cited:
             if piece_id not in given:
-                print(f"WARNING: {piece_id} was not among the pieces it was given.")
+                print(_c(RED, f"WARNING: {piece_id} was not among the pieces it was given."))
     return text
 
 
@@ -236,10 +253,10 @@ def cited(text, hits):
     """Print, in full, every piece the answer cites, so you can check the claim yourself."""
     ids = sorted(set(re.findall(r"\bp\d+\b", " ".join(re.findall(r"\[([^\]]*)\]", text)))))
     if not ids:
-        print("The answer cites no piece.")
+        print(_c(RED, "The answer cites no piece."))
     for piece in hits:
         if piece["id"] in ids:
-            print(f"[{piece['id']}] {piece['source']}\n{piece['text']}\n")
+            print(f"{_c(CYAN, '[' + piece['id'] + ']')} {piece['source']}\n{piece['text']}\n")
 
 
 if __name__ == "__main__":
