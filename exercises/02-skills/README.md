@@ -209,13 +209,14 @@ Exercise 3b uses a profiling skill too; it supplies its own copy, so you do
 not need to finish 2f first. The skill file format is described at
 [skillsdirectory.com](https://www.skillsdirectory.com/docs/skill-md-format).
 
- <summary><b>Dive Deeper</b></summary>
+# Dive Deeper
+
+For when you finish early. Each exercise opens with a click.
 
 <details>
-  
-# Exercise 2f - A notebook inside OpenCode
+<summary><b>Exercise 2g — A notebook inside OpenCode</b></summary>
 
-For when you finish early. A plugin,
+A plugin,
 [opencode-notebook](https://github.com/dskanakoglou/opencode-notebook), adds a
 Jupyter-style notebook panel next to the chat. You and the agent share one
 live Python kernel: either of you can run cells, and both see the outputs. A
@@ -249,6 +250,6 @@ rule that says "ask". That is why `notebook_run` only runs notebooks under
 `outputs/`, and why you read a plugin before you install it. To remove it,
 delete `.opencode/plugins/opencode-notebook` and restart OpenCode.
 
-<details>
+</details>
 
 Next: [Exercise 3 — Agents](../03-agents/README.md).
