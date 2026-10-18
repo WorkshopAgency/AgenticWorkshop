@@ -47,3 +47,11 @@ my_questions = [
     {"id": "needs_legend", "type": "yesno", "text": "Does this plot need a legend?"},
 ]
 mine = decide.run("exercises/05-decide/examples/3-by-species.txt", questions=my_questions)
+
+# %% [markdown]
+# Dive deeper: every question about all three descriptions, asked twice, with
+# the options in their usual order and reversed. Look for "TOP ANSWER CHANGED".
+
+# %% 5d · All three examples, options reversed
+results5d = [decide.run(f"exercises/05-decide/examples/{name}", swap=True)
+             for name in ("1-pooled-no-colour.txt", "2-pooled-with-claim.txt", "3-by-species.txt")]

@@ -119,4 +119,36 @@ a score shows how sure the model is spread across levels.
 If a cell says the reply contained no token probabilities, run
 `scripts/check-setup.sh --module 05-decide` and tell an organiser.
 
+# === Dive Deeper ===
+
+# Exercise 5d — Can a token probability be trusted?
+
+**Do:** run **5d · All three examples, options reversed**. It asks every
+question about all three descriptions twice: with the options in their usual
+order, and reversed.
+
+**Look for:** for which questions does the top answer change when only the
+order of the options changes ("TOP ANSWER CHANGED")? How far do the
+probabilities move?
+
+**Why:** models prefer some option positions or letters regardless of what
+the options say ([Zheng et al., 2023](https://arxiv.org/abs/2309.03882);
+[Pezeshkpour and Hruschka, 2023](https://arxiv.org/abs/2308.11483)). Asking
+in several orders and averaging is a simple defence; Zheng et al. also
+propose a correction, PriDe.
+
+A probability is **calibrated** when, of all answers given with 0.8, about
+80 % turn out right. Modern neural networks are often over-confident
+([Guo et al., 2017](https://arxiv.org/abs/1706.04599)). Large language models
+can be well calibrated on multiple-choice and true/false questions *in the
+right format* ([Kadavath et al., 2022](https://arxiv.org/abs/2207.05221)),
+which is the format `decide.py` uses. Training a model to follow instructions
+can weaken that: the GPT-4 report measured calibration from the probabilities
+of the letters A–D, as `decide.py` does, and found the pre-trained model well
+calibrated and the final model much less so
+([OpenAI, 2023](https://arxiv.org/abs/2303.08774), Figure 8).
+
+To find out on your own decisions: label 20 cases yourself, run them, and
+count how many of the answers given with more than 0.8 were right.
+
 Next: [Exercise 6 — Safety](../06-safety/README.md).

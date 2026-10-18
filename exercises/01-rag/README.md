@@ -395,4 +395,25 @@ all.
 **Discuss with your neighbour:** which of your own identifiers would a model
 most likely copy wrongly, and how would you check?
 
+## Further reading
+
+**Choosing an embedding model.** bge-base was picked because it is small and
+cheap. The [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard)
+compares many embedding models on retrieval and other tasks
+([Muennighoff et al., 2022](https://arxiv.org/abs/2210.07316)), and
+[BEIR](https://arxiv.org/abs/2104.08663) tests retrieval across 18 public
+collections, biomedical ones among them (TREC-COVID, NFCorpus, BioASQ). A
+model trained on biomedical searches, such as
+[MedCPT](https://arxiv.org/abs/2307.00589) (trained on 255 million PubMed
+search clicks), may find your documents better than a general one. Test any
+model on your own questions: a leaderboard score is an average over other
+people's data.
+
+**Checking a RAG setup.** In 1d–1i you checked by hand: was the answer in the
+pieces, did the citation hold, did the model admit what the documents could
+not answer. [Ragas](https://arxiv.org/abs/2309.15217) automates checks like
+these, such as whether an answer is faithful to the retrieved pieces, by using
+a model as the judge. That makes its scores something to check as well. Start
+with ten questions whose answers you know.
+
 Next: [Exercise 2 — Skills](../02-skills/README.md).
