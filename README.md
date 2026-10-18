@@ -782,8 +782,8 @@ after your task.
 
 After the workshop: [additional tools, projects and research](additional.md).
 
-To go deeper: the full-day workshop, with longer exercises on skills, agent
-teams, MCP servers and plugins, is at
-[WorkshopAgency/AgenticWorkshop_sectionday](https://github.com/WorkshopAgency/AgenticWorkshop_sectionday).
+To go deeper: exercises with more time end with a **Dive Deeper** section,
+for example [Exercise 1](exercises/01-rag/README.md) and
+[Exercise 2](exercises/02-skills/README.md).
 
 For WorkShop organisers: [server administration and model settings](admin.md).

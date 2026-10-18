@@ -240,6 +240,6 @@ Not suitable: no way to check the answer, irreversible actions, confidential dat
 
 # Thank you
 
-Material: github.com/WorkshopAgency/AgenticWorkshop_dbc2026<br>To go deeper, the full-day workshop: github.com/WorkshopAgency/AgenticWorkshop_sectionday
+Material: github.com/WorkshopAgency/AgenticWorkshop_dbc2026<br>To go deeper: the Dive Deeper sections at the end of the exercises
 
 Dimitrios S. Kanakoglou · dimkan@dtu.dk<br>Peter Wad Sackett · pwsa@dtu.dk
