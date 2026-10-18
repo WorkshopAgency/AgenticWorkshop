@@ -133,4 +133,4 @@ whether the key works.
 **Discuss with your neighbour:** which of the two plugins could do more harm
 if its author turned hostile, and why?
 
-Next: [Exercise 1 — RAG](../01-rag/README.md).
+Previous: [Quick start](../../README.md#quick-start--install-download-and-open) · Next: [Exercise 1 — RAG](../01-rag/README.md).
