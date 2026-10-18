@@ -8,8 +8,6 @@ repository on a laptop.
 
 ## Before a workshop
 
-A session is about 2.5 hours, with up to 30 participants working alone and no break.
-
 - **The workshop key.** Exercises 1 and 5 call OpenRouter (Mistral Nemo,
   `bge-base` embeddings, Llama 3.1 8B) with one shared key. Give it a
   spending limit in OpenRouter, show it on a slide or the board at the start

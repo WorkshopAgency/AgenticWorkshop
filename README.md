@@ -10,7 +10,7 @@ OpenRouter directly, with a workshop key the organisers give you. The DTU
 models are optional, when they are running. A paid subscription is not
 required to participate.
 
-[Download the workshop ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip) ·
+[Download the workshop ZIP](https://github.com/WorkshopAgency/AgenticWorkshop/archive/refs/heads/main.zip) ·
 [Quick start](#quick-start--install-download-and-open) ·
 [Agenda](#agenda)
 
@@ -72,8 +72,8 @@ required to participate.
    supported, and the CLI can run in a browser too, at no extra cost.
 2. Go to or make a folder where you want the workshop to be.
 3. Get the workshop, either with Git:
-   `git clone https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026.git`
-   or by [downloading the ZIP](https://github.com/WorkshopAgency/AgenticWorkshop_dbc2026/archive/refs/heads/main.zip) and unzipping it.
+   `git clone https://github.com/WorkshopAgency/AgenticWorkshop.git`
+   or by [downloading the ZIP](https://github.com/WorkshopAgency/AgenticWorkshop/archive/refs/heads/main.zip) and unzipping it.
    This creates the workshop folder where the rest of the workshop will be. It can be renamed, but the text calls it the workshop root, and every path you will type is
    relative to it.
 4. In **OpenCode Desktop**, open that extracted folder as your project—the

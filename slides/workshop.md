@@ -14,7 +14,7 @@ style: |
 
 <div class="presenters">Dimitrios S. Kanakoglou &amp; Peter Wad Sackett<br>With HALp, our workshop helper</div>
 
-<div class="workshop-date">Hands-on, surface 2 h 30 min, in-depth a day or more</div>
+<div class="workshop-date">Hands-on: the core exercises, and Dive Deeper sections to go further</div>
 
 ---
 
@@ -240,6 +240,6 @@ Not suitable: no way to check the answer, irreversible actions, confidential dat
 
 # Thank you
 
-Material: github.com/WorkshopAgency/AgenticWorkshop_dbc2026<br>To go deeper: the Dive Deeper sections at the end of the exercises
+Material: github.com/WorkshopAgency/AgenticWorkshop<br>To go deeper: the Dive Deeper sections at the end of the exercises
 
 Dimitrios S. Kanakoglou · dimkan@dtu.dk<br>Peter Wad Sackett · pwsa@dtu.dk
