@@ -127,3 +127,5 @@ access in the kernel and checks every network connection against a policy.
 
 See also [Lesson one](../../README.md#lesson-one--you-are-in-charge-of-your-data)
 in the main README.
+
+Previous: [Exercise 5 — Decision model](../05-decide/README.md) · Further: [additional tools, projects and research](../../additional.md).

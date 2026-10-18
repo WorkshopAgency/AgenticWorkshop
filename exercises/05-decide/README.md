@@ -151,4 +151,4 @@ calibrated and the final model much less so
 To find out on your own decisions: label 20 cases yourself, run them, and
 count how many of the answers given with more than 0.8 were right.
 
-Next: [Exercise 6 — Safety](../06-safety/README.md).
+Previous: [Exercise 4 — MCP](../04-mcp/README.md) · Next: [Exercise 6 — Safety](../06-safety/README.md).

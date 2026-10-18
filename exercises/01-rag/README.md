@@ -416,4 +416,4 @@ these, such as whether an answer is faithful to the retrieved pieces, by using
 a model as the judge. That makes its scores something to check as well. Start
 with ten questions whose answers you know.
 
-Next: [Exercise 2 — Skills](../02-skills/README.md).
+Previous: [Exercise 0 — Plugins](../00-plugins/README.md) · Next: [Exercise 2 — Skills](../02-skills/README.md).
