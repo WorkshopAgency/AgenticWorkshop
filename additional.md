@@ -8,12 +8,44 @@ Further reading and projects to explore after the workshop. These are resources 
 |---|---|
 | [OpenCode](https://opencode.ai/) | The workshop harness: [v2 documentation](https://opencode.ai/v2/docs/) and [source code](https://github.com/anomalyco/opencode) |
 | [awesome-opencode](https://github.com/awesome-opencode/awesome-opencode) | A map of plugins, themes, agents and projects |
-| [oh-my-pi](https://github.com/can1357/oh-my-pi) | An alternative harness with integrated development tools |
 | [OpenAgentsControl](https://github.com/darrenhinde/OpenAgentsControl) | Planning and approval-based agent coordination |
 | [python-expert-agent](https://github.com/amrahman90/python-expert-agent) | A compact, domain-specific agent package to inspect |
 
 Read installation scripts and check compatibility before running them.
 Popularity is not a security review.
+
+### Other harnesses
+
+The ideas from the workshop (instructions, tools, permissions, skills,
+agents, MCP) carry over to other harnesses. They differ mostly in who makes
+them, which models they can use and whether you can read their code:
+
+| Harness | Open source | Models | Worth knowing |
+|---|---|---|---|
+| [OpenCode](https://github.com/anomalyco/opencode) | Yes (MIT) | Many providers, including free ones | The one used in this workshop |
+| [Claude Code](https://github.com/anthropics/claude-code) | No (Anthropic, all rights reserved) | Anthropic's Claude models | Terminal agent; [documentation](https://code.claude.com/docs/en/overview) |
+| [Codex](https://github.com/openai/codex) | Yes (Apache 2.0) | OpenAI's models | Terminal agent with documented [sandbox and approval settings](https://developers.openai.com/codex/security) |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | Yes (Apache 2.0) | Google's Gemini models | Its README now points to the [Antigravity CLI](https://antigravity.google/product/antigravity-cli) for the latest Gemini models |
+| [goose](https://github.com/aaif-goose/goose) | Yes (Apache 2.0) | 15+ providers, including Ollama and OpenRouter | Desktop app, CLI and API |
+| [Cline](https://github.com/cline/cline) | Yes (Apache 2.0) | Many providers, including OpenRouter and local models | IDE extension, terminal and SDK |
+| [oh-my-pi](https://github.com/can1357/oh-my-pi) | Yes (MIT) | 60+ providers | Development tools wired into the harness |
+
+Open source matters for the same reason reading a plugin does: you can check
+what the harness sends where. With any of them, the model you choose decides
+where your prompts and files go.
+
+### Improving a harness automatically: Harness²
+
+[Harness²](https://github.com/google-research/harness2) (Google Research,
+Apache 2.0, [paper](https://arxiv.org/pdf/2610.14224)) is not a harness you
+work in but a research framework that improves one. It proposes edits to a
+harness, tries them on the same task, keeps what helps, and carries the
+lessons on to the next task, without changing the model's weights. The parts
+it edits are the ones from this workshop: system prompt, guardrails, memory,
+tool guidance, subagents, skills, scripts and plugins. It can use OpenCode or
+Codex as the agent it improves. It needs Linux and, for real runs, Google
+Cloud; read it to see how "a better agent" can mean a better harness rather
+than a bigger model.
 
 ## What is vLLM, and where does it fit?
 
@@ -139,6 +171,32 @@ Before enabling something, check:
 
 Do not paste unreviewed installation commands into an agent with unrestricted
 shell access. An MCP connection standardises access; it does not certify a tool.
+
+## Real isolation: when permissions are not enough
+
+Exercise 6 ends with *permissions are not a sandbox*: a rule matches the text
+of a command, and a command you approve runs with your own access to files,
+keys and the network. Isolation works below the agent instead:
+
+- **A container.** Run the commands an agent writes inside a container that
+  sees only the project folder, for example with Docker and
+  `--network none`, so nothing it runs can reach the internet or the rest of
+  your disk. If the whole agent runs in the container, it still needs to
+  reach its model: then allow only that address instead of switching the
+  network off.
+- **A dev container.** A project can describe its own container in
+  `.devcontainer/devcontainer.json` ([specification](https://containers.dev/)),
+  so everyone who works on it, and their agents, get the same isolated setup.
+- **An agent sandbox.** [NVIDIA OpenShell](https://github.com/NVIDIA/OpenShell)
+  (Apache 2.0) runs each agent in its own sandbox: kernel controls limit which
+  files it can access and which system calls it can make, and every network
+  connection is checked against a policy.
+- **The harness's own sandbox.** Some harnesses include one; Codex, for
+  example, documents [sandbox and approval settings](https://developers.openai.com/codex/security).
+  Check what it covers before relying on it.
+
+Isolation limits what a command can *do*. It does not change what the model
+*sees*: anything the agent reads is still sent to the model you chose.
 
 ## Paper2Agent: papers as usable tools
 
