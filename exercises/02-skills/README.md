@@ -244,8 +244,8 @@ plugin is code that runs inside OpenCode; Exercise 3 says more.
 
 **Look for:** writing `penguins.py` asked for your approval; running it with
 `notebook_run` did not. The first run downloads the kernel's packages (about
-400 MB), so it can take a minute. The top of the panel names your terminal and
-says whether it can draw plots there; elsewhere `o` opens them.
+400 MB), so it can take a minute. The plot cell is marked `▣ plot`; select it
+and press `o` to open the plot.
 
 **Why:** a plugin's tools run without OpenCode's approval prompt, even under a
 rule that says "ask". That is why `notebook_run` only runs notebooks under
