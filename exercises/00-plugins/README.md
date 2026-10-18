@@ -64,8 +64,9 @@ what you looked at is what runs, even if the author changes the plugin later.
 
 # Exercise 0c — Add the workshop key
 
-**Do:** the organisers show a key at the start of the session. Put it in a
-file in the workshop folder, replacing `PASTE-THE-KEY-HERE`:
+**Do:** at a workshop, the organisers give you a key; otherwise, get your
+own first (see *Not at a workshop?* below). Put it in a file in the workshop
+folder, replacing `PASTE-THE-KEY-HERE`:
 
 ```bash
 echo  PASTE-THE-KEY-HERE > .openrouter-key
@@ -78,7 +79,7 @@ it stays in this file, which Git ignores, and is never pasted into a chat,
 because everything in a chat is sent to the model.
 
 <details>
-<summary><b>Not at the workshop? Get your own OpenRouter key</b></summary>
+<summary><b>Not at a workshop? Get your own OpenRouter key</b></summary>
 
 1. Make an account at [openrouter.ai](https://openrouter.ai).
 2. Add credit on the [Credits](https://openrouter.ai/settings/credits) page.
