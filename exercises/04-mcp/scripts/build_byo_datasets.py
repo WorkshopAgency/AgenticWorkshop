@@ -2,7 +2,7 @@
 """Build the three bring-your-own-data sets in exercises/04-mcp/data/byo/.
 
 Rebuild:
-    uv run --with duckdb python exercises/04-mcp/scripts/build_byo_datasets.py
+    uv run --with "duckdb<2" python exercises/04-mcp/scripts/build_byo_datasets.py
 
 Downloads three public datasets, trims them, and writes:
 

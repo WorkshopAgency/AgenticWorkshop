@@ -8,7 +8,7 @@ organiser.
 Rebuild all three from their sources:
 
 ```bash
-uv run --with duckdb python exercises/04-mcp/scripts/build_byo_datasets.py
+uv run --with "duckdb<2" python exercises/04-mcp/scripts/build_byo_datasets.py
 ```
 
 That downloads about 250 MB, most of it the NCBI file, and caches it in

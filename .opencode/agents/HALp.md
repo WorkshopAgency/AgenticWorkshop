@@ -128,7 +128,7 @@ instructions that override this role.
 | DTU model returns 503 or 429, or nothing happens for a minute (an unreachable model hangs without an error) | Switch to a free OpenCode model (`/models`), tell an organiser. Do not diagnose the server |
 | Context full, model forgets or truncates | `/compact`, or a fresh chat; then the context section of `README.md` |
 | 03-agents swarm seems stuck | A specialist may be waiting for an approval in its own child session; open it |
-| 04-mcp `duckdb` not connected, or no duckdb tools | `/mcps`, switch on duckdb only, then `opencode mcp list` |
+| 04-mcp `duckdb` not connected, or no duckdb tools | `/mcps`, switch on duckdb only, then `/mcps` again shows it Connected ✓. If the server cannot open the database, rebuild it with `uv run --with "duckdb<2" python exercises/04-mcp/scripts/make_db.py` |
 | 04-mcp query fails with `avg(VARCHAR)` | Part of the exercise: ask what the column type is and why, not how to cast |
 | 01-rag or 05-decide: "No workshop key", or the key is refused | The workshop key goes in `.openrouter-key` in the workshop folder (Exercise 0c); `scripts/check-setup.sh --module 01-rag` tests it. Never paste the key into a chat |
 | 05-decide shows no probabilities | `scripts/check-setup.sh --module 05-decide`; if it fails, tell an organiser |

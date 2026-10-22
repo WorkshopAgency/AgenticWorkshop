@@ -3,7 +3,7 @@
 
 Run from the workshop root, before enabling the DuckDB MCP server:
 
-    uv run --with duckdb python exercises/04-mcp/scripts/make_db.py
+    uv run --with "duckdb<2" python exercises/04-mcp/scripts/make_db.py
 
 It does nothing if the database already exists; pass --force to rebuild.
 
@@ -32,11 +32,14 @@ def main():
         sys.exit(f"Missing data file(s) in exercises/04-mcp/data: {', '.join(missing)}\n"
                  f"Run this from the workshop root, or rebuild with "
                  f"exercises/04-mcp/scripts/build_pdb_dataset.py")
+    command = 'uv run --with "duckdb<2" python exercises/04-mcp/scripts/make_db.py'
     try:
         import duckdb
     except ImportError:
-        sys.exit("duckdb is not installed. Run:\n"
-                 "  uv run --with duckdb python exercises/04-mcp/scripts/make_db.py")
+        sys.exit(f"duckdb is not installed. Run:\n  {command}")
+    # the MCP server (mcp-server-motherduck 1.0.8) reads only files written by DuckDB 1.x
+    if int(duckdb.__version__.split(".")[0]) >= 2:
+        sys.exit(f"DuckDB {duckdb.__version__} writes files the workshop's MCP server cannot read. Run:\n  {command}")
 
     force = "--force" in sys.argv
     if os.path.exists(DB) and not force:

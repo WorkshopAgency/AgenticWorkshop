@@ -94,11 +94,12 @@ module() {
     04-mcp)
       if have uv; then ok "uv $(uv --version | cut -d' ' -f2)"
       else bad "uv is missing" "curl -LsSf https://astral.sh/uv/install.sh | sh"; fi
-      if [ -f exercises/04-mcp/data/workshop.duckdb ]; then ok "database built"
-      else warn "database not built yet" "Exercise 4a builds it"; fi
-      if have opencode && limit 30 opencode mcp list 2>/dev/null | grep -i duckdb | grep -qi connected; then
-        ok "duckdb MCP server connected"
-      else warn "duckdb MCP server not connected yet" "type /mcps in OpenCode and switch on duckdb"; fi
+      db=exercises/04-mcp/data/workshop.duckdb
+      if [ ! -f $db ]; then warn "database not built yet" "Exercise 4a builds it"
+      elif limit 120 uv run -q --no-project --with "duckdb<2" python -c "import duckdb; duckdb.connect('$db', read_only=True).execute('select count(*) from entries')" >/dev/null 2>&1
+      then ok "database built, and readable by the MCP server's DuckDB 1.x"
+      else bad "the MCP server cannot read the database (built with DuckDB 2?)" "rm $db, then: uv run --with \"duckdb<2\" python exercises/04-mcp/scripts/make_db.py"; fi
+      warn "check the connection in OpenCode" "type /mcps, switch on duckdb; it should say Connected"
       ;;
     05-decide)
       plugin opencode-notebook
