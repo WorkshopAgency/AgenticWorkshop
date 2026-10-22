@@ -2,7 +2,7 @@
 """Build the workshop DuckDB/Parquet dataset from wwPDB derived data.
 
 Rebuild:
-    uv run --with duckdb python exercises/04-mcp/scripts/build_pdb_dataset.py
+    uv run --with "duckdb<2" python exercises/04-mcp/scripts/build_pdb_dataset.py
 
 Downloads three public wwPDB index files, normalises them, and writes the
 Parquet tables and the hand-checkable CSV sample into exercises/04-mcp/data/.

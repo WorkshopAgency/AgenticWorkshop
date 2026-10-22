@@ -5,7 +5,7 @@
 | **Model** | `opencode/big-pickle` (default). Any chat model works |
 | **Needs** | `scripts/check-setup.sh` passed, and `uv` (`uv --version`). Nothing from other modules |
 | **You'll learn** | What MCP adds, how to connect a server, and why "connected" and "the query ran" are not "the answer is right" |
-| **Done when** | `opencode mcp list` shows `duckdb` connected, and your agent's numbers match the checkpoints at the bottom |
+| **Done when** | `/mcps` shows `duckdb` connected, and your agent's numbers match the checkpoints at the bottom |
 | **If stuck** | `/halp 04-mcp <what you tried>` |
 
 ## Why MCP
@@ -29,7 +29,7 @@ query result the agent reads is sent to the model you selected.
 (259,693 entries) and the Palmer penguins table:
 
 ```bash
-uv run --with duckdb python exercises/04-mcp/scripts/make_db.py
+uv run --with "duckdb<2" python exercises/04-mcp/scripts/make_db.py
 ```
 
 Fetch the server once, so its first use is not a silent 30 MB download (side effect is showing the help):
@@ -39,13 +39,9 @@ uvx mcp-server-motherduck@1.0.8 --help
 ```
 
 Start OpenCode and type `/mcps`. Four servers are listed, all switched off.
-Select **`duckdb`** only, press **space**, then **esc**. Check in a terminal:
+Select **`duckdb`** only, press **space**, then **esc**. Type `/mcps` again.
 
-```bash
-opencode mcp list
-```
-
-**Look for:** `duckdb` **connected**.
+**Look for:** `duckdb` **Connected ✓**.
 
 **Why:** "connected" only means a process started and answered a handshake.
 The database is opened when the first query arrives, so connected is not the

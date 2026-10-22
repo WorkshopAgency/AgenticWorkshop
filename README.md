@@ -438,6 +438,7 @@ the error and your `opencode --version`; do not reinstall or delete your setting
 | `/halp`, agents or updated settings are missing | [Try this first](#try-this-first): exit, run `opencode reload` in the workshop folder, then reopen. |
 | DTU models are missing | They are optional and may not be running. Otherwise check that OpenCode opened the folder containing `opencode.json`, then follow the reload step above. |
 | Connection failed / 503 | Ask an organiser to check the model's start command. |
+| After upgrading OpenCode: "port … is already in use" | The old version is still running in the background. Run `opencode service restart`, then start OpenCode again. |
 | Invalid API key / 401 | In Exercises 1 and 5: check `.openrouter-key` (Exercise 0c). In the chat: check for old provider settings. |
 | Not found / 404 | Use a fresh workshop download; ask an organiser to check the URL if it persists. |
 | Free models or other providers are missing | Check model visibility and v2 `disabled` settings; ask an organiser about stale v1 configuration. The supplied workshop JSON does not hide them. |
