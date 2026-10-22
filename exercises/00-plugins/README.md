@@ -72,6 +72,9 @@ folder, replacing `PASTE-THE-KEY-HERE`:
 echo  PASTE-THE-KEY-HERE > .openrouter-key
 ```
 
+Do this in a terminal, not with `!` inside OpenCode: a command typed there
+becomes part of the chat, and the key would be sent to the model.
+
 **Why:** Exercises 1 and 5 call small models at
 [OpenRouter](https://openrouter.ai) directly, outside OpenCode, and an API
 key is how OpenRouter knows the call is allowed. Treat a key like a password:

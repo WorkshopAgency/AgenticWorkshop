@@ -348,6 +348,16 @@ calls, not the agent's summary, are the record of what happened.
 | `/sidebar` | Change what the sidebar shows (plugin from Exercise 0). `ctrl+x b` shows or hides it |
 | `/notebook <file>` | Open a notebook next to the chat (plugin from Exercise 0) |
 | `opencode reload` | In a terminal: make OpenCode pick up new skills, agents or settings |
+| `!<command>` | Run a shell command without leaving OpenCode; `esc` goes back to the chat. See below |
+
+**Running a command inside OpenCode.** Type `!` at the start of the prompt:
+it switches to **Shell**, and the command runs in the workshop folder with
+its output shown in the chat. Most "in a terminal" steps can be done this way.
+But the command and its output become part of the conversation and are sent
+to the model with your next message. So never use `!` for anything secret,
+such as the workshop key in Exercise 0c, and think twice before printing
+data that could carry instructions (Exercise 6). Long outputs also fill the
+context like any other message.
 
 Start a **new chat** for each exercise, so the model does not carry the last
 one's context into the next. Your results go under `outputs/<exercise>/`,
