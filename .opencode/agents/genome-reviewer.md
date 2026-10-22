@@ -1,8 +1,8 @@
 ---
 description: Independently recomputes the key numbers and reviews the chart.
 mode: subagent
-model: opencode/space-bunny-free
-steps: 8
+model: opencode/beam-free
+steps: 12
 permissions:
 - action: edit
   resource: '*'

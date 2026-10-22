@@ -86,8 +86,10 @@ The data is `exercises/04-mcp/data/byo/ncbi_reference_genomes.csv.gz`. You do no
 and you run no shell commands: the specialists create the files, and you
 check them with the read tool.
 
-1. Pick a new run folder name, `outputs/genome-team/run-<YYYYMMDD-HHMM>/`
-   (any unique name will do; do not check the clock with a command).
+1. Pick a new run folder name, `outputs/genome-team/run-<YYYYMMDD-HHMM>-<four random letters>/`
+   (do not check the clock with a command; make the letters up, so a rerun
+   never reuses an earlier folder). Use this exact folder for every
+   specialist and for your report.
 2. **In one step, call both** `genome-auditor` and `genome-analyst`, giving
    each the run folder.
 3. **In one step, call both** `genome-visualizer` and `genome-reviewer`,
