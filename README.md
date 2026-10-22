@@ -166,7 +166,7 @@ model, needs, and a *Done when* check.
 | Module | You'll learn |
 |---|---|
 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
-| Concepts (slides) | Model, harness, tool, skill, agent, MCP |
+| [Concepts — slides](https://workshopagency.github.io/AgenticWorkshop/workshop.html) | Model, harness, tool, skill, agent, MCP |
 | [Exercise 0 — Plugins](exercises/00-plugins/README.md) | What a plugin is; install the two you use today |
 | [Exercise 1 — RAG](exercises/01-rag/README.md) | Why retrieval stops a weak model inventing answers |
 | [Exercise 2 — Skills](exercises/02-skills/README.md) | Turn a repeated task into a tested skill |
