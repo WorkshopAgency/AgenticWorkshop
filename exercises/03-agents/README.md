@@ -6,6 +6,7 @@
 | **Needs** | `scripts/check-setup.sh` passed. opencode-sidebar-plus from Exercise 0 helps in 3e. Nothing else from other modules: 3d supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
 | **Done when** | 3b: `check_viewer.py` scored both viewers. 3d: your agent ran on one normal and one invalid input. 3e: you checked `report.md` against `review.md` and looked at the chart yourself |
+| **Time** | Two parts run a team of agents and take longer than the rest. **3e**: about 2 minutes per run, up to about 15 when the free models are slow. **3k**: about 2–5 minutes per run, plus testing each specialist. Skip them if you are short of time |
 | **If stuck** | `/halp 03-agents <what you tried>` |
 
 Your outputs go under `outputs/03-agents/`.
@@ -332,6 +333,8 @@ opened", "controls checked", and "scientific content verified" distinct.
 
 # Exercise 3e — A team of specialists
 
+*Takes about 2 minutes per run, up to about 15 when the free models are slow.*
+
 One agent can do a task. A **team** (sometimes called a swarm) splits it into
 bounded jobs with explicit hand-offs: a coordinator and specialist
 subagents, each with its own model, instructions and permissions. The five
@@ -346,12 +349,12 @@ have one small task:
 | [genome-coordinator](../../.opencode/agents/genome-coordinator.md) | Delegates, then writes the report | `report.md` | `opencode/big-pickle` |
 | [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks rows, groups, missing values and units | `audit.md` | `opencode/big-pickle` |
 | [genome-analyst](../../.opencode/agents/genome-analyst.md) | Computes the medians | `medians.csv` | `opencode/mimo-v2.6-flash-free` |
-| [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Draws one chart | `medians.svg` | `opencode/space-bunny-free` |
-| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/space-bunny-free` |
+| [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Draws one chart | `medians.svg` | `opencode/beam-free` |
+| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/beam-free` |
 
-All five are free external models: prompts, data and results leave DTU, and
-Big Pickle and MiMo may use them to improve their models. That is why the
-task uses public NCBI data.
+All five are free external models: prompts, data and results leave DTU. Big
+Pickle and MiMo may use them to improve their models, and Beam's provider
+keeps them for 30 days. That is why the task uses public NCBI data.
 
 ## Run it
 
@@ -589,5 +592,52 @@ Fixing the arithmetic gives 400. Getting to 350 needs a decision about what
   number that is wrong.
 - A specialised tool built from fixed steps plus an agent is another option;
   see [open-code-review in the additional resources](../../additional.md#reviewing-code-with-fixed-steps-and-an-agent-open-code-review).
+
+# Exercise 3k — Build your own team
+
+*Takes about 2–5 minutes per team run, plus testing each specialist.*
+
+**Do:** build a team of your own instead of repeating the genome team. Pick a
+target:
+
+| Target | A question to start from |
+|---|---|
+| [Penguins](../04-mcp/data/byo/PROVENANCE.md) | Why do the pooled and the within-species correlations of bill length and depth disagree? |
+| [Human proteins](../04-mcp/data/byo/PROVENANCE.md) | How does the number of human proteins change with the evidence you accept? |
+| Your own data | One answerable question, the input, the result, and a check that could prove the answer wrong. Public or made-up data only: the models are external |
+
+Copy the five `genome-*.md` files in `.opencode/agents/` to new names with
+your own prefix, for example `penguin-coordinator.md` and
+`penguin-auditor.md`. In each, change the description, the job, the input
+path and the run folder (`outputs/penguin-team/`). In the coordinator, change
+the question and the names in its `subagent` rules, which must list exactly
+your specialists:
+
+```yaml
+permissions:
+  - { action: subagent, resource: '*', effect: deny }
+  - { action: subagent, resource: penguin-auditor, effect: allow }
+  - { action: subagent, resource: penguin-analyst, effect: allow }
+  - { action: subagent, resource: penguin-visualizer, effect: allow }
+  - { action: subagent, resource: penguin-reviewer, effect: allow }
+```
+
+Keep `mode: subagent` for the specialists and `mode: primary` for the
+coordinator. Restart OpenCode, then test each specialist on its own first,
+for example `@penguin-auditor`, with an explicit run folder. Only then select
+your coordinator and run the team.
+
+**Look for:** did each specialist write its own file in the run folder? Can
+the reviewer reproduce the result without trusting the analyst's summary? If
+a specialist fails, does the coordinator say so, or fill the gap with a
+guess? Run it a second time: does it land in a new folder?
+
+**Why:** renaming a file does not rename it inside the coordinator's rules
+or instructions: a rule still naming `genome-auditor` does not let the
+coordinator call `penguin-auditor`. Each specialist needs a narrow job, its own output and a check of
+its own; another copy of the analyst adds cost, not evidence. Keep the
+reviewer on a different model from the analyst, as in 3e: the free models
+change often, and `scripts/check-setup.sh --module 03-agents` tells you
+which of the team's models are still offered.
 
 Previous: [Exercise 2 — Skills](../02-skills/README.md) · Next: [Exercise 4 — MCP](../04-mcp/README.md).

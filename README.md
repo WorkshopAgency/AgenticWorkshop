@@ -484,12 +484,12 @@ list.
 |---|---|
 | `opencode/big-pickle` | **Workshop default**, and the 3e coordinator and auditor. Free-period data may be used to improve the model |
 | `opencode/mimo-v2.6-flash-free` | 3e analyst. Free-period data may be used to improve the model |
-| `opencode/space-bunny-free` | 3e visualizer and reviewer. Zero-retention provider |
-| `opencode/longcat-2.5-preview-free` | Zero-retention provider. Preview: may disappear |
-| `opencode/glm-5.3-flash-free` | Zero-retention provider |
+| `opencode/beam-free` | 3e visualizer and reviewer. Not used for training; kept 30 days for safety reasons |
 | `opencode/deepseek-v4.1-flash-free` | Zero-retention provider |
-| `opencode/nemotron-3.5-lightning-free` | NVIDIA free endpoint, trial use only: use is logged and may improve NVIDIA's products; no personal or confidential data |
-| `opencode/nemotron-3.5-super-vl-free` | Also reads images. NVIDIA free endpoint, trial use only: use is logged and may improve NVIDIA's products; no personal or confidential data |
+| `opencode/glm-5.3-flash-free` | Zero-retention provider |
+| `opencode/flint-40b-free` | Free-period data may be used to improve the model |
+| `opencode/nemotron-3.5-lightning-free` | Free-period data may be used to improve the model |
+| `opencode/nemotron-3.5-super-vl-free` | Also reads images. Free-period data may be used to improve the model |
 | `opencode/beam-free` | Not used for training, but kept for 30 days for safety. Not offered in some countries |
 | `opencode/jev-1.13-free` | TypeSafe AI's model for fast, structured decisions. OpenCode publishes no data terms for it |
 
@@ -499,7 +499,8 @@ and go. A contributor model can train on what you submit to it, and the word
 you. If you want to avoid them, check the ID rather than the name.
 
 None of the agents in exercise 3e uses a contributor model. Big Pickle and
-MiMo may still use free-period data to improve the model, according to
+MiMo may still use free-period data to improve the model, and Beam's provider
+keeps data for 30 days, according to
 [OpenCode's model page](https://opencode.ai/docs/zen/).
 
 Free does not mean private, and terms differ between offers. Use public
