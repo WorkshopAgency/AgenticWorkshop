@@ -424,4 +424,167 @@ model and note it.
 
 ---
 
+# === Dive Deeper ===
+
+# Exercise 3f — Finding bugs: run it, then ask
+
+There is a working script in [`buggy/`](buggy/). It reads a small BED file,
+runs, exits cleanly and prints three numbers. All three are wrong, and one of
+them is wrong in two different ways. Nothing errors: this is the kind of bug
+that reaches a paper.
+
+**Do:** work on a copy, so the original stays as it is, and run it:
+
+```bash
+mkdir -p outputs/03-agents
+cp -r exercises/03-agents/buggy outputs/03-agents/buggy
+cd outputs/03-agents/buggy && python3 summarise.py && cd -
+```
+
+Then start a new chat in **Plan** and ask:
+
+> Review outputs/03-agents/buggy/summarise.py and its input regions.bed. Do
+> not edit anything.
+
+**Look for:** which problems it names, and whether it explains each with
+evidence from the data. Keep its answer: the next steps are compared with it.
+
+**Why:** start with what you already have. OpenCode also has built-in
+commands for this kind of work:
+
+| Command | Use |
+|---|---|
+| `/review` | Review changes: uncommitted, a commit, a branch or a PR. It reviews a *diff*, so it has nothing to say about a script nobody changed; use it after a fix |
+| `/fork` | Branch the conversation from an earlier message, to try a fix without losing the original thread. It does not copy files |
+| `/undo` | Take back the last message |
+| `/diff` | See what changed |
+| `/compact` | Summarise the conversation to free context |
+| `/export` | Save the conversation |
+
+# Exercise 3g — Finding bugs with a skill
+
+**Do:** write a debugging skill, as in Exercise 2, or adapt a published one
+such as [this debugging skill](https://github.com/AllThingsSmitty/proven-skills/tree/main/skills/debug).
+Give it these steps, then use it on the copy of the script:
+
+1. Reproduce and record the actual output before reading any code.
+2. State a hypothesis, the evidence for it, and what was ruled out.
+3. Name the smallest change that would fix it.
+4. Say what was not checked.
+
+**Look for:** does the skill change what is found, or only how the answer is
+laid out?
+
+**Why:** a skill is Markdown, so it cannot run anything by being present.
+That makes it the safest thing to add. The published skill opens with a rule
+worth keeping: debugging is hypothesis-driven investigation, not random
+exploration.
+
+# Exercise 3h — Finding bugs with a reviewer agent
+
+**Do:** create `.opencode/agents/bug-reviewer.md`:
+
+```markdown
+---
+description: Reviews code and reports defects with evidence. Cannot edit or run anything.
+mode: primary
+steps: 15
+permissions:
+  - { action: '*', resource: '*', effect: deny }
+  - { action: read, resource: '*', effect: allow }
+  - { action: glob, resource: '*', effect: allow }
+  - { action: grep, resource: '*', effect: allow }
+  - { action: external_directory, resource: '*', effect: deny }
+---
+
+Review the code you are pointed at. For each defect: the line, what is wrong,
+the evidence, and the smallest fix. Say what you could not check.
+```
+
+Restart OpenCode, select `bug-reviewer` (shift+tab) and ask it to review the
+copy of the script. Ask it to run the script, too.
+
+**Look for:** which tools it used, and what it says when asked to run the
+script. Compare its findings with 3f and 3g: which bugs did each find, and
+which of its points are real problems rather than bugs in the printed numbers?
+
+**Why:** a skill advises; an agent decides what is allowed. This reviewer
+denies everything first, then allows only reading. Denying only edits would
+not be enough, because a shell command can rewrite files too. Review first,
+and let a separate, approved Build task run tests or make the fix.
+
+# Exercise 3i — The ordinary tools, and a file of expected answers
+
+**Do:** run a linter and a type checker on the script:
+
+```bash
+uvx ruff check --select ALL outputs/03-agents/buggy/summarise.py
+uvx --with mypy mypy outputs/03-agents/buggy/summarise.py
+```
+
+Then ask Build to write a small file of expected answers for `regions.bed`,
+worked out by hand from the four rows, and a test that compares the script's
+output with it.
+
+**Look for:** how many of the linter's complaints are about the wrong
+numbers. Does the test fail on the current script?
+
+**Why:** an agent driving a deterministic tool beats an agent reasoning about
+code. None of these bugs breaks a rule a linter knows; a file of known
+answers catches all of them, because a wrong number is only wrong compared
+with the right one. Asking for that file first changes how the whole session
+goes.
+
+| Tool | Finds |
+|---|---|
+| A file of expected answers | Silently wrong numbers |
+| `pytest -x --lf` | Stops at the first failure, then reruns only the failures |
+| `ruff`, `mypy` | Problems that never reach a running program |
+| `git bisect` | Which commit broke it, mechanically |
+| `diff <(old) <(new)` | Proof that an output actually changed |
+
+# Exercise 3j — Build your own checker
+
+**Do:** write a checker for something you care about in your own data: a
+file format, a coordinate convention, a column that must never be negative,
+a join that must not change the row count. Make it fail loudly on bad input
+and stay silent on good input. Then break the data on purpose and confirm it
+fails.
+
+**Why:** a check you have never seen fail is not a check.
+
+<details>
+<summary><b>What the script is actually doing wrong</b> (open after you have tried)</summary>
+
+1. **`end - start + 1`.** BED intervals are half-open, so a region is
+   `end - start` bases. One base too many per region, so the error grows with
+   the number of rows and is invisible on any single row.
+2. **BED starts are 0-based.** The first region starts at base 1001 in 1-based
+   coordinates, not 1000. BED is 0-based; GFF, GTF and VCF are 1-based.
+3. **Sorting chromosome names as text.** `chr10` sorts before `chr2`.
+4. **Overlapping regions are counted twice.** `regionA` (chr1:1000-1100) and
+   `regionD` (chr1:1050-1200) overlap by 50 bases.
+
+So "total bases covered" has three answers:
+
+| Answer | Meaning |
+|---|---|
+| 404 | What the script prints. Wrong |
+| 400 | The sum of the region lengths, after fixing the off-by-one |
+| 350 | The bases actually covered, after merging the overlap |
+
+Fixing the arithmetic gives 400. Getting to 350 needs a decision about what
+"covered" means: a question to ask, not only a line to fix.
+
+</details>
+
+## What to notice
+
+- Start cheap: what OpenCode already has, then a skill, then an agent.
+- An agent's permissions decide what it can do; deny first, then allow.
+- A linter checks rules, not answers. A file of expected answers catches a
+  number that is wrong.
+- A specialised tool built from fixed steps plus an agent is another option;
+  see [open-code-review in the additional resources](../../additional.md#reviewing-code-with-fixed-steps-and-an-agent-open-code-review).
+
 Previous: [Exercise 2 — Skills](../02-skills/README.md) · Next: [Exercise 4 — MCP](../04-mcp/README.md).
