@@ -551,6 +551,9 @@ a join that must not change the row count. Make it fail loudly on bad input
 and stay silent on good input. Then break the data on purpose and confirm it
 fails.
 
+**Look for:** does it stay silent on the good data, and fail with a message
+that says what is wrong and where on the broken copy?
+
 **Why:** a check you have never seen fail is not a check.
 
 <details>
