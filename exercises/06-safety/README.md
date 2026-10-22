@@ -84,6 +84,9 @@ together: rules limit what it *can* do, instructions shape what it *tries*.
 grep -n "AI ASSISTANTS" exercises/06-safety/field_notes.csv
 ```
 
+Run it in a terminal. With `!` inside OpenCode, the planted instruction would
+land in the conversation itself, where the model reads it.
+
 **Look for:** read the whole cell. For each step it asks for, which rule
 stops it under Build, which under `safe-analyst`, and where does nothing stop
 it? Did either of your agents act on it, and did either tell you about it?
