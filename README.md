@@ -240,6 +240,7 @@ AgenticWorkshop/
       02-skills/
       03-agents/
          starter/csv-profile/   A ready-made skill for Exercise 3d
+         buggy/                 A script that runs and prints wrong numbers, for 3f–3j
       04-mcp/
          data/                  The PDB snapshot, and byo/ for three other datasets
          scripts/               Build the DuckDB database

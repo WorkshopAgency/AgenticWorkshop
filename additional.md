@@ -47,6 +47,32 @@ Codex as the agent it improves. It needs Linux and, for real runs, Google
 Cloud; read it to see how "a better agent" can mean a better harness rather
 than a bigger model.
 
+### Reviewing code with fixed steps and an agent: open-code-review
+
+[open-code-review](https://github.com/alibaba/open-code-review) (Alibaba,
+Apache 2.0) is a code-review tool built the way this workshop suggests
+building agents: fixed, ordinary code decides which changed files to review,
+groups related files and picks the review rules, and the model only does the
+judging. Its authors argue that a review skill alone tends to skip files,
+point at the wrong lines and vary from run to run; its README reports its own
+benchmark against general-purpose agents.
+
+It is a command-line tool, `ocr`, that reviews Git changes. To try it with
+OpenCode:
+
+1. Install it and give it a model:
+   `npm install -g @alibaba-group/open-code-review`, then `ocr config provider`,
+   `ocr config model` and `ocr llm test`.
+2. Add its OpenCode plugin, which adds the `/ocr-review` and `/ocr-health`
+   commands. It is a single file plus two npm packages; follow
+   [its OpenCode instructions](https://github.com/alibaba/open-code-review/blob/main/plugins/open-code-review/opencode/README.md).
+3. Or use **delegation mode** (`ocr delegate`): `ocr` only selects the files
+   and the rules, and your own agent does the review, so it needs no model of
+   its own. See [its documentation](https://github.com/alibaba/open-code-review/blob/main/pages/src/content/docs/en/integrations/delegate.md).
+
+Like any plugin, read what it does before installing it: it reads your
+changes and sends them to the model you configure.
+
 ## What is vLLM, and where does it fit?
 
 **vLLM is an inference and serving engine.** It loads supported model weights
