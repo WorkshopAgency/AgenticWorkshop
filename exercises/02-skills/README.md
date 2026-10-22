@@ -252,4 +252,71 @@ rule that says "ask". That is why `notebook_run` only runs notebooks under
 `outputs/`, and why you read a plugin before you install it. To remove it,
 delete `.opencode/plugins/opencode-notebook` and restart OpenCode.
 
+# Exercise 2e — Download an existing structure image
+
+**Do:** in a new chat in **Plan**:
+
+> Create a project skill that downloads the existing rendered image of a PDB
+> entry from the RCSB, rather than drawing new coordinates. Discuss the
+> source, the output format and what happens when an entry has no image
+> before building it.
+
+Agree on the behaviour, switch to **Build** and implement it. Try 4HHB, open
+the image, and check it shows that entry. Then try an ID that does not exist,
+such as ZZZZ.
+
+**Look for:** does the skill record where the image came from and which view
+it is? With ZZZZ, does it say that no image exists, or quietly hand you
+another picture?
+
+**Why:** a missing result should be reported, not replaced. The skill's
+description should also make clear that it fetches someone else's rendering;
+drawing one yourself is a different task (2g).
+
+# Exercise 2f — Find a skill, and how to copy it
+
+**Do:** open the skills you have made so far. OpenCode looks for skills in:
+
+| Where | Folder |
+|---|---|
+| This project | `.opencode/skills/<skill-id>/SKILL.md` |
+| All your projects | `~/.config/opencode/skills/<skill-id>/SKILL.md` |
+| Also searched, for compatibility | `.claude/skills` and `.agents/skills`, in the project and in your home folder |
+
+Then type `/skills` in the chat.
+
+**Look for:** each skill is a folder, and the folder name is its id. Inside,
+`SKILL.md` starts with a header (`name`, `description`) followed by the
+instructions; any scripts or references sit next to it in the same folder.
+
+**Why:** to copy a skill, copy its **whole folder**, not just `SKILL.md`, or
+it may lose the scripts it relies on. Copy it into another project's
+`.opencode/skills/`, or into `~/.config/opencode/skills/` to use it in all
+your projects, then run `opencode reload`. Before you copy one, read it as you
+would a plugin: what it tells the agent to do, and whether it carries
+credentials or private example data. `/skills` shows that a skill was found,
+not that it works.
+
+# Exercise 2g — Draw a structure from its coordinates
+
+**Do:** in **Plan**:
+
+> Create a project skill that draws the backbone of a protein from the atomic
+> coordinates in a PDB file, as a static PNG, one colour per chain. Use only
+> Python and matplotlib, listed in a script block so uv provides them. Discuss
+> the approach with me before implementing it.
+
+Build it, try it on 4HHB, and put the PNG next to the image you downloaded
+in 2e.
+
+**Look for:** does the drawing come from the actual coordinates? Check the
+number of chains (4HHB has four), where chains break, and whether the
+colours and labels match the chains. The two pictures will differ in
+orientation and style; can you tell which differences are real?
+
+**Why:** downloading someone's rendering (2e) and drawing from the data are
+different tasks, and an image is not automatically a faithful one. An
+interactive viewer is Exercise 3a's job; here the point is a small,
+checkable picture made from coordinates you can inspect.
+
 Previous: [Exercise 1 — RAG](../01-rag/README.md) · Next: [Exercise 3 — Agents](../03-agents/README.md).
