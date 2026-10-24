@@ -47,6 +47,22 @@ Codex as the agent it improves. It needs Linux and, for real runs, Google
 Cloud; read it to see how "a better agent" can mean a better harness rather
 than a bigger model.
 
+### Running many agents at once: Hermes, Orca and Paperclip
+
+These three go beyond one agent in one chat. They are all open source (MIT).
+
+| Project | What it is | Worth knowing |
+|---|---|---|
+| [Hermes Agent](https://github.com/NousResearch/hermes-agent) (Nous Research) | An agent with a learning loop: it writes skills from experience and improves them as it uses them | Any model, including OpenRouter. Reachable from the terminal and from Telegram, Slack and other chat apps, with scheduled jobs that run unattended, and it can run its commands in Docker or on a remote machine instead of your laptop |
+| [Orca](https://github.com/stablyai/orca) | A desktop app for running several coding agents side by side (OpenCode, Claude Code, Codex and others), each in its own Git worktree | Give one prompt to several agents, compare their results and keep the best; follow them from your phone |
+| [Paperclip](https://github.com/paperclipai/paperclip) | A server and dashboard that organises many agents as a company: goals, roles, budgets and approvals | Bring your own agents and pick the model per agent; meant for agents that run for long periods on their own, with a person checking in |
+
+**Why it matters:** they take the ideas from Exercise 3 further: delegation,
+separate workspaces, a person who approves. They also take further what
+Exercise 6 warns about. An agent that runs unattended, on a schedule or
+around the clock, has no one reading each tool call. Before you let one loose,
+decide what it may touch, where your data goes, and what it may spend.
+
 ### Reviewing code with fixed steps and an agent: open-code-review
 
 [open-code-review](https://github.com/alibaba/open-code-review) (Alibaba,
