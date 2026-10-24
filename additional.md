@@ -298,6 +298,17 @@ how do we establish that the resulting system works?
 
 ## References: research and further reading
 
+- **Transformers, where it all started.** Vaswani et al. (2017). *Attention Is All You Need.* The architecture behind every model in this workshop. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762).
+- **Learning from a few examples.** Brown et al. (2020). *Language Models are Few-Shot Learners.* The GPT-3 paper: one model, many tasks, steered by the prompt alone. [arXiv:2005.14165](https://arxiv.org/abs/2005.14165).
+- **Retrieval-augmented generation.** Lewis et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* The paper that named RAG (Exercise 1). [arXiv:2005.11401](https://arxiv.org/abs/2005.11401).
+- **Reasoning step by step.** Wei et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models.* [arXiv:2201.11903](https://arxiv.org/abs/2201.11903).
+- **Reasoning and acting.** Yao et al. (2022). *ReAct: Synergizing Reasoning and Acting in Language Models.* The loop every agent in this workshop runs: think, call a tool, read the result, repeat. [arXiv:2210.03629](https://arxiv.org/abs/2210.03629).
+- **Models that use tools.** Schick et al. (2023). *Toolformer: Language Models Can Teach Themselves to Use Tools.* [arXiv:2302.04761](https://arxiv.org/abs/2302.04761).
+- **Teams of agents.** Wu et al. (2023). *AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation.* Background for the agent teams in Exercise 3. [arXiv:2308.08155](https://arxiv.org/abs/2308.08155).
+- **The interface matters.** Yang et al. (2024). *SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering.* How the tools you give an agent change what it can do. [arXiv:2405.15793](https://arxiv.org/abs/2405.15793).
+- **Long contexts have blind spots.** Liu et al. (2023). *Lost in the Middle: How Language Models Use Long Contexts.* Why sending more pieces is not always better (Exercise 1h). [arXiv:2307.03172](https://arxiv.org/abs/2307.03172).
+- **Prompt injection.** Greshake et al. (2023). *Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection.* The attack in Exercise 6. [arXiv:2302.12173](https://arxiv.org/abs/2302.12173).
+- **A practical guide.** Anthropic (2024). *Building effective agents.* When to use a simple workflow and when an agent, in plain language. [anthropic.com](https://www.anthropic.com/research/building-effective-agents).
 - **Paper2Agent.** Miao et al. (2026). *Reimagining research papers as interactive and reliable AI agents.* Nature. [doi:10.1038/s41586-026-11044-y](https://doi.org/10.1038/s41586-026-11044-y). [Earlier preprint](https://arxiv.org/abs/2509.06917).
 - **Biomni.** *A General-Purpose Biomedical AI Agent.* [Research paper](https://doi.org/10.1101/2025.05.30.656746), [project and current publication links](https://biomni.stanford.edu/).
 - **BixBench.** Mitchener et al. (2025). *A Comprehensive Benchmark for LLM-based Agents in Computational Biology.* [arXiv:2503.00096](https://arxiv.org/abs/2503.00096).
@@ -313,3 +324,13 @@ how do we establish that the resulting system works?
 
 Project links are on “Where to go after today”. Check current documentation,
 installation scripts and data-handling terms before trying them.
+
+## Thank you
+
+Thank you to everyone who has taken this workshop, and to everyone who told
+us what worked and what did not. Many of the exercises look the way they do
+because a participant got stuck, asked a good question or suggested a better
+way. Please keep telling us: open an issue on the repository, or write to us
+directly.
+
+Dimitrios S. Kanakoglou and Peter Wad Sackett
