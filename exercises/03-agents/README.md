@@ -612,8 +612,9 @@ Copy the five `genome-*.md` files in `.opencode/agents/` to new names with
 your own prefix, for example `penguin-coordinator.md` and
 `penguin-auditor.md`. In each, change the description, the job, the input
 path and the run folder (`outputs/penguin-team/`). In the coordinator, change
-the question and the names in its `subagent` rules, which must list exactly
-your specialists:
+the question, the team name in its `new_run.py` command and permission
+(`python3 exercises/03-agents/new_run.py penguin-team`), and the names in its
+`subagent` rules, which must list exactly your specialists:
 
 ```yaml
 permissions:

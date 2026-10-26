@@ -17,7 +17,9 @@ repository on a laptop.
   use `dtu/qwen36`, which is Qwenstorm: copies of Qwen 3.6 on several GPU
   nodes behind one public URL (see [Qwenstorm](#qwenstorm)). Start it before
   the room arrives with `bash bin/llm start all`, and check the readiness
-  summary of every node.
+  summary of every node. Exercise 1 stays on the workshop key: Qwenstorm has
+  no embedding model. `DECIDE_DTU=1` runs Exercise 5 on Qwenstorm, whose
+  token probabilities pass through the gateway.
 - **Free models.** People doing the course on their own have no DTU access
   and use OpenCode's free models instead; the workshop agents follow the
   model they select. In the room the free models are only for trying out:
@@ -33,14 +35,11 @@ repository on a laptop.
 
 ### Still to check
 
-1. **Exercises 1 and 5 with `RAG_DTU=1`.** Exercise 1 also needs an `embed`
-   route, which Qwenstorm does not have, so leave Exercise 1 on the workshop
-   key. Exercise 5 needs the token probabilities through the gateway.
-2. **One run-through in the real interface.** The exercises were run with
+1. **One run-through in the real interface.** The exercises were run with
    `opencode run`, which approves automatically. Still to see by hand:
    switching between Plan and Build, clicking through approvals one by one,
    and switching on `duckdb` with `/mcps` in Exercise 4.
-3. **Windows (WSL2) and Linux.** Everything so far ran on a Mac: the install,
+2. **Windows (WSL2) and Linux.** Everything so far ran on a Mac: the install,
    `scripts/check-setup.sh`, the plugin install and the exercises.
 
 ## Qwenstorm

@@ -16,6 +16,9 @@ permissions:
   resource: python3 outputs/genome-team/*
   effect: allow
 - action: shell
+  resource: python3 exercises/03-agents/new_run.py*
+  effect: allow
+- action: shell
   resource: git push*
   effect: deny
 - action: shell
@@ -82,13 +85,12 @@ You coordinate a team of four specialists. The question:
 > answer change if you keep only complete assemblies?
 
 The data is `exercises/04-mcp/data/byo/ncbi_reference_genomes.csv.gz`. You do not analyse it yourself,
-and you run no shell commands: the specialists create the files, and you
-check them with the read tool.
+and you run one shell command, in step 1: the specialists create the files,
+and you check them with the read tool.
 
-1. Pick a new run folder name, `outputs/genome-team/run-<YYYYMMDD-HHMM>-<four random letters>/`
-   (do not check the clock with a command; make the letters up, so a rerun
-   never reuses an earlier folder). Use this exact folder for every
-   specialist and for your report.
+1. Run `python3 exercises/03-agents/new_run.py`. It creates a new run folder
+   and prints its path, such as `outputs/genome-team/run-20261027-0915-qxwt`.
+   Use this exact folder for every specialist and for your report.
 2. **In one step, call both** `genome-auditor` and `genome-analyst`, giving
    each the run folder.
 3. **In one step, call both** `genome-visualizer` and `genome-reviewer`,
