@@ -65,12 +65,21 @@ what you looked at is what runs, even if the author changes the plugin later.
 # Exercise 0c — Add the workshop key
 
 **Do:** at a workshop, the organisers give you a key; otherwise, get your
-own first (see *Not at a workshop?* below). Put it in a file in the workshop
-folder, replacing `PASTE-THE-KEY-HERE`:
+own first (see *Not at a workshop?* below). In a terminal in the workshop
+folder, put it in the file `.openrouter-key`:
 
 ```bash
-echo  PASTE-THE-KEY-HERE > .openrouter-key
+echo YOUR-KEY > .openrouter-key
 ```
+
+Replace only `YOUR-KEY` with your key, which starts with `sk-or-v1-`; leave
+`> .openrouter-key` as it is. Then check it:
+
+```bash
+python3 exercises/01-rag/rag.py
+```
+
+It says **The workshop key works.**, or what is wrong and how to fix it.
 
 Do this in a terminal, not with `!` inside OpenCode: a command typed there
 becomes part of the chat, and the key would be sent to the model.

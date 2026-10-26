@@ -32,6 +32,7 @@ from pathlib import Path
 # the shared colours, by meaning (exercises/shared/look.py)
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "shared"))
 import look  # noqa: E402
+import openrouter_key  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
@@ -54,10 +55,7 @@ NO_LOGPROBS = ("The model's reply contained no token probabilities (logprobs), s
 # ---------------------------------------------------------------- HTTP helper
 
 def workshop_key():
-    key = os.environ.get("OPENROUTER_API_KEY", "").strip()
-    if not key and (ROOT / ".openrouter-key").exists():
-        key = (ROOT / ".openrouter-key").read_text().strip()
-    return key
+    return openrouter_key.read()
 
 
 def tls():
@@ -76,10 +74,10 @@ def post_json(url, payload, timeout=120):
     data = json.dumps(payload).encode("utf-8")
     headers = {"Content-Type": "application/json"}
     if not USE_DTU:
-        key = workshop_key()
-        if not key:
-            sys.exit("No workshop key: put it in .openrouter-key in the workshop folder (Exercise 0c).")
-        headers["Authorization"] = f"Bearer {key}"
+        problem = openrouter_key.problem()
+        if problem:
+            sys.exit(problem)
+        headers["Authorization"] = f"Bearer {workshop_key()}"
         # only providers that return token probabilities
         payload = {**payload, "provider": {"require_parameters": True}}
         payload.pop("chat_template_kwargs", None)
@@ -105,8 +103,9 @@ def status():
     print(f"Decisions: {DECIDE_MODEL} at {where}.")
     if USE_DTU:
         return
-    if not workshop_key():
-        print(look.warn("No workshop key yet: see Exercise 0c."))
+    problem = openrouter_key.problem()
+    if problem:
+        print(look.warn(problem))
         return
     request = urllib.request.Request("https://openrouter.ai/api/v1/key",
                                      headers={"Authorization": f"Bearer {workshop_key()}"})
@@ -116,6 +115,8 @@ def status():
         print("The workshop key works.")
     except urllib.error.HTTPError as err:
         print(look.warn(f"The key was refused (HTTP {err.code}). Check .openrouter-key."))
+    except (urllib.error.URLError, TimeoutError, OSError) as err:
+        print(look.warn(f"Could not reach OpenRouter: {err}. Check the network."))
 
 
 # ------------------------------------------------------------------ questions

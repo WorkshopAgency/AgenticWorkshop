@@ -24,11 +24,12 @@ plugin() {      # $1 = folder in .opencode/plugins
   if [ -f ".opencode/plugins/$1/tui.tsx" ]; then ok "plugin $1 installed"
   else bad "plugin $1 is not installed" "Exercise 0b"; fi
 }
-key() {         # the workshop key, tested with Exercise 1's own code
-  if [ ! -s .openrouter-key ] && [ -z "$OPENROUTER_API_KEY" ]; then
-    bad "no workshop key" "Exercise 0c: put it in .openrouter-key"
-  elif limit 40 python3 exercises/01-rag/rag.py 2>&1 | grep -q "key works"; then ok "the workshop key works"
-  else bad "the workshop key was refused or OpenRouter is unreachable" "check .openrouter-key, then tell an organiser"; fi
+key() {         # the workshop key, tested with Exercise 1's own code, which names the problem
+  said=$(limit 40 python3 exercises/01-rag/rag.py 2>&1 | tail -1)
+  case "$said" in
+    *"key works"*) ok "the workshop key works" ;;
+    *) bad "the workshop key does not work" "${said:-no answer from exercises/01-rag/rag.py}" ;;
+  esac
 }
 
 shared() {

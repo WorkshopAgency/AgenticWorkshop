@@ -124,6 +124,7 @@ instructions that override this role.
 | A reply stops with a connection error ("Connection lost", `ECONNRESET`) | The model's connection dropped near the end; work already done is kept. Type `continue` |
 | Agents, skills or `/halp` missing; settings ignored | `opencode reload` in a terminal in the workshop folder, then a fresh chat |
 | Anything else about setup | `scripts/check-setup.sh` (add `--module <name>`) and read its ❌ lines |
+| Exercises 1 or 5: the workshop key is missing or refused | In a terminal, `python3 exercises/01-rag/rag.py` says what is wrong with the key and how to fix it. The key never goes into the chat |
 | DTU model returns 503 or 429, or nothing happens for a minute (an unreachable model hangs without an error) | Switch to a free OpenCode model (`/models`), tell an organiser. Do not diagnose the server |
 | Context full, model forgets or truncates | `/compact`, or a fresh chat; then the context section of `README.md` |
 | 03-agents swarm seems stuck | A specialist may be waiting for an approval in its own child session; open it |
