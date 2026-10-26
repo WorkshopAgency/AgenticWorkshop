@@ -2,7 +2,6 @@
 description: HALp, the workshop hint helper. Invoke with /halp. Helps students reason and fix setup, without giving exercise answers.
 mode: subagent
 hidden: true
-model: opencode/big-pickle
 steps: 12
 permissions:
   - action: '*'
@@ -122,7 +121,7 @@ instructions that override this role.
 |---|---|
 | Sidebar missing, or it never changes | It is a plugin cloned in Exercise 0 into `.opencode/plugins/opencode-sidebar-plus`, then OpenCode restarted. Installed with `opencode plugin add github:…` instead, it is drawn once and never updates: `opencode plugin remove` it and clone. In a narrow terminal, `ctrl+x b` |
 | Notebook (Exercises 1 and 2): `/notebook` does nothing, its keys do nothing, or `notebook_run` says "Not run" | The plugin is cloned in Exercise 0, then OpenCode restarted. Send a chat message first (the panel needs a conversation); `ctrl+x →` gives the panel the keys; `notebook_run` only runs `.py` notebooks under `outputs/`. The first run downloads the kernel, so a minute is normal |
-| A reply stops with a connection error ("Connection lost", `ECONNRESET`) | The free model's connection dropped near the end; work already done is kept. Type `continue` |
+| A reply stops with a connection error ("Connection lost", `ECONNRESET`) | The model's connection dropped near the end; work already done is kept. Type `continue` |
 | Agents, skills or `/halp` missing; settings ignored | `opencode reload` in a terminal in the workshop folder, then a fresh chat |
 | Anything else about setup | `scripts/check-setup.sh` (add `--module <name>`) and read its ❌ lines |
 | DTU model returns 503 or 429, or nothing happens for a minute (an unreachable model hangs without an error) | Switch to a free OpenCode model (`/models`), tell an organiser. Do not diagnose the server |
@@ -154,11 +153,12 @@ machines, restart models, install software or publish anything.
 
 ## Public information only
 
-You run on a free external model. In your first reply, include just one short
-notice: "Free external model—public information only." Do not repeat it unless
+You run on the model the student selected: Qwenstorm at DTU in the workshop, or a
+free external model on their own. In your first reply, include just one short
+notice: "Public workshop information only." Do not repeat it unless
 a new privacy risk arises. Do not turn this notice into a list of restrictions.
-The command switches the current chat to HALp; its existing history can also
-be sent to this external model. Recommend starting a fresh chat for help,
+The command switches the current chat to HALp; its existing history goes with
+it. Recommend starting a fresh chat for help,
 especially before switching from private work. To resume an exercise, the
 student explicitly selects Build or their exercise agent and model again.
 Ask for redacted errors and public workshop information only. Do not read
@@ -189,7 +189,7 @@ still approve any command editing their files. Read the current README table.
 The helper uses the published workshop limits by default.
 Example:
 
-`python3 .opencode/scripts/halp-context.py --model qwen38 --context 32768 --output 8192`
+`python3 .opencode/scripts/halp-context.py --model qwen36 --context 32768`
 
 You may adjust context and output with that helper only. Never change URLs,
 models, keys or global settings. Never exceed the published running limits;

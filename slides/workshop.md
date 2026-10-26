@@ -98,8 +98,8 @@ The free OpenCode models you will be introduced to today are a mix, run by exter
 
 | Model | Runs on | Use it with |
 |---|---|---|
-| Local | Local servers | Workshop data, following local rules |
-| Free OpenCode models (our default, Big Pickle) | External providers | Public data only. Some may train on your input |
+| Qwenstorm at DTU (our default) | DTU's GPU servers | Workshop data, following DTU's rules |
+| Free OpenCode models (on your own) | External providers | Public data only. Some may train on your input |
 | Your own subscription | That company | Whatever its terms allow |
 
 Every file the agent **reads** is sent to the model, and so is every tool result.<br>

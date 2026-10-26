@@ -4,11 +4,11 @@
 Hands-on, individual work.
 Dimitrios S. Kanakoglou (dimkan@dtu.dk) · Peter Wad Sackett (pwsa@dtu.dk)
 
-You work in OpenCode on your own laptop. The chat uses OpenCode's free
-models, Big Pickle by default. Exercises 1 and 5 call two small models at
-OpenRouter directly, with a workshop key the organisers give you. The DTU
-models are optional, when they are running. A paid subscription is not
-required to participate.
+You work in OpenCode on your own laptop. In the workshop the chat uses
+Qwenstorm, Qwen 3.6 run by the organisers at DTU. Exercises 1 and 5 call two
+small models at OpenRouter directly, with a workshop key the organisers give
+you. On your own, without a workshop, OpenCode's free models carry the whole
+course. A paid subscription is not required to participate.
 
 [Download the workshop ZIP](https://github.com/WorkshopAgency/AgenticWorkshop/archive/refs/heads/main.zip) ·
 [Quick start](#quick-start--install-download-and-open) ·
@@ -87,8 +87,10 @@ required to participate.
    `esc` to go back to the chat. **The command and its output become part of
    the chat and are sent to the model**, so never use `!` for anything
    secret, such as the workshop key.
-7. The default model is **Big Pickle**, a free OpenCode model. Other models
-   are in the model selector (`/models` in the terminal version); see
+7. The default model is **Qwenstorm** (`dtu/qwen36`), Qwen 3.6 at DTU. On
+   your own, without a workshop, choose a free model such as **Big Pickle**
+   instead; the workshop agents follow your choice. Other models are in the
+   model selector (`/models` in the terminal version); see
    [the models you can use](#llm-models-you-can-use).
 
 Python 3.10 or later is required for security reasons. uv starts the
@@ -130,9 +132,9 @@ into a chat.
 
 | What you choose | Where your data goes |
 |---|---|
-| **Free models** (the default) | Model requests go to a third party; retention and training terms depend on the specific offer |
+| **Qwenstorm, the DTU model** (the workshop default) | Model requests go to our DTU service; external tools can still send data elsewhere |
 | **The workshop key** (Exercises 1 and 5) | Requests go to OpenRouter and the model's provider; send only the exercises' own data |
-| **DTU models** (optional) | Model requests go to our DTU service; external tools can still send data elsewhere |
+| **Free models** (on your own, or to try out) | Model requests go to a third party; retention and training terms depend on the specific offer |
 | **Your own subscription** (Codex, Claude, others) | Depends on that provider, and on whether you have opted out of having your data used for training |
 
 User discretion is advised at all times. You are in charge of your data, you
@@ -344,7 +346,7 @@ calls, not the agent's summary, are the record of what happened.
 
 | Command | What it does |
 |---|---|
-| `/models` | Choose the model. The default is Big Pickle, a free model; the DTU models, when running, are under **DTU** |
+| `/models` | Choose the model. The default is Qwenstorm, under **DTU**; on your own, choose a free OpenCode model here |
 | `/skills` | List the skills OpenCode has found |
 | `/mcps` | Switch MCP servers on and off (Exercise 4) |
 | `/compact` | Summarise a long chat to free up the context window |
@@ -374,7 +376,7 @@ which Git ignores.
 ### Ask HALp
 
 HALp offers hints and setup help, not finished exercise answers. In a **fresh
-chat**, try `/halp Where should I start?` It uses a **free external model**:
+chat**, try `/halp Where should I start?` It uses the model you selected, like the chat:
 public information and redacted errors only; do not use a private research chat.
 
 <details>
@@ -389,10 +391,9 @@ Open a **fresh chat** and type `/halp` followed by your question:
 
 HALp reads the current workshop instructions and gives hints and setup help,
 not finished exercise answers. It can help adjust context settings after
-you approve the change. It initially uses **Big Pickle, a free external model**:
-share public information and redacted errors only. Do not invoke it inside
-a private research conversation, because the existing history can reach
-that provider too.
+you approve the change. It uses **the model you selected**, like the chat:
+share public information and redacted errors only. Do not invoke it inside a
+private research conversation, because the existing history goes with it.
 
 When you return to an exercise, select your exercise agent and model again.
 HALp's permissions and context help are just below.
@@ -406,15 +407,15 @@ Start a **fresh chat**, then type `/halp` followed by your question:
 
 ```text
 /halp I am on Exercise 2c. Where should I copy the skill folder?
-/halp What should I check before increasing Mistral's context?
+/halp What should I check before changing Qwen's context?
 ```
 
 HALp reads the current exercise instructions, offers one next step and helps
 with setup. Its instructions prohibit exercise solutions; check its advice
-as you would any model output. It uses **Big Pickle,
-a free external model**: only send public workshop information and redacted
-errors. The command switches the current chat, so its existing history can
-also reach that provider—do not invoke it inside a private research chat.
+as you would any model output. It uses **the model you selected**: only send
+public workshop information and redacted errors. The command switches the current
+chat, so its existing history goes with it—do not invoke it inside a private
+research chat.
 
 HALp can show this project's DTU budgets and change `limit.context` and
 `limit.output` up to the published running maxima, with your command approval.
@@ -450,8 +451,8 @@ the error and your `opencode --version`; do not reinstall or delete your setting
 | What you see | What to do |
 |---|---|
 | `/halp`, agents or updated settings are missing | [Try this first](#try-this-first): exit, run `opencode reload` in the workshop folder, then reopen. |
-| DTU models are missing | They are optional and may not be running. Otherwise check that OpenCode opened the folder containing `opencode.json`, then follow the reload step above. |
-| Connection failed / 503 | Ask an organiser to check the model's start command. |
+| Qwenstorm (DTU) is missing | Check that OpenCode opened the folder containing `opencode.json`, then follow the reload step above. Outside a workshop it is not running: choose a free model. |
+| Connection failed / 503 | Tell an organiser; meanwhile choose a free model with `/models`. |
 | After upgrading OpenCode: "port … is already in use" | The old version is still running in the background. Run `opencode service restart`, then start OpenCode again. |
 | Invalid API key / 401 | In Exercises 1 and 5: check `.openrouter-key` (Exercise 0c). In the chat: check for old provider settings. |
 | Not found / 404 | Use a fresh workshop download; ask an organiser to check the URL if it persists. |
@@ -471,7 +472,7 @@ can keep the earlier conversation and tool results.
 
 ## LLM Models you can use
 
-The chat uses Big Pickle, a free model, unless you choose another with `/models`. Exercises 1 and 5 use the workshop key; the DTU models are optional.
+In the workshop the chat uses Qwenstorm, Qwen 3.6 at DTU, unless you choose another with `/models`. On your own, without a workshop, use OpenCode's free models: the whole course works with them. Exercises 1 and 5 use the workshop key, or your own (Exercise 0c).
 
 <details>
 <summary>Free, paid, local and DTU models: what to be aware of</summary>
@@ -480,7 +481,7 @@ First be aware of the pricing - it can be creative.
 * Free models - check the provider's retention and training terms; no price does not mean private
 * Paid models - often subscription-based. Maybe as safe and confidential as the provider says
 * Local models - running on your own hardware. As confidential as your system
-* DTU models - hosted by the workshop organisers, optional and only when running. Use the supplied public data and follow DTU's data-handling rules
+* Qwenstorm, the DTU model - hosted by the workshop organisers during workshops, and the default there. Use the supplied public data and follow DTU's data-handling rules
 
 </details>
 
@@ -489,16 +490,18 @@ First be aware of the pricing - it can be creative.
 <details>
 <summary>Details</summary>
 
-The free models OpenCode offers at the time of writing. Free offers change
-without notice, and your local `opencode models` list can still show models
-that are gone; `scripts/check-setup.sh --module 03-agents` checks the live
-list.
+The free models OpenCode offers at the time of writing. On your own, outside
+a workshop, they carry the whole course: choose one with `/models`. In the
+workshop, try them, but do not rely on them: the free allowance is counted
+per account and per network, so a room on one network shares it, and once it
+is used up every free model refuses. Free offers also change without notice, and your local
+`opencode models` list can still show models that are gone.
 
 | Model ID | Notes |
 |---|---|
-| `opencode/big-pickle` | **Workshop default**, and the 3e coordinator, auditor and reviewer. Free-period data may be used to improve the model |
-| `opencode/mimo-v2.6-flash-free` | 3e analyst. Free-period data may be used to improve the model |
-| `opencode/deepseek-v4.1-flash-free` | 3e visualizer. Zero-retention provider |
+| `opencode/big-pickle` | Free-period data may be used to improve the model |
+| `opencode/mimo-v2.6-flash-free` | Free-period data may be used to improve the model |
+| `opencode/deepseek-v4.1-flash-free` | Zero-retention provider |
 | `opencode/glm-5.3-flash-free` | Zero-retention provider |
 | `opencode/flint-40b-free` | Free-period data may be used to improve the model |
 | `opencode/nemotron-3.5-lightning-free` | Free-period data may be used to improve the model |
@@ -511,8 +514,8 @@ and go. A contributor model can train on what you submit to it, and the word
 `contributor` is in its model ID but **not** in the name the selector shows
 you. If you want to avoid them, check the ID rather than the name.
 
-None of the agents in exercise 3e uses a contributor model. Big Pickle and
-MiMo may still use free-period data to improve the model, according to
+The workshop agents follow the model you select. Big Pickle and MiMo may use
+free-period data to improve the model, according to
 [OpenCode's model page](https://opencode.ai/docs/zen/).
 
 Free does not mean private, and terms differ between offers. Use public
@@ -546,7 +549,7 @@ The key is shared by the room and has a spending limit. Keep it in
 
 </details>
 
-### The DTU models (optional)
+### Qwenstorm, the DTU model (the default)
 
 <details>
 <summary>Details</summary>
@@ -555,20 +558,18 @@ The workshop project shows one **DTU** group containing:
 
 | Model | Context | Maximum output | Description |
 |---|---:|---:|---:|
-| GPT-OSS 20B | 16384 | 4096 | Alternative general model |
-| Mistral Nemo 12B | 16384 | 4096 | Smaller checkpoint; check tool behaviour on your task |
-| Qwen 3.6 35B-A3B | 16384 | 4096 | Analysis and tool use |
-| Qwen 3.8 27B FP8 | 32768 | 4096 | Larger starting context |
+| Qwenstorm (Qwen 3.6 35B-A3B) | 65536 | 4096 | The workshop default: analysis and tool use |
 
-The DTU group is added alongside OpenCode's available free models
+Qwenstorm is the workshop's own setup: copies of Qwen 3.6 on DTU's GPU
+servers. Each request goes to whichever copy is least busy, so everyone uses
+the same model name. The DTU
+group is added alongside OpenCode's available free models
 and your other configured providers. This file does not restrict the provider
 list or change your global configuration. Other providers may require their
 own sign-in or API key.
 
-**Does opening the folder start the models?** No. It connects to models that
-Peter and Dimitrios start when they are available; the workshop does not
-depend on them. With them running, `RAG_DTU=1` in front of the commands of
-Exercises 1 and 5 uses them instead of the workshop key.
+**Does opening the folder start the model?** No. It connects to the model
+that Peter and Dimitrios run at DTU during workshops.
 
 See [OpenCode project configuration](https://opencode.ai/v2/docs/config/#per-project).
 
@@ -578,13 +579,6 @@ See [OpenCode project configuration](https://opencode.ai/v2/docs/config/#per-pro
 
 <details>
 <summary>Details</summary>
-
-The DTU Qwen 3.8 effort choices are **low** and **medium**, plus the model's
-default when no effort is selected. Mistral Nemo has **no reasoning-effort
-selector**. These are model-specific: do not copy an effort from another model.
-After updating the workshop files, run `opencode reload`, reopen OpenCode and
-select the model again if an old session still shows an unsupported effort.
-
 
 - **Desktop:** open the model selector → **Manage models**, search for a
   model above, and turn its switch on under OpenCode. Return to the selector
@@ -640,8 +634,7 @@ for connecting in another project. The form creates separate providers; it
 does not reproduce the single DTU group. There is no need to add these
 separate providers when you already use the supplied workshop JSON.
 
-Choose **Custom provider** and use the fields below. Create a separate
-provider for each model you want. The connection type is **OpenAI-compatible**.
+Choose **Custom provider** and use the fields below. Create the provider below. The connection type is **OpenAI-compatible**.
 
 Use each Base URL exactly as shown, with no additional path at the end.
 After entering the provider and model fields, select **Submit**.
@@ -651,72 +644,30 @@ set those limits in JSON using the instructions after the tables.
 The supplied JSON already contains them.
 See [OpenCode custom providers](https://opencode.ai/v2/docs/providers/#custom-provider).
 
-#### Qwen 3.6 35B-A3B
+#### Qwenstorm (Qwen 3.6 35B-A3B)
 
 | Field in OpenCode | What to enter |
 |---|---|
 | Provider ID | `dtu-qwen36` |
-| Display name | `DTU Qwen 3.6` |
+| Display name | `DTU Qwenstorm` |
 | Base URL | `https://teaching.healthtech.dtu.dk/workshop/qwen36` |
 | API key | Leave empty |
 | Models → Model ID | `qwen36` |
-| Models → Display Name | `Qwen 3.6 35B-A3B` |
+| Models → Display Name | `Qwenstorm (Qwen 3.6 35B-A3B)` |
 | Headers | Leave empty; do not add a header |
-| Context limit, in JSON | `16384` |
-| Output limit, in JSON | `4096` |
-
-#### Qwen 3.8 27B FP8
-
-| Field in OpenCode | What to enter |
-|---|---|
-| Provider ID | `dtu-qwen38` |
-| Display name | `DTU Qwen 3.8` |
-| Base URL | `https://teaching.healthtech.dtu.dk/workshop/qwen38` |
-| API key | Leave empty |
-| Models → Model ID | `qwen38` |
-| Models → Display Name | `Qwen 3.8 27B FP8` |
-| Headers | Leave empty; do not add a header |
-| Context limit, in JSON | `32768` |
-| Output limit, in JSON | `4096` |
-
-#### Mistral Nemo 12B
-
-| Field in OpenCode | What to enter |
-|---|---|
-| Provider ID | `dtu-mistral` |
-| Display name | `DTU Mistral` |
-| Base URL | `https://teaching.healthtech.dtu.dk/workshop/mistral` |
-| API key | Leave empty |
-| Models → Model ID | `mistral` |
-| Models → Display Name | `Mistral Nemo 12B` |
-| Headers | Leave empty; do not add a header |
-| Context limit, in JSON | `16384` |
-| Output limit, in JSON | `4096` |
-
-#### GPT-OSS 20B
-
-| Field in OpenCode | What to enter |
-|---|---|
-| Provider ID | `dtu-gptoss` |
-| Display name | `DTU GPT-OSS` |
-| Base URL | `https://teaching.healthtech.dtu.dk/workshop/gptoss` |
-| API key | Leave empty |
-| Models → Model ID | `gptoss` |
-| Models → Display Name | `GPT-OSS 20B` |
-| Headers | Leave empty; do not add a header |
-| Context limit, in JSON | `16384` |
+| Context limit, in JSON | `65536` |
 | Output limit, in JSON | `4096` |
 
 </details>
 
-### Changing your context setting (DTU models)
+### Changing your context setting (Qwenstorm)
 
 <details>
 <summary>Details</summary>
 
 The project sets OpenCode v2's compaction buffer to `2048` and retains about
-`4096` recent tokens. Its default `20000` buffer is larger than our smaller
-DTU context budgets and caused repeated compaction during testing. Leave
+`4096` recent tokens. Its default `20000` buffer caused repeated compaction
+with small context budgets during testing. Leave
 these supplied settings in place. This client setting does not allocate GPU
 memory or increase a model server's context capacity.
 
@@ -730,14 +681,10 @@ your JSON does not increase the server's capacity.
 
 | Model | Starting context | Maximum running context | Starting output | Maximum output |
 |---|---:|---:|---:|---:|
-| Qwen 3.6 | 16384 | 32768 | 4096 | 4096 |
-| Qwen 3.8 | 32768 | 32768 | 4096 | 8192 |
-| Mistral Nemo | 16384 | 16384 | 4096 | 4096 |
-| GPT-OSS | 16384 | 16384 | 4096 | 8192 |
+| Qwenstorm | 65536 | 65536 | 4096 | 4096 |
 
 **Students may choose up to the maxima above without asking an organiser.**
-Start with the supplied
-values and increase when useful. Changing JSON does not enlarge the server.
+The supplied values are already the maxima; you can lower them. Changing JSON does not enlarge the server.
 Higher limits require a server change and validation by an organiser.
 **Do not select 262144 for ordinary workshop tasks.** Long requests consume
 shared memory and processing time, leaving less capacity for other teams.
@@ -749,24 +696,23 @@ These are useful sizes to recognise, not a requirement to use powers of two:
 |---:|---|
 | `4096` | Unsuitable with our `4096` answer allowance: input and instructions also need space |
 | `8192` | Short tasks with enough room left for tools and input |
-| `16384` | Default for GPT-OSS, Mistral and Qwen 3.6 |
-| `32768` | Default for Qwen 3.8; confirm server support before increasing another model |
-| `65536` | Only with organiser approval and a verified server capacity |
-| `131072` | Target ceiling for Mistral/GPT-OSS; not a normal workshop budget |
-| `262144` | Target ceiling for Qwen only; do not use without explicit approval |
+| `16384` | Leaves little room: OpenCode's own instructions and tools take about 9000 tokens |
+| `32768` | A smaller budget, if you want compaction to start earlier |
+| `65536` | Default and maximum for Qwenstorm |
+| `262144` | Qwen's own ceiling; beyond what the workshop servers run |
 
 #### Change the budget in your own project
 
 In `opencode.json`, find the model under `providers → dtu → models → model ID`.
 Edit `limit.context` and/or `limit.output`, within the table above. For example,
-Qwen 3.8 at its current maximum context and output:
+Qwenstorm with a smaller context:
 
 ```json
 {
-  "name": "Qwen 3.8 27B FP8",
+  "name": "Qwenstorm (Qwen 3.6 35B-A3B)",
   "limit": {
     "context": 32768,
-    "output": 8192
+    "output": 4096
   }
 }
 ```
@@ -776,7 +722,7 @@ other fields, save, then run `opencode reload` and reopen OpenCode.
 Alternatively, from the project root:
 
 ```bash
-python3 .opencode/scripts/halp-context.py --model qwen38 --context 32768 --output 8192
+python3 .opencode/scripts/halp-context.py --model qwen36 --context 32768
 opencode reload
 ```
 

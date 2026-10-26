@@ -1,7 +1,6 @@
 ---
 description: Basic PDB visualization agent for comparing underspecified and explicit instructions.
 mode: primary
-model: opencode/big-pickle
 steps: 20
 permissions:
 - action: edit

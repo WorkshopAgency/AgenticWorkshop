@@ -9,6 +9,7 @@
 
 MIN="2.0.29"   # oldest OpenCode the workshop plugins were tested with
 ZEN="https://opencode.ai/zen/v1"
+DTU="https://teaching.healthtech.dtu.dk/workshop/qwen36"
 
 fails=0
 ok()   { printf '  \033[32m✅\033[0m %s\n' "$1"; }
@@ -55,8 +56,12 @@ shared() {
   if have git; then ok "git $(git --version | cut -d' ' -f3)"
   else warn "git is missing" "README, Quick start step 1; without it, use the ZIP downloads"; fi
 
-  if [ "$(http "$ZEN/models")" = "200" ]; then ok "free OpenCode models reachable"
-  else bad "cannot reach opencode.ai" "check the network / Wi-Fi"; fi
+  dtu=$(http "$DTU/health"); zen=$(http "$ZEN/models")
+  if [ "$dtu" = "200" ]; then ok "Qwenstorm, the DTU model, answers"
+  else warn "Qwenstorm does not answer" "it runs during workshops; on your own, choose a free model (/models)"; fi
+  if [ "$zen" = "200" ]; then ok "free OpenCode models reachable"
+  else warn "cannot reach opencode.ai" "check the network / Wi-Fi"; fi
+  if [ "$dtu" != "200" ] && [ "$zen" != "200" ]; then bad "no chat model reachable" "check the network / Wi-Fi"; fi
 }
 
 module() {
@@ -84,11 +89,11 @@ module() {
       ;;
     03-agents)
       models=$(curl -s --max-time 15 "$ZEN/models")
-      for f in .opencode/agents/genome-*.md; do
+      for f in .opencode/agents/{bad,good}-agent.md .opencode/agents/genome-*.md; do
         m=$(sed -n 's/^model: *opencode\///p' "$f")
-        [ -z "$m" ] && continue
+        if [ -z "$m" ]; then ok "$(basename "$f" .md) uses the model you select"; continue; fi
         case "$models" in *"\"$m\""*) ok "$(basename "$f" .md) model $m is live" ;;
-          *) bad "$(basename "$f" .md) model $m is not offered any more" "tell an organiser" ;; esac
+          *) bad "$(basename "$f" .md) model $m is not offered any more" "remove its model: line, or tell an organiser" ;; esac
       done
       ;;
     04-mcp)

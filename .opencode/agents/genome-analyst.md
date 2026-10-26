@@ -1,7 +1,6 @@
 ---
 description: Computes median genome size per organism group, for all assemblies and for complete ones only.
 mode: subagent
-model: opencode/mimo-v2.6-flash-free
 steps: 8
 permissions:
 - action: edit

@@ -6,8 +6,8 @@
     "keep": { "tokens": 4096 }
   },
   "model": {
-    "providerID": "opencode",
-    "model": "big-pickle"
+    "providerID": "dtu",
+    "model": "qwen36"
   },
   "providers": {
     "dtu": {
@@ -15,47 +15,12 @@
       "package": "aisdk:@ai-sdk/openai-compatible",
       "models": {
         "qwen36": {
-          "name": "Qwen 3.6 35B-A3B",
+          "name": "Qwenstorm (Qwen 3.6 35B-A3B)",
           "settings": {
             "baseURL": "https://teaching.healthtech.dtu.dk/workshop/qwen36"
           },
           "limit": {
-            "context": 16384,
-            "output": 4096
-          }
-        },
-        "qwen38": {
-          "name": "Qwen 3.8 27B FP8",
-          "variants": [
-            { "id": "low", "settings": { "reasoningEffort": "low" } },
-            { "id": "medium", "settings": { "reasoningEffort": "medium" } }
-          ],
-          "settings": {
-            "baseURL": "https://teaching.healthtech.dtu.dk/workshop/qwen38"
-          },
-          "limit": {
-            "context": 32768,
-            "output": 4096
-          }
-        },
-        "mistral": {
-          "name": "Mistral Nemo 12B",
-          "variants": [],
-          "settings": {
-            "baseURL": "https://teaching.healthtech.dtu.dk/workshop/mistral"
-          },
-          "limit": {
-            "context": 16384,
-            "output": 4096
-          }
-        },
-        "gptoss": {
-          "name": "GPT-OSS 20B",
-          "settings": {
-            "baseURL": "https://teaching.healthtech.dtu.dk/workshop/gptoss"
-          },
-          "limit": {
-            "context": 16384,
+            "context": 65536,
             "output": 4096
           }
         }

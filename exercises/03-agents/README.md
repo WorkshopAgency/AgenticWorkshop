@@ -2,11 +2,11 @@
 
 | | |
 |---|---|
-| **Model** | 3a–3c: `opencode/big-pickle`, selected by you for both agents. 3d: your choice. 3e: the coordinator on Big Pickle; each specialist's own model is set in its file |
+| **Model** | The one you select: Qwenstorm (`dtu/qwen36`) in the workshop, a free model on your own. The workshop agents have no model of their own, so they follow your choice. 3d: your choice |
 | **Needs** | `scripts/check-setup.sh` passed. opencode-sidebar-plus from Exercise 0 helps in 3e. Nothing else from other modules: 3d supplies its own skill |
 | **You'll learn** | What instructions and permissions change about an agent; how a coordinator delegates to specialists; how to check a team's work instead of trusting it |
 | **Done when** | 3b: `check_viewer.py` scored both viewers. 3d: your agent ran on one normal and one invalid input. 3e: you checked `report.md` against `review.md` and looked at the chart yourself |
-| **Time** | Two parts run a team of agents and take longer than the rest. **3e**: about 2 minutes per run, up to about 15 when the free models are slow. **3k**: about 2–5 minutes per run, plus testing each specialist. Skip them if you are short of time |
+| **Time** | Two parts run a team of agents and take longer than the rest. **3e**: about 2 minutes per run. **3k**: about 2–5 minutes per run, plus testing each specialist. Skip them if you are short of time |
 | **If stuck** | `/halp 03-agents <what you tried>` |
 
 Your outputs go under `outputs/03-agents/`.
@@ -31,8 +31,8 @@ each is doing, and which one waits for your approval.
 
 # Exercise 3a — Run a basic agent and a good agent
 
-Use **`opencode/big-pickle`** for both agents and select it yourself before
-each run. Two agents, the same request, the same model, the same permissions
+Both agents use the model you select: Qwenstorm (`dtu/qwen36`) in the
+workshop. Two agents, the same request, the same model, the same permissions
 and the same 20-step limit:
 
 | Agent | Instructions |
@@ -333,7 +333,7 @@ opened", "controls checked", and "scientific content verified" distinct.
 
 # Exercise 3e — A team of specialists
 
-*Takes about 2 minutes per run, up to about 15 when the free models are slow.*
+*Takes about 2 minutes per run.*
 
 One agent can do a task. A **team** (sometimes called a swarm) splits it into
 bounded jobs with explicit hand-offs: a coordinator and specialist
@@ -346,14 +346,16 @@ have one small task:
 
 | Agent | Job | Writes | Model |
 |---|---|---|---|
-| [genome-coordinator](../../.opencode/agents/genome-coordinator.md) | Delegates, then writes the report | `report.md` | `opencode/big-pickle` |
-| [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks rows, groups, missing values and units | `audit.md` | `opencode/big-pickle` |
-| [genome-analyst](../../.opencode/agents/genome-analyst.md) | Computes the medians | `medians.csv` | `opencode/mimo-v2.6-flash-free` |
-| [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Draws one chart | `medians.svg` | `opencode/deepseek-v4.1-flash-free` |
-| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/big-pickle` |
+| [genome-coordinator](../../.opencode/agents/genome-coordinator.md) | Delegates, then writes the report | `report.md` | yours |
+| [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks rows, groups, missing values and units | `audit.md` | yours |
+| [genome-analyst](../../.opencode/agents/genome-analyst.md) | Computes the medians | `medians.csv` | yours |
+| [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Draws one chart | `medians.svg` | yours |
+| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | yours |
 
-All five are free external models: prompts, data and results leave DTU. Big
-Pickle and MiMo may use them to improve their models. That is why the task uses public NCBI data.
+All five use the model you selected, Qwenstorm in the workshop. Each agent
+could have its own: add a line such as `model: opencode/big-pickle` to its
+file. With a free external model, prompts, data and results leave DTU, which
+is why the task uses public NCBI data.
 
 ## Run it
 
@@ -365,7 +367,8 @@ scripts/check-setup.sh --module 03-agents
 
 Start `opencode` in the workshop folder, start a new chat, press
 **shift+tab** until the agent is `genome-coordinator`, check the model is
-**Big Pickle** (`/models` if not), and send:
+**Qwenstorm** (`dtu/qwen36`), or a free model if you are on your own
+(`/models`), and send:
 
 > Run the genome team task.
 
@@ -634,9 +637,8 @@ guess? Run it a second time: does it land in a new folder?
 **Why:** renaming a file does not rename it inside the coordinator's rules
 or instructions: a rule still naming `genome-auditor` does not let the
 coordinator call `penguin-auditor`. Each specialist needs a narrow job, its own output and a check of
-its own; another copy of the analyst adds cost, not evidence. Keep the
-reviewer on a different model from the analyst, as in 3e: the free models
-change often, and `scripts/check-setup.sh --module 03-agents` tells you
-which of the team's models are still offered.
+its own; another copy of the analyst adds cost, not evidence. A
+reviewer on a different model from the analyst is a stronger check: it does
+not share the analyst's blind spots.
 
 Previous: [Exercise 2 — Skills](../02-skills/README.md) · Next: [Exercise 4 — MCP](../04-mcp/README.md).
