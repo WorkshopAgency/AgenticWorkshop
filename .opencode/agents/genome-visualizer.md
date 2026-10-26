@@ -1,7 +1,7 @@
 ---
 description: Draws one SVG chart of the median genome sizes, without any plotting package.
 mode: subagent
-model: opencode/beam-free
+model: opencode/deepseek-v4.1-flash-free
 steps: 8
 permissions:
 - action: edit

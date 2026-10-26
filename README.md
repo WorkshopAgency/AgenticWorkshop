@@ -497,10 +497,10 @@ list.
 
 | Model ID | Notes |
 |---|---|
-| `opencode/big-pickle` | **Workshop default**, and the 3e coordinator and auditor. Free-period data may be used to improve the model |
+| `opencode/big-pickle` | **Workshop default**, and the 3e coordinator, auditor and reviewer. Free-period data may be used to improve the model |
 | `opencode/mimo-v2.6-flash-free` | 3e analyst. Free-period data may be used to improve the model |
-| `opencode/beam-free` | 3e visualizer and reviewer. Not used for training; kept 30 days for safety reasons |
-| `opencode/deepseek-v4.1-flash-free` | Zero-retention provider |
+| `opencode/beam-free` | Not used for training; kept 30 days for safety reasons |
+| `opencode/deepseek-v4.1-flash-free` | 3e visualizer. Zero-retention provider |
 | `opencode/glm-5.3-flash-free` | Zero-retention provider |
 | `opencode/flint-40b-free` | Free-period data may be used to improve the model |
 | `opencode/nemotron-3.5-lightning-free` | Free-period data may be used to improve the model |
@@ -514,8 +514,7 @@ and go. A contributor model can train on what you submit to it, and the word
 you. If you want to avoid them, check the ID rather than the name.
 
 None of the agents in exercise 3e uses a contributor model. Big Pickle and
-MiMo may still use free-period data to improve the model, and Beam's provider
-keeps data for 30 days, according to
+MiMo may still use free-period data to improve the model, according to
 [OpenCode's model page](https://opencode.ai/docs/zen/).
 
 Free does not mean private, and terms differ between offers. Use public
