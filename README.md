@@ -77,8 +77,8 @@ required to participate.
    This creates the workshop folder where the rest of the workshop will be. It can be renamed, but the text calls it the workshop root, and every path you will type is
    relative to it.
 4. In **OpenCode Desktop**, open that extracted folder as your project—the
-   folder containing both `README.md` and `opencode.json`, not its parent.
-   For the terminal version, run `opencode` from inside that folder, or
+   folder containing both `README.md` and `opencode.json`, not its parent.<br>
+   For the **OpenCode Terminal**, run `opencode` from inside that folder, or
    `opencode serve` for the browser version.
 5. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
 6. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. Exiting and running opencode again is a common way for fresh starts
