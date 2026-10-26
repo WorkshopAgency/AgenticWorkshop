@@ -359,7 +359,7 @@ is why the task uses public NCBI data.
 
 ## Run it
 
-**Do:** check that the models are still offered:
+**Do:** check your setup:
 
 ```bash
 scripts/check-setup.sh --module 03-agents
@@ -372,7 +372,9 @@ Start `opencode` in the workshop folder, start a new chat, press
 
 > Run the genome team task.
 
-Approve what it asks; do not use `--auto`.
+Approve what it asks; do not use `--auto`. Expect a few approvals per team
+run: with Qwen, a specialist sometimes runs a command like `python3 audit.py`
+in a form its permissions don't cover. Approving them is fine.
 
 **Look for:** in the sidebar you added at the start of this exercise, the
 **Agents** section lists each specialist as it starts, with its status
@@ -386,9 +388,10 @@ specialist worked, and its tokens and tool calls.
 **Why:** the coordinator starts the auditor and the analyst at the same time,
 then the visualizer and the reviewer. Each specialist writes one Python
 script and runs it; their permissions allow exactly those scripts without
-asking, and every other command still asks you. The reviewer runs on a
-different model from the analyst and recomputes everything from the raw
-data, so it does not have to trust the analyst's summary.
+asking, and every other command still asks you. The reviewer recomputes
+everything from the raw data, so it does not have to trust the analyst's
+summary. Here both use the model you selected; a reviewer on a different
+model would be a stronger check.
 
 ## What to inspect
 
