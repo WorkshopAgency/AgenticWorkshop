@@ -18,7 +18,7 @@ required to participate.
 
 1. **Install dependencies:** OpenCode, Git, uv and Python 3.10 or later.
    Nothing else: uv fetches the Python packages an exercise needs when it
-   needs them. Open the one for your computer:
+   needs them. Open the tab for your computer:
 
    <details>
    <summary><b>macOS</b></summary>
