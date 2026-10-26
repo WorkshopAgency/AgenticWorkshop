@@ -12,8 +12,7 @@ we put the right pieces in front of it.
 
 Only the Python standard library is used. The models run at OpenRouter, with
 the key in .openrouter-key in the workshop folder (Exercise 0), or in the
-environment variable OPENROUTER_API_KEY. With RAG_DTU=1 the DTU models are
-used instead, when they are up.
+environment variable OPENROUTER_API_KEY.
 """
 import json
 import math
@@ -35,16 +34,10 @@ OUT = ROOT / "outputs" / "01-rag"
 # this exercise's own page is left out: it would hand over its answers
 PAGES = [ROOT / "README.md"] + [p for p in sorted(ROOT.glob("exercises/*/README.md")) if p.parent.name != "01-rag"]
 
-USE_DTU = os.environ.get("RAG_DTU") == "1"
 KEY_FILE = ROOT / ".openrouter-key"
-if USE_DTU:
-    DTU = "https://teaching.healthtech.dtu.dk/workshop"
-    CHAT_URL, CHAT_MODEL = f"{DTU}/qwen36", "qwen36"
-    EMBED_URL, EMBED_MODEL = f"{DTU}/embed", "embed"
-else:
-    CHAT_URL = EMBED_URL = "https://openrouter.ai/api/v1"
-    CHAT_MODEL = "mistralai/mistral-nemo"   # Mistral Nemo 12B, a small model
-    EMBED_MODEL = "baai/bge-base-en-v1.5"   # 768 numbers per piece
+CHAT_URL = EMBED_URL = "https://openrouter.ai/api/v1"
+CHAT_MODEL = "mistralai/mistral-nemo"   # Mistral Nemo 12B, a small model
+EMBED_MODEL = "baai/bge-base-en-v1.5"   # 768 numbers per piece
 
 RULES = """You answer questions using ONLY the numbered pieces given by the user.
 - Use only facts stated in the pieces. Do not use outside knowledge.
@@ -75,12 +68,11 @@ def _tls():
 
 def _post(url, payload):
     headers = {"Content-Type": "application/json"}
-    if not USE_DTU:
-        key = _key()
-        if not key:
-            raise SystemExit("No workshop key: put it in .openrouter-key in the workshop folder "
-                             "(Exercise 0c).")
-        headers["Authorization"] = f"Bearer {key}"
+    key = _key()
+    if not key:
+        raise SystemExit("No workshop key: put it in .openrouter-key in the workshop folder "
+                         "(Exercise 0c).")
+    headers["Authorization"] = f"Bearer {key}"
     request = urllib.request.Request(url, data=json.dumps(payload).encode(), headers=headers)
     try:
         with urllib.request.urlopen(request, timeout=120, context=_tls()) as response:
@@ -93,9 +85,6 @@ def _post(url, payload):
 
 def status():
     """Say which models answer, and whether the key works."""
-    if USE_DTU:
-        print(f"Answers: {CHAT_MODEL} at DTU. Search: {EMBED_MODEL} at DTU.")
-        return
     print(f"Answers: {CHAT_MODEL}. Search: {EMBED_MODEL}. Both at OpenRouter.")
     if not _key():
         print("No workshop key yet: see Exercise 0c.")

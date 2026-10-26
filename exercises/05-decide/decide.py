@@ -13,8 +13,8 @@ probabilities, renormalised over the option letters, are the decision:
 
 Only the Python standard library is used. The model is Llama 3.1 8B at
 OpenRouter, with the workshop key in .openrouter-key in the workshop folder
-(Exercise 0) or in OPENROUTER_API_KEY. With RAG_DTU=1, Qwen 3.6 at DTU is
-used instead, when it is up. DECIDE_MODEL overrides the model.
+(Exercise 0) or in OPENROUTER_API_KEY. With DECIDE_DTU=1, Qwenstorm (Qwen 3.6
+at DTU) is used instead, when it is up. DECIDE_MODEL overrides the model.
 
 The client appends /chat/completions to the base URL.
 """
@@ -35,7 +35,7 @@ import look  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
-USE_DTU = os.environ.get("RAG_DTU") == "1"
+USE_DTU = os.environ.get("DECIDE_DTU") == "1"
 if USE_DTU:
     DECIDE_MODEL = os.environ.get("DECIDE_MODEL", "qwen36")
     DECIDE_URL = f"https://teaching.healthtech.dtu.dk/workshop/{DECIDE_MODEL}"
