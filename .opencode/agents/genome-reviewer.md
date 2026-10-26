@@ -1,7 +1,6 @@
 ---
 description: Independently recomputes the key numbers and reviews the chart.
 mode: subagent
-model: opencode/big-pickle
 steps: 12
 permissions:
 - action: edit

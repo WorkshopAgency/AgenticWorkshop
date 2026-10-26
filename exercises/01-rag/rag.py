@@ -39,7 +39,7 @@ USE_DTU = os.environ.get("RAG_DTU") == "1"
 KEY_FILE = ROOT / ".openrouter-key"
 if USE_DTU:
     DTU = "https://teaching.healthtech.dtu.dk/workshop"
-    CHAT_URL, CHAT_MODEL = f"{DTU}/mistral", "mistral"
+    CHAT_URL, CHAT_MODEL = f"{DTU}/qwen36", "qwen36"
     EMBED_URL, EMBED_MODEL = f"{DTU}/embed", "embed"
 else:
     CHAT_URL = EMBED_URL = "https://openrouter.ai/api/v1"

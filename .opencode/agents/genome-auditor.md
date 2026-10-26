@@ -1,7 +1,6 @@
 ---
 description: Checks the genome data before analysis: rows, groups, missing values, units.
 mode: subagent
-model: opencode/big-pickle
 steps: 8
 permissions:
 - action: edit

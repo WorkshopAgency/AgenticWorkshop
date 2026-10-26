@@ -10,9 +10,9 @@ import tempfile
 import os
 
 # The published workshop limits (the README table); not a live probe.
-SERVER_CONTEXT = {'gptoss': 16384, 'mistral': 16384, 'qwen36': 32768, 'qwen38': 32768}
-SERVER_OUTPUT = {'gptoss': 8192, 'mistral': 4096, 'qwen36': 4096, 'qwen38': 8192}
-CHECKPOINT_CONTEXT = {'gptoss': 131072, 'mistral': 131072, 'qwen36': 262144, 'qwen38': 262144}
+SERVER_CONTEXT = {'qwen36': 65536}
+SERVER_OUTPUT = {'qwen36': 4096}
+CHECKPOINT_CONTEXT = {'qwen36': 262144}
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
