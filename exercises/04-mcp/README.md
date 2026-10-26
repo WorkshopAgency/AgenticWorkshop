@@ -41,7 +41,9 @@ uvx mcp-server-motherduck@1.0.8 --help
 Start OpenCode and type `/mcps`. Four servers are listed, all switched off.
 Select **`duckdb`** only, press **space**, then **esc**. Type `/mcps` again.
 
-**Look for:** `duckdb` **Connected ✓**.
+**Look for:** `duckdb` **Connected ✓**. The first time, it can show **pending**
+for a minute while the server starts. Wait for Connected before you ask
+anything: a question asked earlier is answered without the database tools.
 
 **Why:** "connected" only means a process started and answered a handshake.
 The database is opened when the first query arrives, so connected is not the
