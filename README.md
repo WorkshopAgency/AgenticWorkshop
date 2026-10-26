@@ -499,7 +499,6 @@ list.
 |---|---|
 | `opencode/big-pickle` | **Workshop default**, and the 3e coordinator, auditor and reviewer. Free-period data may be used to improve the model |
 | `opencode/mimo-v2.6-flash-free` | 3e analyst. Free-period data may be used to improve the model |
-| `opencode/beam-free` | Not used for training; kept 30 days for safety reasons |
 | `opencode/deepseek-v4.1-flash-free` | 3e visualizer. Zero-retention provider |
 | `opencode/glm-5.3-flash-free` | Zero-retention provider |
 | `opencode/flint-40b-free` | Free-period data may be used to improve the model |
