@@ -107,6 +107,7 @@ Free does not mean private.
 
 ---
 
+<!-- _class: tight -->
 # The workshop
 
 | Block | You will |
@@ -190,11 +191,12 @@ A plugin is foreign code executed in the harness: **LOOK** before you install it
 
 ---
 
+<!-- _class: tight -->
 # Terms: techniques
 
 ![bg right:45% contain](assets/commons-rag-diagram.svg)
 
-**RAG** (retrieval-augmented generation): Framework that gives an AI model access to external data sources to find accurate information, allowing it to generate up-to-date and reliable answers without needing to be retrained. It also works as a safety measure against halluncinations.<br>
+**RAG** (retrieval-augmented generation): Framework that gives an AI model access to external data sources to find accurate information, allowing it to generate up-to-date and reliable answers without needing to be retrained. It also works as a safety measure against hallucinations.<br>
 It cuts your document(s) into pieces, turns them into a vector (an **embedding**) and stores them. When prompted, it finds the pieces closest associated to it, and gives only those to the model, with ids that can be cited and traced.
 
 The model only sees what you retrieved: in Exercise 1, three pieces of about 200 tokens each, instead of all 21,000 tokens of the workshop's pages.
