@@ -81,8 +81,7 @@ required to participate.
    For the **OpenCode Terminal**, run `opencode` from inside that folder, or
    `opencode serve` for the browser version.
 5. To check that your environment is suitable for the workshop, open a terminal inside the workshop root, run `scripts/check-setup.sh`. Fix any ❌.
-6. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. Exiting and running opencode again is a common way for fresh starts
-   and incorporating new skills, etc.
+6. Inside the workshop root, start a new chat. Using the CLI, just write `opencode`. Exiting and running opencode again is a common way    for fresh starts and incorporating new skills, etc.<br>
    You can also run a terminal command without leaving OpenCode: type `!`
    at the start of the prompt (for example `!scripts/check-setup.sh`), and
    `esc` to go back to the chat. **The command and its output become part of
