@@ -349,12 +349,11 @@ have one small task:
 | [genome-coordinator](../../.opencode/agents/genome-coordinator.md) | Delegates, then writes the report | `report.md` | `opencode/big-pickle` |
 | [genome-auditor](../../.opencode/agents/genome-auditor.md) | Checks rows, groups, missing values and units | `audit.md` | `opencode/big-pickle` |
 | [genome-analyst](../../.opencode/agents/genome-analyst.md) | Computes the medians | `medians.csv` | `opencode/mimo-v2.6-flash-free` |
-| [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Draws one chart | `medians.svg` | `opencode/beam-free` |
-| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/beam-free` |
+| [genome-visualizer](../../.opencode/agents/genome-visualizer.md) | Draws one chart | `medians.svg` | `opencode/deepseek-v4.1-flash-free` |
+| [genome-reviewer](../../.opencode/agents/genome-reviewer.md) | Recomputes the numbers from the raw data | `review.md` | `opencode/big-pickle` |
 
 All five are free external models: prompts, data and results leave DTU. Big
-Pickle and MiMo may use them to improve their models, and Beam's provider
-keeps them for 30 days. That is why the task uses public NCBI data.
+Pickle and MiMo may use them to improve their models. That is why the task uses public NCBI data.
 
 ## Run it
 
