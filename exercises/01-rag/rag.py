@@ -28,13 +28,13 @@ from pathlib import Path
 # the shared colours, by meaning (exercises/shared/look.py)
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "shared"))
 import look  # noqa: E402
+import openrouter_key  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 OUT = ROOT / "outputs" / "01-rag"
 # this exercise's own page is left out: it would hand over its answers
 PAGES = [ROOT / "README.md"] + [p for p in sorted(ROOT.glob("exercises/*/README.md")) if p.parent.name != "01-rag"]
 
-KEY_FILE = ROOT / ".openrouter-key"
 CHAT_URL = EMBED_URL = "https://openrouter.ai/api/v1"
 CHAT_MODEL = "mistralai/mistral-nemo"   # Mistral Nemo 12B, a small model
 EMBED_MODEL = "baai/bge-base-en-v1.5"   # 768 numbers per piece
@@ -48,10 +48,7 @@ RULES = """You answer questions using ONLY the numbered pieces given by the user
 # ---------------------------------------------------------------- talking to the models
 
 def _key():
-    key = os.environ.get("OPENROUTER_API_KEY", "").strip()
-    if not key and KEY_FILE.exists():
-        key = KEY_FILE.read_text().strip()
-    return key
+    return openrouter_key.read()
 
 
 def _tls():
@@ -68,11 +65,10 @@ def _tls():
 
 def _post(url, payload):
     headers = {"Content-Type": "application/json"}
-    key = _key()
-    if not key:
-        raise SystemExit("No workshop key: put it in .openrouter-key in the workshop folder "
-                         "(Exercise 0c).")
-    headers["Authorization"] = f"Bearer {key}"
+    problem = openrouter_key.problem()
+    if problem:
+        raise SystemExit(problem)
+    headers["Authorization"] = f"Bearer {_key()}"
     request = urllib.request.Request(url, data=json.dumps(payload).encode(), headers=headers)
     try:
         with urllib.request.urlopen(request, timeout=120, context=_tls()) as response:
@@ -86,8 +82,9 @@ def _post(url, payload):
 def status():
     """Say which models answer, and whether the key works."""
     print(f"Answers: {CHAT_MODEL}. Search: {EMBED_MODEL}. Both at OpenRouter.")
-    if not _key():
-        print("No workshop key yet: see Exercise 0c.")
+    problem = openrouter_key.problem()
+    if problem:
+        print(problem)
         return
     request = urllib.request.Request("https://openrouter.ai/api/v1/key",
                                      headers={"Authorization": f"Bearer {_key()}"})
@@ -97,6 +94,8 @@ def status():
         print("The workshop key works.")
     except urllib.error.HTTPError as err:
         print(f"The key was refused (HTTP {err.code}). Check .openrouter-key.")
+    except (urllib.error.URLError, TimeoutError, OSError) as err:
+        print(f"Could not reach OpenRouter: {err}. Check the network.")
 
 
 def _chat(messages):
