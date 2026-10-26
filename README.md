@@ -172,7 +172,7 @@ model, needs, and a *Done when* check.
 | Welcome · `scripts/check-setup.sh` · `/halp hello` | Is my laptop ready? |
 | [Concepts — Slides](https://workshopagency.github.io/AgenticWorkshop/workshop.html) | Model, harness, tool, skill, agent, MCP |
 | [Exercise 0 — Plugins](exercises/00-plugins/README.md) | What a plugin is; install the two you use today |
-| [Exercise 1 — RAG](exercises/01-rag/README.md) | Why retrieval stops a weak model inventing answers |
+| [Exercise 1 — RAG](exercises/01-rag/README.md) | Why retrieval stops a weak model from inventing answers |
 | [Exercise 2 — Skills](exercises/02-skills/README.md) | Turn a repeated task into a tested skill |
 | [Exercise 3 — Agents](exercises/03-agents/README.md) | Instructions and permissions, and a team of agents |
 | [Exercise 4 — MCP](exercises/04-mcp/README.md) | Connect a database, then check its answers |
