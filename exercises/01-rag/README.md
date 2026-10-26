@@ -186,7 +186,7 @@ setup. If the search misses the right piece, no model can answer from it.
 
 # === Dive Deeper ===
 
-# Exercise 1j — Enough calling them pieces: tokens and embeddings
+# Exercise 1j — Call the pieces for what they are: tokens and embeddings
 
 This exercise used two models. **Mistral Nemo** is the chat model: every
 answer the notebook printed, in 1a, 1e, 1g and 1h, was written by it.
