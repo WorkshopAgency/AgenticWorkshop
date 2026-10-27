@@ -130,7 +130,10 @@ seconds. A citation can also be wrong; checking is your job, not the model's.
 coffee break?"
 
 **Look for:** there is no break in this workshop and the pages never mention
-one. Does the model say "not in the documents", or invent a time?
+one. Does the model say "not in the documents", invent a time, or answer a
+different question? If it answers something else, read the pieces it was
+given: one may contain an instruction, and a small model can follow it
+instead of your question.
 
 **Why:** a good RAG answer admits when the documents are silent. Without the
 rule to say so, many models fill the gap.

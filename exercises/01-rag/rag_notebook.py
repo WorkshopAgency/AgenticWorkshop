@@ -59,7 +59,9 @@ rag.cited(reply, hits)
 
 # %% [markdown]
 # There is no coffee break in this workshop, and the pages never mention one.
-# Does the model say so, or invent a time?
+# Does the model say so, invent a time, or answer a different question? If it
+# answers something else, read the pieces it was given: one may contain an
+# instruction, and a small model can follow it instead of your question.
 
 # %% 1g · Ask something that is not in the documents
 q7 = "When is the coffee break?"
