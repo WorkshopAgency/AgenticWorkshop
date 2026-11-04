@@ -1,0 +1,41 @@
+name: tests
+
+# Offline checks only: nothing here calls Qwenstorm, OpenRouter or OpenCode,
+# so a server that is switched off between workshops does not turn this red.
+# Windows is left out: the workshop runs on Windows through WSL2, which
+# GitHub's runners do not provide.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: HALp helper tests
+        run: python -m unittest discover -s .opencode/scripts -p 'test_*.py' -v
+
+      - name: Every Python file compiles
+        run: git ls-files '*.py' | xargs python -m py_compile
+
+      - name: Every shell script parses
+        run: git ls-files '*.sh' | xargs -n1 bash -n
+
+      - name: Every JSON file parses
+        run: git ls-files '*.json' | xargs -n1 python -m json.tool > /dev/null
