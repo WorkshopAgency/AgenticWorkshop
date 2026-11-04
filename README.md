@@ -1,5 +1,12 @@
 # Agentic Workshop
 
+<!-- badges: start -->
+[![Tests on Linux](https://img.shields.io/github/check-runs/WorkshopAgency/AgenticWorkshop/main?nameFilter=tests%20%28ubuntu-latest%29&label=tests%20Linux)](https://github.com/WorkshopAgency/AgenticWorkshop/actions/workflows/tests.yml)
+[![Tests on macOS](https://img.shields.io/github/check-runs/WorkshopAgency/AgenticWorkshop/main?nameFilter=tests%20%28macos-latest%29&label=tests%20macOS)](https://github.com/WorkshopAgency/AgenticWorkshop/actions/workflows/tests.yml)
+[![Slides](https://github.com/WorkshopAgency/AgenticWorkshop/actions/workflows/slides.yml/badge.svg?branch=main)](https://github.com/WorkshopAgency/AgenticWorkshop/actions/workflows/slides.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+<!-- badges: end -->
+
 **Building and employing agents for data analysis and visualization**
 Hands-on, individual work.
 Dimitrios S. Kanakoglou (dimkan@dtu.dk) · Peter Wad Sackett (pwsa@dtu.dk)
