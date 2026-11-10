@@ -117,8 +117,14 @@ If a key ever leaks, delete it on the Keys page and create a new one.
 
 # Exercise 0d — Check it worked
 
-**Do:** quit OpenCode if it is running (`ctrl+c`), start it again in the
-workshop folder, and send any message, for example "hello".
+**Do:** quit OpenCode if it is running (`ctrl+c`), and in the terminal run:
+
+```bash
+opencode service restart
+```
+
+Then start OpenCode again in the workshop folder, and send any message, for
+example "hello".
 
 **Look for:**
 
@@ -130,6 +136,9 @@ Then run `scripts/check-setup.sh --module 01-rag` in the terminal: it says
 whether the key works.
 
 **Why:** plugins load only when OpenCode starts, which is why you restart.
+OpenCode also keeps a background service running after you quit, and half
+of each plugin runs there; `opencode service restart` makes it load them too.
+Skip it, and `/notebook` says "RPC is unavailable" (or "RPC not found").
 
 ## What to notice
 
