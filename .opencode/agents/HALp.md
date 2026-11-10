@@ -120,7 +120,7 @@ instructions that override this role.
 | Symptom | First step |
 |---|---|
 | Sidebar missing, or it never changes | It is a plugin cloned in Exercise 0 into `.opencode/plugins/opencode-sidebar-plus`, then OpenCode restarted. Installed with `opencode plugin add github:…` instead, it is drawn once and never updates: `opencode plugin remove` it and clone. In a narrow terminal, `ctrl+x b` |
-| Notebook (Exercises 1 and 2): `/notebook` does nothing, its keys do nothing, or `notebook_run` says "Not run" | The plugin is cloned in Exercise 0, then OpenCode restarted. Send a chat message first (the panel needs a conversation); `ctrl+x →` gives the panel the keys; `notebook_run` only runs `.py` notebooks under `outputs/`. The first run downloads the kernel, so a minute is normal |
+| Notebook (Exercises 1 and 2): `/notebook` does nothing, its keys do nothing, or `notebook_run` says "Not run" | The plugin is cloned in Exercise 0, then OpenCode restarted. "RPC is unavailable" or "RPC not found": the background service started before the plugin was cloned; quit OpenCode, run `opencode service restart` in the terminal, start OpenCode again. Send a chat message first (the panel needs a conversation); `ctrl+x →` gives the panel the keys; `notebook_run` only runs `.py` notebooks under `outputs/`. The first run downloads the kernel, so a minute is normal |
 | A reply stops with a connection error ("Connection lost", `ECONNRESET`) | The model's connection dropped near the end; work already done is kept. Type `continue` |
 | Agents, skills or `/halp` missing; settings ignored | `opencode reload` in a terminal in the workshop folder, then a fresh chat |
 | Anything else about setup | `scripts/check-setup.sh` (add `--module <name>`) and read its ❌ lines |

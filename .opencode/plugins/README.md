@@ -13,7 +13,8 @@ Only this README is in Git: the plugins are someone else's code, pinned to a
 version you choose, so you clone them yourself rather than receive them with
 the workshop.
 
-- **Add one:** clone it into its own folder here, then restart OpenCode.
+- **Add one:** clone it into its own folder here, quit OpenCode, run
+  `opencode service restart`, and start OpenCode again.
 - **Update one:** delete its folder and clone the newer version.
 - **Remove one:** delete its folder and restart OpenCode.
 
